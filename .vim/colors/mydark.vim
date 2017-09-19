@@ -1,0 +1,1 @@
+/mnt/myth/john/projects/dotlikefiles/vim/colors//mydark.vim

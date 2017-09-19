@@ -36,3 +36,4 @@ touch ${HISTFILE}
 # load last histfile as current history
 history -r $(/bin/ls ${HISTDIR}/history${SHELLID} | /usr/bin/tail -n 1)
 
+[ -x ~/autostart ] && exec ~/autostart
