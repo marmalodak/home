@@ -39,31 +39,32 @@ function package () {
 }
 
 (
+    set_group vim8_reboot
+    package https://github.com/w0rp/ale &
+    wait
+) &
+
+if [[ 0 == 1 ]]; then  # disable all packages until I decide on must-haves
+(
     set_group imported_from_vundle
     package https://github.com/dhruvasagar/vim-table-mode.git &
-    #  package scrooloose/syntastic &
+    #  package scrooloose/syntastic &                            # consider using https://github.com/w0rp/ale since it takes advantage of vim 8's async
     package https://github.com/majutsushi/tagbar &
-    package https://github.com/davidhalter/jedi-vim &
+    # package https://github.com/davidhalter/jedi-vim &
     package https://github.com/ervandew/supertab &
     package https://github.com/junegunn/vim-easy-align &
-    package https://github.com/jewes/Conque-Shell.git &
-    #  package https://github.com/Lokaltog/vim-powerline.git &
+    # package https://github.com/Lokaltog/vim-powerline.git &    # airline?
     package https://github.com/godlygeek/tabular.git &
     package https://github.com/vim-pandoc/vim-pandoc.git &
     package https://github.com/t9md/vim-choosewin.git &
-    package https://github.com/powerline/powerline &
+    # package https://github.com/powerline/powerline &           # airline?
     # package https://github.com/tpope/vim-surround.git &
     package https://github.com/vim-airline/vim-airline &
     package https://github.com/vim-airline/vim-airline-themes &
     wait
 ) &
+fi
 
-
-(
-    set_group colorschemes
-    package https://github.com/marmalodak/dotlikefiles.git &
-    wait
-) &
 
 wait
 

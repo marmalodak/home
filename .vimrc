@@ -32,8 +32,6 @@ set showmode " show the default mode text (e.g. -- INSERT -- below the statuslin
 
 set backup
 set backupdir=~/.vimbackup/
-" set backupdir="~/.vimbackup/" . expand("%:p:h")
-" au BufWritePre * echo expand("%\n") | echo expand("%:p\n") | echo expand("%:p:h\n") | let bakupdir="~/.vimbackup" . expand("%:p:h") | let bak="!mkdir -p " . bakupdir | echo bak | exec(bak) | exec("set backupdir=" . bakupdir) | exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") | let bak="!mkdir -p " . bakupdir | silent exec(bak) | exec("set backupdir=" . bakupdir) | exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 
 " packadd matchit

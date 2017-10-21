@@ -1,4 +1,5 @@
 *
+!.vimrc
 !.vim
 !.vim/*
 !.vim/*/*
@@ -6,4 +7,5 @@
 !.vim/*/*/*/*
 !.bashrc
 !.bash_profile
+!.tmux.conf
 !.gitignore
