@@ -2,6 +2,10 @@
 !.vimrc
 !.vim
 !.vim/*
+!.vim/.netrwhist*
+!.vim/pack/tags
+!.vim/pack/vim8_reboot
+!.vim/pack/vim8
 !.vim/*/*
 !.vim/*/*/*
 !.vim/*/*/*/*

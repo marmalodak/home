@@ -1,3 +1,4 @@
+"  consider implementing this: https://vimways.org/2018/from-vimrc-to-vim/
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
@@ -21,6 +22,7 @@ set showcmd
 set backspace=indent,eol,start
 set hlsearch
 set incsearch
+set lazyredraw
 
 set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 set wildmenu
@@ -29,10 +31,16 @@ set wildmode=list:longest,full
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=1 " show the tabline only when two or more tabs are open
 set showmode " show the default mode text (e.g. -- INSERT -- below the statusline)
+set title "  show the name of the file being edited in the lower left
 
 set backup
 set backupdir=~/.vimbackup/
-au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") | let bak="!mkdir -p " . bakupdir | silent exec(bak) | exec("set backupdir=" . bakupdir) | exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
+au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") |
+               \ let bak="!mkdir -p " . bakupdir               |
+               \ silent exec(bak)                              |
+               \ exec("set backupdir=" . bakupdir)             |
+               \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
+
 
 " packadd matchit
 
@@ -104,6 +112,22 @@ endfunc
 " iabbr ≥≥ »
 
 colorscheme mydark
+
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
+let g:powerline_pycmd = "py3"
+let g:powerline_pyeval = "py3eval"
+let g:Powerline_symbols = 'fancy'
 
 " Run these commands after all .vimrc commands and after all packages/plugins
 augroup PostStartup

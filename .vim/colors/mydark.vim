@@ -74,7 +74,6 @@ let b:MyDarkScheme =
     \           "Menu",
     \           "SpecialKey",
     \           "Directory",
-    \           "ErrorMsg",
     \           "Underlined",
     \           "Exception",
     \       ]
@@ -114,6 +113,7 @@ let b:MyDarkScheme =
     \           "SpellRare",
     \           "StatusLine",
     \           "myFixme",
+    \           "ErrorMsg",
     \       ]
     \   },
     \   'Highlight':
@@ -122,6 +122,7 @@ let b:MyDarkScheme =
     \       'bg': b:FGBright,
     \       'keywords':
     \       [
+    \           "ModeMsg",
     \           "WarningMsg",
     \           "Search",
     \           "Visual",
@@ -136,6 +137,8 @@ let b:MyDarkScheme =
     \       [
     \           "LineNr",
     \           "CursorLineNr",
+    \           "Folded",
+    \           "FoldedColumn",
     \       ]
     \   },
     \   'Emphasize':
@@ -154,7 +157,6 @@ let b:MyDarkScheme =
     \       'keywords':
     \       [
     \           "MoreMsg",
-    \           "ModeMsg",
     \           "StatusLineNC",
     \           "Title",
     \           "TabLine",
