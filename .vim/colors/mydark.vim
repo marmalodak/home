@@ -90,7 +90,7 @@ let b:MyDarkScheme =
     \   'Cursor':
     \   {
     \       'fg': b:FG,
-    \       'bg': 234,
+    \       'bg': b:BGDim,
     \       'keywords':
     \       [
     \           "Cursor",
@@ -192,3 +192,16 @@ hi def link myTodo Todo
 " for FIXME and FIXME:
 syn match   myFixme   contained   "\<\(FIXME\):"
 " hi def link myTodo Todo
+
+
+" https://www.reddit.com/r/vim/comments/4nxeyq/where_to_find_a_list_of_all_the_syntax_groups_in/d47rqtg?utm_source=share&utm_medium=web2x
+" Output the current syntax group
+nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
+
+" hitest.vim shows all the groups currently active
+"    :so $VIMRUNTIME/syntax/hitest.vim
+function! SyntaxItem()
+      return synIDattr(synID(line("."),col("."),1),"name")
+  endfunction

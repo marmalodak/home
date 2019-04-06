@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x  # verbose debugging
+set +x  # verbose debugging
 set -e  # abort on first error
 set -u  # aborts on unset variables
 set -o pipefail
@@ -47,15 +47,14 @@ function package () {
 (
     set_group vim8
     package https://github.com/w0rp/ale                           &
-    package https://github.com/dbmrq/vim-howdy                    &
+    package https://github.com/tmux-plugins/vim-tmux              &
+    package https://github.com/urbainvaes/vim-tmux-pilot          &
     package https://github.com/tmux-plugins/vim-tmux-focus-events &
     package https://github.com/sjl/vitality.vim                   &
-    package https://github.com/tmux-plugins/vim-tmux              &
     package https://github.com/vimwiki/vimwiki                    &
     package https://github.com/baruchel/vim-notebook              &
     package https://github.com/dhruvasagar/vim-table-mode.git     &
     package https://github.com/dhruvasagar/vim-dotoo              &
-    package https://github.com/vim-voom/VOoM                      &
     package https://github.com/markonm/traces.vim                 &
     package https://github.com/AndrewRadev/splitjoin.vim          &
     package https://github.com/hauleth/sad.vim                    &
@@ -63,29 +62,20 @@ function package () {
     package https://github.com/drmikehenry/vim-extline            &
     package https://github.com/yuttie/comfortable-motion.vim      &
     package https://github.com/tpope/vim-commentary               &
-    package https://github.com/urbainvaes/vim-tmux-pilot          &
     package https://github.com/mhinz/vim-startify                 &
     package https://github.com/metakirby5/codi.vim                &
     package https://github.com/dansomething/vim-hackernews        &
     package https://github.com/gcmt/wildfire.vim                  &
     package https://github.com/vim-voom/VOoM                      &
-    package https://github.com/ryanoasis/vim-devicons             &
-    package https://github.com/dhruvasagar/vim-table-mode.git     &
     package https://github.com/machakann/vim-sandwich             &
-    package https://github.com/junegunn/vim-easy-align            &
     package https://github.com/junegunn/fzf.vim                   &
     package https://github.com/dylanaraps/fff.vim                 &
     package https://github.com/airblade/vim-gitgutter             &
+    package https://github.com/ryanoasis/vim-devicons             &
+    package https://github.com/mattn/emmet-vim                    &
+    package https://github.com/SirVer/ultisnips                   &
 
     # consider:
-    # visual-star-search
-    # vim-lion vim-easy-align tabular
-    # targets.vim
-    # clever-f
-    # vim-wordmotion
-    # "nerdtree git"
-    # VimCompletesMe and others
-    # Ultisnips
     # vim-test
     # vim-closer vim-endwise
     # vim-abolish
@@ -107,29 +97,18 @@ function package () {
     # https://github.com/lifepillar/vim-mucomplete
     # package https://github.com/vimoutliner/vimoutliner.git        & # compare to voom
     # vim-indent-object
+    # jupytext https://github.com/goerz/jupytext.vim
+    # visual-star-search
+    # vim-lion  tabular # with vim-easy-align?
+    # targets.vim
+    # clever-f
+    # vim-wordmotion
+    # "nerdtree git"
+    # VimCompletesMe and others
+    # package https://github.com/dbmrq/vim-howdy                    &
 
     wait
 ) &
-
-if [[ 0 == 1 ]]; then  # disable all packages until I decide on must-haves
-(
-    set_group imported_from_vundle
-    #  package scrooloose/syntastic &                            # consider using https://github.com/w0rp/ale since it takes advantage of vim 8's async
-    package https://github.com/majutsushi/tagbar &
-    # package https://github.com/davidhalter/jedi-vim &
-    package https://github.com/ervandew/supertab &
-    # package https://github.com/Lokaltog/vim-powerline.git &    # airline?
-    package https://github.com/godlygeek/tabular.git &
-    package https://github.com/vim-pandoc/vim-pandoc.git &
-    package https://github.com/t9md/vim-choosewin.git &
-    # package https://github.com/powerline/powerline &           # airline?
-    # package https://github.com/tpope/vim-surround.git &
-    package https://github.com/vim-airline/vim-airline &
-    package https://github.com/vim-airline/vim-airline-themes &
-    wait
-) &
-fi
-
 
 wait
 

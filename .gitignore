@@ -13,4 +13,6 @@
 !.bash_profile
 !.tmux.conf
 !.gitignore
-!.vim/pack/nohup.out
+**/nohup.out
+**/.netrwhist
+**/.netrwhist~
