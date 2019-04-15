@@ -85,6 +85,7 @@ let b:MyDarkScheme =
     \       'keywords':
     \       [
     \           "Comment",
+    \           "Pmenu",
     \       ]
     \   },
     \   'Cursor':
@@ -148,6 +149,7 @@ let b:MyDarkScheme =
     \       'keywords':
     \       [
     \           "MatchParen",
+    \           "PmenuSel",
     \       ]
     \   },
     \   'Widget':
