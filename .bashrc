@@ -61,7 +61,7 @@ export LESS="-w -m --follow-name -r"
 
 # Codi
 # Usage: codi [filetype] [filename]
-codi() {
+function codi() {
   local syntax="${1:-python}"
   shift
   vim -c \
@@ -73,12 +73,22 @@ codi() {
     Codi $syntax" "$@"
 }
 
+function totmp()
+{
+    echo "Args: $*"
+    tmpdir=$(mktemp -d)
+    echo $"mv --target-directory=${tmpdir} $*"
+    mv --target-directory=${tmpdir} $*
+}
+
+# e.g. myfind choices 4
+# that is, recusively find the word "choices" but descend no more than 4 directories
+function myfind()
+{
+    find . -maxdepth $2 -iname \*.py -exec  grep -in --color -H $1 '{}' \;
+}
+
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 . /usr/share/powerline/bash/powerline.sh
-
-# use like this: VENVSHELL=~/projects/jupyter/venv/jupyter-venv/bin/activate bash
-if [[ -v "$VENVSHELL" ]]; then
-    source "$VENVSHELL"
-fi
