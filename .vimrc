@@ -33,6 +33,9 @@ set showtabline=1 " show the tabline only when two or more tabs are open
 set showmode " show the default mode text (e.g. -- INSERT -- below the statusline)
 set title "  show the name of the file being edited in the lower left
 
+set spelllang=en_ca
+set spellfile=~/spell/en.utf-8.add
+
 set backup
 set backupdir=~/.vimbackup/
 au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") |
@@ -41,6 +44,7 @@ au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") |
                \ exec("set backupdir=" . bakupdir)             |
                \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 
+set background=dark
 
 " packadd matchit
 
@@ -82,6 +86,8 @@ autocmd WinEnter * setlocal   cursorline
 autocmd BufLeave * setlocal nocursorline
 autocmd BufEnter * setlocal   cursorline
 
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips/' , 'Ultisnips']
+
 " http://stackoverflow.com/a/26551079/1698426
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
@@ -111,14 +117,65 @@ endfunc
 " iabbr ≤≤ «
 " iabbr ≥≥ »
 
-colorscheme mydark
-
+" https://www.reddit.com/r/vim/comments/bozr66/finding_things_in_vim/ennq4i5?utm_source=share&utm_medium=web2x
+command! -bang -nargs=* History call fzf#vim#history(fzf#vim#with_preview({'options': '--no-sort'}))
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" https://github.com/jhawthorn/fzy#use-with-vim
+" function! FzyCommand(choice_command, vim_command)
+"   try
+"     let output = system(a:choice_command . " | fzy ")
+"   catch /Vim:Interrupt/
+"     " Swallow errors from ^C, allow redraw! below
+"   endtry
+"   redraw!
+"   if v:shell_error == 0 && !empty(output)
+"     exec a:vim_command . ' ' . output
+"   endif
+" endfunction
+
+" nnoremap <leader>e :call FzyCommand("find . -type f", ":e")<cr>
+" nnoremap <leader>v :call FzyCommand("find . -type f", ":vs")<cr>
+" nnoremap <leader>s :call FzyCommand("find . -type f", ":sp")<cr>
+
+" Any program can be used to filter files presented through fzy. ag (the silver searcher) can be used to ignore files specified by .gitignore.
+
+" nnoremap <leader>e :call FzyCommand("ag . --silent -l -g ''", ":e")<cr>
+" nnoremap <leader>v :call FzyCommand("ag . --silent -l -g ''", ":vs")<cr>
+" nnoremap <leader>s :call FzyCommand("ag . --silent -l -g ''", ":sp")<cr>
+
+
+" suggested bindings for vim-quickhl
+" Minimum
+
+" nmap <Space>m <Plug>(quickhl-manual-this)
+" xmap <Space>m <Plug>(quickhl-manual-this)
+" nmap <Space>M <Plug>(quickhl-manual-reset)
+" xmap <Space>M <Plug>(quickhl-manual-reset)
+
+" Full
+
+" nmap <Space>m <Plug>(quickhl-manual-this)
+" xmap <Space>m <Plug>(quickhl-manual-this)
+
+" nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+" xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+
+" nmap <Space>c <Plug>(quickhl-manual-clear)
+" vmap <Space>c <Plug>(quickhl-manual-clear)
+
+" nmap <Space>M <Plug>(quickhl-manual-reset)
+" xmap <Space>M <Plug>(quickhl-manual-reset)
+
+" nmap <Space>j <Plug>(quickhl-cword-toggle)
+" nmap <Space>] <Plug>(quickhl-tag-toggle)
+" map H <Plug>(operator-quickhl-manual-this-motion)
+
 
 " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -204,3 +261,5 @@ augroup PostStartup
 
     " au VimEnter * helptags ALL
 augroup END
+
+colorscheme mydark

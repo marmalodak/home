@@ -21,21 +21,18 @@ alias vi='vim -v -C --clean --noplugin'
 alias lc='exa -1'
 alias lt='exa -T'
 alias ll='exa -l'
-alias lr='exa -albh --sort=accessed --git --extended'
+alias lr='exa -albh --sort=accessed --git'
+alias lR='exa -albh --sort=accessed --git --extended'
 alias view='vim -R'
-
-# http://zwischenzugs.tk/index.php/2015/07/01/bash-shortcuts-gem/
-# alias binds="bind -l | sed 's/.*/bind -q \0/' | /bin/bash 2>&1 | grep -v warning: | grep 'can be'"
-# bind -x '"\C-x\C-o":bind -l | sed "s/.*/bind -q \0/" | /bin/bash 2>&1 | grep -v warning: | grep can'
+alias pfzf='fzf --preview=bat {}'
+alias ipoca='ip -o -c a'
 
 function pycalc() { python -c "from math import *; print $*" ;}
 function calc(){ awk "BEGIN{ print $* }" ;}
 
-#alias ddpoker='(cd ~/.wine/drive_c/Program\ Files/ddpoker && wine ./poker.exe > /tmp/ddpoker.out 2> /tmp/ddpoker.err)'
-
-
 export COLUMNS
 export EDITOR=vim
+export VISUAL=vim
 export COLORTERM=on
 
 export PAGER=less
@@ -55,9 +52,6 @@ export LESS="-w -m --follow-name -r"
 
 ## PROMPT_COMMAND='if [ $? == 0 ]; then PS1="\033[01;32m:-) $PS1_SAVE"; else PS1="\033[01;31m:-( $PS1_SAVE\033[01;32m"; fi' 
 ## PROMPT_COMMAND='if [ $? == 0 ]; then PS1="$NORMAL:-) $PS1_SAVE"; else PS1="$SCARY:-( $PS1_SAVE$NORMAL"; fi'
-
-##alias blob='sudo modprobe cryptoloop && sudo modprobe serpent && sudo losetup -d /dev/loop0 && sudo losetup -e serpent /dev/loop0 /home/js152033/scribble/scribblesblob && sudo mount -t ext3 /dev/loop0 /home/js152033/scribble/scribbles && cd /home/js152033/scribble/scribbles'
-##alias unblob='cd ~ && sudo umount /home/js152033/scribble/scribbles;  sudo losetup -d /dev/loop0; sudo rmmod serpent; sudo rmmod cryptoloop'
 
 # Codi
 # Usage: codi [filetype] [filename]
@@ -88,7 +82,32 @@ function myfind()
     find . -maxdepth $2 -iname \*.py -exec  grep -in --color -H $1 '{}' \;
 }
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /usr/share/powerline/bash/powerline.sh
+function watchthis()
+{
+    while true; do inotifywait -e modify $1; clear; less -E $1 | ccze --mode ansi; done
+}
+
+function servefile()
+{
+    while true; do { echo -ne "HTTP/1.0 OK\n\n"; cat < "$1" ; } | nc -vlp 8002; done  
+}
+
+function activate()
+{
+    bash -i <<< 'source ~/.venv/bin/activate; exec </dev/tty'
+}
+
+if [[ -f $(which powerline-daemon) ]]; then
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+    . /usr/share/powerline/bash/powerline.sh
+fi
+
+if [[ $- == *i* ]]; then  # is bash interactive?
+    if [[ -z "$TMUX" ]]; then
+        if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
+            tmux attach
+        fi
+    fi
+fi

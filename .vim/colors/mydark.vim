@@ -6,31 +6,38 @@ set background=dark
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name = "mycolours"
+let g:colors_name    = "mycolours"
+let b:green_or_white = "green"
+let b:green_or_white = "white"
 
 " http://stackoverflow.com/a/2211738/1698426
 
-let b:Green       =   2
-let b:BrightGreen =  10
-let b:DimGreen    =  22
+let b:White       = "#ffffff"
+let b:Black       = "#000000"
 
-let b:Grey        =   7
-let b:BrightGrey  =  15
-let b:DimGrey     = 235
+let b:Green       = "#00b000"
+let b:BrightGreen = "#00ff00"
+let b:DimGreen    = "#004000"
 
-let b:FGDim       = 238
-let b:FG          = 250
-let b:FGBright    =   7
-let b:BGDim       = 235
-let b:BG          =   0
-let b:BGBright    = 117
+let b:Grey        = "#b0b0b0"
+let b:BrightGrey  = "#dddddd"
+let b:DimGrey     = "#404040"
 
-let b:FGDim       = b:DimGreen
-let b:FG          = b:Green
-let b:FGBright    = b:BrightGreen
-let b:BGDim       = 235
-let b:BG          =   0
-let b:BGBright    = 117
+if b:green_or_white == "green"
+    let b:FGDim       = b:DimGreen
+    let b:FG          = b:Green
+    let b:FGBright    = b:BrightGreen
+    let b:BGDim       = "#002000"
+    let b:BG          = b:Black
+    let b:BGBright    = "#004000"
+else
+    let b:FGDim       = b:DimGrey
+    let b:FG          = b:Grey
+    let b:FGBright    = b:BrightGrey
+    let b:BGDim       = "#202020"
+    let b:BG          = b:Black
+    let b:BGBright    = "#404040"
+endif
 
 let b:MyDarkScheme =
     \{
@@ -68,10 +75,8 @@ let b:MyDarkScheme =
     \           "Ignore",
     \           "Tag",
     \           "SpecialChar",
-    \           "Delimiter",
     \           "SpecialComment",
     \           "Scrollbar",
-    \           "Menu",
     \           "SpecialKey",
     \           "Directory",
     \           "Underlined",
@@ -84,8 +89,15 @@ let b:MyDarkScheme =
     \       'bg': b:BG,
     \       'keywords':
     \       [
+    \           "Menu",
     \           "Comment",
     \           "Pmenu",
+    \           "SpellCap",
+    \           "SpellLocal",
+    \           "SpellRare",
+    \           "MatchParen",
+    \           "Delimiter",
+    \           "Question",
     \       ]
     \   },
     \   'Cursor':
@@ -106,21 +118,20 @@ let b:MyDarkScheme =
     \       'keywords':
     \       [
     \           "Error",
+    \           "ErrorMsg",
     \           "Debug",
-    \           "Question",
     \           "SpellBad",
     \           "SpellCap",
     \           "SpellLocal",
     \           "SpellRare",
     \           "StatusLine",
     \           "myFixme",
-    \           "ErrorMsg",
     \       ]
     \   },
     \   'Highlight':
     \   {
-    \       'fg': 'black',
-    \       'bg': b:FGBright,
+    \       'fg': b:FG,
+    \       'bg': b:BGBright,
     \       'keywords':
     \       [
     \           "ModeMsg",
@@ -148,7 +159,6 @@ let b:MyDarkScheme =
     \       'bg': b:FGBright,
     \       'keywords':
     \       [
-    \           "MatchParen",
     \           "PmenuSel",
     \       ]
     \   },
@@ -180,7 +190,8 @@ for group in keys(b:MyDarkScheme)
     for kw in b:MyDarkScheme[group]['keywords']
         let b:fg = b:MyDarkScheme[group]['fg']
         let b:bg = b:MyDarkScheme[group]['bg']
-        let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg
+        " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg
+        let cmd = 'hi ' . kw . ' guifg=' . b:fg . ' guibg=' . b:bg
         " echo cmd
         exe 'hi clear ' . kw
         exe cmd

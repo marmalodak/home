@@ -73,9 +73,30 @@ function package () {
     package https://github.com/airblade/vim-gitgutter             &
     package https://github.com/ryanoasis/vim-devicons             &
     package https://github.com/mattn/emmet-vim                    &
-    package https://github.com/SirVer/ultisnips                   &
+    package https://github.com/honza/vim-snippets                 &  # for ultisnips and snipmate
+    package https://github.com/tomtom/tlib_vim.git                &  # for snipmate
+    package https://github.com/MarcWeber/vim-addon-mw-utils.git   &  # for snipmate
+    package https://github.com/garbas/vim-snipmate.git            &  # trying snipmate since ultisnips didn't work
+    package https://github.com/blindFS/vim-taskwarrior            &
+    package https://github.com/mattn/webapi-vim                   &
+    package https://github.com/tbabej/taskwiki                    &
+    package https://github.com/framallo/taskwarrior.vim           &
+    package https://github.com/t9md/vim-quickhl                   &
+    package https://github.com/mattboehm/vim-unstack              &
+    package https://github.com/vim-scripts/utl.vim                &  # for vim-orgmode
+    package https://github.com/tpope/vim-repeat                   &  # for vim-orgmode
+    package https://github.com/vim-scripts/taglist.vim            &  # for vim-orgmode
+    package https://github.com/majutsushi/tagbar                  &  # for vim-orgmode
+    package https://github.com/tpope/vim-speeddating              &  # for vim-orgmode
+    package https://github.com/chrisbra/NrrwRgn                   &  # for vim-orgmode
+    package https://github.com/mattn/calendar-vim                 &  # for vim-orgmode
+    package https://github.com/vim-scripts/SyntaxRange            &  # for vim-orgmode
+    package https://github.com/jceb/vim-orgmode                   &
+    package https://github.com/reedes/vim-pencil                  &
 
+    # package https://github.com/zxqfl/tabnine-vim                  &
     # consider:
+    # https://github.com/rhysd/git-messenger.vim
     # vim-test
     # vim-closer vim-endwise
     # vim-abolish
@@ -106,6 +127,8 @@ function package () {
     # "nerdtree git"
     # VimCompletesMe and others
     # package https://github.com/dbmrq/vim-howdy                    &
+
+    # package https://github.com/SirVer/ultisnips                   &  # couldn't get ultisnips to work for me
 
     wait
 ) &
