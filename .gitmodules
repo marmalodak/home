@@ -1,0 +1,237 @@
+#[submodule "dense-analysis/ale"]
+#	path = .vim/pack/vim8/start/ale
+#	url = https://github.com/dense-analysis/ale
+
+[submodule "tmux-plugins/vim-tmux"]
+	path = .vim/pack/vim8/start/vim-tmux
+	url = https://github.com/tmux-plugins/vim-tmux
+
+[submodule "urbainvaes/vim-tmux-pilot"]
+	path = .vim/pack/vim8/start/vim-tmux-pilot
+	url = https://github.com/urbainvaes/vim-tmux-pilot
+
+[submodule "tmux-plugins/vim-tmux-focus-events"]
+	path = .vim/pack/vim8/start/vim-tmux-focus-events
+	url = https://github.com/tmux-plugins/vim-tmux-focus-events
+
+[submodule "sjl/vitality.vim"]
+	path = .vim/pack/vim8/start/vitality.vim
+	url = https://github.com/sjl/vitality.vim
+
+[submodule "vimwiki/vimwiki"]
+	path = .vim/pack/vim8/start/vimwiki
+	url = https://github.com/vimwiki/vimwiki
+
+[submodule "baruchel/vim-notebook"]
+	path = .vim/pack/vim8/start/vim-notebook
+	url = https://github.com/baruchel/vim-notebook
+
+[submodule "dhruvasagar/vim-table-mode.git"]
+	path = .vim/pack/vim8/start/vim-table-mode.git
+	url = https://github.com/dhruvasagar/vim-table-mode.git
+
+[submodule "dhruvasagar/vim-dotoo"]
+	path = .vim/pack/vim8/start/vim-dotoo
+	url = https://github.com/dhruvasagar/vim-dotoo
+
+[submodule "markonm/traces.vim"]
+	path = .vim/pack/vim8/start/traces.vim
+	url = https://github.com/markonm/traces.vim
+
+[submodule "AndrewRadev/splitjoin.vim"]
+	path = .vim/pack/vim8/start/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim
+
+[submodule "hauleth/sad.vim"]
+	path = .vim/pack/vim8/start/sad.vim
+	url = https://github.com/hauleth/sad.vim
+
+[submodule "junegunn/vim-easy-align"]
+	path = .vim/pack/vim8/start/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align
+
+[submodule "drmikehenry/vim-extline"]
+	path = .vim/pack/vim8/start/vim-extline
+	url = https://github.com/drmikehenry/vim-extline
+
+[submodule "yuttie/comfortable-motion.vim"]
+	path = .vim/pack/vim8/start/comfortable-motion.vim
+	url = https://github.com/yuttie/comfortable-motion.vim
+
+[submodule "tpope/vim-commentary"]
+	path = .vim/pack/vim8/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+
+[submodule "mhinz/vim-startify"]
+	path = .vim/pack/vim8/start/vim-startify
+	url = https://github.com/mhinz/vim-startify
+
+[submodule "metakirby5/codi.vim"]
+	path = .vim/pack/vim8/start/codi.vim
+	url = https://github.com/metakirby5/codi.vim
+
+[submodule "dansomething/vim-hackernews"]
+	path = .vim/pack/vim8/start/vim-hackernews
+	url = https://github.com/dansomething/vim-hackernews
+
+[submodule "gcmt/wildfire.vim"]
+	path = .vim/pack/vim8/start/wildfire.vim
+	url = https://github.com/gcmt/wildfire.vim
+
+[submodule "vim-voom/VOoM"]
+	path = .vim/pack/vim8/start/VOoM
+	url = https://github.com/vim-voom/VOoM
+
+[submodule "machakann/vim-sandwich"]
+	path = .vim/pack/vim8/start/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich
+
+[submodule "junegunn/fzf.vim"]
+	path = .vim/pack/vim8/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+
+[submodule "dylanaraps/fff.vim"]
+	path = .vim/pack/vim8/start/fff.vim
+	url = https://github.com/dylanaraps/fff.vim
+
+[submodule "airblade/vim-gitgutter"]
+	path = .vim/pack/vim8/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+
+[submodule "ryanoasis/vim-devicons"]
+	path = .vim/pack/vim8/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons
+
+[submodule "mattn/emmet-vim"]
+	path = .vim/pack/vim8/start/emmet-vim
+	url = https://github.com/mattn/emmet-vim
+
+[submodule "honza/vim-snippets"]
+	path = .vim/pack/vim8/start/vim-snippets
+	url = https://github.com/honza/vim-snippets
+
+[submodule "tomtom/tlib_vim.git"]
+	path = .vim/pack/vim8/start/tlib_vim.git
+	url = https://github.com/tomtom/tlib_vim.git
+
+[submodule "MarcWeber/vim-addon-mw-utils.git"]
+	path = .vim/pack/vim8/start/vim-addon-mw-utils.git
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+
+[submodule "garbas/vim-snipmate.git"]
+	path = .vim/pack/vim8/start/vim-snipmate.git
+	url = https://github.com/garbas/vim-snipmate.git
+
+[submodule "blindFS/vim-taskwarrior"]
+	path = .vim/pack/vim8/start/vim-taskwarrior
+	url = https://github.com/blindFS/vim-taskwarrior
+
+[submodule "mattn/webapi-vim"]
+	path = .vim/pack/vim8/start/webapi-vim
+	url = https://github.com/mattn/webapi-vim
+
+[submodule "tbabej/taskwiki"]
+	path = .vim/pack/vim8/start/taskwiki
+	url = https://github.com/tbabej/taskwiki
+
+[submodule "framallo/taskwarrior.vim"]
+	path = .vim/pack/vim8/start/taskwarrior.vim
+	url = https://github.com/framallo/taskwarrior.vim
+
+[submodule "t9md/vim-quickhl"]
+	path = .vim/pack/vim8/start/vim-quickhl
+	url = https://github.com/t9md/vim-quickhl
+
+[submodule "mattboehm/vim-unstack"]
+	path = .vim/pack/vim8/start/vim-unstack
+	url = https://github.com/mattboehm/vim-unstack
+
+[submodule "vim-scripts/utl.vim"]
+	path = .vim/pack/vim8/start/utl.vim
+	url = https://github.com/vim-scripts/utl.vim
+
+[submodule "tpope/vim-repeat"]
+	path = .vim/pack/vim8/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+
+[submodule "vim-scripts/taglist.vim"]
+	path = .vim/pack/vim8/start/taglist.vim
+	url = https://github.com/vim-scripts/taglist.vim
+
+[submodule "majutsushi/tagbar"]
+	path = .vim/pack/vim8/start/tagbar
+	url = https://github.com/majutsushi/tagbar
+
+[submodule "tpope/vim-speeddating"]
+	path = .vim/pack/vim8/start/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating
+
+[submodule "chrisbra/NrrwRgn"]
+	path = .vim/pack/vim8/start/NrrwRgn
+	url = https://github.com/chrisbra/NrrwRgn
+
+[submodule "mattn/calendar-vim"]
+	path = .vim/pack/vim8/start/calendar-vim
+	url = https://github.com/mattn/calendar-vim
+
+[submodule "vim-scripts/SyntaxRange"]
+	path = .vim/pack/vim8/start/SyntaxRange
+	url = https://github.com/vim-scripts/SyntaxRange
+
+[submodule "jceb/vim-orgmode"]
+	path = .vim/pack/vim8/start/vim-orgmode
+	url = https://github.com/jceb/vim-orgmode
+
+[submodule "reedes/vim-pencil"]
+	path = .vim/pack/vim8/start/vim-pencil
+	url = https://github.com/reedes/vim-pencil
+
+#
+#[submodule "zxqfl/tabnine-vim"]
+#	path = .vim/pack/vim8/start/tabnine-vim
+#	url = https://github.com/zxqfl/tabnine-vim
+#    # consider:
+#    # https://github.com/rhysd/git-messenger.vim
+#    # vim-test
+#    # vim-closer vim-endwise
+#    # vim-abolish
+#    # Fugitive
+#    # vim-projectionist
+#    # vim-sleuth
+#    # vim-ragtag
+#    # vim-surround
+#    # vim-repeat
+#    # vim-unimpaired
+#    # nvvim   https://github.com/cwoac/nvvim
+#    # https://wynnnetherland.com/journal/reed-esau-s-growing-list-of-vim-plugins-for-writers/
+#    # wakatime https://wakatime.com/vim
+#    # https://github.com/dhruvasagar/vim-prosession  requires https://github.com/tpope/vim-obsession
+#    # learn enough emacs to use org-mode like http://doc.norang.ca/org-mode.html
+#    # https://github.com/dhruvasagar/vim-vinegar
+#    # enmasse
+#    # asyncomplete and vim-lsp
+#    # https://github.com/lifepillar/vim-mucomplete
+#    # 
+#[submodule "vimoutliner/vimoutliner.git"]
+#	path = .vim/pack/vim8/start/vimoutliner.git
+#	url = https://github.com/vimoutliner/vimoutliner.git
+#    # vim-indent-object
+#    # jupytext https://github.com/goerz/jupytext.vim
+#    # visual-star-search
+#    # vim-lion  tabular # with vim-easy-align?
+#    # targets.vim
+#    # clever-f
+#    # vim-wordmotion
+#    # "nerdtree git"
+#    # VimCompletesMe and others
+#    # 
+#[submodule "dbmrq/vim-howdy"]
+#	path = .vim/pack/vim8/start/vim-howdy
+#	url = https://github.com/dbmrq/vim-howdy
+#
+#[submodule "SirVer/ultisnips"]
+#	path = .vim/pack/vim8/start/ultisnips
+#	url = https://github.com/SirVer/ultisnips
+#
+## :%s/package \(\(https\:\/\/github.com\/\)\(\S*\)\).*/\r\[submodule \"\1\"\]^M\tpath = .vim/pack/vim8/start\/pack\/start\3^M\turl = \1/g 
+## requires set magic
