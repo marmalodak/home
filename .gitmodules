@@ -118,9 +118,6 @@
 [submodule ".vim/pack/vim8/start/tagbar"]
 	path = .vim/pack/vim8/start/tagbar
 	url = https://github.com/majutsushi/tagbar
-[submodule ".vim/pack/vim8/start/vim-speeddating"]
-	path = .vim/pack/vim8/start/vim-speeddating
-	url = https://github.com/tpope/vim-speeddating
 [submodule ".vim/pack/vim8/start/NrrwRgn"]
 	path = .vim/pack/vim8/start/NrrwRgn
 	url = https://github.com/chrisbra/NrrwRgn
@@ -139,3 +136,6 @@
 [submodule ".vim/pack/vim8/start/vim-clap"]
 	path = .vim/pack/vim8/start/vim-clap
 	url = https://github.com/liuchengxu/vim-clap
+[submodule ".vim/pack/vim8/start/ale"]
+	path = .vim/pack/vim8/start/ale
+	url = https://github.com/dense-analysis/ale.git

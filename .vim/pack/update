@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+pushd ~
+git submodule update --recursive --remote --jobs 128
+popd

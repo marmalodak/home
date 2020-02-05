@@ -15,6 +15,8 @@ shopt -s failglob
 shopt -s no_empty_cmd_completion
 
 PATH=$PATH:$HOME/bin:/usr/sbin:/sbin
+# dart lives in ~/.pub-cache?
+PATH=$PATH:$HOME/.pub-cache/bin
 
 export PATH
 unset USERNAME

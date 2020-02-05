@@ -89,7 +89,7 @@ function watchthis()
 
 function servefile()
 {
-    while true; do { echo -ne "HTTP/1.0 OK\n\n"; cat < "$1" ; } | nc -vlp 8002; done  
+    while true; do { echo -ne "HTTP/1.0 OK\n\n"; cat < "$1" ; } | nc -vlp 8002; done
 }
 
 function activate()

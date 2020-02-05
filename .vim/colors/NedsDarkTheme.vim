@@ -6,9 +6,9 @@ set background=dark
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name    = "mycolours"
-let b:green_or_white = "green"
+let g:colors_name    = "NedsDarkTheme"
 let b:green_or_white = "white"
+let b:green_or_white = "green"
 
 " http://stackoverflow.com/a/2211738/1698426
 
@@ -98,6 +98,7 @@ let b:MyDarkScheme =
     \           "MatchParen",
     \           "Delimiter",
     \           "Question",
+    \           "asciidocOneLineTitle",
     \       ]
     \   },
     \   'Cursor':
@@ -213,8 +214,19 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
+function! ToggleGreenWhite()
+    if b:green_or_white == "green" 
+        let b:green_or_white = "white"
+    else
+        let b:green_or_white = "green"
+    endif
+    colorscheme NedsDarkTheme
+endfunction
+command! ToggleGreenWhite call ToggleGreenWhite()
+nnoremap <silent> <S-F10> :ToggleGreenWhite<CR>
+
 " hitest.vim shows all the groups currently active
 "    :so $VIMRUNTIME/syntax/hitest.vim
 function! SyntaxItem()
       return synIDattr(synID(line("."),col("."),1),"name")
-  endfunction
+endfunction
