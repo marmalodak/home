@@ -1,0 +1,126 @@
+#!/usr/bin/python
+
+# it's going to be tricky to remember what this script does, sooo...
+longcomment = """
+- itunes jacked my music library
+
+- I created a new itunes directory on the server that hosts the mp3s and pointed itunes there
+
+- I proceeded to drag them back into the itunes library via drag and drop 
+
+- this seemed to succeed but left all the old files in place
+
+- since I'm insanely fearful of losing these delicate bags of bits called mp3 files, I had to manually check that I'm deleting only duplicate files
+
+- the 'golden' directory is their final destination, where itunes assumes all my mp3s reside
+
+- the 'dirty' directory is where I dragged them from, where I tunes left them 
+
+- this script lovingly examines each mp3 and deletes them from the dirty directory only if they exist in the same size in the golden directoy
+"""
+
+import os
+import sys
+import argparse
+import glob
+
+def getallfiles( root ):
+    l1 = []
+    for root,dirs,files in os.walk( root ):
+        for f in files:
+            fullpath = os.path.join( root, f )
+            if os.path.isfile( fullpath ):
+                l1.append( (f,fullpath,os.path.getsize(fullpath) ) )
+    return l1
+
+# remove files from dirty that also exist in golden and have the same size
+# assumes dirty and golden are disjoint, USE AT YOUR OWN RISK
+def dedupefiles_disjoint_dirs( dirty, golden, scary_delete_file=False, do_size_check=True ):
+    deleted_files = []
+    kept_files = []
+    accumulated_deleted_size = 0
+    len_dirty = len(dirty)
+    working = True
+    i_dirty = 0
+    while working: # outer loop over all the dirty files; NB length of dirty changes
+        do_delete_file = False
+        i_golden = 0
+        len_golden = len(golden)
+        while i_golden < len_golden and not do_delete_file: # inner loop over all the golden files
+            do_delete_file = False
+            if dirty[i_dirty][0] == golden[i_golden][0]: # the basenames match
+                if do_size_check:
+                    if dirty[i_dirty][2] == golden[i_golden][2]: # the sizes match
+                        accumulated_deleted_size += dirty[i_dirty][2]
+                        do_delete_file = True
+                else:
+                    accumulated_deleted_size += dirty[i_dirty][2]
+                    do_delete_file = True
+            if do_delete_file:
+                print "%5d/%5d %10d %s" % (i_dirty,  len_dirty , dirty[i_dirty][2],   dirty[i_dirty][1])
+                print "%5d/%5d %10d %s" % (i_golden, len_golden, golden[i_golden][2], golden[i_golden][1])
+                print "accumulated size: ", accumulated_deleted_size, 
+                print " %dKiB" % (accumulated_deleted_size/1024),
+                print " %dMiB" % (accumulated_deleted_size/1024/1024),
+                print " %dGiB" % (accumulated_deleted_size/1024/1024/1024)
+                if scary_delete_file:
+                    os.remove( dirty[i_dirty][1] ) # must remove() file before pop()ing lists!!! 
+            i_golden += 1
+        i_dirty += 1
+        if i_dirty >= len_dirty:
+            working = False
+    print "accumulated size: ", accumulated_deleted_size, 
+    print " %dKiB" % (accumulated_deleted_size/1024),
+    print " %dMiB" % (accumulated_deleted_size/1024/1024),
+    print " %dGiB" % (accumulated_deleted_size/1024/1024/1024)
+
+
+# itunes expert (read 'expert' while rolling eyes) on duplicate files in a directory
+def dedupefiles_itunes_hack( itunes ):
+    for root,dirs,files in os.walk( itunes ):
+        d1 = {}
+        d2 = {}
+        for f in files:
+            fullpath = os.path.join( root, f )
+            print fullpath
+            base = os.path.splitext( os.path.basename( fullpath ) )
+            print base[0],base[1]
+            if base[0] in d1.keys():
+                # we have a possible dupe?
+                print glob.glob( os.path.join(root,base[0],'*') )
+            else:
+                d1[base[0]] = (f,fullpath,os.path.getsize(fullpath))
+            working = True
+            i = -1
+            while working:
+                if base[0] in ' 0123456789':
+                    i -= 1
+                else:
+                    working = False
+            b = base[0:i]
+            if b in d2.keys():
+                # we have a possible dupe
+                print glob.glob( os.path.join(root,base[0],'*') )
+            else:
+                d2[b] = (f,fullpath,os.path.getsize(fullpath))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument( '--golden', required=False )
+    parser.add_argument( '--dirty', required=False )
+    parser.add_argument( '--force-erase-permanently', action='store_true' )
+    parser.add_argument( '--skip-size-check', action='store_true' )
+    parser.add_argument( '--itunes' )
+    args = parser.parse_args()
+    if args.golden and args.dirty:
+        dirtyfiles = getallfiles( args.dirty )
+        goldenfiles = getallfiles( args.golden )
+        dedupefiles_disjoint_dirs( dirtyfiles, goldenfiles, args.force_erase_permanently, not args.skip_size_check )
+    elif args.itunes:
+        dedupefiles_itunes_hack( args.itunes )
+    else:
+        print "Don't know what to do"
+        sys.exit( 1 )
+
+    sys.exit( 0 )

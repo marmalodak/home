@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#ERRORSTRING='Warning: No input in [0-9]00 msec...'
+ERRORSTRING='[0-9]00 msec...'
+while (( 1 )); do
+    read a
+    echo "$a"
+    errorcondition=$(echo "$a" | grep -q "$ERRORSTRING")
+    if  [ $? == 0 ]; then
+        sudo service mythbackend stop
+        logger "$a"
+        logger 'restarting mythbackend brutally'
+        sleep 3
+        sudo killall mythbackend
+        sleep 1
+        sudo kill -9 $(pidof mythbackend)
+        sleep 1
+        sudo service mythbackend start
+    fi
+done

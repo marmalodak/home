@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+import subprocess
+import sys
+import getpass
+
+password_length = 10
+apg_command='apg -M SNCL -a 0 -m {}  -l -t'.format( password_length )
+done = False
+while not done:
+    print "Working..."
+    apg_output = subprocess.check_output( apg_command.split() ).strip()
+    lines = apg_output.split( "\n" )
+    for i, line in enumerate( lines ):
+        print( "%1d: %s" % (i, line) )
+    try:
+        selection = input( "Which password > " )
+        done = True
+    except SyntaxError:
+        done = False
+    except EOFError:
+        done = True
+        sys.exit( 0 )
+
+if selection < 0 or selection > len(lines):
+    sys.exit( 1 )
+
+for i in range(0,5):
+    try:
+        s = getpass.getpass()
+        #print s
+        if s == lines[selection][:password_length]:
+            print "correct"
+        else:
+            print "wrong"
+            print( '"{}" is not "{}"'.format( s, lines[selection][:password_length] ) )
+    except (EOFError,KeyboardInterrupt,IndexError):
+        print
+        sys.exit( 0 )

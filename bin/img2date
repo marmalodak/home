@@ -1,0 +1,153 @@
+#!/bin/bash
+
+#set -e
+#set -x
+
+#------------------------------------------------------------------------------
+function jpegRename2Date()
+{
+    filename=$1
+    filenameext=${filename##*.}
+
+    chmod -x $filename
+    chmod go-w $filename
+    output=$(jhead -c -autorot -ft -n%Y_%m_%d-%H_%M_%S $filename)
+    renamedfilename=${output##*\-\-\>\ }
+    renamedfileext=${renamedfilename##*.}
+    echo "$filename -> $renamedfilename"
+    if [[ $renamedfileext != $filenameext ]]; then
+        renamedfilebasename=${renamedfilename%%.*}
+        changedfilename=$renamedfilebasename.$filenameext
+        mv -iv $renamedfilename $changedfilename
+        #echo "$renamedfilename -> $changedfilename"
+    fi
+    return 0
+}
+
+
+#------------------------------------------------------------------------------
+function rawRename2Date()
+{
+    filename=$1
+    fileext=${filename##*.}
+    datestring=$(dcraw -i -v $filename | grep Timestamp)
+    datestring=${datestring#Timestamp\:\ }
+    newdatestring=$(date --date="$datestring" +%Y_%m_%d-%H_%M_%S)
+    newfilebasename=$newdatestring
+    newfilename=$newfilebasename.$fileext
+    if [[ $filename != $newfilename ]]; then
+        letters="abcdefghijklmnopqrstuvwxyz"
+        i=0
+        while [[ -a $newfilename && $i -lt ${#letters} ]] ; do
+            newfilename=$newfilebasename${letters:i:1}.$fileext
+            i=$(($i+1))
+        done
+        if [ -a $newfilename ] ; then
+            echo "$newfilename already exists"
+            return 1
+        fi
+        chmod -x $filename
+        chmod go-w $filename
+        mv -iv $filename $newfilename
+        touch --date="$datestring" $newfilename
+    fi
+    #echo "$filename -> $newfilename"
+    return 0
+}
+
+
+#------------------------------------------------------------------------------
+function aviRename2Date()
+{
+    filename=$1
+    fileext=${filename##*.}
+    # I'm abusing a misfeature of mplayer; ao and vo can be null, but none makes mplayer abort immediately
+    datestring=$(mplayer -ao none -vo none $filename | grep 'Digitization Time')
+    datestring=${datestring#\ Digitization\ Time\:\ }
+    newdatestring=$(date --date="$datestring" +%Y_%m_%d-%H_%M_%S)
+    newfilebasename=$newdatestring
+    newfilename=$newfilebasename.$fileext
+    if [[ $filename != $newfilename ]]; then
+        letters="abcdefghijklmnopqrstuvwxyz"
+        i=0
+        while [[ -a $newfilename && $i -lt ${#letters} ]] ; do
+            newfilename=$newfilebasename${letters:i:1}.$fileext
+            i=$(($i+1))
+        done
+        if [ -a $newfilename ] ; then
+            echo "$newfilename already exists"
+            return 1
+        fi
+        chmod -x $filename
+        chmod go-w $filename
+        mv -iv $filename $newfilename
+        touch --date="$datestring" $newfilename
+    fi
+    echo "$filename -> $newfilename"
+    return 0
+}
+
+
+#------------------------------------------------------------------------------
+function imgRename2Date()
+{
+    filename=$1
+    fileext=${filename##*.}
+    fileext=$(echo $fileext | tr '[:upper:]' '[:lower:]')
+    case $fileext in
+        jpg | jpeg | thm)
+            jpegRename2Date $filename
+            ;;
+        cr | cr2 | crw)
+            rawRename2Date $filename
+            ;;
+        avi)
+            aviRename2Date $filename
+            ;;
+        *)
+            echo "Unable to handle $filename"
+            ;;
+    esac
+}
+
+
+#------------------------------------------------------------------------------
+function imgFix()
+{
+    imgRename2Date $1
+}
+
+
+#------------------------------------------------------------------------------
+function main()
+{
+    jhead=$(which jhead)
+    if [[ -z $jhead ]]; then
+        echo Will not proceed without jhead!
+        exit 1
+    fi
+    dcraw=$(which dcraw)
+    if [[ -z $dcraw ]]; then
+        echo Will not proceed without dcraw!
+        exit 1
+    fi
+    mplayer=$(which mplayer)
+    if [[ -z $mplayer ]]; then
+        echo Will not proceed without mplayer!
+        exit 1
+    fi
+    args=$1
+    if [[ -z $args ]]; then
+        files=$(ls)
+    else
+        files=$*
+    fi
+    for f in $files; do
+        imgFix $f
+    done
+}
+
+main $*
+
+#set +e
+#set +x

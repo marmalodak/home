@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ssh -Yf mythtv@mediapc konsole
+
