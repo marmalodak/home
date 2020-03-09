@@ -1,0 +1,4 @@
+#!/bin/bash
+
+date >> /tmp/sensors.log.text
+sensors >> /tmp/sensors.log.text 2>&1

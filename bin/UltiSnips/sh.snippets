@@ -1,0 +1,13 @@
+snippit bash "bash boilerplate"
+#!/usr/bin/env bash
+
+set -e
+set -x
+set -u
+set -o pipefail
+export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+
+set +u
+set +x
+set +e
+endsnippet

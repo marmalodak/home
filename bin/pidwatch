@@ -1,0 +1,15 @@
+#!/bin/bash
+
+Message='imuxsock begins to drop messages from pid '
+
+while (( 1 )); do
+    read a
+    condition=$(echo "$a" | grep -q "$Message")
+    if [ $? == 0 ]; then
+        pid=$(echo "$a" | python -c 'import sys,re; print re.split( "^.* pid ([0-9]*)", sys.stdin.read() )[1]')
+        echo pid="$pid"
+        echo pid="$pid" >> /tmp/pidwatch.out
+        cat /proc/"$pid"/cmdline
+        cat /proc/"$pid"/cmdline >> /tmp/pidwatch.out
+    fi
+done

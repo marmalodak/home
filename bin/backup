@@ -1,0 +1,51 @@
+#!/bin/bash
+
+#trap 'echo Wha?' DEBUG
+Home=~
+Destination=$1
+
+if [ $# -eq 0 ] 
+then
+    echo Backup to where?
+    exit 1
+fi
+
+echo Backing up $Home to $Destination$Home ...
+
+RsyncOptions='-a -b --del --stats -i'
+# -v == verbose
+# -a == archive
+# --del == delete files that don't exist on sender during xfer 
+# --stats == show file transfer stats
+# -P == --partial --progress
+# -i == summary
+# -n == --dry-run
+
+function gorsync()
+{
+    rsync_command="rsync $RsyncOptions $Home $Destination$Home"
+    echo $rsync_command
+    $rsync_command
+}
+
+if [ ! -O $Destination$Home ] 
+then
+    trap 'umount $Destination' TERM INT
+    if mount $Destination
+    then
+        if [ -O $Destination$Home ] 
+        then
+            gorsync
+            #rsync_command="rsync $RsyncOptions $Home $Destination$Home"
+            #echo $rsync_command
+            #$rsync_command
+        fi
+        umount $Destination
+        trap - TERM INT
+    else
+        echo Could not mount $Destination
+        exit 1
+    fi
+else
+    gorsync
+fi    

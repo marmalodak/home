@@ -1,0 +1,14 @@
+#!/bin/bash
+
+allrpms=$(rpm -qa | sort)
+for r in $allrpms ; do 
+    #echo $r
+    rpmnames=$(rpm -q $r --queryformat "%{NAME}\r\n")
+    #echo $rpmnames
+    quantity_installed=$(echo $rpmnames | wc -l)
+    if [[ $(($quantity_installed > 1)) ]] ; then
+        fullname=$(rpm -q $r --queryformat "%{NAME}-%{VERSION}-%{RELEASE}-%{ARCH}")
+        echo $quantity_installed : ${fullname}
+    fi
+done
+
