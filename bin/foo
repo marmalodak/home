@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function foo
+{
+    echo 'abc'
+    return 0
+}
+
+x=$(foo)
+echo $x

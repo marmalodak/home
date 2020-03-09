@@ -1,0 +1,132 @@
+#!/bin/bash
+
+ERROR_FILTER_STRING='mythbackend'
+ERRORSTRING1='[0-9][0-9]0 msec...'
+ERRORSTRING2='SIGHUP received'
+ERRORSTRING3='LFireDev: Select Error'
+ERRORSTRING4='Power cmd failed'
+
+function mythlogfile_get()
+{
+    echo "/var/log/messages"
+    return 0
+
+    mythlogfile=
+    while [ -z "$mythlogfile" ]; do
+        mythlogfile=$(ls -1rt /var/log/mythtv/mythbackend*.log | tail -n 1)
+        if [ $? -eq 0 ]; then
+            echo "$mythlogfile"
+            return 0
+        else
+            mythlogfile=
+        fi
+    done
+}
+
+function watchonefile()
+{
+    logfile0=$(mythlogfile_get)
+    blanklinecounter=0
+    while (( 1 )); do
+        read -t 60 a
+        if [[ $? -gt 128 ]]; then 
+            # if no input for a minute, exit to see if there's a newer log file
+            return 0
+        fi
+        #read a
+        errorcondition1=0
+        errorcondition2=0
+        errorcondition3=0
+        errorcondition4=0
+        echo "$a" | grep -q "$ERROR_FILTER_STRING"
+        if [[ $? -eq 0 ]]; then
+            echo "$a" | grep -q "$ERRORSTRING3"
+            errorcondition3=$((1-$?))
+            echo "$a" | grep -q "$ERRORSTRING2"
+            errorcondition2=$((1-$?))
+            echo "$a" | grep -q "$ERRORSTRING1"
+            errorcondition1=$((1-$?))
+            echo "$a" | grep -q "$ERRORSTRING4"
+            errorcondition4=$((1-$?))
+        fi
+        #errorcondition3=0 # over-ride -- I don't think I really need this one
+        if [[ $(($errorcondition1+$errorcondition2+$errorcondition3+$errorcondition4)) -gt 0 ]]; then
+            sudo systemctl stop mythbackend.service
+            #logger "$a"
+            logger 'restarting mythbackend brutally'
+            logger 'errorcondition1='\'"$errorcondition1"\'
+            logger 'errorcondition2='\'"$errorcondition2"\'
+            logger 'errorcondition3='\'"$errorcondition3"\'
+            logger 'errorcondition4='\'"$errorcondition4"\'
+            echo $(date)
+            echo "$a"
+            echo 'restarting mythbackend brutally'
+            echo 'errorcondition1='\'"$errorcondition1"\'
+            echo 'errorcondition2='\'"$errorcondition2"\'
+            echo 'errorcondition3='\'"$errorcondition3"\'
+            echo 'errorcondition4='\'"$errorcondition4"\'
+            sleep 5
+            sudo systemctl start mythbackend.service
+            #sleep 60 # leave time for a new mythbackend to come back up
+            # need to consume all the text up to the point where mythbackend is back up
+            blanklinecounter=0
+            mythbackendUp=0
+            while [ $mythbackendUp -lt 1 ]; do
+                read a
+                echo "consuming $a"
+                echo "$a" | grep -q "mythbackend version:"
+                if [[ $? -eq 0 ]]; then
+                    mythbackendUp=1
+                fi
+                if [[ -z "$a" ]]; then
+                    blanklinecounter=$((blanklinecounter+1))
+                else
+                    blanklinecounter=0
+                fi
+                if [[ $blanklinecounter -gt 3 ]]; then
+                    logger blanklines=$((blanklinecounter))
+                    logger "mythbackend has already quit?"
+                    return 0
+                fi
+            done
+            return 0
+        fi
+        if [[ -z "$a" ]]; then
+            blanklinecounter=$((blanklinecounter+1))
+        else
+            blanklinecounter=0
+        fi
+        if [[ $blanklinecounter -gt 3 ]]; then
+            logger blanklines=$((blanklinecounter))
+            logger "mythbackend has already quit?"
+            return 0
+        fi
+        logfile1=$(mythlogfile_get)
+        if [[ "$logfile0" != "$logfile1" ]]; then
+            return 0
+        fi
+    done
+}
+
+deadtime=0
+while (( 1 )); do
+    now=$(date)
+    p=$(pidof -s mythbackend)
+    status=$?
+    echo   "pidof mythbackend=$p status=$status deadtime=$deadtime date=$now"
+    logger "pidof mythbackend=$p status=$status deadtime=$deadtime date=$now"
+    if [[ $status -eq 0 ]]; then
+        mythlogfile=$(mythlogfile_get)
+        #echo Watching "$mythlogfile"
+        tail -F --pid="$p" -n 1 "$mythlogfile" | watchonefile
+    else
+        echo   "waiting for mythbackend to start deadtime=$deadtime date=$now"
+        logger "waiting for mythbackend to start deadtime=$deadtime date=$now"
+        sleep 5
+        deadtime=$(($deadtime+5))
+        if [[ $deadtime -gt 60 ]]; then
+            sudo systemctl restart mythbackend.service 
+            deadtime=0
+        fi
+    fi
+done

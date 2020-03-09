@@ -1,0 +1,35 @@
+#!/bin/bash
+if [[ -n $3 ]]
+   then
+       infilename=$(basename "$3")
+       indirname=$(dirname "$3")
+       if [[ -d $2 ]]
+       then
+           echo "Processing $3..."
+       else
+           echo "Creating the $2 directory and processing $3..."
+           mkdir "$2"
+       fi
+       comcall='(batch-resize "'$3'" "./'$2'/'$infilename'" '$1')'
+
+       if [[ $indirname>'./' ]]
+       then
+           echo "Skipped"
+       else
+           gimp --console-messages -i -b "$comcall" '(gimp-quit 1)'
+       fi
+   else
+         echo
+         echo "  This is a shell script for scaling JPEG-images"
+         echo "  (to be used together with the Fu-Script batch_resize.scm,"
+	 echo "   which ist to be saved at the local scripts directory"
+	 echo "   created by GIMP)"
+         echo "  Copyright C 2003 by Anna Shumilina"
+         echo
+         echo "  Usage:"
+         echo "        type 'batch_resize TIMES OUTDIR INFILE' to scale the INFILE"
+	 echo "        to the size that is N times larger then the original size."
+	 echo "        The new image will be saved in the directory OUTDIR."
+         echo "        Giving a fraction N<1 will correspondingly shrink the images."
+	 echo
+    fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+vncserver -name john@mediapc -rfbport 59995 -geometry 1600x1200 -depth 24
+#vncserver -name john@mediapc -rfbport 59995 -geometry 1600x1160 -depth 24
+#vncserver -name john@mediapc -rfbport 59995 -geometry 1600x1200 -depth 24 -nohttpd -nolisten -localhost

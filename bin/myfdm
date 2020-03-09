@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in snapdragonfly-gmail nuonguy-yahoo nuonguy-gmail schmitt.j ; do 
+    /mnt/myth/john/projects/fdm/fdm-1.6/fdm -v -a $i -f /mnt/myth/john/.fdm.conf fetch 2>&1 >> ~/fdm.$i.log
+    mv -f /mnt/myth/john/.fdm.lock /tmp
+done
