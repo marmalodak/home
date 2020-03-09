@@ -1,6 +1,0 @@
-#!/usr/bin/python
-
-import sys
-import os
-
-print os.path.basename( "".join( sys.argv[1:] ) )

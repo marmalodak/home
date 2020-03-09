@@ -1,6 +1,0 @@
-#!/bin/bash
-
-vncserver -desktop v2 -geometry 1600x1200 -rfbport 49995 -depth 24
-#vncserver -desktop home -geometry 1280x1024 -rfbport 59996 -depth 24
-#vncserver -desktop home -geometry 1280x1004 -rfbport 59996 -rfbwait 1000 -deferUpdate 100 -depth 24
-#DISPLAY=:1 vncconfig &

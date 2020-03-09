@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/usr/bin/artsd -F 10 -S 4096 -a alsa -d -m artsmessage -c drkonqi -l 3 -f
