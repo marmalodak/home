@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/usr/bin/find /var/cache/yum -mtime +2 -a \( -regex .\*.rpm -o -regex .\*.hdr \) -exec ls -lrt {} \; 

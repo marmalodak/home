@@ -1,9 +1,0 @@
-#!/bin/bash
-
-/sbin/service mythbackend stop
-
-/sbin/modprobe -r dv1394 raw1394 ohci1394 ieee1394
-/sbin/modprobe ieee1394 disable_irm=1
-/sbin/modprobe ohci1394
-
-/sbin/service mythbackend start

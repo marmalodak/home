@@ -1,5 +1,0 @@
-#!/bin/bash
-
-~/bin/wol.py
-sleep 20
-nohup vncviewer bigmac -FullColour &
