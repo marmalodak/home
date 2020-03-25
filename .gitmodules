@@ -142,3 +142,6 @@
 [submodule "/mnt/myth/john/.vim/pack/vim8/start/vim-jsonnet"]
 	path = /mnt/myth/john/.vim/pack/vim8/start/vim-jsonnet
 	url = https://github.com/google/vim-jsonnet.git
+[submodule "/mnt/myth/john/.vim/pack/vim8/start/vim-surround"]
+	path = /mnt/myth/john/.vim/pack/vim8/start/vim-surround
+	url = https://github.com/tpope/vim-surround
