@@ -139,3 +139,6 @@
 [submodule ".vim/pack/vim8/start/ale"]
 	path = .vim/pack/vim8/start/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule "/mnt/myth/john/.vim/pack/vim8/start/vim-jsonnet"]
+	path = /mnt/myth/john/.vim/pack/vim8/start/vim-jsonnet
+	url = https://github.com/google/vim-jsonnet.git
