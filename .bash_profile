@@ -15,6 +15,7 @@ shopt -s failglob
 shopt -s no_empty_cmd_completion
 
 PATH=$PATH:$HOME/bin:/usr/sbin:/sbin
+PATH=$PATH:~/.venv/bin:$PATH
 # dart lives in ~/.pub-cache?
 PATH=$PATH:$HOME/.pub-cache/bin
 

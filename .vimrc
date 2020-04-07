@@ -6,7 +6,9 @@ imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
 
-set mousemodel=popup
+" set mousemodel=popup
+set mouse=
+set ttymouse=
 set visualbell
 " set noerrorbells
 set guioptions-=T
