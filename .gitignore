@@ -6,8 +6,8 @@
 !/.tmux.conf
 !/.gitignore
 !/.gitmodules
+!/.config/
 !/bin
 **/nohup.out
 **/.netrwhist
 **/.netrwhist~
-
