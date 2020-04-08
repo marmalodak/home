@@ -1,14 +1,17 @@
 "  consider implementing this: https://vimways.org/2018/from-vimrc-to-vim/
-unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+if !has('nvim')
+    unlet! skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
+endif
 
 imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
 
-" set mousemodel=popup
 set mouse=
-set ttymouse=
+if !has('nvim')
+    set ttymouse=
+endif
 set visualbell
 " set noerrorbells
 set guioptions-=T
