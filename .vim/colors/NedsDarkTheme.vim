@@ -1,5 +1,12 @@
-" local syntax file - set colors on a per-machine basis:
 " vim: tw=0 ts=4 sw=4
+"
+" I got the idea to do this from http://stackoverflow.com/a/2211738/1698426
+"
+" This needs to be parameterized so that I can have blue and other variations
+" Also, this needs to be parameterized so that the light and dark themes are
+" just parameters
+"
+" Would it be a good idea to make this a top level project on its own?
 
 hi clear
 set background=dark
@@ -9,8 +16,6 @@ endif
 let g:colors_name    = "NedsDarkTheme"
 let b:green_or_white = "white"
 let b:green_or_white = "green"
-
-" http://stackoverflow.com/a/2211738/1698426
 
 let b:White       = "#ffffff"
 let b:Black       = "#000000"
@@ -39,7 +44,7 @@ else
     let b:BGBright    = "#404040"
 endif
 
-let b:MyDarkScheme =
+let b:NedColourScheme =
     \{
     \   'Normal':
     \   {
@@ -187,10 +192,10 @@ let b:MyDarkScheme =
     \   }
     \}
 
-for group in keys(b:MyDarkScheme)
-    for kw in b:MyDarkScheme[group]['keywords']
-        let b:fg = b:MyDarkScheme[group]['fg']
-        let b:bg = b:MyDarkScheme[group]['bg']
+for group in keys(b:NedColourScheme)
+    for kw in b:NedColourScheme[group]['keywords']
+        let b:fg = b:NedColourScheme[group]['fg']
+        let b:bg = b:NedColourScheme[group]['bg']
         " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg
         let cmd = 'hi ' . kw . ' guifg=' . b:fg . ' guibg=' . b:bg
         " echo cmd

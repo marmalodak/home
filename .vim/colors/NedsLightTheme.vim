@@ -1,4 +1,12 @@
 " vim: tw=0 ts=4 sw=4
+"
+" I got the idea to do this from http://stackoverflow.com/a/2211738/1698426
+"
+" This needs to be parameterized so that I can have blue and other variations
+" Also, this needs to be parameterized so that the light and dark themes are
+" just parameters
+"
+" Would it be a good idea to make this a top level project on its own?
 
 hi clear
 set background=light
@@ -7,8 +15,6 @@ if exists("syntax_on")
 endif
 let g:colors_name    = "NedsLightTheme"
 
-" http://stackoverflow.com/a/2211738/1698426
-
 let b:FGDim       = "#555555"
 let b:FG          = "#333333"
 let b:FGBright    = "#000000"
@@ -16,7 +22,7 @@ let b:BGDim       = "#aaaaaa"
 let b:BG          = "#f5f5f5"
 let b:BGBright    = "#ffff00"
 
-let b:MyDarkScheme =
+let b:NedColourScheme =
     \{
     \   'Normal':
     \   {
@@ -164,10 +170,10 @@ let b:MyDarkScheme =
     \   }
     \}
 
-for group in keys(b:MyDarkScheme)
-    for kw in b:MyDarkScheme[group]['keywords']
-        let b:fg = b:MyDarkScheme[group]['fg']
-        let b:bg = b:MyDarkScheme[group]['bg']
+for group in keys(b:NedColourScheme)
+    for kw in b:NedColourScheme[group]['keywords']
+        let b:fg = b:NedColourScheme[group]['fg']
+        let b:bg = b:NedColourScheme[group]['bg']
         " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg
         let cmd = 'hi ' . kw . ' guifg=' . b:fg . ' guibg=' . b:bg
         " echo cmd
