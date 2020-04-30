@@ -2,10 +2,6 @@
 "
 " I got the idea to do this from http://stackoverflow.com/a/2211738/1698426
 "
-" This needs to be parameterized so that I can have blue and other variations
-" Also, this needs to be parameterized so that the light and dark themes are
-" just parameters
-"
 " Would it be a good idea to make this a top level project on its own?
 
 hi clear
@@ -13,196 +9,263 @@ set background=dark
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name    = "NedsDarkTheme"
-let b:green_or_white = "white"
-let b:green_or_white = "green"
 
 let b:White       = "#ffffff"
+let b:Grey        = "#b0b0b0"
+let b:BrightGrey  = "#dddddd"
+let b:DimGrey     = "#404040"
+let b:DimmerGrey  = "#202020"
+
 let b:Black       = "#000000"
+let b:BrightBlack = "#404040"
+let b:DimBlack    = "#202020"
 
 let b:Green       = "#00b000"
 let b:BrightGreen = "#00ff00"
 let b:DimGreen    = "#004000"
 
-let b:Grey        = "#b0b0b0"
-let b:BrightGrey  = "#dddddd"
-let b:DimGrey     = "#404040"
+let b:Blue        = "#000080"
+let b:BrightBlue  = "#0000ff"
+let b:DimBlue     = "#c0c0ff"
+let b:FadedBlue   = "#4040ff"
 
-if b:green_or_white == "green"
-    let b:FGDim       = b:DimGreen
-    let b:FG          = b:Green
-    let b:FGBright    = b:BrightGreen
-    let b:BGDim       = "#002000"
-    let b:BG          = b:Black
-    let b:BGBright    = "#004000"
-else
-    let b:FGDim       = b:DimGrey
-    let b:FG          = b:Grey
-    let b:FGBright    = b:BrightGrey
-    let b:BGDim       = "#202020"
-    let b:BG          = b:Black
-    let b:BGBright    = "#404040"
-endif
-
-let b:NedColourScheme =
+let b:NedsVariants = 
     \{
-    \   'Normal':
+    \   'NedsWhiteOnBlack':
     \   {
-    \       'fg': b:FG,
-    \       'bg': b:BG,
-    \       'keywords':
-    \       [
-    \           "Normal",
-    \           "Constant",
-    \           "String",
-    \           "Character",
-    \           "Boolean",
-    \           "Float",
-    \           "Number",
-    \           "Special",
-    \           "Identifier",
-    \           "Keyword",
-    \           "Statement",
-    \           "Conditional",
-    \           "Label",
-    \           "Include",
-    \           "Define",
-    \           "PreCondit",
-    \           "Macro",
-    \           "PreProc",
-    \           "StorageClass",
-    \           "Structure",
-    \           "Typedef",
-    \           "Type",
-    \           "Function",
-    \           "Repeat",
-    \           "Operator",
-    \           "Ignore",
-    \           "Tag",
-    \           "SpecialChar",
-    \           "SpecialComment",
-    \           "Scrollbar",
-    \           "SpecialKey",
-    \           "Directory",
-    \           "Underlined",
-    \           "Exception",
-    \       ]
+    \       "background": "light",
+    \       "FGDim"     : b:DimGrey,
+    \       "FG"        : b:Grey,
+    \       "FGBright"  : b:BrightGrey,
+    \       "BGDim"     : b:DimBlack,
+    \       "BG"        : b:Black,
+    \       "BGBright"  : b:BrightBlack
     \   },
-    \   'NormalSlightEmphasis':
+    \   'NedsGreenOnBlack':
     \   {
-    \       'fg': b:FGBright,
-    \       'bg': b:BG,
-    \       'keywords':
-    \       [
-    \           "Menu",
-    \           "Comment",
-    \           "Pmenu",
-    \           "SpellCap",
-    \           "SpellLocal",
-    \           "SpellRare",
-    \           "MatchParen",
-    \           "Delimiter",
-    \           "Question",
-    \           "asciidocOneLineTitle",
-    \       ]
+    \       "background": "dark",
+    \       "FGDim"     : b:DimGreen,
+    \       "FG"        : b:Green,
+    \       "FGBright"  : b:BrightGreen,
+    \       "BGDim"     : b:DimBlack,
+    \       "BG"        : b:Black,
+    \       "BGBright"  : b:BrightBlack
     \   },
-    \   'Cursor':
+    \   'NedsBlackOnWhite':
     \   {
-    \       'fg': b:FG,
-    \       'bg': b:BGDim,
-    \       'keywords':
-    \       [
-    \           "Cursor",
-    \           "CursorLine",
-    \           "CursorColumn",
-    \       ]
+    \       "background": "light",
+    \       "FGDim"     : b:DimGrey,
+    \       "FG"        : b:Grey,
+    \       "FGBright"  : b:BrightGrey,
+    \       "BGDim"     : b:DimmerGrey,
+    \       "BG"        : b:Black,
+    \       "BGBright"  : b:DimGrey
     \   },
-    \   'Scary':
+    \   'NedsBlueOnWhite':
     \   {
-    \       'fg': 'white',
-    \       'bg': 'red',
-    \       'keywords':
-    \       [
-    \           "Error",
-    \           "ErrorMsg",
-    \           "Debug",
-    \           "SpellBad",
-    \           "SpellCap",
-    \           "SpellLocal",
-    \           "SpellRare",
-    \           "StatusLine",
-    \           "myFixme",
-    \       ]
+    \       "background": "light",
+    \       "FGDim"     : b:DimBlue,
+    \       "FG"        : b:Blue,
+    \       "FGBright"  : b:BrightBlue,
+    \       "BGDim"     : b:DimBlue,
+    \       "BG"        : b:White,
+    \       "BGBright"  : b:DimBlue
     \   },
-    \   'Highlight':
+    \   'NedsWhiteOnBlue':
     \   {
-    \       'fg': b:FG,
-    \       'bg': b:BGBright,
-    \       'keywords':
-    \       [
-    \           "ModeMsg",
-    \           "WarningMsg",
-    \           "Search",
-    \           "Visual",
-    \           "Todo",
-    \       ]
+    \       "background": "light",
+    \       "FGDim"     : b:FadedBlue,
+    \       "FG"        : b:Grey,
+    \       "FGBright"  : b:White,
+    \       "BGDim"     : b:FadedBlue,
+    \       "BG"        : b:Blue,
+    \       "BGBright"  : b:BrightBlue
     \   },
-    \   'De-emphasize':
-    \   {
-    \       'fg': b:FGDim,
-    \       'bg': b:BG,
-    \       'keywords':
-    \       [
-    \           "LineNr",
-    \           "CursorLineNr",
-    \           "Folded",
-    \           "FoldedColumn",
-    \       ]
-    \   },
-    \   'Emphasize':
-    \   {
-    \       'fg': b:BG,
-    \       'bg': b:FGBright,
-    \       'keywords':
-    \       [
-    \           "PmenuSel",
-    \       ]
-    \   },
-    \   'Widget':
-    \   {
-    \       'fg': b:FGDim,
-    \       'bg': b:BGDim,
-    \       'keywords':
-    \       [
-    \           "MoreMsg",
-    \           "StatusLineNC",
-    \           "Title",
-    \           "TabLine",
-    \           "TabLineFill",
-    \       ]
-    \   },
-    \   'WidgetSel':
-    \   {
-    \       'fg': b:FGBright,
-    \       'bg': b:BG,
-    \       'keywords':
-    \       [
-    \           "TabLineSel",
-    \       ]
-    \   }
     \}
+try
+    if !exists(g:NedsCurrentVariant)  " I did not expect this to throw an exception if it's not defined
+        let g:NedsCurrentVariant = keys(b:NedsVariants)[0]
+    endif
+catch /Undefined/
+    let g:NedsCurrentVariant = keys(b:NedsVariants)[0]
+endtry
 
-for group in keys(b:NedColourScheme)
-    for kw in b:NedColourScheme[group]['keywords']
-        let b:fg = b:NedColourScheme[group]['fg']
-        let b:bg = b:NedColourScheme[group]['bg']
-        " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg
-        let cmd = 'hi ' . kw . ' guifg=' . b:fg . ' guibg=' . b:bg
-        " echo cmd
-        exe 'hi clear ' . kw
-        exe cmd
+function! NedsSchemeUpdate()
+    let b:FG         = b:NedsVariants[g:NedsCurrentVariant]['FG']
+    let b:BG         = b:NedsVariants[g:NedsCurrentVariant]['BG']
+    let b:FGDim      = b:NedsVariants[g:NedsCurrentVariant]['FGDim']
+    let b:BGDim      = b:NedsVariants[g:NedsCurrentVariant]['BGDim']
+    let b:FGBright   = b:NedsVariants[g:NedsCurrentVariant]['FGBright']
+    let b:BGBright   = b:NedsVariants[g:NedsCurrentVariant]['BGBright']
+    let b:background = b:NedsVariants[g:NedsCurrentVariant]['background']
+    let b:NedColourScheme =
+        \{
+        \   'Normal':
+        \   {
+        \       'fg': b:FG,
+        \       'bg': b:BG,
+        \       'keywords':
+        \       [
+        \           "Normal",
+        \           "Constant",
+        \           "String",
+        \           "Character",
+        \           "Boolean",
+        \           "Float",
+        \           "Number",
+        \           "Special",
+        \           "Identifier",
+        \           "Keyword",
+        \           "Statement",
+        \           "Conditional",
+        \           "Label",
+        \           "Include",
+        \           "Define",
+        \           "PreCondit",
+        \           "Macro",
+        \           "PreProc",
+        \           "StorageClass",
+        \           "Structure",
+        \           "Typedef",
+        \           "Type",
+        \           "Function",
+        \           "Repeat",
+        \           "Operator",
+        \           "Ignore",
+        \           "Tag",
+        \           "SpecialChar",
+        \           "SpecialComment",
+        \           "Scrollbar",
+        \           "SpecialKey",
+        \           "Directory",
+        \           "Underlined",
+        \           "Exception",
+        \       ]
+        \   },
+        \   'NormalSlightEmphasis':
+        \   {
+        \       'fg': b:FGBright,
+        \       'bg': b:BG,
+        \       'keywords':
+        \       [
+        \           "Menu",
+        \           "Comment",
+        \           "Pmenu",
+        \           "SpellCap",
+        \           "SpellLocal",
+        \           "SpellRare",
+        \           "MatchParen",
+        \           "Delimiter",
+        \           "Question",
+        \           "asciidocOneLineTitle",
+        \       ]
+        \   },
+        \   'Cursor':
+        \   {
+        \       'fg': b:FG,
+        \       'bg': b:BGDim,
+        \       'keywords':
+        \       [
+        \           "Cursor",
+        \           "CursorLine",
+        \           "CursorColumn",
+        \       ]
+        \   },
+        \   'Scary':
+        \   {
+        \       'fg': 'white',
+        \       'bg': 'red',
+        \       'keywords':
+        \       [
+        \           "Error",
+        \           "ErrorMsg",
+        \           "Debug",
+        \           "SpellBad",
+        \           "SpellCap",
+        \           "SpellLocal",
+        \           "SpellRare",
+        \           "StatusLine",
+        \           "myFixme",
+        \       ]
+        \   },
+        \   'Highlight':
+        \   {
+        \       'fg': b:FG,
+        \       'bg': b:BGBright,
+        \       'keywords':
+        \       [
+        \           "ModeMsg",
+        \           "WarningMsg",
+        \           "Search",
+        \           "Visual",
+        \           "Todo",
+        \       ]
+        \   },
+        \   'De-emphasize':
+        \   {
+        \       'fg': b:FGDim,
+        \       'bg': b:BG,
+        \       'keywords':
+        \       [
+        \           "LineNr",
+        \           "CursorLineNr",
+        \           "Folded",
+        \           "FoldedColumn",
+        \       ]
+        \   },
+        \   'Emphasize':
+        \   {
+        \       'fg': b:BG,
+        \       'bg': b:FGBright,
+        \       'keywords':
+        \       [
+        \           "PmenuSel",
+        \       ]
+        \   },
+        \   'Widget':
+        \   {
+        \       'fg': b:FGDim,
+        \       'bg': b:BGDim,
+        \       'keywords':
+        \       [
+        \           "MoreMsg",
+        \           "StatusLineNC",
+        \           "Title",
+        \           "TabLine",
+        \           "TabLineFill",
+        \       ]
+        \   },
+        \   'WidgetSel':
+        \   {
+        \       'fg': b:FGBright,
+        \       'bg': b:BG,
+        \       'keywords':
+        \       [
+        \           "TabLineSel",
+        \       ]
+        \   }
+        \}
+
+    highlight clear
+    exe "set background=" . b:background
+    if exists("syntax_on")
+      syntax reset
+    endif
+    let g:colors_name = g:NedsCurrentVariant
+    for group in keys(b:NedColourScheme)
+        for kw in b:NedColourScheme[group]['keywords']
+            exe 'highlight clear ' . kw
+            let b:fg = b:NedColourScheme[group]['fg']
+            let b:bg = b:NedColourScheme[group]['bg']
+            " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg " this is commented out because I don't know how to ctermfg=#rrggbb
+            " exe cmd
+            let cmd = 'highlight ' . kw . ' guifg=' . b:fg . ' guibg=' . b:bg
+            exe cmd
+        endfor
     endfor
-endfor
+endfunction
+
+call NedsSchemeUpdate()
 
 " Does this have to be on the bottom?
 " http://stackoverflow.com/a/4097541/1698426
@@ -219,16 +282,39 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
-function! ToggleGreenWhite()
-    if b:green_or_white == "green" 
-        let b:green_or_white = "white"
-    else
-        let b:green_or_white = "green"
+function! g:NedColorSchemeCycler()
+    let l:all_schemes = keys(b:NedsVariants)
+    " echo l:all_schemes
+    let l:current_scheme_index = index(keys(b:NedsVariants), g:NedsCurrentVariant)
+    let l:current_scheme_index = l:current_scheme_index + 1
+    if l:current_scheme_index >= len(l:all_schemes)
+        let l:current_scheme_index = 0
     endif
-    colorscheme NedsDarkTheme
+    let l:current_scheme = l:all_schemes[current_scheme_index]
+    let g:NedsCurrentVariant = l:current_scheme
+    call NedsSchemeUpdate()
+    echo 'Colorscheme set to ' . l:current_scheme 
 endfunction
-command! ToggleGreenWhite call ToggleGreenWhite()
-nnoremap <silent> <S-F10> :ToggleGreenWhite<CR>
+command! NedColorSchemeCycler call NedColorSchemeCycler()
+nnoremap <silent> <S-F11> :NedColorSchemeCycler<CR>
+
+" https://vi.stackexchange.com/a/15399/532
+function! g:ColorSchemeCycler()
+    let l:all_schemes = getcompletion('', 'color')
+    echo l:all_schemes
+    let l:current_scheme = get(g:, 'colors_name', 'default')
+    let l:current_index = index(l:all_schemes, l:current_scheme)
+    if l:current_index >= 0
+        let l:current_index = l:current_index +1
+        if l:current_index >= len(l:all_schemes)
+            let l:current_index = 0
+        endif
+        exe 'colorscheme ' . l:all_schemes[l:current_index]
+        echo 'Colorscheme set to ' . l:all_schemes[l:current_index]
+    endif
+endfunction
+command! ColorSchemeCycler call ColorSchemeCycler()
+nnoremap <silent> <S-F10> :ColorSchemeCycler<CR>
 
 " hitest.vim shows all the groups currently active
 "    :so $VIMRUNTIME/syntax/hitest.vim
