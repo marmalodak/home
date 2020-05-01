@@ -9,7 +9,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let g:colors_name = "NedsMultiTheme"
+let g:colors_name = "nedsmultitheme"
 
 let b:White       = "#ffffff"
 let b:Grey        = "#b0b0b0"
@@ -91,7 +91,7 @@ catch /Undefined/
     let g:NedsCurrentVariant = keys(b:NedsVariants)[0]
 endtry
 
-function! NedsSchemeUpdate()
+function! s:NedsSchemeUpdate()
     let b:FG         = b:NedsVariants[g:NedsCurrentVariant]['FG']
     let b:BG         = b:NedsVariants[g:NedsCurrentVariant]['BG']
     let b:FGDim      = b:NedsVariants[g:NedsCurrentVariant]['FGDim']
@@ -247,7 +247,6 @@ function! NedsSchemeUpdate()
         \   }
         \}
 
-    exe "set background=" . b:background
     for group in keys(b:NedColourScheme)
         for kw in b:NedColourScheme[group]['keywords']
             exe 'highlight clear ' . kw
@@ -259,11 +258,10 @@ function! NedsSchemeUpdate()
             exe cmd
         endfor
     endfor
+    exe "set background=" . b:background
 endfunction
 
-call NedsSchemeUpdate()
-redraw
-mode
+call s:NedsSchemeUpdate()
 
 " Does this have to be on the bottom?
 " http://stackoverflow.com/a/4097541/1698426
@@ -280,46 +278,43 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
-function! g:NedColorSchemeCycler()
+function! s:NedColorSchemeCycler()
     let l:all_schemes = keys(b:NedsVariants)
     let l:current_scheme_index = index(keys(b:NedsVariants), g:NedsCurrentVariant)
-    let l:current_scheme_index = l:current_scheme_index + 1
-    if l:current_scheme_index >= len(l:all_schemes)
+    if l:current_scheme_index < 0
         let l:current_scheme_index = 0
+    else
+        let l:current_scheme_index = l:current_scheme_index + 1
+        if l:current_scheme_index >= len(l:all_schemes)
+            let l:current_scheme_index = 0
+        endif
     endif
     let l:current_scheme = l:all_schemes[l:current_scheme_index]
     let g:NedsCurrentVariant = l:current_scheme
     let b:background = b:NedsVariants[g:NedsCurrentVariant]["background"]
-    call NedsSchemeUpdate()
-    " echo 'Colorscheme set to ' . l:current_scheme 
+    call s:NedsSchemeUpdate()
     echo string(l:current_scheme_index) . ": " . l:current_scheme . ', ' . string(l:all_schemes)
 endfunction
-command! NedColorSchemeCycler call NedColorSchemeCycler()
+command! NedColorSchemeCycler call s:NedColorSchemeCycler()
 nnoremap <silent> <S-F11> :NedColorSchemeCycler<CR>
 
 " https://vi.stackexchange.com/a/15399/532
-function! g:ColorSchemeCycler()
+function! s:ColorSchemeCycler()
     let l:all_schemes = getcompletion('', 'color')
     let l:current_scheme = get(g:, 'colors_name', 'default')
-    echo "current_scheme : ". l:current_scheme
     let l:current_index = index(l:all_schemes, l:current_scheme)
-    echo "current_index: " . string(l:current_index)
     if l:current_index < 0
         let l:current_index = 0
     else
         let l:current_index = l:current_index +1
-        echo "current_index: " . string(l:current_index)
         if l:current_index >= len(l:all_schemes)
             let l:current_index = 0
         endif
-        echo "current_index: " . string(l:current_index)
     endif
     exe 'colorscheme ' . l:all_schemes[l:current_index]
     echo 'Colorscheme set to ' . l:all_schemes[l:current_index] . string(l:all_schemes)
-    redraw
-    mode
 endfunction
-command! ColorSchemeCycler call ColorSchemeCycler()
+command! ColorSchemeCycler call s:ColorSchemeCycler()
 nnoremap <silent> <S-F10> :ColorSchemeCycler<CR>
 
 " hitest.vim shows all the groups currently active
