@@ -4,11 +4,12 @@
 "
 " Would it be a good idea to make this a top level project on its own?
 
-hi clear
-set background=dark
+highlight clear
 if exists("syntax_on")
   syntax reset
 endif
+
+let g:colors_name = "NedsMultiTheme"
 
 let b:White       = "#ffffff"
 let b:Grey        = "#b0b0b0"
@@ -33,20 +34,10 @@ let b:NedsVariants =
     \{
     \   'NedsWhiteOnBlack':
     \   {
-    \       "background": "light",
+    \       "background": "dark",
     \       "FGDim"     : b:DimGrey,
     \       "FG"        : b:Grey,
     \       "FGBright"  : b:BrightGrey,
-    \       "BGDim"     : b:DimBlack,
-    \       "BG"        : b:Black,
-    \       "BGBright"  : b:BrightBlack
-    \   },
-    \   'NedsGreenOnBlack':
-    \   {
-    \       "background": "dark",
-    \       "FGDim"     : b:DimGreen,
-    \       "FG"        : b:Green,
-    \       "FGBright"  : b:BrightGreen,
     \       "BGDim"     : b:DimBlack,
     \       "BG"        : b:Black,
     \       "BGBright"  : b:BrightBlack
@@ -60,6 +51,16 @@ let b:NedsVariants =
     \       "BGDim"     : b:DimmerGrey,
     \       "BG"        : b:Black,
     \       "BGBright"  : b:DimGrey
+    \   },
+    \   'NedsGreenOnBlack':
+    \   {
+    \       "background": "dark",
+    \       "FGDim"     : b:DimGreen,
+    \       "FG"        : b:Green,
+    \       "FGBright"  : b:BrightGreen,
+    \       "BGDim"     : b:DimBlack,
+    \       "BG"        : b:Black,
+    \       "BGBright"  : b:BrightBlack
     \   },
     \   'NedsBlueOnWhite':
     \   {
@@ -246,12 +247,7 @@ function! NedsSchemeUpdate()
         \   }
         \}
 
-    highlight clear
     exe "set background=" . b:background
-    if exists("syntax_on")
-      syntax reset
-    endif
-    let g:colors_name = g:NedsCurrentVariant
     for group in keys(b:NedColourScheme)
         for kw in b:NedColourScheme[group]['keywords']
             exe 'highlight clear ' . kw
@@ -266,6 +262,8 @@ function! NedsSchemeUpdate()
 endfunction
 
 call NedsSchemeUpdate()
+redraw
+mode
 
 " Does this have to be on the bottom?
 " http://stackoverflow.com/a/4097541/1698426
@@ -284,16 +282,17 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 function! g:NedColorSchemeCycler()
     let l:all_schemes = keys(b:NedsVariants)
-    " echo l:all_schemes
     let l:current_scheme_index = index(keys(b:NedsVariants), g:NedsCurrentVariant)
     let l:current_scheme_index = l:current_scheme_index + 1
     if l:current_scheme_index >= len(l:all_schemes)
         let l:current_scheme_index = 0
     endif
-    let l:current_scheme = l:all_schemes[current_scheme_index]
+    let l:current_scheme = l:all_schemes[l:current_scheme_index]
     let g:NedsCurrentVariant = l:current_scheme
+    let b:background = b:NedsVariants[g:NedsCurrentVariant]["background"]
     call NedsSchemeUpdate()
-    echo 'Colorscheme set to ' . l:current_scheme 
+    " echo 'Colorscheme set to ' . l:current_scheme 
+    echo string(l:current_scheme_index) . ": " . l:current_scheme . ', ' . string(l:all_schemes)
 endfunction
 command! NedColorSchemeCycler call NedColorSchemeCycler()
 nnoremap <silent> <S-F11> :NedColorSchemeCycler<CR>
@@ -301,17 +300,24 @@ nnoremap <silent> <S-F11> :NedColorSchemeCycler<CR>
 " https://vi.stackexchange.com/a/15399/532
 function! g:ColorSchemeCycler()
     let l:all_schemes = getcompletion('', 'color')
-    echo l:all_schemes
     let l:current_scheme = get(g:, 'colors_name', 'default')
+    echo "current_scheme : ". l:current_scheme
     let l:current_index = index(l:all_schemes, l:current_scheme)
-    if l:current_index >= 0
+    echo "current_index: " . string(l:current_index)
+    if l:current_index < 0
+        let l:current_index = 0
+    else
         let l:current_index = l:current_index +1
+        echo "current_index: " . string(l:current_index)
         if l:current_index >= len(l:all_schemes)
             let l:current_index = 0
         endif
-        exe 'colorscheme ' . l:all_schemes[l:current_index]
-        echo 'Colorscheme set to ' . l:all_schemes[l:current_index]
+        echo "current_index: " . string(l:current_index)
     endif
+    exe 'colorscheme ' . l:all_schemes[l:current_index]
+    echo 'Colorscheme set to ' . l:all_schemes[l:current_index] . string(l:all_schemes)
+    redraw
+    mode
 endfunction
 command! ColorSchemeCycler call ColorSchemeCycler()
 nnoremap <silent> <S-F10> :ColorSchemeCycler<CR>
