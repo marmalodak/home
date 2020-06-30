@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+# powerline doesn't work unless powerline-config is specified
+
+(source ~/.venv/bin/activate; POWERLINE_CONFIG_COMMAND=~/.venv/bin/powerline-config tmux)
