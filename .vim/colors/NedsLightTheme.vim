@@ -19,7 +19,7 @@ let b:FGDim       = "#555555"
 let b:FG          = "#333333"
 let b:FGBright    = "#000000"
 let b:BGDim       = "#aaaaaa"
-let b:BG          = "#f5f5f5"
+let b:BG          = "#fafafa"
 let b:BGBright    = "#ffff00"
 
 let b:NedColourScheme =
