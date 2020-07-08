@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+	<menu execute="/usr/libexec/openbox-xdg-menu applications" id="applications-menu" label="Applications"/>
+	<menu execute="/usr/libexec/openbox-xdg-menu preferences" id="preferences-menu" label="Preferences"/>
+	<menu execute="/usr/libexec/openbox-xdg-menu system-settings" id="administration-menu" label="Administration"/>
+	<menu execute="/usr/libexec/openbox-xdg-menu /etc/xdg/openbox/terminals" id="terminals-menu" label="Terminals"/>
+	<menu icon="ICON" id="None-43207" label="Favourites">
+		<item label="Firefox">
+			<action name="Execute">
+				<command>firefox</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="konsole">
+			<action name="Execute">
+				<command>konsole</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+	</menu>
+	<menu id="root-menu" label="Openbox 3">
+		<item label="rofi">
+			<action name="Execute">
+				<command>rofi -show run</command>
+			</action>
+		</item>
+		<item label="krunner">
+			<action name="Execute">
+				<command>krunner</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="Firefox">
+			<action name="Execute">
+				<command>firefox</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="terminology">
+			<action name="Execute">
+				<command>terminology</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="virt-manager">
+			<action name="Execute">
+				<command>virt-manager</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<item label="qt5-virt-manager">
+			<action name="Execute">
+				<command>qt5-virt-manager</command>
+				<startupnotify>
+					<enabled>yes</enabled>
+				</startupnotify>
+			</action>
+		</item>
+		<separator label="Openbox"/>
+		<menu id="applications-menu"/>
+		<menu id="preferences-menu"/>
+		<menu id="administration-menu"/>
+		<separator/>
+		<menu id="terminals-menu"/>
+		<separator/>
+		<item label="Reconfigure">
+			<action name="Reconfigure"/>
+		</item>
+		<item label="Exit">
+			<action name="Exit">
+				<prompt>yes</prompt>
+			</action>
+		</item>
+		<separator/>
+		<item label="Log Out">
+			<action name="SessionLogout">
+				<prompt>yes</prompt>
+			</action>
+		</item>
+	</menu>
+</openbox_menu>
