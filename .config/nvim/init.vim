@@ -10,3 +10,9 @@ au BufWritePre * let bakupdir="~/.nvimbackup" . expand("%:p:h") |
                \ silent exec(bak)                               |
                \ exec("set backupdir=" . bakupdir)              |
                \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
+
+
+" Use <control+w><control+w> to exit insert mode in a terminal
+tnoremap <C-w><C-w> <C-\><C-n>
+" Use <control+[> to exit insert mode in a terminal
+tnoremap <C-[> <C-\><C-n>
