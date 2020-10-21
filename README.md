@@ -24,4 +24,6 @@ Also, manually install oh-my-zsh, powerlevel10k, and zsh-autosuggestions:
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [zsh autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
+On a new installation, I probably want
 
+    git submodule update --init --recursive
