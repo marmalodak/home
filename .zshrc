@@ -1,3 +1,13 @@
+if [[ -o interactive ]]; then  # is zsh interactive?
+    if [[ -z "$TMUX" ]]; then
+        if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
+            tmux attach
+        fi
+    fi
+fi
+
+[[ ! -f ~/.motd ]] || source ~/.motd
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.

@@ -8,6 +8,7 @@
 !/.gitignore
 !/.gitmodules
 !/.config/
+!/.motd
 !/bin
 **/nohup.out
 **/.netrwhist
