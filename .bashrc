@@ -111,3 +111,5 @@ if [[ $- == *i* ]]; then  # is bash interactive?
         fi
     fi
 fi
+
+[[ ! -f ~/.motd ]] || source ~/.motd
