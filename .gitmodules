@@ -157,3 +157,6 @@
 [submodule ".vim/pack/vim8/start/lightline.vim.git"]
 	path = .vim/pack/vim8/start/lightline.vim.git
 	url = https://github.com/itchyny/lightline.vim.git
+[submodule ".oh-my-zsh"]
+	path = .oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
