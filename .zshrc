@@ -6,7 +6,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/projects/brew/bin:/usr/local/bin:$PATH
+# move /opt/brew/bin before /usr et al
+if [[ -e /opt/brew/bin ]]; then
+    # remove /opt/brew/bin
+    PATH=${PATH/:\/opt\/brew\/bin//}
+    # put /opt/brew/bin at the front
+    PATH="/opt/brew/bin:$PATH"
+fi
+export PATH="$HOME/bin:$PATH"
 
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments
