@@ -1,7 +1,6 @@
-" vim: tw=0 ts=4 sw=4
-"
 " I got the idea to do this from http://stackoverflow.com/a/2211738/1698426
 "
+" TODO
 " This needs to be parameterized so that I can have blue and other variations
 " Also, this needs to be parameterized so that the light and dark themes are
 " just parameters
@@ -9,18 +8,21 @@
 " Would it be a good idea to make this a top level project on its own?
 
 hi clear
-set background=light
 if exists("syntax_on")
-  syntax reset
+    syntax reset
 endif
-let g:colors_name    = "NedsLightTheme"
 
-let b:FGDim       = "#555555"
-let b:FG          = "#333333"
-let b:FGBright    = "#000000"
-let b:BGDim       = "#aaaaaa"
-let b:BG          = "#fafafa"
-let b:BGBright    = "#ffff00"
+set background=light
+let g:colors_name = "NedsLightTheme"
+
+let b:FGDim       = {'gui': "#555555", 'cterm': "LightGray" }
+let b:FG          = {'gui': "#333333", 'cterm': "DarkGray"  }
+let b:FGBright    = {'gui': "#000000", 'cterm': "Black"     }
+let b:BGDim       = {'gui': "#aaaaaa", 'cterm': "Gray"      }
+let b:BG          = {'gui': "#fafafa", 'cterm': "LightGray" }
+let b:BGBright    = {'gui': "#ffff00", 'cterm': "White"     }
+let b:FGScary     = {'gui': "White",   'cterm': "White"     }
+let b:BGScary     = {'gui': "Red",     'cterm': "Red"       }
 
 let b:NedColourScheme =
     \{
@@ -64,6 +66,7 @@ let b:NedColourScheme =
     \           "Directory",
     \           "Underlined",
     \           "Exception",
+    \           "Terminal",
     \       ]
     \   },
     \   'NormalSlightEmphasis':
@@ -97,8 +100,8 @@ let b:NedColourScheme =
     \   },
     \   'Scary':
     \   {
-    \       'fg': 'white',
-    \       'bg': 'red',
+    \       'fg': b:FGScary,
+    \       'bg': b:BGScary,
     \       'keywords':
     \       [
     \           "Error",
@@ -174,21 +177,21 @@ for group in keys(b:NedColourScheme)
     for kw in b:NedColourScheme[group]['keywords']
         let b:fg = b:NedColourScheme[group]['fg']
         let b:bg = b:NedColourScheme[group]['bg']
-        " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg
-        let cmd = 'hi ' . kw . ' guifg=' . b:fg . ' guibg=' . b:bg
-        " echo cmd
+        let cmd = 'hi ' . kw . ' guifg=' . b:fg['gui'] . ' guibg=' . b:bg['gui']
+        let cmd = cmd . ' ctermfg=' . b:fg['cterm'] . ' ctermbg=' .  b:bg['cterm']
+        " $VIMRUNTIME/colors/tools/check_colors.vim seems to recommend not running hi clear
+        " - but this leaves an underline on the cursorline
         exe 'hi clear ' . kw
         exe cmd
     endfor
 endfor
 
-" Does this have to be on the bottom?
+" The rest of this file might be better in my .vimrc
 " http://stackoverflow.com/a/4097541/1698426
 syn match   myTodo   contained   "\<\(TODO\|FIXME\):"
 hi def link myTodo Todo
 " for FIXME and FIXME:
 syn match   myFixme   contained   "\<\(FIXME\):"
-" hi def link myTodo Todo
 
 
 " https://www.reddit.com/r/vim/comments/4nxeyq/where_to_find_a_list_of_all_the_syntax_groups_in/d47rqtg?utm_source=share&utm_medium=web2x
@@ -202,3 +205,5 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 function! SyntaxItem()
       return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
+
+" vim: tw=0 ts=4 sw=4
