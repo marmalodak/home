@@ -4,7 +4,7 @@
 "
 " Would it be a good idea to make this a top level project on its own?
 
-highlight clear
+" highlight clear
 if exists("syntax_on")
   syntax reset
 endif
@@ -42,6 +42,16 @@ let b:NedsVariants =
     \       "BG"        : b:Black,
     \       "BGBright"  : b:BrightBlack
     \   },
+    \   'NedsBlackOnWhiteDebug':
+    \   {
+    \       "background": "light",
+    \       "FGDim"     : b:Black,
+    \       "FG"        : b:Black,
+    \       "FGBright"  : b:Black,
+    \       "BGDim"     : b:White,
+    \       "BG"        : b:White,
+    \       "BGBright"  : b:White
+    \   },
     \   'NedsBlackOnWhite':
     \   {
     \       "background": "light",
@@ -49,7 +59,7 @@ let b:NedsVariants =
     \       "FG"        : b:Grey,
     \       "FGBright"  : b:BrightGrey,
     \       "BGDim"     : b:DimmerGrey,
-    \       "BG"        : b:Black,
+    \       "BG"        : b:White,
     \       "BGBright"  : b:DimGrey
     \   },
     \   'NedsGreenOnBlack':
@@ -83,15 +93,12 @@ let b:NedsVariants =
     \       "BGBright"  : b:BrightBlue
     \   },
     \}
-try
-    if !exists(g:NedsCurrentVariant)  " I did not expect this to throw an exception if it's not defined
-        let g:NedsCurrentVariant = keys(b:NedsVariants)[0]
-    endif
-catch /Undefined/
-    let g:NedsCurrentVariant = keys(b:NedsVariants)[0]
-endtry
 
-function! s:NedsSchemeUpdate()
+if !exists("g:NedsCurrentVariant")
+    let g:NedsCurrentVariant = keys(b:NedsVariants)[0]
+endif
+
+function! NedsSchemeUpdate()
     let b:FG         = b:NedsVariants[g:NedsCurrentVariant]['FG']
     let b:BG         = b:NedsVariants[g:NedsCurrentVariant]['BG']
     let b:FGDim      = b:NedsVariants[g:NedsCurrentVariant]['FGDim']
@@ -111,7 +118,7 @@ function! s:NedsSchemeUpdate()
         \           "Constant",
         \           "String",
         \           "Character",
-        \           "Boolean",
+        Boolean",
         \           "Float",
         \           "Number",
         \           "Special",
@@ -249,7 +256,7 @@ function! s:NedsSchemeUpdate()
 
     for group in keys(b:NedColourScheme)
         for kw in b:NedColourScheme[group]['keywords']
-            exe 'highlight clear ' . kw
+            " exe 'highlight clear ' . kw
             let b:fg = b:NedColourScheme[group]['fg']
             let b:bg = b:NedColourScheme[group]['bg']
             " let cmd = 'hi ' . kw . ' ctermfg=' . b:fg . ' ctermbg=' . b:bg " this is commented out because I don't know how to ctermfg=#rrggbb
@@ -261,7 +268,7 @@ function! s:NedsSchemeUpdate()
     exe "set background=" . b:background
 endfunction
 
-call s:NedsSchemeUpdate()
+" call NedsSchemeUpdate()  " is this what causes the E127 function is in use?
 
 " Does this have to be on the bottom?
 " http://stackoverflow.com/a/4097541/1698426
@@ -278,7 +285,7 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
-function! s:NedColorSchemeCycler()
+function! NedColorSchemeCycler()
     let l:all_schemes = keys(b:NedsVariants)
     let l:current_scheme_index = index(keys(b:NedsVariants), g:NedsCurrentVariant)
     if l:current_scheme_index < 0
@@ -292,14 +299,14 @@ function! s:NedColorSchemeCycler()
     let l:current_scheme = l:all_schemes[l:current_scheme_index]
     let g:NedsCurrentVariant = l:current_scheme
     let b:background = b:NedsVariants[g:NedsCurrentVariant]["background"]
-    call s:NedsSchemeUpdate()
+    call NedsSchemeUpdate()
     echo string(l:current_scheme_index) . ": " . l:current_scheme . ', ' . string(l:all_schemes)
 endfunction
-command! NedColorSchemeCycler call s:NedColorSchemeCycler()
+command! NedColorSchemeCycler call NedColorSchemeCycler()
 nnoremap <silent> <S-F11> :NedColorSchemeCycler<CR>
 
 " https://vi.stackexchange.com/a/15399/532
-function! s:ColorSchemeCycler()
+function! ColorSchemeCycler()
     let l:all_schemes = getcompletion('', 'color')
     let l:current_scheme = get(g:, 'colors_name', 'default')
     let l:current_index = index(l:all_schemes, l:current_scheme)
@@ -312,9 +319,9 @@ function! s:ColorSchemeCycler()
         endif
     endif
     exe 'colorscheme ' . l:all_schemes[l:current_index]
-    echo 'Colorscheme set to ' . l:all_schemes[l:current_index] . string(l:all_schemes)
+    echo 'Colorscheme set to ' . l:all_schemes[l:current_index] . " " . string(l:all_schemes)
 endfunction
-command! ColorSchemeCycler call s:ColorSchemeCycler()
+command! ColorSchemeCycler call ColorSchemeCycler()
 nnoremap <silent> <S-F10> :ColorSchemeCycler<CR>
 
 " hitest.vim shows all the groups currently active

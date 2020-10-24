@@ -12,7 +12,7 @@ Create a python 3 virtual environment:
     $ source ~/.venv/bin/activate
     $ pip install --upgrade pip powerline-status
 
-Also, manually install oh-my-zsh and powerlevel10k:
+Also, manually install oh-my-zsh and powerlevel10k, and nerd fonts (via brew for mac)
 
 https://github.com/ohmyzsh/ohmyzsh
 https://github.com/romkatv/powerlevel10k
