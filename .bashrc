@@ -16,13 +16,24 @@ fi
 
 shopt -s histappend
 
+which exa > /dev/null 2>&1
+exa_not_exists=$?
+
+if [[ $exa_not_exists -ne 0 ]]; then
+    alias ll='ls -l'
+    alias lr='ls -alrth'
+else
+    alias ll='exa -l'
+    alias lr='exa -alh --sort=date'
+    alias lc='exa -1'
+    alias lt='exa -T'
+    alias ll='exa -l'
+    alias lr='exa -albh --sort=accessed --git'
+    alias lR='exa -albh --sort=accessed --git --extended'
+fi
+
 unalias vi
 alias vi='vim -v -C --clean --noplugin'
-alias lc='exa -1'
-alias lt='exa -T'
-alias ll='exa -l'
-alias lr='exa -albh --sort=accessed --git'
-alias lR='exa -albh --sort=accessed --git --extended'
 alias view='vim -R'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'

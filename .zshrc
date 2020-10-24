@@ -16,7 +16,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/projects/brew/bin:/usr/local/bin:$PATH
+# move /opt/brew/bin before /usr et al
+if [[ -e /opt/brew/bin ]]; then
+    # remove /opt/brew/bin
+    PATH=${PATH/:\/opt\/brew\/bin//}
+    # put /opt/brew/bin at the front
+    PATH="/opt/brew/bin:$PATH"
+fi
+export PATH="$HOME/bin:$PATH"
+
+# https://unix.stackexchange.com/a/557490/30160
+setopt interactive_comments
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -85,7 +95,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git chucknorris colored-man-pages command-not-found pip virtualenv)
+plugins=(git chucknorris colored-man-pages command-not-found zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,8 +125,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll='exa -l'
-alias lr='exa -alh --sort=date'
+which exa > /dev/null 2>&1
+exa_not_exists=$?
+
+if [[ $exa_not_exists -ne 0 ]]; then
+    alias ll='ls -l'
+    alias lr='ls -alrth'
+else
+    alias ll='exa -l'
+    alias lr='exa -alh --sort=date'
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

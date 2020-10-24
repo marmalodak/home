@@ -9,6 +9,7 @@
 !/.gitmodules
 !/.config/
 !/.motd
+!/.oh-my-zsh
 !/bin
 **/nohup.out
 **/.netrwhist
