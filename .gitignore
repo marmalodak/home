@@ -8,6 +8,7 @@
 !/.gitignore
 !/.gitmodules
 !/.config/
+!/.oh-my-zsh
 !/bin
 **/nohup.out
 **/.netrwhist
