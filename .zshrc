@@ -1,7 +1,9 @@
-if [[ -o interactive ]]; then  # is zsh interactive?
-    if [[ -z "$TMUX" ]]; then
-        if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
-            tmux attach
+if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
+    if [[ -o interactive ]]; then  # is zsh interactive?
+        if [[ -z "$TMUX" ]]; then
+            if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
+                tmux attach
+            fi
         fi
     fi
 fi

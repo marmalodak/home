@@ -10,6 +10,7 @@
 !/.config/
 !/.motd
 !/.oh-my-zsh
+!/.zsh
 !/bin
 **/nohup.out
 **/.netrwhist
