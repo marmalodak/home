@@ -12,8 +12,12 @@ set mouse=
 if !has('nvim')
     set ttymouse=
 endif
+
+" I want to error messages of any kind, ever see :he visualbell
+set noerrorbells
 set visualbell
-" set noerrorbells
+set vb t_vb=
+
 set guioptions-=T
 set guioptions+=m
 
@@ -270,7 +274,7 @@ augroup END
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter% says %s'
 
-colorscheme nedsmultitheme
+colorscheme NedsLightTheme
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
