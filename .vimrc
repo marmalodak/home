@@ -37,10 +37,19 @@ set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 set wildmenu
 set wildmode=list:longest,full
 
-set laststatus=2 " Always display the statusline in all windows
+set laststatus=2  " Always display the statusline in all windows
 set showtabline=1 " show the tabline only when two or more tabs are open
-set showmode " show the default mode text (e.g. -- INSERT -- below the statusline)
-set title "  show the name of the file being edited in the lower left
+set showmode      " show the default mode text (e.g. -- INSERT -- below the statusline)
+set title         "  show the name of the file being edited in the lower left
+
+" I want lightline to show the full path of the file I'm editing
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'absolutepath', 'modified' ] ]
+      \ },
+      \ }
 
 set spelllang=en_ca
 set spellfile=~/spell/en.utf-8.add
