@@ -14,3 +14,25 @@ echo_color "\033[0;90m" "c-d  Delete forward"
 echo_color "\033[0;90m" "c-h  Delete backward"
 echo_color "\033[0;90m" "c-k  Delete forward to end of line"
 echo_color "\033[0;90m" "c-u  Delete entire line"
+
+echo
+echo_color "\033[0;90m" "]s             move to next misspelled word"
+echo_color "\033[0;90m" "zg             add word to spellfile"
+echo_color "\033[0;90m" "zw             mark word as bad word"
+echo_color "\033[0;90m" "zuw            undo zw"
+echo_color "\033[0;90m" "zug            undo zg"
+echo_color "\033[0;90m" "z=             suggest spelling"
+echo_color "\033[0;90m" ":spellr[epall] repeat z="
+
+echo
+echo_color "\033[0;90m" ":help function()"
+echo_color "\033[0;90m" ":help options"
+echo_color "\033[0;90m" ":help i_ctrl-a"
+echo_color "\033[0;90m" ":help get<C-d>"
+
+echo
+echo_color "\033[0;90m" "use :set option? to check the value of an option,"
+echo_color "\033[0;90m" "use :verbose set option? to also see where it was last set."
+
+echo
+echo_color "\033[0;90m" "git checkout filename # revert filename to HEAD"
