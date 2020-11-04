@@ -1,6 +1,10 @@
 if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
+                       # there still appear to be tmux instances running even when I close the session...
     if [[ -o interactive ]]; then  # is zsh interactive?
-        if [[ -z "$TMUX" ]]; then
+        #if [[ -z "$TMUX" ]]; then
+        tmux list-sessions > /dev/null 2>&1
+        tmux_sessions=$?
+        if [[ $tmux_session == 0 ]]; then
             if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
                 tmux attach
             fi
