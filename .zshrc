@@ -16,6 +16,8 @@ fi
 
 [[ -d /opt/brew/share/zsh/site-functions/ ]] && fpath+=(/opt/brew/share/zsh/site-functions/)
 
+unsetopt beep  # I hate, hate, hate being beeped at
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -144,6 +146,16 @@ else
     alias ll='exa -l'
     alias lr='exa -alh --sort=date'
 fi
+
+function dotup()
+{
+    set -x
+    (
+        cd ${HOME}
+        git pull
+        git submodule update --init --remote --recursive --jobs=16
+    )
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
