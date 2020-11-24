@@ -36,3 +36,8 @@ echo_color "\033[0;90m" "use :verbose set option? to also see where it was last 
 
 echo
 echo_color "\033[0;90m" "git checkout filename # revert filename to HEAD"
+
+echo
+echo_color "\033[0;90m" ":Files browse files with fzf"
+echo_color "\033[0;90m" ":GFiles browse git files with fzf"
+echo_color "\033[0;90m" ":Rg search contents of files"
