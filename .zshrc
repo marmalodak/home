@@ -12,6 +12,21 @@ if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
     fi
 fi
 
+# I don't think I'm going to use this venv_activate, not even tested, but I'll decide in the future
+# function venv_activate()
+# {
+#     if [[ -z "$1" ]] || [[ ! -r "$1" ]]; then
+#         echo "Pass in a path to a python virtual environment"
+#         exit 1
+#     fi
+#     # 1) set VIRTUAL_ENV 2) modify PATH 3) unset PYTHONHOME 4) and maybe set PS1?                                                                                                                                                                                                       │freenode  -- | - accept our policies and guidelines as set out on https://freenode.net                                                                         │freenode  -- | - accept our policies and guidelines as set out on https://freenode.net
+#     #path_to_venv="$1"
+#     unset PYTHONHOME
+#     export VIRTUAL_ENV="$1"
+#     export PATH=${VIRTUAL_ENV}/bin:$PATH
+#     export PS1="($(basename ${VIRTUAL_ENV})${PS1}"
+# }
+
 [[ ! -f ~/.motd ]] || source ~/.motd
 
 [[ -d /opt/brew/share/zsh/site-functions/ ]] && fpath+=(/opt/brew/share/zsh/site-functions/)
@@ -103,7 +118,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git chucknorris colored-man-pages command-not-found)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
