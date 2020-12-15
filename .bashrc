@@ -28,8 +28,8 @@ else
     alias lc='exa -1'
     alias lt='exa -T'
     alias ll='exa -l'
-    alias lr='exa -albh --sort=accessed --git'
-    alias lR='exa -albh --sort=accessed --git --extended'
+    alias lrg='exa -albh --sort=accessed --git'
+    alias lRg='exa -albh --sort=accessed --git --extended'
 fi
 
 unalias vi
@@ -37,6 +37,8 @@ alias vi='vim -v -C --clean --noplugin'
 alias view='vim -R'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
+
+alias vimr='vimr --nvim -O'
 
 function pycalc() { python -c "from math import *; print $*" ;}
 function calc(){ awk "BEGIN{ print $* }" ;}
