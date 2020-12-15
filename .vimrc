@@ -216,85 +216,85 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-let g:powerline_pycmd = "py3"
-let g:powerline_pyeval = "py3eval"
-let g:Powerline_symbols = 'fancy'
-
-" Run these commands after all .vimrc commands and after all packages/plugins
-augroup PostStartup
-    if exists('g:airline_section_a')
-        au VimEnter * set statusline+=%#warningmsg#
-        if exists(':SyntasticStatuslineFlag')
-            au VimEnter * set statusline+=%{SyntasticStatuslineFlag()}
-        else
-            " echo "Syntastic seems to be uninstalled"
-        endif
-        au VimEnter * set statusline+=%*
-
-        if exists(':SyntasticStatuslineFlag')
-            au VimEnter * let g:syntastic_always_populate_loc_list = 1
-            au VimEnter * let g:syntastic_auto_loc_list = 1
-            au VimEnter * let g:syntastic_check_on_open = 1
-            au VimEnter * let g:syntastic_check_on_wq = 0
-            au VimEnter * let g:airline_powerline_fonts = 1
-            au VimEnter * let g:airline_theme='raven'
-        endif
-    else
-        set statusline=
-        set statusline+=%#PmenuSel#
-        if exists(':StatuslineGit')
-            set statusline+=%{StatuslineGit()}
-        endif
-        set statusline+=%#LineNr#
-        set statusline+=\ %f
-        set statusline+=%m\
-        set statusline+=%=
-        set statusline+=%#CursorColumn#
-        set statusline+=\ %y
-        set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-        set statusline+=\[%{&fileformat}\]
-        set statusline+=\ %p%%
-        set statusline+=\ %l:%c
-        set statusline+=\ 
-    endif
-
-
-    " https://github.com/andviro/flake8-vim
-
-    " Auto-check file for errors on write:
-    au VimEnter * let g:PyFlakeOnWrite = 1
-
-    " List of checkers used:
-    au VimEnter * let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
-    " Default maximum complexity for mccabe:
-
-    au VimEnter * let g:PyFlakeDefaultComplexity=10
-    " List of disabled pep8 warnings and errors:
-
-    au VimEnter * let g:PyFlakeDisabledMessages = 'E501'
-
-    " Default aggressiveness for autopep8:
-    au VimEnter * let g:PyFlakeAggressive = 0
-
-    " Default height of quickfix window:
-    au VimEnter * let g:PyFlakeCWindow = 6
-
-    " Whether to place signs or not:
-    au VimEnter * let g:PyFlakeSigns = 1
-
-    " When usign signs, this is the first id that will be used to identify the
-    " signs. Tweak this if you are using other plugins that also use the sign
-    " gutter
-    au VimEnter * let g:PyFlakeSignStart = 1
-
-    " Maximum line length for PyFlakeAuto command
-    au VimEnter * let g:PyFlakeMaxLineLength = 100
-
-    " Visual-mode key command for PyFlakeAuto
-    au VimEnter * let g:PyFlakeRangeCommand = 'Q'
-
-    " au VimEnter * helptags ALL
-augroup END
+"    let g:powerline_pycmd = "py3"
+"    let g:powerline_pyeval = "py3eval"
+"    let g:Powerline_symbols = 'fancy'
+"
+"    " Run these commands after all .vimrc commands and after all packages/plugins
+"    augroup PostStartup
+"        if exists('g:airline_section_a')
+"            au VimEnter * set statusline+=%#warningmsg#
+"            if exists(':SyntasticStatuslineFlag')
+"                au VimEnter * set statusline+=%{SyntasticStatuslineFlag()}
+"            else
+"                " echo "Syntastic seems to be uninstalled"
+"            endif
+"            au VimEnter * set statusline+=%*
+"
+"            if exists(':SyntasticStatuslineFlag')
+"                au VimEnter * let g:syntastic_always_populate_loc_list = 1
+"                au VimEnter * let g:syntastic_auto_loc_list = 1
+"                au VimEnter * let g:syntastic_check_on_open = 1
+"                au VimEnter * let g:syntastic_check_on_wq = 0
+"                au VimEnter * let g:airline_powerline_fonts = 1
+"                au VimEnter * let g:airline_theme='raven'
+"            endif
+"        else
+"            set statusline=
+"            set statusline+=%#PmenuSel#
+"            if exists(':StatuslineGit')
+"                set statusline+=%{StatuslineGit()}
+"            endif
+"            set statusline+=%#LineNr#
+"            set statusline+=\ %f
+"            set statusline+=%m\
+"            set statusline+=%=
+"            set statusline+=%#CursorColumn#
+"            set statusline+=\ %y
+"            set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"            set statusline+=\[%{&fileformat}\]
+"            set statusline+=\ %p%%
+"            set statusline+=\ %l:%c
+"            set statusline+=\
+"        endif
+"
+"
+"        " https://github.com/andviro/flake8-vim
+"
+"        " Auto-check file for errors on write:
+"        au VimEnter * let g:PyFlakeOnWrite = 1
+"
+"        " List of checkers used:
+"        au VimEnter * let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
+"        " Default maximum complexity for mccabe:
+"
+"        au VimEnter * let g:PyFlakeDefaultComplexity=10
+"        " List of disabled pep8 warnings and errors:
+"
+"        au VimEnter * let g:PyFlakeDisabledMessages = 'E501'
+"
+"        " Default aggressiveness for autopep8:
+"        au VimEnter * let g:PyFlakeAggressive = 0
+"
+"        " Default height of quickfix window:
+"        au VimEnter * let g:PyFlakeCWindow = 6
+"
+"        " Whether to place signs or not:
+"        au VimEnter * let g:PyFlakeSigns = 1
+"
+"        " When usign signs, this is the first id that will be used to identify the
+"        " signs. Tweak this if you are using other plugins that also use the sign
+"        " gutter
+"        au VimEnter * let g:PyFlakeSignStart = 1
+"
+"        " Maximum line length for PyFlakeAuto command
+"        au VimEnter * let g:PyFlakeMaxLineLength = 100
+"
+"        " Visual-mode key command for PyFlakeAuto
+"        au VimEnter * let g:PyFlakeRangeCommand = 'Q'
+"
+"        " au VimEnter * helptags ALL
+"    augroup END
 
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter% says %s'
