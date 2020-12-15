@@ -25,6 +25,15 @@ On a new installation, I usually want:
     git submodule update --init --recursive
     p10k configure
 
+### Up Next?
+
+- https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/
+    - https://github.com/ojroques/vim-oscyank
+- https://github.com/dpelle/vim-LanguageTool
+- https://www.reddit.com/r/neovim/comments/k5dykf/neovim_makes_a_great_manpager_especially_on_macos/
+    - export MANPAGER='nvim +Man!'
+    - gO <- killer feature
+
 ### Historical notes
 
 - The powerline module gave me too much trouble, so I'm configuring that manually now, so I don't need the python virtual environment anymore
