@@ -12,9 +12,26 @@ if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
     fi
 fi
 
+# I don't think I'm going to use this venv_activate, not even tested, but I'll decide in the future
+# function venv_activate()
+# {
+#     if [[ -z "$1" ]] || [[ ! -r "$1" ]]; then
+#         echo "Pass in a path to a python virtual environment"
+#         exit 1
+#     fi
+#     # 1) set VIRTUAL_ENV 2) modify PATH 3) unset PYTHONHOME 4) and maybe set PS1?                                                                                                                                                                                                       │freenode  -- | - accept our policies and guidelines as set out on https://freenode.net                                                                         │freenode  -- | - accept our policies and guidelines as set out on https://freenode.net
+#     #path_to_venv="$1"
+#     unset PYTHONHOME
+#     export VIRTUAL_ENV="$1"
+#     export PATH=${VIRTUAL_ENV}/bin:$PATH
+#     export PS1="($(basename ${VIRTUAL_ENV})${PS1}"
+# }
+
 [[ ! -f ~/.motd ]] || source ~/.motd
 
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
+
+unsetopt beep  # I hate, hate, hate being beeped at
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -103,7 +120,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git chucknorris colored-man-pages command-not-found)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -144,6 +161,16 @@ else
     alias ll='exa -l'
     alias lr='exa -alh --sort=date'
 fi
+
+function dotup()
+{
+    set -x
+    (
+        cd ${HOME}
+        git pull
+        git submodule update --init --remote --recursive --jobs=16
+    )
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
