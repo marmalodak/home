@@ -14,7 +14,7 @@ fi
 
 [[ ! -f ~/.motd ]] || source ~/.motd
 
-[[ -d /opt/brew/share/zsh/site-functions/ ]] && fpath+=(/opt/brew/share/zsh/site-functions/)
+[[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -25,11 +25,11 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # move /opt/brew/bin before /usr et al
-if [[ -e /opt/brew/bin ]]; then
-    # remove /opt/brew/bin
-    PATH=${PATH/:\/opt\/brew\/bin//}
-    # put /opt/brew/bin at the front
-    PATH="/opt/brew/bin:$PATH"
+if [[ -e /usr/local/brew/bin ]]; then
+    # remove /usr/local/brew/bin
+    PATH=${PATH/:\/usr\/local\/brew\/bin//}
+    # put /usr/local/brew/bin at the front
+    PATH="/usr/local/brew/bin:$PATH"
 fi
 export PATH="$HOME/bin:$PATH"
 
