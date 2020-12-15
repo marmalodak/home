@@ -160,7 +160,16 @@ if [[ $exa_not_exists -ne 0 ]]; then
 else
     alias ll='exa -l'
     alias lr='exa -alh --sort=date'
+    alias lc='exa -1'
+    alias lt='exa -T'
+    alias ll='exa -l'
+    alias lrg='exa -albh --sort=accessed --git'
+    alias lRg='exa -albh --sort=accessed --git --extended'
 fi
+
+alias vimr='vimr --nvim -O'
+alias pfzf='fzf --preview=bat {}'
+alias ipoca='ip -o -c a'
 
 function dotup()
 {
@@ -171,6 +180,10 @@ function dotup()
         git submodule update --init --remote --recursive --jobs=16
     )
 }
+
+
+[[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
