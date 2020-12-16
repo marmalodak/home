@@ -145,9 +145,6 @@
 [submodule "/mnt/myth/john/.vim/pack/vim8/start/vim-surround"]
 	path = /mnt/myth/john/.vim/pack/vim8/start/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule ".config/kitty/kitty-themes"]
-	path = .config/kitty/kitty-themes
-	url = https://github.com/dexpota/kitty-themes.git
 [submodule ".vim/pack/vim8/start/vifm.git"]
 	path = .vim/pack/vim8/start/vifm.git
 	url = https://github.com/vifm/vifm.vim.git
