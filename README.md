@@ -34,6 +34,23 @@ On a new installation, I usually want:
     - export MANPAGER='nvim +Man!'
     - gO <- killer feature
 
+### Brew
+
+brew tap homebrew/cask-fonts
+brew install vimr exa ranger tmux htop pidof vifm
+brew install --cask font-bitstream-vera-sans-mono-nerd-font \
+    font-dejavu-sans-mono-nerd-font \
+    font-fira-code \
+    font-fira-mono-nerd-font \
+    font-juliamono \
+    font-liberation-nerd-font \
+    font-sauce-code-pro-nerd-font \
+    font-source-code-pro \
+    font-inconsolata-nerd-font \
+brew install --cask aerial
+
+vifm.vim requires vifm
+
 ### Historical notes
 
 - The powerline module gave me too much trouble, so I'm configuring that manually now, so I don't need the python virtual environment anymore
