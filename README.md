@@ -33,6 +33,9 @@ On a new installation, I usually want:
 - https://www.reddit.com/r/neovim/comments/k5dykf/neovim_makes_a_great_manpager_especially_on_macos/
     - export MANPAGER='nvim +Man!'
     - gO <- killer feature
+- https://github.com/dbmrq/vim-dialect
+  project specific spell files, e.g. words added with zG and zW
+- https://github.com/mitsuhiko/vim-jinja better highlighting for jinja files
 
 ### Brew
 
