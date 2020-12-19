@@ -21,9 +21,16 @@ Also, manually install oh-my-zsh, powerlevel10k, ~zsh-autosuggestions~, and nerd
 On a new installation, I usually want:
 
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    ~git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions~
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     git submodule update --init --recursive
     p10k configure
+
+### Bugs
+
+- I have zsh-autosuggestions in two places....?
+  . .zsh/zsh-autosuggestions
+  . ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 
 ### Up Next?
 
@@ -36,6 +43,8 @@ On a new installation, I usually want:
 - https://github.com/dbmrq/vim-dialect
   project specific spell files, e.g. words added with zG and zW
 - https://github.com/mitsuhiko/vim-jinja better highlighting for jinja files
+- vifm.vim requires vifm
+  - Not sure I care for vifm, might nuke it
 
 ### Brew
 
@@ -52,9 +61,6 @@ brew install --cask font-bitstream-vera-sans-mono-nerd-font \
     font-inconsolata-nerd-font \
 brew install --cask aerial
 
-vifm.vim requires vifm
-
 ### Historical notes
 
 - The powerline module gave me too much trouble, so I'm configuring that manually now, so I don't need the python virtual environment anymore
-- zsh-autosuggestions is now a submodule
