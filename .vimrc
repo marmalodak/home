@@ -62,7 +62,23 @@ au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") |
                \ exec("set backupdir=" . bakupdir)             |
                \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 
-set background=dark
+set background=light
+
+" see https://github.com/mhinz/vim-startify/issues/428#issuecomment-704326443
+" for inspiration for startify_lists
+function! s:git_diff()
+    let files = systemlist('git diff --name-only --ignore-submodules=all')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+let g:startify_lists = [
+          \ { 'type': 'files',                    'header': ['   Recent files']},
+          \ { 'type': function('s:git_diff'),     'header': ['   git diffs']},
+          \ { 'type': 'sessions',                 'header': ['   Sessions']},
+          \ { 'type': 'bookmarks',                'header': ['   Bookmarks']},
+          \ ]
+
+let g:startify_files_number = 40
 
 " packadd matchit
 
