@@ -179,7 +179,7 @@ function dotup()
     set -x
     (
         cd ${HOME}
-        git pull
+        git pull --rebase
         git submodule update --init --remote --recursive --jobs=16
     )
 }
