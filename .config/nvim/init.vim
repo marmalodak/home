@@ -12,6 +12,7 @@ au BufWritePre * let bakupdir="~/.nvimbackup" . expand("%:p:h") |
                \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 
 
+" why aren't these in .vimrc?
 " Use <control+w><control+w> to exit insert mode in a terminal
 tnoremap <C-w><C-w> <C-\><C-n>
 " Use <control+[> to exit insert mode in a terminal

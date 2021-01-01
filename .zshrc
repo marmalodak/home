@@ -1,6 +1,10 @@
 if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
+                       # there still appear to be tmux instances running even when I close the session...
     if [[ -o interactive ]]; then  # is zsh interactive?
-        if [[ -z "$TMUX" ]]; then
+        #if [[ -z "$TMUX" ]]; then
+        tmux list-sessions > /dev/null 2>&1
+        tmux_sessions=$?
+        if [[ $tmux_session == 0 ]]; then
             if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
                 tmux attach
             fi
@@ -28,7 +32,9 @@ export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 
 [[ ! -f ~/.motd ]] || source ~/.motd
 
-[[ -d /opt/brew/share/zsh/site-functions/ ]] && fpath+=(/opt/brew/share/zsh/site-functions/)
+[[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
+
+unsetopt beep  # I hate, hate, hate being beeped at
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -38,14 +44,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# move /opt/brew/bin before /usr et al
-if [[ -e /opt/brew/bin ]]; then
-    # remove /opt/brew/bin
-    PATH=${PATH/:\/opt\/brew\/bin//}
-    # put /opt/brew/bin at the front
-    PATH="/opt/brew/bin:$PATH"
-fi
-export PATH="$HOME/bin:$PATH"
+# /usr/local/brew does not exist anymore.... right?
+# # move /opt/brew/bin before /usr et al
+# if [[ -e /usr/local/brew/bin ]]; then
+#     # remove /usr/local/brew/bin
+#     PATH=${PATH/:\/usr\/local\/brew\/bin//}
+#     # put /usr/local/brew/bin at the front
+#     PATH="/usr/local/brew/bin:$PATH"
+# fi
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments
@@ -117,10 +124,13 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git chucknorris colored-man-pages command-not-found)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+zstyle ':completion:*' extra-verbose yes
+zstyle ':completion:list-expand:*' extra-verbose yes
 
 # User configuration
 
@@ -157,7 +167,30 @@ if [[ $exa_not_exists -ne 0 ]]; then
 else
     alias ll='exa -l'
     alias lr='exa -alh --sort=date'
+    alias lc='exa -1'
+    alias lt='exa -T'
+    alias ll='exa -l'
+    alias lrg='exa -albh --sort=accessed --git'
+    alias lRg='exa -albh --sort=accessed --git --extended'
 fi
+
+alias vimr='vimr --nvim -O'
+alias pfzf='fzf --preview=bat {}'
+alias ipoca='ip -o -c a'
+
+function dotup()
+{
+    set -x
+    (
+        cd ${HOME}
+        git pull --rebase
+        git submodule update --init --remote --recursive --jobs=16
+    )
+}
+
+
+[[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
