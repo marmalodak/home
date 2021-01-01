@@ -4,7 +4,7 @@ if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 
-# NB the following mappings do not work in paste mode
+" NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
