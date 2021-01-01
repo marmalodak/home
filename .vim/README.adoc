@@ -1,0 +1,375 @@
+// this is for asciidoctor
+++++
+    <head>
+    <meta http-equiv="refresh" content="3000"/>
+    </head>
+++++
+
+////
+    to use this function: select lines 3 to 9 and then type :@"
+    function! ConvertAdoc()
+        silent !asciidoctor -b html README.adoc^M^M
+        execute("redraw!")
+    endfunction
+    autocmd! BufWritePost,FileWritePost README.adoc :call ConvertAdoc()
+////
+
+
+== My VIM info
+
+
+=== FAQs
+
+. How do I go to the next git change in this file?
+** `]c` and `[c`
+. How do I see vim help for the word under the cursor?
+** `K`
+*** oops that clashes with man.vim
+
+=== Plugins
+
+I realised I have VIM plugins installed which:
+
+. I don't know what they do
+. I don't know how to use them
+. I don't remember what I was trying to solve when I installed it
+
+==== https://github.com/dense-analysis/ale[ale]
+
+* `:help ale-commands`
+
+==== https://github.com/mattn/calendar-vim[calendar]
+
+* `:Calendar` ` `:CalendarH` ` `:CalendarT` ` `:CalendarVR`
+
+==== https://github.com/metakirby5/codi.vim[codi] "interactive scratchpad for hackers"
+
+==== https://github.com/yuttie/comfortable-motion.vim[comfortable-motion] "physics-based smooth scrolling"
+
+* `C-d` and `C-u`
+* `C-f` and `C-b`
+
+==== http://mattn.github.com/emmet-vim[emmet] "abbreviation engine" emmet for vim: http://emmet.io/[emmet]
+
+==== https://github.com/dylanaraps/fff.vim[fff] use file manager https://github.com/dylanaraps/fff[fff]
+
+```:F```
+
+```vim
+" Open split on the left side (NERDtree style).
+let g:fff#split_direction = "nosplitbelow nosplitright"
+```
+
+====  https://github.com/junegunn/fzf[fzf] command line fuzzy finder
+
+```
+ ------------------+-----------------------------------------------------------------------
+ Command           | List                                                                  ~
+ ------------------+-----------------------------------------------------------------------
+`:Files [PATH]`    | Files (runs  `$FZF_DEFAULT_COMMAND`  if defined)
+`:GFiles [OPTS]`   | Git files ( `git ls-files` )
+`:GFiles?`         | Git files ( `git status` )
+`:Buffers`         | Open buffers
+`:Colors`          | Color schemes
+`:Ag [PATTERN]`    | {ag}{7} search result ( `ALT-A`  to select all,  `ALT-D`  to deselect all)
+`:Rg [PATTERN]`    | {rg}{8} search result ( `ALT-A`  to select all,  `ALT-D`  to deselect all)
+`:Lines [QUERY]`   | Lines in loaded buffers
+`:BLines [QUERY]`  | Lines in the current buffer
+`:Tags [QUERY]`    | Tags in the project ( `ctags -R` )
+`:BTags [QUERY]`   | Tags in the current buffer
+`:Marks`           | Marks
+`:Windows`         | Windows
+`:Locate PATTERN`  |  `locate`  command output
+`:History`         |  `v:oldfiles`  and open buffers
+`:History:`        | Command history
+`:History/`        | Search history
+`:Snippets`        | Snippets ({UltiSnips}{9})
+`:Commits`         | Git commits (requires {fugitive.vim}{10})
+`:BCommits`        | Git commits for the current buffer
+`:Commands`        | Commands
+`:Maps`            | Normal mode mappings
+`:Helptags`        | Help tags [1]
+`:Filetypes`       | File types
+ ------------------+-----------------------------------------------------------------------
+
+ - Most commands support CTRL-T / CTRL-X / CTRL-V key bindings to open in a new
+   tab, a new split, or in a new vertical split
+ - Bang-versions of the commands (e.g. `Ag!`) will open fzf in fullscreen
+ - You can set `g:fzf_command_prefix` to give the same prefix to the commands
+   - e.g. `let g:fzf_command_prefix = 'Fzf'` and you have `FzfFiles`, etc.
+```
+
+===== Dependencies
+
+* https://github.com/junegunn/fzf[fzf]
+* https://github.com/sharkdp/bat[bat]
+* https://github.com/dandavison/delta[delta]
+* https://github.com/ggreer/the_silver_searcher[ag]
+* https://github.com/BurntSushi/ripgrep[rr]
+
+==== https://github.com/itchyny/lightline.vim[lightline] statusline
+
+==== http://github.com/chrisbra/NrrwRgn[NrrwRgn]
+
+* `:NR`
+* `let g:nrrw_rgn_vert = 1`
+* `let g:nrrw_rgn_wdth = 30`
+
+____
+Narrowing means focussing on a region and making the rest inaccessible. You
+simply select the region, call |:NarrowRegion| and the selected part will open
+in a new scratch buffer. The rest of the file will be protected, so you won't
+accidentally modify that buffer. In the new buffer, you can do a global
+replace, search or anything else to modify that part. When you are finished,
+simply write that buffer (e.g. by |:w|) and your modifications will be put in
+the original buffer making it accessible again. Use |:q!| or |:bw!| to abort
+your changes and return back to the original window.
+____
+
+==== https://github.com/hauleth/sad.vim[sad] "seek and destroy"
+
+```
+["x]s{motion}       Delete {motion} [into register x] text and start insert.
+                    Afterwards |.| can be used to replace next occurence
+                    of deleted text.
+```
+
+==== https://github.com/AndrewRadev/splitjoin.vim[splitjoin] Switch between single-line and multiline forms of code
+
+* `gS` `:SplitjoinSplit*`
+* `gJ` `:SplitjoinJoin*`
+
+==== https://github.com/vim-scripts/SyntaxRange[SyntaxRange]
+
+____
+This plugin provides commands and functions to set up regions in the current
+buffer that either use a syntax different from the buffer's 'filetype', or
+completely ignore the syntax.
+____
+
+* `:[range]SyntaxIgnore`
+* `[range]SyntaxInclude {filetype}`
+* The best use I can imagine for this is in HTML and jinja files where javascript and other languages are embedded
+
+==== https://preservim.github.io/tagbar[tagbar]
+
+____
+Tagbar is a plugin for browsing the tags of source code files. It provides a
+sidebar that displays the ctags-generated tags of the current file, ordered by
+their scope. This means that for example methods in C++ are displayed under
+the class they are defined in.
+____
+
+* `TagBarToggle`
+* `g:tagbar_autoclose`
+* NB brew install http://ctags.sourceforge.net/[Exuberant Ctags], I don't yet know how to install https://ctags.io/[Universal Ctags] on the mac
+
+===== Dependencies
+
+* https://ctags.io/[Universal Ctags]
+
+==== https://github.com/vim-scripts/taglist.vim[taglist]
+
+* `:TlistToggle`
+
+===== Dependencies
+
+* see the dependencies for tagbar
+
+==== https://github.com/tbabej/taskwiki[TaskWiki]
+
+===== Dependencies
+
+* https://github.com/vimwiki/vimwiki[vimwiki]
+* http://taskwarrior.org[taskwarrior]
+* https://github.com/tbabej/tasklib/[tasklib]
+* https://github.com/powerman/vim-plugin-AnsiEsc[vim-plugin-AnsiEsc]
+* https://github.com/majutsushi/tagbar[tagbar]
+* https://github.com/farseer90718/vim-taskwarrior[vim-taskwarrior]
+
+==== https://github.com/tomtom/tlib_vim[tlib]
+
+Some utility functions
+Used by other vim plugins
+
+==== https://github.com/markonm/traces.vim[traces] highlights |pattern|s and |:range|s for Ex commands in Command-line mode.
+
+____
+Note: this plugin is not compatible with |inccommand|
+____
+
+==== https://github.com/vim-scripts/utl.vim[UTL] URL-based hyperlinking to plain text, extending the URL syntax for plain text needs, in accordance with the RFC 2396 (towards current RFC 3986)
+
+* `:Utl`
+* `:help utl-config`
+
+==== https://github.com/vifm/vifm.vim[vifm]
+
+* `:EditVifm` `:Vifm`
+* `SplitVifm` `:VsplitVifm`
+* `DiffVifm`
+
+===== Dependencies
+
+* https://github.com/vifm/vifm[vifm]
+
+==== https://github.com/MarcWeber/vim-addon-manager-known-repositories[VIM-PI]
+
+* Pretty sure this plugin needs to disappear
+* What does " this repository contains a list of known other repositories only " even mean?
+
+==== https://github.com/liuchengxu/vim-clap[vim-clap] modern generic interactive finder and dispatcher
+
+* This looks INTERESTING!
+* `:Clap[!] [provider_id_or_alias] [++opt] [+opt]`
+
+===== Dependencies
+
+* git
+* files requires fd or find or https://github.com/BurntSushi/ripgrep[rg]
+* grep  requires rg
+* grep2 requires maple, which comes from Rust, go to the clap plugin directory and run make
+* tags requires https://github.com/liuchengxu/vista.vim[vista]
+
+==== https://github.com/tpope/vim-commentary[commentary]
+
+* `gc` Comment or uncomment
+
+==== https://github.com/ap/vim-css-color.git[vim-css-color] Preview colours in source code while editing
+
+==== https://github.com/ryanoasis/vim-devicons[devicons] adds file type icons
+
+===== Dependencies
+
+* Nerd fonts
+
+==== https://github.com/dhruvasagar/vim-dotoo[vim-dotoo] Org-mode like task logging & time tracking
+
+* How much of org mode do I need to learn to use this?
+
+==== https://github.com/junegunn/vim-easy-align[easy-align] 
+
+* https://www.reddit.com/r/vim/comments/2lsr8d/vimeasyalign_the_most_ingenious_plugin_ive/
+* https://raw.githubusercontent.com/junegunn/i/master/vim-easy-align-slow.gif
+
+.Commands
+|===
+|Mode |Command
+
+|Interactive mode                           |  `:EasyAlign[!] [OPTIONS]`
+|Live interactive mode                      |  `:LiveEasyAlign[!] [...]`
+|Non-interactive mode (predefined rules)    |  `:EasyAlign[!] [N-th] DELIMITER_KEY [OPTIONS]`
+|Non-interactive mode (regular expressions) |  `:EasyAlign[!] [N-th] /REGEXP/ [OPTIONS]`
+|===
+
+===== Dependecies
+
+* https://github.com/tpope/vim-repeat
+* https://github.com/vim-scripts/visualrepeat
+
+==== https://github.com/drmikehenry/vim-extline[extline]
+
+All this plugin does is underline section titles for restructuredtext.
+
+[NOTE]
+====
+It has got to go.
+====
+
+==== https://github.com/gitgutter/Vim[gitgutter]
+
+Shows git changes in the left-most column in the window.  Use `]c` and `[c` to jump to changes.
+
+* `:GitGutterToggle` `:GitGutterAll` `:GitGutterLineHighlightsToggle` `:GitGutterLineNrHighlightsToggle`
+* `:GitGutterNextHunk`  `]c`
+* `:GitGutterQuickFix`
+
+==== https://github.com/ryanss/vim-hackernews[hackernews]
+
+[WARNING]
+====
+This submodule changed to https://github.com/dansomething/vim-hackernews as the one from ryanss is abandoned
+====
+
+* Open the Hacker News front page in Vim by executing the :HackerNews command
+* The HackerNews command takes an optional parameter to view items other than the top stories on the front page: ask, show, shownew, jobs, best, active, newest, noobstories, <item id>, or <search query>
+* Press lowercase o to open links in Vim
+* Press uppercase O to open links in default web browser
+* Numbered lines with story titles on the front page link to the story url
+* Comment lines on the front page link to the comments url
+* Press uppercase F to fold current comment thread
+* Press lowercase u to go back
+* Press Ctrl+r to go forward
+* Execute the :bd command to close and remove the Hacker News buffer
+
+===== Enhanced Motions
+
+* Uppercase J and K are mapped to helpful new motions based on what type of content is on the screen:
+* Move to next/prev item when viewing the front page. (If the cursor is on a numbered line with story title the cursor will move to the next/prev numbered line with story title. If the cursor is on a comment line it will move to the next/prev comment line.)
+* Move to next/prev comment when viewing comments.
+* Move to next/prev paragraph when viewing the text version of articles.
+
+
+==== https://github.com/baruchel/vim-notebook[notebook] Kinda like ipython
+
+* `:NotebookStart`
+
+[NOTE]
+====
+Installation is incomplete without configuration
+====
+
+[WARNING]
+====
+Might be abandoned, probably needs to go
+====
+
+==== https://github.com/jceb/vim-orgmode[orgmode]
+
+[WARNING]
+====
+Unmaintained, looking for maintainer
+====
+
+==== https://github.com/reedes/vim-pencil[pencil] Make vim a tool for writing prose
+
+Lots of resources for writers on the github page
+
+* `:TogglePencil`
+* `:SoftPencil` soft line wrap mode
+* `:HardPencil`
+
+==== https://github.com/t9md/vim-quickhl[quickhl] quickly highlight <cword> or visually selected word
+
+
+[NOTE]
+====
+* configuration required
+* see `:help quichl.txt`
+====
+
+==== https://github.com/tpope/vim-repeat[repeat] enable repeating supported plugin maps with `.`
+
+
+=== Status line
+
+* https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
+* https://github.com/edkolev/promptline.vim
+
+=== Potentially useful plugins and resources to consider
+
+* https://github.com/Shougo/vimshell.vim
+* https://github.com/vim-tw/vim-tips
+* Look for an email message from vimtricks subject "Lesson 8: Statusline and Git"
+* generating and testing colour schemes
+** https://github.com/lifepillar/vim-colortemplate
+** https://www.reddit.com/r/vim/comments/4t0i4h/are_there_any_code_samples_to_test_colorschemes/
+** https://www.reddit.com/r/vim/comments/2468zz/test_your_colorscheme_while_creating_it/
+** https://github.com/KevinGoodsell/vim-csexact
+** https://github.com/KabbAmine/vCoolor.vim colour selector
+** https://github.com/DougBeney/pickachu
+* https://github.com/tpope/vim-characterize[vim-characterize] reveal info about chars and digraphs et al
+* https://github.com/sharkdp/bat syntax hilighting for what?
+* https://github.com/dandavison/delta for use by other plugins?
+* https://github.com/ryanoasis/vim-devicons
+* https://github.com/RRethy/vim-illuminate highlight other occurences of the word under the cursor
