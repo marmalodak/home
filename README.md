@@ -60,6 +60,28 @@ brew install --cask font-bitstream-vera-sans-mono-nerd-font \
     font-source-code-pro \
     font-inconsolata-nerd-font \
 brew install --cask aerial
+pylint
+
+
+### TIL
+
+* `${!foo}` => indirect expansion!
+ 
+### Bookmarks for future projects
+
+- https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal <- lots of links
+- https://news.ycombinator.com/item?id=25564555
+    - The whole thread is about dotfiles
+    - The idea here seems to be that the dotfiles git repo is not directly in $$HOME but it is in $$HOME/dotfiles
+    - With the right git arguments, the files end up in $HOME/whatever
+    - https://www.atlassian.com/git/tutorials/dotfiles
+    - `https://www.atlassian.com/git/tutorials/dotfiles`
+    - `https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/`
+- stderr in red https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr/21320645#21320645
+- https://typer.tiangolo.com/ CLI apps, uses click, 
+- https://github.com/willmcgugan/rich rich text and colours in a terminal
+- https://github.com/onelivesleft/PrettyErrors better looking stack traces
+- https://github.com/marlonrichert/zsh-hist
 
 ### Historical notes
 

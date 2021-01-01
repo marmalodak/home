@@ -41,14 +41,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# move /opt/brew/bin before /usr et al
-if [[ -e /usr/local/brew/bin ]]; then
-    # remove /usr/local/brew/bin
-    PATH=${PATH/:\/usr\/local\/brew\/bin//}
-    # put /usr/local/brew/bin at the front
-    PATH="/usr/local/brew/bin:$PATH"
-fi
-export PATH="$HOME/bin:$PATH"
+# /usr/local/brew does not exist anymore.... right?
+# # move /opt/brew/bin before /usr et al
+# if [[ -e /usr/local/brew/bin ]]; then
+#     # remove /usr/local/brew/bin
+#     PATH=${PATH/:\/usr\/local\/brew\/bin//}
+#     # put /usr/local/brew/bin at the front
+#     PATH="/usr/local/brew/bin:$PATH"
+# fi
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments

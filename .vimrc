@@ -4,6 +4,7 @@ if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 
+# NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
@@ -70,16 +71,36 @@ function! s:git_diff()
     let files = systemlist('git diff --name-only --ignore-submodules=all')
     return map(files, "{'line': v:val, 'path': v:val}")
 endfunction
-
 let g:startify_lists = [
-          \ { 'type': 'files',                    'header': ['   Recent files']},
-          \ { 'type': function('s:git_diff'),     'header': ['   git diffs']},
-          \ { 'type': 'sessions',                 'header': ['   Sessions']},
-          \ { 'type': 'bookmarks',                'header': ['   Bookmarks']},
-          \ ]
-
+        \ { 'type': 'files',                    'header': ['   Recent files']},
+        \ { 'type': function('s:git_diff'),     'header': ['   git diffs']},
+        \ { 'type': 'sessions',                 'header': ['   Sessions']},
+        \ { 'type': 'bookmarks',                'header': ['   Bookmarks']},
+        \ ]
 let g:startify_files_number = 40
-
+let g:startify_custom_header = [
+        \ ']s             move to next misspelled word                                                ',
+        \ 'zg             add word to spellfile                                                       ',
+        \ 'zw             mark word as bad word                                                       ',
+        \ 'zuw            undo zw                                                                     ',
+        \ 'zug            undo zg                                                                     ',
+        \ 'z=             suggest spelling                                                            ',
+        \ ':spellr[epall] repeat z=                                                                   ',
+        \ '                                                                                           ',
+        \ ':help function()                                                                           ',
+        \ ':help options                                                                              ',
+        \ ':help i_ctrl-a                                                                             ',
+        \ ':help get<C-d>                                                                             ',
+        \ '                                                                                           ',
+        \ ':Files browse files with fzf                                                               ',
+        \ ':GFiles browse git files with fzf                                                          ',
+        \ ':Rg search contents of files                                                               ',
+        \ '                                                                                           ',
+        \ 'use :set option? to check the value of an option,                                          ',
+        \ 'use :verbose set option? to also see where it was last set.                                ',
+        \ '                                                                                           ',
+        \ 'export MANPAGER="nvim +Man!"; use gO; see https://www.reddit.com/r/neovim/comments/k5dykf/ ',
+        \ ]
 " packadd matchit
 
 "  I'm trying to follow vim tip #989 http://www.vim.org/tips/tip.php?tip_id=989 and adding formatoptions=l
