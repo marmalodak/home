@@ -4,6 +4,7 @@ if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 
+" NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
@@ -37,10 +38,19 @@ set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 set wildmenu
 set wildmode=list:longest,full
 
-set laststatus=2 " Always display the statusline in all windows
+set laststatus=2  " Always display the statusline in all windows
 set showtabline=1 " show the tabline only when two or more tabs are open
-set showmode " show the default mode text (e.g. -- INSERT -- below the statusline)
-set title "  show the name of the file being edited in the lower left
+set showmode      " show the default mode text (e.g. -- INSERT -- below the statusline)
+set title         "  show the name of the file being edited in the lower left
+
+" I want lightline to show the full path of the file I'm editing
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'absolutepath', 'modified' ] ]
+      \ },
+      \ }
 
 set spelllang=en_ca
 set spellfile=~/spell/en.utf-8.add
@@ -53,8 +63,44 @@ au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") |
                \ exec("set backupdir=" . bakupdir)             |
                \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 
-set background=dark
+set background=light
 
+" see https://github.com/mhinz/vim-startify/issues/428#issuecomment-704326443
+" for inspiration for startify_lists
+function! s:git_diff()
+    let files = systemlist('git diff --name-only --ignore-submodules=all')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+let g:startify_lists = [
+        \ { 'type': 'files',                    'header': ['   Recent files']},
+        \ { 'type': function('s:git_diff'),     'header': ['   git diffs']},
+        \ { 'type': 'sessions',                 'header': ['   Sessions']},
+        \ { 'type': 'bookmarks',                'header': ['   Bookmarks']},
+        \ ]
+let g:startify_files_number = 40
+let g:startify_custom_header = [
+        \ ']s             move to next misspelled word                                                ',
+        \ 'zg             add word to spellfile                                                       ',
+        \ 'zw             mark word as bad word                                                       ',
+        \ 'zuw            undo zw                                                                     ',
+        \ 'zug            undo zg                                                                     ',
+        \ 'z=             suggest spelling                                                            ',
+        \ ':spellr[epall] repeat z=                                                                   ',
+        \ '                                                                                           ',
+        \ ':help function()                                                                           ',
+        \ ':help options                                                                              ',
+        \ ':help i_ctrl-a                                                                             ',
+        \ ':help get<C-d>                                                                             ',
+        \ '                                                                                           ',
+        \ ':Files browse files with fzf                                                               ',
+        \ ':GFiles browse git files with fzf                                                          ',
+        \ ':Rg search contents of files                                                               ',
+        \ '                                                                                           ',
+        \ 'use :set option? to check the value of an option,                                          ',
+        \ 'use :verbose set option? to also see where it was last set.                                ',
+        \ '                                                                                           ',
+        \ 'export MANPAGER="nvim +Man!"; use gO; see https://www.reddit.com/r/neovim/comments/k5dykf/ ',
+        \ ]
 " packadd matchit
 
 "  I'm trying to follow vim tip #989 http://www.vim.org/tips/tip.php?tip_id=989 and adding formatoptions=l
@@ -191,85 +237,85 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-let g:powerline_pycmd = "py3"
-let g:powerline_pyeval = "py3eval"
-let g:Powerline_symbols = 'fancy'
-
-" Run these commands after all .vimrc commands and after all packages/plugins
-augroup PostStartup
-    if exists('g:airline_section_a')
-        au VimEnter * set statusline+=%#warningmsg#
-        if exists(':SyntasticStatuslineFlag')
-            au VimEnter * set statusline+=%{SyntasticStatuslineFlag()}
-        else
-            " echo "Syntastic seems to be uninstalled"
-        endif
-        au VimEnter * set statusline+=%*
-
-        if exists(':SyntasticStatuslineFlag')
-            au VimEnter * let g:syntastic_always_populate_loc_list = 1
-            au VimEnter * let g:syntastic_auto_loc_list = 1
-            au VimEnter * let g:syntastic_check_on_open = 1
-            au VimEnter * let g:syntastic_check_on_wq = 0
-            au VimEnter * let g:airline_powerline_fonts = 1
-            au VimEnter * let g:airline_theme='raven'
-        endif
-    else
-        set statusline=
-        set statusline+=%#PmenuSel#
-        if exists(':StatuslineGit')
-            set statusline+=%{StatuslineGit()}
-        endif
-        set statusline+=%#LineNr#
-        set statusline+=\ %f
-        set statusline+=%m\
-        set statusline+=%=
-        set statusline+=%#CursorColumn#
-        set statusline+=\ %y
-        set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-        set statusline+=\[%{&fileformat}\]
-        set statusline+=\ %p%%
-        set statusline+=\ %l:%c
-        set statusline+=\ 
-    endif
-
-
-    " https://github.com/andviro/flake8-vim
-
-    " Auto-check file for errors on write:
-    au VimEnter * let g:PyFlakeOnWrite = 1
-
-    " List of checkers used:
-    au VimEnter * let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
-    " Default maximum complexity for mccabe:
-
-    au VimEnter * let g:PyFlakeDefaultComplexity=10
-    " List of disabled pep8 warnings and errors:
-
-    au VimEnter * let g:PyFlakeDisabledMessages = 'E501'
-
-    " Default aggressiveness for autopep8:
-    au VimEnter * let g:PyFlakeAggressive = 0
-
-    " Default height of quickfix window:
-    au VimEnter * let g:PyFlakeCWindow = 6
-
-    " Whether to place signs or not:
-    au VimEnter * let g:PyFlakeSigns = 1
-
-    " When usign signs, this is the first id that will be used to identify the
-    " signs. Tweak this if you are using other plugins that also use the sign
-    " gutter
-    au VimEnter * let g:PyFlakeSignStart = 1
-
-    " Maximum line length for PyFlakeAuto command
-    au VimEnter * let g:PyFlakeMaxLineLength = 100
-
-    " Visual-mode key command for PyFlakeAuto
-    au VimEnter * let g:PyFlakeRangeCommand = 'Q'
-
-    " au VimEnter * helptags ALL
-augroup END
+"    let g:powerline_pycmd = "py3"
+"    let g:powerline_pyeval = "py3eval"
+"    let g:Powerline_symbols = 'fancy'
+"
+"    " Run these commands after all .vimrc commands and after all packages/plugins
+"    augroup PostStartup
+"        if exists('g:airline_section_a')
+"            au VimEnter * set statusline+=%#warningmsg#
+"            if exists(':SyntasticStatuslineFlag')
+"                au VimEnter * set statusline+=%{SyntasticStatuslineFlag()}
+"            else
+"                " echo "Syntastic seems to be uninstalled"
+"            endif
+"            au VimEnter * set statusline+=%*
+"
+"            if exists(':SyntasticStatuslineFlag')
+"                au VimEnter * let g:syntastic_always_populate_loc_list = 1
+"                au VimEnter * let g:syntastic_auto_loc_list = 1
+"                au VimEnter * let g:syntastic_check_on_open = 1
+"                au VimEnter * let g:syntastic_check_on_wq = 0
+"                au VimEnter * let g:airline_powerline_fonts = 1
+"                au VimEnter * let g:airline_theme='raven'
+"            endif
+"        else
+"            set statusline=
+"            set statusline+=%#PmenuSel#
+"            if exists(':StatuslineGit')
+"                set statusline+=%{StatuslineGit()}
+"            endif
+"            set statusline+=%#LineNr#
+"            set statusline+=\ %f
+"            set statusline+=%m\
+"            set statusline+=%=
+"            set statusline+=%#CursorColumn#
+"            set statusline+=\ %y
+"            set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"            set statusline+=\[%{&fileformat}\]
+"            set statusline+=\ %p%%
+"            set statusline+=\ %l:%c
+"            set statusline+=\
+"        endif
+"
+"
+"        " https://github.com/andviro/flake8-vim
+"
+"        " Auto-check file for errors on write:
+"        au VimEnter * let g:PyFlakeOnWrite = 1
+"
+"        " List of checkers used:
+"        au VimEnter * let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
+"        " Default maximum complexity for mccabe:
+"
+"        au VimEnter * let g:PyFlakeDefaultComplexity=10
+"        " List of disabled pep8 warnings and errors:
+"
+"        au VimEnter * let g:PyFlakeDisabledMessages = 'E501'
+"
+"        " Default aggressiveness for autopep8:
+"        au VimEnter * let g:PyFlakeAggressive = 0
+"
+"        " Default height of quickfix window:
+"        au VimEnter * let g:PyFlakeCWindow = 6
+"
+"        " Whether to place signs or not:
+"        au VimEnter * let g:PyFlakeSigns = 1
+"
+"        " When usign signs, this is the first id that will be used to identify the
+"        " signs. Tweak this if you are using other plugins that also use the sign
+"        " gutter
+"        au VimEnter * let g:PyFlakeSignStart = 1
+"
+"        " Maximum line length for PyFlakeAuto command
+"        au VimEnter * let g:PyFlakeMaxLineLength = 100
+"
+"        " Visual-mode key command for PyFlakeAuto
+"        au VimEnter * let g:PyFlakeRangeCommand = 'Q'
+"
+"        " au VimEnter * helptags ALL
+"    augroup END
 
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter% says %s'
