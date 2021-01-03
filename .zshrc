@@ -178,10 +178,38 @@ alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
 
+alias punkt='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
+
+function punkt_reset()
+{
+    punkt reset --hard origin/master
+}
+
+function punkt_new()
+{
+    # WIP
+    (
+        set -e
+        set -x
+        git clone https://github.com/marmalodak/home $HOME/.punkte
+        punkt checkout -- $HOME
+        punkt status --ignore-submodules=all --untracked-files=no
+    )
+}
+
+function punkt_auf()
+{
+    (
+        set -x
+        punkt pull --rebase
+        punkt submodule update --init --remote --recursive --jobs=16
+    )
+}
+
 function dotup()
 {
-    set -x
     (
+        set -x
         cd ${HOME}
         git pull --rebase
         git submodule update --init --remote --recursive --jobs=16
