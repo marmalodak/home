@@ -39,3 +39,4 @@ EOF
 
 activate_script=${activate_doc/VIRTUAL_ENV_PLACE_HOLDER/${VIRTUAL_ENV}}
 echo ${activate_script} > activate.zsh
+chmod +x activate.zsh
