@@ -82,6 +82,7 @@ pylint
 - https://github.com/willmcgugan/rich rich text and colours in a terminal
 - https://github.com/onelivesleft/PrettyErrors better looking stack traces
 - https://github.com/marlonrichert/zsh-hist
+- https://www.reddit.com/r/git/comments/ko3tnf/gitcompletion_13_released/ git-completion
 
 ### Historical notes
 
