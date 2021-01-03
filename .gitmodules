@@ -160,3 +160,6 @@
 [submodule ".zsh/zsh-autosuggestions"]
 	path = .zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "/Users/john/.powerlevel10k"]
+	path = /Users/john/.powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
