@@ -180,6 +180,11 @@ alias ipoca='ip -o -c a'
 
 alias punkt='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
 
+function punkt_status()
+{
+    punkt status --ignore-submodules=all --untracked-files=no
+}
+
 function punkt_reset()
 {
     punkt reset --hard origin/master
