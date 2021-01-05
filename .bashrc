@@ -51,6 +51,9 @@ export COLORTERM=on
 export PAGER=less
 export LESS="-w -m --follow-name -r"
 
+# https://github.com/Qix-/better-exceptions/
+export BETTER_EXCEPTIONS=1
+
 # PROMPT_COMMAND defaults is "echo -ne
 # "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"" export
 # PROMPT_COMMAND='`if [ $?==0 ]; then PS1=":)[\u@\h][\d \@][\w] \$\r\n"; else
