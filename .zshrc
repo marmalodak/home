@@ -161,6 +161,9 @@ zstyle ':completion:list-expand:*' extra-verbose yes
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# https://github.com/Qix-/better-exceptions/
+export BETTER_EXCEPTIONS=1
+
 which exa > /dev/null 2>&1
 exa_not_exists=$?
 
