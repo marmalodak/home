@@ -184,6 +184,15 @@ alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
 
+function git_cmds()
+{
+    # TODO see list-<category> in command-list.txt, https://github.com/git/git/blob/master/command-list.txt
+    set -x
+    for cmd in builtins parseopt main others config; do
+        git --list-cmds=${cmd}
+    done
+}
+
 alias punkt='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
 
 function punkt_status()
@@ -198,33 +207,39 @@ function punkt_reset()
 
 function punkt_new()
 {
-    # WIP
-    (
-        set -e
-        set -x
-        git clone https://github.com/marmalodak/home $HOME/.punkte
-        punkt checkout -- $HOME
-        punkt status --ignore-submodules=all --untracked-files=no
-    )
+    set -x
+    git clone https://github.com/marmalodak/home $HOME/.punkte
+    punkt checkout -- $HOME
+    punkt status --ignore-submodules=all --untracked-files=no
+    echo "Jetzt führe diesen Befehl: punkt_auf"
 }
 
 function punkt_auf()
 {
-    (
-        set -x
-        punkt pull --rebase
-        punkt submodule update --init --remote --recursive --jobs=16
-    )
+    set -x
+    punkt pull --rebase
+    punkt submodule update --init --remote --recursive --jobs=16
 }
 
-function dotup()
+function punkt_zeige()
 {
-    (
-        set -x
-        cd ${HOME}
-        git pull --rebase
-        git submodule update --init --remote --recursive --jobs=16
-    )
+    echo "Achtung! ungeprüft und unerprobt"
+    set -x
+    punkt_command='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
+    config_command='config --show-origin --show-scope --list'
+    git_command="${punkt_command} ${config_command}"
+    punkt submodule foreach \
+        ${git_command}
+}
+
+function punkt_flachen()
+{
+    echo "Achtung! ungeprüft und unerprobt"
+    set -x
+    # https://stackoverflow.com/a/37933909
+    # punkt submodule foreach 'git config -f .gitmodules submodule.$sm_path.shallow
+    punkt submodule foreach \
+        punkt' config --local .gitmodules submodule.$sm_path.shallow'
 }
 
 
