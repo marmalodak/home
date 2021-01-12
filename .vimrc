@@ -100,6 +100,10 @@ let g:startify_custom_header = [
         \ 'use :verbose set option? to also see where it was last set.                                ',
         \ '                                                                                           ',
         \ 'export MANPAGER="nvim +Man!"; use gO; see https://www.reddit.com/r/neovim/comments/k5dykf/ ',
+        \ '                                                                                           ',
+        \ 'Control+u in insert mode is UNDO                                                           ',
+        \ 'R enters replace mode, over write like old school editors                                  ',
+        \ 'c is change, C is change for the whole line                                                ',
         \ ]
 " packadd matchit
 
