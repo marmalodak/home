@@ -25,6 +25,8 @@
 . How do I see vim help for the word under the cursor?
 ** `K`
 *** oops that clashes with man.vim
+. When `:help` doesn't find what I think it should: `:helptags ALL`
+. `shiftwidth` and `shiftround`
 
 === Plugins
 
@@ -341,7 +343,6 @@ Lots of resources for writers on the github page
 
 ==== https://github.com/t9md/vim-quickhl[quickhl] quickly highlight <cword> or visually selected word
 
-
 [NOTE]
 ====
 * configuration required
@@ -350,6 +351,113 @@ Lots of resources for writers on the github page
 
 ==== https://github.com/tpope/vim-repeat[repeat] enable repeating supported plugin maps with `.`
 
+==== https://github.com/machakann/vim-sandwich/wiki/Magic-characters[vim-sandwich] operator and textobject plugins to search/select/edit sandwiched textobjects
+
+* `sa{motion/textobject}{addition}` For example, a key sequence `saiw(` makes `foo` to `(foo)`
+* `sdb` or `sd{deletion}` For example, key sequences `sdb` or `sd(` makes `(foo)` to `foo`
+* `srb{addition}` or `sr{deletion}{addition}`. For example, key sequences `srb"` or `sr("` makes `(foo)` to `"foo"`
+
+===== operator-sandwich
+
+A sandwiched text could be resolved into two parts, {surrounding} and {surrounded text}.
+
+    Add surroundings: mapped to the key sequence `sa`
+        {surrounded text} ---> {surrounding}{surrounded text}{surrounding}
+
+    Delete surroundings: mapped to the key sequence `sd`
+        {surrounding}{surrounded text}{surrounding} ---> {surrounded text}
+
+    Replace surroundings: mapped to the key sequence `sr`
+        {surrounding}{surrounded text}{surrounding} ---> {new surrounding}{surrounded text}{new surrounding}
+
+===== textobj-sandwich
+
+    Search and select a sandwiched text automatically: mapped to the key sequence `ib` and `ab`
+    Search and select a sandwiched text with query: mapped to the key sequence `is` and `as`
+
+`ib` and `is` selects {surrounded text}. `ab` and `as` selects {surrounded text} including {surrounding}s.
+
+```
+             |<----ib,is---->|
+{surrounding}{surrounded text}{surrounding}
+|<-----------------ab,as----------------->|
+```
+
+==== https://github.com/garbas/vim-snipmate/[vim-snipmate]
+
+For snippets themselves, see https://github.com/honza/vim-snippets[vim-snippets]
+
+* `:SnipMateOpenSnippetFiles`
+
+===== Dependencies
+
+* https://github.com/marcweber/vim-addon-mw-utils
+* https://github.com/tomtom/tlib_vim
+
+==== https://github.com/honza/vim-snippets[vim-snippets]
+
+See snipmate
+
+==== https://github.com/mhinz/vim-startify[vim-startify] fancy start screen
+
+* `:help startify.txt`
+
+==== http://github.com/dhruvasagar/vim-table-mode[vim-table-mode]
+
+* `:help tablemode.txt`
+* `:TableModeToggle`
+
+==== https://github.com/tmux-plugins/vim-tmux[vim-tmux]
+
+When you edit .tmux.conf you get:
+
+* proper syntax highlighting
+* `commentstring` - so that plugins like vim-commentary work as intended
+* `K` - jumps to the *exact* place in `man tmux` where the word under cursor is explained (a helluva time saver). This should work correctly on practically anything in `.tmux.conf`.
+* http://vimdoc.sourceforge.net/htmldoc/quickfix.html#:make[:make] invokes tmux source `.tmux.conf` and places all the errors (if any) in quicklist
+* `g!` - executes lines as tmux commands. Works on visual selection or as a motion. `g!!` executes just the current line.
+
+==== https://github.com/tmux-plugins/vim-tmux[vim-tmux][vim-tmux-focus-events] FocusGained and FocusLost autocommand events
+
+* Makes other plugins work in terminal vim
+* tmux config required: set -g focus-events on
+
+==== https://github.com/urbainvaes/vim-tmux-pilot[vim-tmux-pilot] extends the <c-{h,l}> mappings to switch between vim or tmux tabs when no vim or tmux split is available
+
+Requires both tmux an vim config
+
+==== https://github.com/mattboehm/vim-unstack[vim-unstack] Parse stack traces or quickfix entries and open the result in vim splits!
+
+* `:help unstack.txt`
+* `:help :UnstackFromText`
+
+==== https://github.com/vimwiki/vimwiki[vimwiki]
+
+* `<Leader>ww` (default is `\ww`) to go to your index wiki file. By default, it is located in ~/vimwiki/index.wiki. See :h vimwiki_list for registering a different path/wiki.
+* `:Vimwiki2HTML` -- Convert current wiki link to HTML.
+* `:VimwikiAll2HTML` -- Convert all your wiki links to HTML.
+* `:help vimwiki-commands` -- List all commands.
+* `:help vimwiki` -- General vimwiki help docs.
+
+==== https://github.com/sjl/vitality.vim[vim-vitality] restores the FocusLost and FocusGained autocommand in iTerm
+
+* requires tmux config set -g focus-events on
+
+==== https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) is a plugin for Vim that emulates a two-pane text outliner
+
+* `:Voom [MarkupMode]`
+* `:help voom.txt`
+* `:Voomhelp`
+
+==== https://github.com/mattn/webapi-vim[webapi]
+
+* `:help webapi.txt`
+* not a lot of info, must never have used it
+
+==== https://github.com/gcmt/wildfire.vim[wildfire] Smart selection of the closest text object
+
+* `:help wildfire.txt`
+* Press <ENTER> in normal mode to select the closest text object. Keep pressing <ENTER> for selecting the next closest text object. To go the other way round, that is, to select the previously selected text object, press <BS>.
 
 === Status line
 
@@ -358,6 +466,7 @@ Lots of resources for writers on the github page
 
 === Potentially useful plugins and resources to consider
 
+* https://github.com/ratfactor/vviki/
 * https://github.com/Shougo/vimshell.vim
 * https://github.com/vim-tw/vim-tips
 * Look for an email message from vimtricks subject "Lesson 8: Statusline and Git"
