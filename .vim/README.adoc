@@ -482,3 +482,4 @@ Requires both tmux an vim config
 * https://github.com/dandavison/delta for use by other plugins?
 * https://github.com/ryanoasis/vim-devicons
 * https://github.com/RRethy/vim-illuminate highlight other occurences of the word under the cursor
+* https://gist.github.com/tpope/1203867 bindings for vi-mode
