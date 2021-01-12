@@ -14,6 +14,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+3 https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
 shopt -s histappend
 
 which exa > /dev/null 2>&1
