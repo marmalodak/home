@@ -254,9 +254,11 @@ function punkt_flachen()
 
 function punkt_submodule_bringeum()
 {
-    echo
-    echo "Achtung! ungeprüft und unerprobt"
-    echo
+    # to prevent a previous invocation of this function possibly still having these variables set:
+    unset submodule_name
+    unset displaypath
+    unset toplevel
+    unset sm_path
 
     command -v jq > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
@@ -266,12 +268,6 @@ function punkt_submodule_bringeum()
 
     # https://stackoverflow.com/a/1260982/1698426
     # https://stackoverflow.com/a/7646931/1698426
-
-    # to prevent a previous invokation of this function possibly still having these variables set:
-    unset submodule_name
-    unset displaypath
-    unset toplevel
-    unset sm_path
 
     SUBMODULE_NAME="${1}"
     if [[ -z "${SUBMODULE_NAME}" ]]; then
