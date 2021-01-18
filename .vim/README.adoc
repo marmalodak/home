@@ -17,6 +17,9 @@
 
 == My VIM info
 
+=== Dead submodules
+
+* See the deprecated submodules at the end of this doc, remove them if they're still on this file system
 
 === FAQs
 

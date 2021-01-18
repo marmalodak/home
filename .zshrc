@@ -225,6 +225,9 @@ function punkt_zeige()
 {
     if [[ "${1}" == "--json" ]]; then
         echo $(punkt_zu_json)
+    elif [[ -n "${1}" ]]; then
+        punkte_json=$(punkt_zu_json)
+        echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
     else
         punkt submodule foreach \
             'echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo'
@@ -233,7 +236,7 @@ function punkt_zeige()
 
 function punkt_zu_json()
 {
-    command -v jo
+    command -v jo > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
         echo "Install jo"
         return 1
@@ -255,7 +258,7 @@ function punkt_submodule_bringeum()
     echo "Achtung! ungeprüft und unerprobt"
     echo
 
-    command -v jq
+    command -v jq > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
         echo "Install jq"
         return 1
@@ -280,6 +283,7 @@ function punkt_submodule_bringeum()
     fi
 
     punkte_json=$(punkt_zu_json)
+    set -x
     eval $(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
 
     # now these variables exist:
