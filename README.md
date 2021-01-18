@@ -83,6 +83,10 @@ pylint
 - https://github.com/onelivesleft/PrettyErrors better looking stack traces
 - https://github.com/marlonrichert/zsh-hist
 - https://www.reddit.com/r/git/comments/ko3tnf/gitcompletion_13_released/ git-completion
+- https://www.arp242.net/zshrc.html
+
+- defaults write com.apple.dock autohide-delay -float 0; killall Dock
+- defaults write com.apple.dock autohide-time-modifier -float 0.25; killall Dock
 
 ### Historical notes
 

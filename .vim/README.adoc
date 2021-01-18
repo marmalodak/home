@@ -27,6 +27,7 @@
 *** oops that clashes with man.vim
 . When `:help` doesn't find what I think it should: `:helptags ALL`
 . `shiftwidth` and `shiftround`
+. How to add quotes to the words up to space: `sat "`
 
 === Plugins
 
@@ -127,14 +128,6 @@ simply write that buffer (e.g. by |:w|) and your modifications will be put in
 the original buffer making it accessible again. Use |:q!| or |:bw!| to abort
 your changes and return back to the original window.
 ____
-
-==== https://github.com/hauleth/sad.vim[sad] "seek and destroy"
-
-```
-["x]s{motion}       Delete {motion} [into register x] text and start insert.
-                    Afterwards |.| can be used to replace next occurence
-                    of deleted text.
-```
 
 ==== https://github.com/AndrewRadev/splitjoin.vim[splitjoin] Switch between single-line and multiline forms of code
 
@@ -353,6 +346,11 @@ Lots of resources for writers on the github page
 
 ==== https://github.com/machakann/vim-sandwich/wiki/Magic-characters[vim-sandwich] operator and textobject plugins to search/select/edit sandwiched textobjects
 
+[WARNING]
+====
+This submodule conflicts with sad.vim
+====
+
 * `sa{motion/textobject}{addition}` For example, a key sequence `saiw(` makes `foo` to `(foo)`
 * `sdb` or `sd{deletion}` For example, key sequences `sdb` or `sd(` makes `(foo)` to `foo`
 * `srb{addition}` or `sr{deletion}{addition}`. For example, key sequences `srb"` or `sr("` makes `(foo)` to `"foo"`
@@ -449,11 +447,6 @@ Requires both tmux an vim config
 * `:help voom.txt`
 * `:Voomhelp`
 
-==== https://github.com/mattn/webapi-vim[webapi]
-
-* `:help webapi.txt`
-* not a lot of info, must never have used it
-
 ==== https://github.com/gcmt/wildfire.vim[wildfire] Smart selection of the closest text object
 
 * `:help wildfire.txt`
@@ -482,4 +475,25 @@ Requires both tmux an vim config
 * https://github.com/dandavison/delta for use by other plugins?
 * https://github.com/ryanoasis/vim-devicons
 * https://github.com/RRethy/vim-illuminate highlight other occurences of the word under the cursor
-* https://gist.github.com/tpope/1203867 bindings for vi-mode
+* https://joereynoldsaudio.com/2020/01/22/vim-sandwich-is-better-than-surround.html
+* http://evantravers.com/articles/2019/01/07/vim-sandwich-vs-vim-surround/
+** it sounds from these links that vim-surround might be more standard compliant?
+** some plugin is interfering with S from vim-sandwich <Plug>(sad-change-backward), so sad.vim
+
+==== language server
+
+* https://github.com/tpope/vim-endwise  automatically fill in ends of statements, e.g. `if` might fill in `then`?
+
+vim-endwise might be better replaced with a language server (client?), but which?
+
+* https://www.reddit.com/r/neovim/comments/ectznp/why_was_it_decided_to_include_a_language_server/
+* https://www.reddit.com/r/neovim/comments/gs271v/anyone_knows_about_a_language_server_for_human/
+* https://www.reddit.com/r/vim/comments/9zo98c/what_languageserver_client_does_everyone_use/
+* does one of them win if multiple language servers are installed?
+* https://github.com/josa42/coc-sh
+* https://github.com/bash-lsp/bash-language-server  Doesn't support fancy zsh {@} completions
+
+=== Deprecated
+
+. https://github.com/mattn/webapi-vim[webapi]
+. https://github.com/hauleth/sad.vim[sad] "seek and destroy"
