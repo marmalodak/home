@@ -292,18 +292,14 @@ function punkt_submodule_bringeum()
         echo "Achtung! Kein submodule gefunden!"
         return 1
     fi
-
-    set -e
-    set -u
     
     set -x
 
-    # punkt rm "${submodule_name}"
     punkt rm --force "${displaypath}"
     rm -rf "${toplevel}/.punkte/.git/modules/${submodule_name}"
     rm -rf "${toplevel}/${sm_path}"
     punkt config --remove-section submodule.${submodule_name}
-    # punkt config --file config --remove-section submodule.${submodule_name}
+    punkt config --file config --remove-section submodule.${submodule_name}
 
     echo
     echo "Beachte folgendes:"

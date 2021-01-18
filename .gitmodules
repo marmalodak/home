@@ -79,9 +79,6 @@
 [submodule ".vim/pack/vim8/start/tlib_vim.git"]
 	path = .vim/pack/vim8/start/tlib_vim.git
 	url = https://github.com/tomtom/tlib_vim.git
-[submodule ".vim/pack/vim8/start/vim-snipmate.git"]
-	path = .vim/pack/vim8/start/vim-snipmate.git
-	url = https://github.com/garbas/vim-snipmate.git
 [submodule ".vim/pack/vim8/start/vim-taskwarrior"]
 	path = .vim/pack/vim8/start/vim-taskwarrior
 	url = https://github.com/blindFS/vim-taskwarrior
