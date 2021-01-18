@@ -233,6 +233,11 @@ function punkt_zeige()
 
 function punkt_zu_json()
 {
+    command -v jo
+    if [[ $? -ne 0 ]]; then
+        echo "Install jo"
+        return 1
+    fi
     echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
 }
 
@@ -249,6 +254,12 @@ function punkt_submodule_bringeum()
     echo
     echo "Achtung! ungeprüft und unerprobt"
     echo
+
+    command -v jq
+    if [[ $? -ne 0 ]]; then
+        echo "Install jq"
+        return 1
+    fi
 
     # https://stackoverflow.com/a/1260982/1698426
     # https://stackoverflow.com/a/7646931/1698426
