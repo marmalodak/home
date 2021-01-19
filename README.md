@@ -87,6 +87,15 @@ pylint
 
 - defaults write com.apple.dock autohide-delay -float 0; killall Dock
 - defaults write com.apple.dock autohide-time-modifier -float 0.25; killall Dock
+- https://github.com/rxhanson/Rectangle
+- https://github.com/sindresorhus/quick-look-plugins
+
+- https://github.com/plankanban/planka
+- https://github.com/taigaio
+- https://www.openproject.org
+
+- https://github.com/GRVYDEV/Project-Lightspeed
+
 
 ### Historical notes
 
