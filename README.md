@@ -66,6 +66,7 @@ pylint
 ### TIL
 
 * `${!foo}` => indirect expansion!
+* https://github.com/sharkdp/bat like cat but way better
  
 ### Bookmarks for future projects
 
@@ -83,6 +84,12 @@ pylint
 - https://github.com/onelivesleft/PrettyErrors better looking stack traces
 - https://github.com/marlonrichert/zsh-hist
 - https://www.reddit.com/r/git/comments/ko3tnf/gitcompletion_13_released/ git-completion
+- https://www.reddit.com/r/zsh/comments/g1a2qd/what_is_a_good_way_to_synchronize_ohmyzsh/ 
+  - [quote https://www.reddit.com/r/zsh/comments/g1a2qd/what_is_a_good_way_to_synchronize_ohmyzsh/fneil10]____I don't need to track the entire .oh-my-zsh repo. I just need to track the custom directory. There's a $ZSH_CUSTOM env var that allows you to point to an alternative directory. I just moved that into my ~/Dotfile/ repo and track that.____
+  - I learned about https://github.com/TheLocehiliosan/yadm from this reddit thread, seems like a well developed dot files manager 
+  - related: https://www.reddit.com/r/zsh/comments/i35ozl/ohmyzsh_as_a_submodule/g09gvig
+- https://www.reddit.com/r/zsh/comments/ix98cv/new_znap_plugin_manager_features_instant_prompt/
+
 
 ### Historical notes
 
