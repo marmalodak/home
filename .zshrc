@@ -223,23 +223,90 @@ function punkt_auf()
 
 function punkt_zeige()
 {
-    echo "Achtung! ungeprüft und unerprobt"
-    set -x
-    punkt_command='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
-    config_command='config --show-origin --show-scope --list'
-    git_command="${punkt_command} ${config_command}"
-    punkt submodule foreach \
-        ${git_command}
+    if [[ "${1}" == "--json" ]]; then
+        echo $(punkt_zu_json)
+    elif [[ -n "${1}" ]]; then
+        punkte_json=$(punkt_zu_json)
+        echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
+    else
+        punkt submodule foreach \
+            'echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo'
+    fi
+}
+
+function punkt_zu_json()
+{
+    command -v jo > /dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        echo "Install jo"
+        return 1
+    fi
+    echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
 }
 
 function punkt_flachen()
 {
-    echo "Achtung! ungeprüft und unerprobt"
     set -x
     # https://stackoverflow.com/a/37933909
-    # punkt submodule foreach 'git config -f .gitmodules submodule.$sm_path.shallow
-    punkt submodule foreach \
-        punkt' config --local .gitmodules submodule.$sm_path.shallow'
+    punkt submodule foreach 'git config -f ${HOME}/.punkte/.gitmodules submodule.$name.shallow true'
+    punkt submodule foreach 'git config -f ${HOME}/.punkte/.git/config submodule.$name.shallow true'
+}
+
+function punkt_submodule_bringeum()
+{
+    # to prevent a previous invocation of this function possibly still having these variables set:
+    unset submodule_name
+    unset displaypath
+    unset toplevel
+    unset sm_path
+
+    command -v jq > /dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        echo "Install jq"
+        return 1
+    fi
+
+    # https://stackoverflow.com/a/1260982/1698426
+    # https://stackoverflow.com/a/7646931/1698426
+
+    SUBMODULE_NAME="${1}"
+    if [[ -z "${SUBMODULE_NAME}" ]]; then
+        echo "Must provide a submodule"
+        echo "Submoule must be passed in as report by punkt status"
+        echo "NB punkt_status does not show submodules"
+        echo "See also punkt_zeige"
+        return 1
+    fi
+
+    punkte_json=$(punkt_zu_json)
+    set -x
+    eval $(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
+
+    # now these variables exist:
+    # submodule_name=.zsh/zsh-autosuggestions
+    # displaypath=../../.zsh/zsh-autosuggestions
+    # toplevel=/Users/john
+    # sm_path=.zsh/zsh-autosuggestions
+
+    if [[ -z ${submodule_name} || -z ${displaypath} || -z ${toplevel} || -z ${sm_path} ]]; then
+        echo "Achtung! Kein submodule gefunden!"
+        return 1
+    fi
+    
+    set -x
+
+    punkt rm --force "${displaypath}"
+    rm -rf "${toplevel}/.punkte/.git/modules/${submodule_name}"
+    rm -rf "${toplevel}/${sm_path}"
+    punkt config --remove-section submodule.${submodule_name}
+    punkt config --file config --remove-section submodule.${submodule_name}
+
+    echo
+    echo "Beachte folgendes:"
+    echo "1. punkt add ${toplevel}/.punkte/.git/modules ?"
+    echo "2. punkt commit"
+    echo "3. punkt push"
+    echo
 }
 
 
