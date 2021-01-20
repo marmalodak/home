@@ -483,3 +483,4 @@ Requires both tmux an vim config
 * https://github.com/ryanoasis/vim-devicons
 * https://github.com/RRethy/vim-illuminate highlight other occurences of the word under the cursor
 * https://gist.github.com/tpope/1203867 bindings for vi-mode
+* https://github.com/python-mode/python-mode
