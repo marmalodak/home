@@ -495,6 +495,10 @@ Requires both tmux an vim config
 * https://github.com/bash-lsp/bash-language-server  Doesn't support fancy zsh {@} completions
 * https://github.com/dpelle/vim-LanguageTool
 * vim-endwise might be better replaced with a language server (client?), but which?
+* https://github.com/kana/vim-textobj-user/wiki
+* https://github.com/pbrisbin/vim-colors-off
+* https://github.com/cideM/yui <- proper highlight for diffs
+* https://github.com/tpope/vim-scriptease
 
 === Deprecated
 
