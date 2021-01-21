@@ -279,8 +279,8 @@ function punkt_submodule_bringeum()
     fi
 
     punkte_json=$(punkt_zu_json)
-    set -x
-    eval $(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
+    submodule_details=$(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
+    eval ${submodule_details}
 
     # now these variables exist:
     # submodule_name=.zsh/zsh-autosuggestions
@@ -293,17 +293,18 @@ function punkt_submodule_bringeum()
         return 1
     fi
     
-    set -x
-
     punkt rm --force "${displaypath}"
     rm -rf "${toplevel}/.punkte/.git/modules/${submodule_name}"
     rm -rf "${toplevel}/${sm_path}"
     punkt config --remove-section submodule.${submodule_name}
-    punkt config --file config --remove-section submodule.${submodule_name}
+    # - one of the comments about removing submodules said that config -f config was needed
+    # - I found that after the previous command, I got only an error message from config -f config --remove -section...
+    # - the error was "fatal: no such section: submodule.<submodule-name>"
+    # punkt config --file config --remove-section submodule.${submodule_name}
 
     echo
     echo "Beachte folgendes:"
-    echo "1. punkt add ${toplevel}/.punkte/.git/modules ?"
+    echo "1. punkt add ${toplevel}/.punkte/.git/modules ? ⇦ Nein! Tu das nicht."
     echo "2. punkt commit"
     echo "3. punkt push"
     echo
