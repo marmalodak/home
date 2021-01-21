@@ -57,11 +57,6 @@ I realised I have VIM plugins installed which:
 
 ==== https://github.com/metakirby5/codi.vim[codi] "interactive scratchpad for hackers"
 
-==== https://github.com/yuttie/comfortable-motion.vim[comfortable-motion] "physics-based smooth scrolling"
-
-* `C-d` and `C-u`
-* `C-f` and `C-b`
-
 ==== http://mattn.github.com/emmet-vim[emmet] "abbreviation engine" emmet for vim: http://emmet.io/[emmet]
 
 ==== https://github.com/dylanaraps/fff.vim[fff] use file manager https://github.com/dylanaraps/fff[fff]
@@ -208,22 +203,6 @@ ____
 * `:Utl`
 * `:help utl-config`
 
-==== https://github.com/vifm/vifm.vim[vifm]
-
-* `:EditVifm` `:Vifm`
-* `SplitVifm` `:VsplitVifm`
-* `DiffVifm`
-* I don't think I've used this at all, might nuke it
-
-===== Dependencies
-
-* https://github.com/vifm/vifm[vifm]
-
-==== https://github.com/MarcWeber/vim-addon-manager-known-repositories[VIM-PI]
-
-* Pretty sure this plugin needs to disappear
-* What does " this repository contains a list of known other repositories only " even mean?
-
 ==== https://github.com/liuchengxu/vim-clap[vim-clap] modern generic interactive finder and dispatcher
 
 * This looks INTERESTING!
@@ -273,15 +252,6 @@ ____
 * https://github.com/tpope/vim-repeat
 * https://github.com/vim-scripts/visualrepeat
 
-==== https://github.com/drmikehenry/vim-extline[extline]
-
-All this plugin does is underline section titles for restructuredtext.
-
-[NOTE]
-====
-It has got to go.
-====
-
 ==== https://github.com/gitgutter/Vim[gitgutter]
 
 Shows git changes in the left-most column in the window.  Use `]c` and `[c` to jump to changes.
@@ -289,53 +259,6 @@ Shows git changes in the left-most column in the window.  Use `]c` and `[c` to j
 * `:GitGutterToggle` `:GitGutterAll` `:GitGutterLineHighlightsToggle` `:GitGutterLineNrHighlightsToggle`
 * `:GitGutterNextHunk`  `]c`
 * `:GitGutterQuickFix`
-
-==== https://github.com/ryanss/vim-hackernews[hackernews]
-
-[WARNING]
-====
-This submodule changed to https://github.com/dansomething/vim-hackernews as the one from ryanss is abandoned
-====
-
-* Open the Hacker News front page in Vim by executing the :HackerNews command
-* The HackerNews command takes an optional parameter to view items other than the top stories on the front page: ask, show, shownew, jobs, best, active, newest, noobstories, <item id>, or <search query>
-* Press lowercase o to open links in Vim
-* Press uppercase O to open links in default web browser
-* Numbered lines with story titles on the front page link to the story url
-* Comment lines on the front page link to the comments url
-* Press uppercase F to fold current comment thread
-* Press lowercase u to go back
-* Press Ctrl+r to go forward
-* Execute the :bd command to close and remove the Hacker News buffer
-
-===== Enhanced Motions
-
-* Uppercase J and K are mapped to helpful new motions based on what type of content is on the screen:
-* Move to next/prev item when viewing the front page. (If the cursor is on a numbered line with story title the cursor will move to the next/prev numbered line with story title. If the cursor is on a comment line it will move to the next/prev comment line.)
-* Move to next/prev comment when viewing comments.
-* Move to next/prev paragraph when viewing the text version of articles.
-
-
-==== https://github.com/baruchel/vim-notebook[notebook] Kinda like ipython
-
-* `:NotebookStart`
-
-[NOTE]
-====
-Installation is incomplete without configuration
-====
-
-[WARNING]
-====
-Might be abandoned, probably needs to go
-====
-
-==== https://github.com/jceb/vim-orgmode[orgmode]
-
-[WARNING]
-====
-Unmaintained, looking for maintainer
-====
 
 ==== https://github.com/reedes/vim-pencil[pencil] Make vim a tool for writing prose
 
@@ -437,15 +360,18 @@ Requires both tmux an vim config
 * `:help vimwiki-commands` -- List all commands.
 * `:help vimwiki` -- General vimwiki help docs.
 
+
+[WARNING]
+====
+vimwiki is going to be replaced by https://github.com/ratfactor/vviki[vviki]
+
+This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
+====
+
+
 ==== https://github.com/sjl/vitality.vim[vim-vitality] restores the FocusLost and FocusGained autocommand in iTerm
 
 * requires tmux config set -g focus-events on
-
-==== https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) is a plugin for Vim that emulates a two-pane text outliner
-
-* `:Voom [MarkupMode]`
-* `:help voom.txt`
-* `:Voomhelp`
 
 ==== https://github.com/gcmt/wildfire.vim[wildfire] Smart selection of the closest text object
 
@@ -483,6 +409,7 @@ Requires both tmux an vim config
 ** some plugin is interfering with S from vim-sandwich <Plug>(sad-change-backward), so sad.vim
 * https://github.com/dbmrq/vim-dialect project specific spell files, e.g. words added with zG and zW
 * https://github.com/mitsuhiko/vim-jinja better highlighting for jinja files
+* https://github.com/dansomething/vim-hackernews
 
 ==== language server
 
@@ -506,3 +433,11 @@ Requires both tmux an vim config
 . https://github.com/hauleth/sad.vim[sad] "seek and destroy"
 . https://github.com/garbas/vim-snipmate/[vim-snipmate]
 . https://github.com/marcweber/vim-addon-mw-utils[vim-addon-mw-utils]
+. https://github.com/MarcWeber/vim-addon-manager-known-repositories[VIM-PI]
+. https://github.com/drmikehenry/vim-extline[extline]
+. https://github.com/baruchel/vim-notebook[notebook] Kinda like ipython
+. ttps://github.com/jceb/vim-orgmode[orgmode]
+. https://github.com/vifm/vifm.vim[vifm]
+. https://github.com/ryanss/vim-hackernews[hackernews]
+. https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) no mention of asciidoc, so buh-bye
+. https://github.com/yuttie/comfortable-motion.vim[comfortable-motion] "physics-based smooth scrolling"

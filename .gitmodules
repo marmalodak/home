@@ -13,9 +13,6 @@
 [submodule ".vim/pack/vim8/start/vimwiki"]
 	path = .vim/pack/vim8/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
-[submodule ".vim/pack/vim8/start/vim-notebook"]
-	path = .vim/pack/vim8/start/vim-notebook
-	url = https://github.com/baruchel/vim-notebook
 [submodule ".vim/pack/vim8/start/vim-table-mode.git"]
 	path = .vim/pack/vim8/start/vim-table-mode.git
 	url = https://github.com/dhruvasagar/vim-table-mode.git
@@ -31,12 +28,6 @@
 [submodule ".vim/pack/vim8/start/vim-easy-align"]
 	path = .vim/pack/vim8/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
-[submodule ".vim/pack/vim8/start/vim-extline"]
-	path = .vim/pack/vim8/start/vim-extline
-	url = https://github.com/drmikehenry/vim-extline
-[submodule ".vim/pack/vim8/start/comfortable-motion.vim"]
-	path = .vim/pack/vim8/start/comfortable-motion.vim
-	url = https://github.com/yuttie/comfortable-motion.vim
 [submodule ".vim/pack/vim8/start/vim-commentary"]
 	path = .vim/pack/vim8/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
@@ -46,15 +37,9 @@
 [submodule ".vim/pack/vim8/start/codi.vim"]
 	path = .vim/pack/vim8/start/codi.vim
 	url = https://github.com/metakirby5/codi.vim
-[submodule ".vim/pack/vim8/start/vim-hackernews"]
-	path = .vim/pack/vim8/start/vim-hackernews
-	url = https://github.com/dansomething/vim-hackernews
 [submodule ".vim/pack/vim8/start/wildfire.vim"]
 	path = .vim/pack/vim8/start/wildfire.vim
 	url = https://github.com/gcmt/wildfire.vim
-[submodule ".vim/pack/vim8/start/VOoM"]
-	path = .vim/pack/vim8/start/VOoM
-	url = https://github.com/vim-voom/VOoM
 [submodule ".vim/pack/vim8/start/vim-sandwich"]
 	path = .vim/pack/vim8/start/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich
@@ -115,9 +100,6 @@
 [submodule ".vim/pack/vim8/start/SyntaxRange"]
 	path = .vim/pack/vim8/start/SyntaxRange
 	url = https://github.com/vim-scripts/SyntaxRange
-[submodule ".vim/pack/vim8/start/vim-orgmode"]
-	path = .vim/pack/vim8/start/vim-orgmode
-	url = https://github.com/jceb/vim-orgmode
 [submodule ".vim/pack/vim8/start/vim-pencil"]
 	path = .vim/pack/vim8/start/vim-pencil
 	url = https://github.com/reedes/vim-pencil
@@ -133,9 +115,6 @@
 [submodule "/mnt/myth/john/.vim/pack/vim8/start/vim-surround"]
 	path = /mnt/myth/john/.vim/pack/vim8/start/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule ".vim/pack/vim8/start/vifm.git"]
-	path = .vim/pack/vim8/start/vifm.git
-	url = https://github.com/vifm/vifm.vim.git
 [submodule ".vim/pack/vim8/start/vim-css-color.git"]
 	path = .vim/pack/vim8/start/vim-css-color.git
 	url = https://github.com/ap/vim-css-color.git
