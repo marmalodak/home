@@ -216,10 +216,7 @@ function punkt_new()
 
 function punkt_auf()
 {
-    punkt pull --rebase --verbose --stat
-    if [[ $? -eq 0 ]]; then
-        punkt submodule update --init --remote --recursive --jobs=16
-    fi
+    punkt pull --rebase --verbose --stat && punkt submodule update --init --remote --recursive --jobs=16
 }
 
 function punkt_zeige()
