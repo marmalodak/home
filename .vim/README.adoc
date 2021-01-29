@@ -38,6 +38,8 @@
 . About copying?
 * https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/
 ** https://github.com/ojroques/vim-oscyank
+. Open URLs et el?
+* `gx`, see `:help gx`
 
 === Plugins
 
@@ -396,6 +398,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 ** https://github.com/KevinGoodsell/vim-csexact
 ** https://github.com/KabbAmine/vCoolor.vim colour selector
 ** https://github.com/DougBeney/pickachu
+** https://github.com/joowani/colorpedia
 * https://github.com/tpope/vim-characterize[vim-characterize] reveal info about chars and digraphs et al
 * https://github.com/sharkdp/bat syntax hilighting for what?
 * https://github.com/dandavison/delta for use by other plugins?
@@ -410,6 +413,8 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/dbmrq/vim-dialect project specific spell files, e.g. words added with zG and zW
 * https://github.com/mitsuhiko/vim-jinja better highlighting for jinja files
 * https://github.com/dansomething/vim-hackernews
+* https://github.com/ms-jpq/chadtree
+* https://github.com/vim-scripts/utl.vim/blob/67a6506a7a8a3847d00d3af3e2ed9707460d5ce5/doc/utl_usr.txt#L71
 
 ==== language server
 
@@ -436,7 +441,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 . https://github.com/MarcWeber/vim-addon-manager-known-repositories[VIM-PI]
 . https://github.com/drmikehenry/vim-extline[extline]
 . https://github.com/baruchel/vim-notebook[notebook] Kinda like ipython
-. ttps://github.com/jceb/vim-orgmode[orgmode]
+. https://github.com/jceb/vim-orgmode[orgmode]
 . https://github.com/vifm/vifm.vim[vifm]
 . https://github.com/ryanss/vim-hackernews[hackernews]
 . https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) no mention of asciidoc, so buh-bye
