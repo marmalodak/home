@@ -265,6 +265,8 @@ function! NedsSchemeUpdate()
             exe cmd
         endfor
     endfor
+    " This is a bug, see the help for background
+    " tl;dr setting background reloads the color scheme, it doesn't do what you think it does
     exe "set background=" . b:background
 endfunction
 
@@ -298,6 +300,7 @@ function! NedColorSchemeCycler()
     endif
     let l:current_scheme = l:all_schemes[l:current_scheme_index]
     let g:NedsCurrentVariant = l:current_scheme
+    " see earlier note about setting background
     let b:background = b:NedsVariants[g:NedsCurrentVariant]["background"]
     call NedsSchemeUpdate()
     echo string(l:current_scheme_index) . ": " . l:current_scheme . ', ' . string(l:all_schemes)
