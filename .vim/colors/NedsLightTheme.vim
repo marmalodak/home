@@ -12,6 +12,12 @@ if exists("syntax_on")
     syntax reset
 endif
 
+" this might be a bug, it seems that vim sets the background variable itself depending on the terminal background
+" bookmarks:
+" http://peterodding.com/code/vim/colorscheme-switcher/#known_problems
+" https://vimhelp.org/options.txt.html#%27background%27
+" https://vi.stackexchange.com/questions/12104/what-does-set-background-dark-do
+" NB Setting background causes the color scheme to be reloaded
 set background=light
 let g:colors_name = "NedsLightTheme"
 
