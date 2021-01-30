@@ -1,6 +1,9 @@
 To use, follow this advice:
 
-https://stackoverflow.com/a/16811212/1698426
+* https://stackoverflow.com/a/16811212/1698426
+* https://news.ycombinator.com/item?id=25564555, the whole thread is about dotfiles
+* https://www.atlassian.com/git/tutorials/dotfiles
+* https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
 
 ....
 git init .
@@ -11,9 +14,20 @@ git checkout master
 On a new installation, I usually want:
 
 ....
-punkt_auf
 p10k configure
 ....
+
+[WARNING]
+====
+The preceding is out-of-date, it's probably something like 
+
+....
+git clone https://github.com/marmalodak/home ~/.punkte  --single-branch
+....
+
+Open a new terminal to invoke the punkte (née dotfiles)
+====
+
 
 == Bugs
 
@@ -59,7 +73,4 @@ brew install fping
 == Historical notes
 
 * I learned about using GIT-DIR and WORK-DIR for dotfiles from:
-** https://news.ycombinator.com/item?id=25564555, the whole thread is about dotfiles
-** https://www.atlassian.com/git/tutorials/dotfiles
-** https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
 * The powerline module gave me too much trouble, so I’m configuring that manually now, so I don’t need the python virtual environment anymore
