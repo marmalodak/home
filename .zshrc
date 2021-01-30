@@ -222,7 +222,7 @@ function punkt_auf()
 function punkt_zeige()
 {
     if [[ "${1}" == "--json" ]]; then
-        echo $(punkt_zu_json)
+        echo $(punkt_zu_json) | jq
     elif [[ -n "${1}" ]]; then
         punkte_json=$(punkt_zu_json)
         echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
@@ -244,6 +244,11 @@ function punkt_zu_json()
 
 function punkt_flachen()
 {
+    # This is probably wrong:
+    # 1. it doesn't seem to do what I think it should do
+    # 2. probably don't need to use -f, git already knows where config files are
+    #
+    # Could this be enhanced to set the submodule repo to be bare?
     set -x
     # https://stackoverflow.com/a/37933909
     punkt submodule foreach 'git config -f ${HOME}/.punkte/.gitmodules submodule.$name.shallow true'
