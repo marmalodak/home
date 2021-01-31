@@ -309,13 +309,6 @@ function punkt_submodule_bringeum()
     # - I found that after the previous command, I got only an error message from config -f config --remove -section...
     # - the error was "fatal: no such section: submodule.<submodule-name>"
     # punkt config --file config --remove-section submodule.${submodule_name}
-
-    echo
-    echo "Beachte folgendes:"
-    echo "1. punkt add ${toplevel}/.punkte/.git/modules ? ⇦ Nein! Tu das nicht."
-    echo "2. punkt commit"
-    echo "3. punkt push"
-    echo
 }
 
 
