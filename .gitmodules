@@ -22,9 +22,6 @@
 [submodule ".vim/pack/vim8/start/traces.vim"]
 	path = .vim/pack/vim8/start/traces.vim
 	url = https://github.com/markonm/traces.vim
-[submodule ".vim/pack/vim8/start/splitjoin.vim"]
-	path = .vim/pack/vim8/start/splitjoin.vim
-	url = https://github.com/AndrewRadev/splitjoin.vim
 [submodule ".vim/pack/vim8/start/vim-easy-align"]
 	path = .vim/pack/vim8/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
