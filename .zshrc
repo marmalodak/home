@@ -12,6 +12,11 @@ if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
     fi
 fi
 
+# https://github.com/ohmyzsh/ohmyzsh/issues/6835
+# https://github.com/ohmyzsh/ohmyzsh/issues/6835#issuecomment-392755849 ???
+# https://stackoverflow.com/a/61572895 ???
+ZSH_DISABLE_COMPFIX="true"
+
 # after upgrade to Fedora 33, I needed to do this:
 export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 

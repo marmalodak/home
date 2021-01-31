@@ -1,37 +1,27 @@
 To use, follow this advice:
 
+* I learned about using GIT-DIR and WORK-DIR for dotfiles from:
 * https://stackoverflow.com/a/16811212/1698426
 * https://news.ycombinator.com/item?id=25564555, the whole thread is about dotfiles
 * https://www.atlassian.com/git/tutorials/dotfiles
 * https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
 
-....
-git init .
-git remote add -t \* -f origin https://github.com/marmalodak/home
-git checkout master
-....
 
 On a new installation, I usually want:
 
 ....
+git clone https://github.com/marmalodak/home ~/.punkte
+git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME checkout -- $HOME
+# open a new shell, then:
+punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
+# punkt pull --rebase --recurse-submodules --verbose --stat
+punkt_auf
 p10k configure
-....
-
-[WARNING]
-====
-The preceding is out-of-date, it's probably something like 
-
-....
-git clone https://github.com/marmalodak/home ~/.punkte  --single-branch
 ....
 
 Open a new terminal to invoke the punkte (née dotfiles)
 ====
 
-
-== Bugs
-
-* I have zsh-autosuggestions in two places….? . .zsh/zsh-autosuggestions . $\{ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 == Brew
 
@@ -72,5 +62,4 @@ brew install fping
 
 == Historical notes
 
-* I learned about using GIT-DIR and WORK-DIR for dotfiles from:
 * The powerline module gave me too much trouble, so I’m configuring that manually now, so I don’t need the python virtual environment anymore
