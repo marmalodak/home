@@ -136,11 +136,6 @@ the original buffer making it accessible again. Use |:q!| or |:bw!| to abort
 your changes and return back to the original window.
 ____
 
-==== https://github.com/AndrewRadev/splitjoin.vim[splitjoin] Switch between single-line and multiline forms of code
-
-* `gS` `:SplitjoinSplit*`
-* `gJ` `:SplitjoinJoin*`
-
 ==== https://github.com/vim-scripts/SyntaxRange[SyntaxRange]
 
 ____
@@ -281,11 +276,6 @@ Lots of resources for writers on the github page
 ==== https://github.com/tpope/vim-repeat[repeat] enable repeating supported plugin maps with `.`
 
 ==== https://github.com/machakann/vim-sandwich/wiki/Magic-characters[vim-sandwich] operator and textobject plugins to search/select/edit sandwiched textobjects
-
-[WARNING]
-====
-This submodule conflicts with sad.vim
-====
 
 * `sa{motion/textobject}{addition}` For example, a key sequence `saiw(` makes `foo` to `(foo)`
 * `sdb` or `sd{deletion}` For example, key sequences `sdb` or `sd(` makes `(foo)` to `foo`
@@ -446,3 +436,4 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 . https://github.com/ryanss/vim-hackernews[hackernews]
 . https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) no mention of asciidoc, so buh-bye
 . https://github.com/yuttie/comfortable-motion.vim[comfortable-motion] "physics-based smooth scrolling"
+. https://github.com/AndrewRadev/splitjoin.vim[splitjoin] Switch between single-line and multiline forms of code
