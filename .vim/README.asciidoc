@@ -405,6 +405,8 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/dansomething/vim-hackernews
 * https://github.com/ms-jpq/chadtree
 * https://github.com/vim-scripts/utl.vim/blob/67a6506a7a8a3847d00d3af3e2ed9707460d5ce5/doc/utl_usr.txt#L71
+* https://github.com/kbairak/ColumnTags.vim control+] opens results in a new tab
+* https://github.com/kbairak/TurboMark persistent bookmarks?
 
 ==== language server
 
