@@ -20,6 +20,9 @@ p10k configure
 ....
 
 Open a new terminal to invoke the punkte (née dotfiles)
+
+See also punkt_new() in .zshrc
+
 ====
 
 
