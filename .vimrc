@@ -48,12 +48,15 @@ let g:snipMate = { 'snippet_version' : 1 }
 
 " I want lightline to show the full path of the file I'm editing
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'absolutepath', 'modified' ] ]
-      \ },
-      \ }
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+    \  'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat' ], [ 'fileencoding', 'filetype' ] ]
+    \ },
+    \ 'inactive': {
+    \     'left': [ [ 'absolutepath' ] ],
+    \    'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat' ], [ 'fileencoding', 'filetype' ] ]
+    \ },
+    \ }
 
 set spelllang=en_ca
 set spellfile=~/spell/en.utf-8.add
@@ -66,12 +69,14 @@ au BufWritePre * let bakupdir="~/.vimbackup" . expand("%:p:h") |
                \ exec("set backupdir=" . bakupdir)             |
                \ exec("set backupext=" . strftime("-%y%m%d-%H%M%S"))
 
-set background=light
-
 " see https://github.com/mhinz/vim-startify/issues/428#issuecomment-704326443
 " for inspiration for startify_lists
 function! s:git_diff()
     let files = systemlist('git diff --name-only --ignore-submodules=all')
+    if v:shell_error == 0
+        return map(files, "{'line': v:val, 'path': v:val}")
+    endif
+    let files = systemlist('git --git-dir=$HOME/.punkte/.git diff --name-only --ignore-submodules=all')
     return map(files, "{'line': v:val, 'path': v:val}")
 endfunction
 let g:startify_lists = [
