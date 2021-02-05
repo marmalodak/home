@@ -44,6 +44,10 @@ brew install fping
 
 * `${!foo}` => indirect expansion!
 
+== Settings I like
+
+git config --global user.useconfigonly true
+
 == Bookmarks for future projects
 
 * https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal <- lots of links
