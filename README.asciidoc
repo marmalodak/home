@@ -43,6 +43,7 @@ brew install fping
 == TIL
 
 * `${!foo}` => indirect expansion!
+* `⏎~?` Press the return key, then tilde ? to get help about live running ssh sessions; more at https://news.ycombinator.com/item?id=26053323
 
 == Settings I like
 
