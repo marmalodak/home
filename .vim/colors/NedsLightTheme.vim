@@ -25,14 +25,14 @@ let g:colors_name = "NedsLightTheme"
 " https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
 " Might also consider https://github.com/guns/xterm-color-table.vim
 
-let b:FGDim       = {'gui': "#555555", 'cterm': "LightGray" }
-let b:FG          = {'gui': "#333333", 'cterm': "DarkGray"  }
-let b:FGBright    = {'gui': "#000000", 'cterm': "Black"     }
-let b:BGDim       = {'gui': "#aaaaaa", 'cterm': "Gray"      }
-let b:BG          = {'gui': "#fafafa", 'cterm': "LightGray" }
-let b:BGBright    = {'gui': "#ffff00", 'cterm': "226"       }
-let b:FGScary     = {'gui': "#ffffff", 'cterm': "White"     }
-let b:BGScary     = {'gui': "#ff0000", 'cterm': "196"       }
+let b:FGDim    = {'gui': "#555555", 'cterm': "LightGray" }
+let b:FG       = {'gui': "#333333", 'cterm': "DarkGray"  }
+let b:FGBright = {'gui': "#000000", 'cterm': "Black"     }
+let b:BGDim    = {'gui': "#dddddd", 'cterm': "253"       }
+let b:BG       = {'gui': "#fafafa", 'cterm': "254"       }
+let b:BGBright = {'gui': "#ffff00", 'cterm': "226"       }
+let b:FGScary  = {'gui': "#ffffff", 'cterm': "White"     }
+let b:BGScary  = {'gui': "#ff0000", 'cterm': "196"       }
 
 let b:NedColourScheme =
     \{
