@@ -87,12 +87,12 @@ let g:startify_lists = [
         \ ]
 let g:startify_files_number = 40
 let g:startify_custom_header = [
-        \ ']s  move to next misspelled word                                                           ',
-        \ 'zg  add word to spellfile                                                                  ',
-        \ 'zw  mark word as bad word                                                                  ',
-        \ 'zuw undo zw                                                                                ',
-        \ 'zug undo zg                                                                                ',
-        \ 'z=  suggest spelling                                                                       ',
+        \ ']s             move to next misspelled word                                                ',
+        \ 'zg             add word to spellfile                                                       ',
+        \ 'zw             mark word as bad word                                                       ',
+        \ 'zuw            undo zw                                                                     ',
+        \ 'zug            undo zg                                                                     ',
+        \ 'z=             suggest spelling                                                            ',
         \ ':spellr[epall] repeat z=                                                                   ',
         \ '                                                                                           ',
         \ ':help function()                                                                           ',
