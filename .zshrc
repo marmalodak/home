@@ -27,7 +27,7 @@ export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 #         echo "Pass in a path to a python virtual environment"
 #         exit 1
 #     fi
-#     # 1) set VIRTUAL_ENV 2) modify PATH 3) unset PYTHONHOME 4) and maybe set PS1?                                                                                                                                                                                                       │freenode  -- | - accept our policies and guidelines as set out on https://freenode.net                                                                         │freenode  -- | - accept our policies and guidelines as set out on https://freenode.net
+#     # 1) set VIRTUAL_ENV 2) modify PATH 3) unset PYTHONHOME 4) and maybe set PS1?
 #     #path_to_venv="$1"
 #     unset PYTHONHOME
 #     export VIRTUAL_ENV="$1"
@@ -50,16 +50,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# /usr/local/brew does not exist anymore.... right?
-# # move /opt/brew/bin before /usr et al
-# if [[ -e /usr/local/brew/bin ]]; then
-#     # remove /usr/local/brew/bin
-#     PATH=${PATH/:\/usr\/local\/brew\/bin//}
-#     # put /usr/local/brew/bin at the front
-#     PATH="/usr/local/brew/bin:$PATH"
-# fi
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+# I'm now confused, where how does ~/bin get in my $PATH?
 
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments
@@ -149,9 +140,10 @@ zstyle ':completion:list-expand:*' extra-verbose yes
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+    export EDITOR='vim'
 else
-  export EDITOR='vimr'
+  # cannot explain why I get an error message when editing a commit message with vimr
+    export EDITOR='vim'
 fi
 
 # Compilation flags
@@ -203,6 +195,11 @@ alias punkt='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=
 function punkt_status()
 {
     punkt status --ignore-submodules=all --untracked-files=no
+}
+
+function punkt_diff()
+{
+    punkt diff --patch --ignore-submodules=all
 }
 
 function punkt_reset()
