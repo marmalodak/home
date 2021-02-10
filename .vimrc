@@ -244,7 +244,22 @@ nmap ga <Plug>(EasyAlign)
 " map H <Plug>(operator-quickhl-manual-this-motion)
 
 " cursor shape for terminals
+" https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h4-Functions-using-CSI-_-ordered-by-the-final-character-lparen-s-rparen:CSI-Ps-SP-q.1D81
+" CSI Ps SP q
+"           Set cursor style (DECSCUSR), VT520.
+"             Ps = 0  ⇒  blinking block.
+"             Ps = 1  ⇒  blinking block (default).
+"             Ps = 2  ⇒  steady block.
+"             Ps = 3  ⇒  blinking underline.
+"             Ps = 4  ⇒  steady underline.
+"             Ps = 5  ⇒  blinking bar, xterm.
+"             Ps = 6  ⇒  steady bar, xterm.
 " https://stackoverflow.com/a/44473667
+" :help terminal-options
+" :help termcap-cursor-shape
+" t_SI go to insert mode
+" t_SR go to replace mode
+" t_EI leave insert or replace
 set t_SI=[6\ q
 set t_SR=[4\ q
 set t_EI=[2\ q
