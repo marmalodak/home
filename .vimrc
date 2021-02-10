@@ -243,6 +243,11 @@ nmap ga <Plug>(EasyAlign)
 " nmap <Space>] <Plug>(quickhl-tag-toggle)
 " map H <Plug>(operator-quickhl-manual-this-motion)
 
+" cursor shape for terminals
+" https://stackoverflow.com/a/44473667
+set t_SI=[6\ q
+set t_SR=[4\ q
+set t_EI=[2\ q
 
 " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
