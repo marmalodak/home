@@ -21,16 +21,21 @@ which exa > /dev/null 2>&1
 exa_not_exists=$?
 
 if [[ $exa_not_exists -ne 0 ]]; then
-    alias ll='ls -l'
-    alias lr='ls -alrth'
+    if [[ $OSTYPE == 'darwin'* ]]; then
+        alias ll='ls -lG'
+        alias lr='ls -alrthG'
+    else
+        alias ll='ls -l --color=auto'
+        alias lr='ls -alrth --color=auto'
+    fi
 else
-    alias ll='exa -l'
-    alias lr='exa -alh --sort=date'
-    alias lc='exa -1'
-    alias lt='exa -T'
-    alias ll='exa -l'
-    alias lrg='exa -albh --sort=accessed --git'
-    alias lRg='exa -albh --sort=accessed --git --extended'
+    alias ll='exa -l --icons'
+    alias lr='exa -alh --sort=date --icons'
+    alias lc='exa -1 --icons'
+    alias lt='exa -T --icons'
+    alias ll='exa -l --icons'
+    alias lrg='exa -albh --sort=accessed --git --icons'
+    alias lRg='exa -albh --sort=accessed --git --extended --icons'
 fi
 
 unalias vi
