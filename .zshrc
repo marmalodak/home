@@ -195,7 +195,7 @@ function git_cmds()
     done
 }
 
-alias punkt='git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
+alias punkt='git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
 
 function punkt_status()
 {

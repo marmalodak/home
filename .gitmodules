@@ -10,9 +10,6 @@
 [submodule ".vim/pack/vim8/start/vitality.vim"]
 	path = .vim/pack/vim8/start/vitality.vim
 	url = https://github.com/sjl/vitality.vim
-[submodule ".vim/pack/vim8/start/vimwiki"]
-	path = .vim/pack/vim8/start/vimwiki
-	url = https://github.com/vimwiki/vimwiki
 [submodule ".vim/pack/vim8/start/vim-table-mode.git"]
 	path = .vim/pack/vim8/start/vim-table-mode.git
 	url = https://github.com/dhruvasagar/vim-table-mode.git
@@ -64,9 +61,6 @@
 [submodule ".vim/pack/vim8/start/vim-taskwarrior"]
 	path = .vim/pack/vim8/start/vim-taskwarrior
 	url = https://github.com/blindFS/vim-taskwarrior
-[submodule ".vim/pack/vim8/start/taskwiki"]
-	path = .vim/pack/vim8/start/taskwiki
-	url = https://github.com/tbabej/taskwiki
 [submodule ".vim/pack/vim8/start/taskwarrior.vim"]
 	path = .vim/pack/vim8/start/taskwarrior.vim
 	url = https://github.com/framallo/taskwarrior.vim
@@ -127,3 +121,6 @@
 [submodule ".powerlevel10k"]
 	path = .powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule ".vim/pack/vim8/start/vviki"]
+	path = .vim/pack/vim8/start/vviki
+	url = https://github.com/ratfactor/vviki
