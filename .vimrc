@@ -14,7 +14,7 @@ if !has('nvim')
     set ttymouse=
 endif
 
-" I want to error messages of any kind, ever see :he visualbell
+" I want no beeps of any kind, ever! see :he visualbell
 set noerrorbells
 set visualbell
 set vb t_vb=
@@ -112,6 +112,12 @@ let g:startify_custom_header = [
         \ 'Control+u in insert mode is UNDO                                                           ',
         \ 'R enters replace mode, over write like old school editors                                  ',
         \ 'c is change, C is change for the whole line                                                ',
+        \ '                                                                                           ',
+        \ ':enew!|pu=execute(''verbose map'') show all mappings and where they are defined              ',
+        \ ':verbose map <leader>            all mapping in all modes that use <leader>                ',
+        \ ':verbose map <buffer>            all mappings defined for the current buffer               ',
+        \ ':verbose nmap <leader>           all normal mode mappings that use <leader>                ',
+        \ '                      source: https://stackoverflow.com/a/20083301/1698426                 ',
         \ ]
 " packadd matchit
 
@@ -153,7 +159,8 @@ autocmd WinEnter * setlocal   cursorline
 autocmd BufLeave * setlocal nocursorline
 autocmd BufEnter * setlocal   cursorline
 
-let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips/' , 'Ultisnips']
+" vviki
+nnoremap <leader>ww :e ~/wiki/index.adoc<CR>
 
 " http://stackoverflow.com/a/26551079/1698426
 " Zoom / Restore window.
