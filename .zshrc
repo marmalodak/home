@@ -35,7 +35,7 @@ export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 #     export PS1="($(basename ${VIRTUAL_ENV})${PS1}"
 # }
 
-[[ ! -f ~/.motd ]] || source ~/.motd
+[[ -f ~/.motd ]] && source ~/.motd
 
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 
@@ -50,7 +50,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# I'm now confused, where how does ~/bin get in my $PATH?
+export PATH="${HOME}/bin:${PATH}"
 
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments
