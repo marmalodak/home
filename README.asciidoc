@@ -67,6 +67,8 @@ git config --global user.useconfigonly true
 * https://github.com/taigaio
 * https://www.openproject.org
 * https://github.com/GRVYDEV/Project-Lightspeed
+* https://github.com/natethinks/jog/  remind me: what was I last doing in this directory
+* https://github.com/vimpostor/vim-tpipeline put the vim status line into tmux's status line
 
 == Historical notes
 
