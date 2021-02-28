@@ -57,6 +57,9 @@ export COLORTERM=on
 export PAGER=less
 export LESS="-w -m --follow-name -r"
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
 # https://github.com/Qix-/better-exceptions/
 export BETTER_EXCEPTIONS=1
 
