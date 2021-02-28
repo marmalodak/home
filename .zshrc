@@ -52,6 +52,10 @@ fi
 
 export PATH="${HOME}/bin:${PATH}"
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments
 
