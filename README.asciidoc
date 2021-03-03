@@ -43,7 +43,22 @@ brew install gpg  # for rvm
 
 == https://rvm.io/rvm/install[rvm]
 
+rvm use ruby-2.7 --default
+rvm install asciidoctor-diagram
 
+brew install glib (for asciio)
+brew install cairo (for asciio)
+brew install gtk+ (for asciio)
+brew install gtk+3 gtk4 gtkextra pango (for asciio)
+
+Might be time to give up on drawing in asciidoctor or vim and use PlantUML, graphviz, pikchr
+
+
+== perl
+
+cpan
+cpan App::cpanminus
+App::Asciio
 
 == TIL
 
@@ -74,6 +89,8 @@ git config --global user.useconfigonly true
 * https://github.com/GRVYDEV/Project-Lightspeed
 * https://github.com/natethinks/jog/  remind me: what was I last doing in this directory
 * https://github.com/vimpostor/vim-tpipeline put the vim status line into tmux's status line
+* https://news.ycombinator.com/item?id=26314489 elegant bash conditionals, thread is more helpful than the post
+* https://news.ycombinator.com/item?id=26303784 generate flowcharts from text, way more in the thread than I knew about
 
 == Historical notes
 
