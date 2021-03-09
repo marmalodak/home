@@ -43,6 +43,9 @@ set showtabline=1 " show the tabline only when two or more tabs are open
 set showmode      " show the default mode text (e.g. -- INSERT -- below the statusline)
 set title         "  show the name of the file being edited in the lower left
 
+" gitgutter and punkte  https://github.com/airblade/vim-gitgutter/issues/754
+let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'
+
 " shut up snipmate
 let g:snipMate = { 'snippet_version' : 1 }
 

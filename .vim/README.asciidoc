@@ -257,6 +257,11 @@ Shows git changes in the left-most column in the window.  Use `]c` and `[c` to j
 * `:GitGutterNextHunk`  `]c`
 * `:GitGutterQuickFix`
 
+===== git gutter doesn't appear for dotfiles?
+
+* https://github.com/airblade/vim-gitgutter/issues/754
+* https://www.reddit.com/r/vim/comments/iudq4o/how_to_use_git_gutter_with_git_bare_repositories/
+
 ==== https://github.com/reedes/vim-pencil[pencil] Make vim a tool for writing prose
 
 Lots of resources for writers on the github page
