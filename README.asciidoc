@@ -84,6 +84,7 @@ git config --global user.useconfigonly true
 * `defaults write com.apple.dock autohide-time-modifier -float 0; killall Dock`
 * https://github.com/rxhanson/Rectangle
 * https://github.com/sindresorhus/quick-look-plugins
+* https://news.ycombinator.com/item?id=26499062 focalboard, self-hosted alternative to trello...
 * https://github.com/plankanban/planka
 * https://github.com/taigaio
 * https://www.openproject.org
@@ -92,6 +93,9 @@ git config --global user.useconfigonly true
 * https://github.com/vimpostor/vim-tpipeline put the vim status line into tmux's status line
 * https://news.ycombinator.com/item?id=26314489 elegant bash conditionals, thread is more helpful than the post
 * https://news.ycombinator.com/item?id=26303784 generate flowcharts from text, way more in the thread than I knew about
+* https://github.com/crescentrose/dotfiles/blob/fed147052acb3a9249e0c5b5a042d97abcb70c55/bin/chtheme change kitty colors, maybe based on dark or light
+* http://evantravers.com/articles/2019/07/30/toggling-kitty-and-neovim-background-using-osx-s-dark-mode-setting/  => https://github.com/evantravers/dotfiles/compare/084d4737b4dcdd0877520dcc1ba4e02224e4bdd0...2f5a3d18274499970922752d39fc917e4bf0d39b
+* https://github.com/kovidgoyal/kitty/issues/1792
 
 == Historical notes
 
