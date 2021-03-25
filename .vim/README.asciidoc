@@ -396,6 +396,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 ** https://github.com/joowani/colorpedia
 ** https://github.com/overcache/NeoSolarized/blob/master/colors/NeoSolarized.vim cheatsheet for a well implemented colour scheme
 ** https://www.halcyon.hr/posts/automatic-dark-mode-switching-for-vim-and-terminal/
+** https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/
 * https://github.com/tpope/vim-characterize[vim-characterize] reveal info about chars and digraphs et al
 * https://github.com/sharkdp/bat syntax hilighting for what?
 * https://github.com/dandavison/delta for use by other plugins?
