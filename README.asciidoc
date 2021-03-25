@@ -96,6 +96,8 @@ git config --global user.useconfigonly true
 * https://github.com/crescentrose/dotfiles/blob/fed147052acb3a9249e0c5b5a042d97abcb70c55/bin/chtheme change kitty colors, maybe based on dark or light
 * http://evantravers.com/articles/2019/07/30/toggling-kitty-and-neovim-background-using-osx-s-dark-mode-setting/  => https://github.com/evantravers/dotfiles/compare/084d4737b4dcdd0877520dcc1ba4e02224e4bdd0...2f5a3d18274499970922752d39fc917e4bf0d39b
 * https://github.com/kovidgoyal/kitty/issues/1792
+* zsh setopt SHARED_HISTORY and append_history, is SHARED_HISTORY why control+p shows things from a different session?
+* https://www.reddit.com/r/selfhosted/comments/m9zhoy/what_are_some_lesser_known_services_that_have 
 
 == Historical notes
 
