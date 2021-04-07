@@ -98,6 +98,13 @@ git config --global user.useconfigonly true
 * https://github.com/kovidgoyal/kitty/issues/1792
 * zsh setopt SHARED_HISTORY and append_history, is SHARED_HISTORY why control+p shows things from a different session?
 * https://www.reddit.com/r/selfhosted/comments/m9zhoy/what_are_some_lesser_known_services_that_have 
+* https://venthur.de/2021-03-31-python-makefiles.html venv target should depend on requirements.txt and setup.py?
+* should I be using salt to manage my dot files?
+** not sure it adds anything beyond practicing salt
+** https://github.com/remusao/salt-dotfiles
+** https://github.com/robertu94/dotfiles
+** https://www.reddit.com/r/saltstack/comments/li7g81/im_using_salt_to_manage_a_dotfiles_repo_with/
+** https://github.com/rawkode/dotfiles
 
 == Historical notes
 
