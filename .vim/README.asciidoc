@@ -35,6 +35,8 @@
 ** https://www.reddit.com/r/neovim/comments/k5dykf/neovim_makes_a_great_manpager_especially_on_macos/
 ** export MANPAGER=`nvim +Man!'
 ** gO <- killer feature
+** https://old.reddit.com/r/vim/comments/morzue/vim_has_a_native_plugin_that_allows_you_to_turn/
+*** https://github.com/jez/vim-superman
 . About copying?
 * https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/
 ** https://github.com/ojroques/vim-oscyank
