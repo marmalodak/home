@@ -5,6 +5,7 @@ To use, follow this advice:
 * https://news.ycombinator.com/item?id=25564555, the whole thread is about dotfiles
 * https://www.atlassian.com/git/tutorials/dotfiles
 * https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
+* on openwrt I needed to install git, git-http
 
 
 On a new installation, I usually want:
