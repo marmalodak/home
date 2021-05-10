@@ -277,7 +277,7 @@ set t_EI=[2\ q
 " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+" set termguicolors
 
 "    let g:powerline_pycmd = "py3"
 "    let g:powerline_pyeval = "py3eval"
