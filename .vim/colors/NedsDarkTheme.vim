@@ -29,7 +29,7 @@ let b:FG       = {'gui': "#aaaaaa", 'cterm': "250"       }
 let b:FGBright = {'gui': "#ffffff", 'cterm': "White"     }
 let b:BGDim    = {'gui': "#555555", 'cterm': "236"       }
 let b:BG       = {'gui': "#111111", 'cterm': "234"       }
-let b:BGBright = {'gui': "#ffff00", 'cterm': "226"       }
+let b:BGBright = {'gui': "#ffff00", 'cterm': "240"       }
 let b:FGScary  = {'gui': "#ffffff", 'cterm': "White"     }
 let b:BGScary  = {'gui': "#ff0000", 'cterm': "196"       }
 
