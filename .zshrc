@@ -17,6 +17,8 @@ fi
 # https://stackoverflow.com/a/61572895 ???
 ZSH_DISABLE_COMPFIX="true"
 
+# TO DO: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
+[[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 # after upgrade to Fedora 33, I needed to do this:
 export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 
@@ -37,8 +39,6 @@ export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 
 [[ -f ~/.motd ]] && source ~/.motd
 
-[[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
-
 unsetopt beep  # I hate, hate, hate being beeped at
 
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
@@ -52,9 +52,13 @@ fi
 
 export PATH="${HOME}/bin:${PATH}"
 
+# brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
+[[ -d /opt/brew/bin ]]   && export PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
+[[ -d /usr/local/bin ]]  && export PATH="${PATH}:/usr/local/bin"
+[[ -d /usr/local/sbin ]] && export PATH="${PATH}:/usr/local/sbin"
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
 
 # https://unix.stackexchange.com/a/557490/30160
 setopt interactive_comments
@@ -104,7 +108,7 @@ CASE_SENSITIVE="true"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -134,8 +138,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
-
-# User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
