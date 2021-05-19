@@ -416,6 +416,8 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/kbairak/ColumnTags.vim control+] opens results in a new tab
 * https://github.com/kbairak/TurboMark persistent bookmarks?
 * https://github.com/junegunn/vim-peekaboo to show the data from :registers in a side bar
+* https://github.com/pechorin/any-jump.vim IDE feature of jumping to a function definition
+* https://github.com/liuchengxu/vim-which-key "🌷 Vim plugin that shows keybindings in popup"
 
 ==== language server
 
@@ -432,6 +434,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/pbrisbin/vim-colors-off
 * https://github.com/cideM/yui <- proper highlight for diffs
 * https://github.com/tpope/vim-scriptease
+* https://github.com/nvim-telescope/telescope.nvim "fuzzy finder over lists. Built on the latest awesome features from neovim core. Telescope is centered around modularity, allowing for easy customization"
 
 === Deprecated
 
