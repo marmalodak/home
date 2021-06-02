@@ -18,8 +18,11 @@ endif
 " https://vimhelp.org/options.txt.html#%27background%27
 " https://vi.stackexchange.com/questions/12104/what-does-set-background-dark-do
 " NB Setting background causes the color scheme to be reloaded
-set background=light
+" set background=light
+
 let g:colors_name = "NedsLightTheme"
+
+" nvim with iTerm gives me 24-bit colour, and works properly with set termguicolors
 
 " I found this helpful for finding colour names:
 " https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
