@@ -49,6 +49,10 @@ I realised I have VIM plugins installed which:
 . I don't know how to use them
 . I don't remember what I was trying to solve when I installed it
 
+==== https://github.com/guns/xterm-color-table.vim[xterm-color-table] All 256 xterm colors with their RGB equivalents, right in Vim!
+
+* `:XtermColorTable`
+
 ==== https://github.com/dense-analysis/ale[ale]
 
 * `:help ale-commands`

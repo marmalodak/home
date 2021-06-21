@@ -12,6 +12,15 @@ if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
     fi
 fi
 
+# https://stackoverflow.com/a/55235069/1698426
+# alt+<- | alt+->
+bindkey "^[f" forward-word
+bindkey "^[b" backward-word
+# # ctrl+<- | ctrl+->
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
+
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835#issuecomment-392755849 ???
 # https://stackoverflow.com/a/61572895 ???
