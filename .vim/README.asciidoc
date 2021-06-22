@@ -427,6 +427,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/justinmk/vim-sneak "Jump to any location specified by two characters"
 * https://github.com/tpope/vim-vinegar "vinegar.vim enhances netrw, partially in an attempt to mitigate the need for more disruptive "project drawer" style plugins"
 * http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/ vimcast about project drawer
+* https://github.com/kdheepak/lazygit.nvim or https://github.com/tpope/vim-fugitive
 
 ==== language server
 
@@ -444,6 +445,13 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/cideM/yui <- proper highlight for diffs
 * https://github.com/tpope/vim-scriptease
 * https://github.com/nvim-telescope/telescope.nvim "fuzzy finder over lists. Built on the latest awesome features from neovim core. Telescope is centered around modularity, allowing for easy customization"
+* https://crispgm.com/page/neovim-is-overpowering.html
+* https://old.reddit.com/r/vimporn/comments/o4svc7/cocnvim_nvchad_perfection/ coc.nvim + NvChad
+
+==== Threads
+
+* https://old.reddit.com/r/vim/comments/nlvrhd/vimmers_of_reddit_whats_an_unknown_tip_that_has/
+
 
 === Deprecated
 
