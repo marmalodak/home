@@ -9,6 +9,11 @@ imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
 
+" https://old.reddit.com/r/vim/comments/nlvrhd/vimmers_of_reddit_whats_an_unknown_tip_that_has/gzm30z3/
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
+
+
 set mouse=
 if !has('nvim')
     set ttymouse=
