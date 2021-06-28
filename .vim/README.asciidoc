@@ -422,6 +422,9 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/junegunn/vim-peekaboo to show the data from :registers in a side bar
 * https://github.com/pechorin/any-jump.vim IDE feature of jumping to a function definition
 * https://github.com/liuchengxu/vim-which-key "🌷 Vim plugin that shows keybindings in popup"
+* https://github.com/justinmk/vim-sneak "Jump to any location specified by two characters"
+* https://github.com/tpope/vim-vinegar "vinegar.vim enhances netrw, partially in an attempt to mitigate the need for more disruptive "project drawer" style plugins"
+* http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/ vimcast about project drawer
 
 ==== language server
 

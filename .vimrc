@@ -33,6 +33,8 @@ set backspace=indent,eol,start
 set hlsearch
 set incsearch
 set lazyredraw
+set undofile
+set splitright
 
 set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 set wildmenu
