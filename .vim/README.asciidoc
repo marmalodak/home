@@ -1,19 +1,8 @@
-// this is for asciidoctor
 ++++
     <head>
     <meta http-equiv="refresh" content="3000"/>
     </head>
 ++++
-
-////
-    to use this function: select lines 3 to 9 and then type :@"
-    function! ConvertAdoc()
-        silent !asciidoctor -b html README.adoc^M^M
-        execute("redraw!")
-    endfunction
-    autocmd! BufWritePost,FileWritePost README.adoc :call ConvertAdoc()
-////
-
 
 == My VIM info
 
@@ -31,15 +20,19 @@
 . When `:help` doesn't find what I think it should: `:helptags ALL`
 . `shiftwidth` and `shiftround`
 . How to add quotes to the words up to space: `sat "`
-. How to use vim as a man pager?
-** https://www.reddit.com/r/neovim/comments/k5dykf/neovim_makes_a_great_manpager_especially_on_macos/
-** export MANPAGER=`nvim +Man!'
-** gO <- killer feature
-** https://old.reddit.com/r/vim/comments/morzue/vim_has_a_native_plugin_that_allows_you_to_turn/
-*** https://github.com/jez/vim-superman
-. About copying?
-* https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/
-** https://github.com/ojroques/vim-oscyank
+. How to use vim as a man pager? I learned about this from https://www.reddit.com/r/neovim/comments/k5dykf/neovim_makes_a_great_manpager_especially_on_macos/[this reddit thread] and then https://old.reddit.com/r/vim/comments/morzue/vim_has_a_native_plugin_that_allows_you_to_turn/[this reddit thread].
+** `export MANPAGER="vim -M +MANPAGER -"`
+** `export MANPAGER="nvim +Man!"`
+** `gO` <- killer feature
+** See also this plugin: https://github.com/jez/vim-superman[vim-superman]
+. https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/[About copying]?
+** https://github.com/ojroques/vim-oscyank[vim-oscyank]
+[quote]
+plugin to copy text to the system clipboard from anywhere using the ANSI OSC52 sequence
++
+*** https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands[ANSI OSC52]
+[quote]
+When this sequence is emitted by Vim, the terminal will copy the given text into the system clipboard. This is totally location independent, users can copy from anywhere including from remote SSH sessions.
 . Open URLs et el?
 * `gx`, see `:help gx`
 
@@ -428,6 +421,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/tpope/vim-vinegar "vinegar.vim enhances netrw, partially in an attempt to mitigate the need for more disruptive "project drawer" style plugins"
 * http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/ vimcast about project drawer
 * https://github.com/kdheepak/lazygit.nvim or https://github.com/tpope/vim-fugitive
+* https://github.com/nvim-telescope/telescope.nvim[telescope.nvim] "a highly extendable fuzzy finder over lists"
 
 ==== language server
 
@@ -468,3 +462,17 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 . https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) no mention of asciidoc, so buh-bye
 . https://github.com/yuttie/comfortable-motion.vim[comfortable-motion] "physics-based smooth scrolling"
 . https://github.com/AndrewRadev/splitjoin.vim[splitjoin] Switch between single-line and multiline forms of code
+
+////
+    to use this function: select lines 3 to 9 and then type :@"
+    function! MKHtml()
+        silent !asciidoctor -b html README.asciidoc
+        silent !if command -v open; then open -a safari README.html; fi
+        silent !if command -v xdg-open; then xdg-open README.html; fi
+        execute("redraw!")
+    endfunction
+    autocmd! BufWritePost,FileWritePost README.asciidoc :call MKHtml()
+
+vim: textwidth=4 shiftwidth=4 autoindent smartindent
+////
+
