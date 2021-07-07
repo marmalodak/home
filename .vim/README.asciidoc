@@ -36,6 +36,15 @@ When this sequence is emitted by Vim, the terminal will copy the given text into
 . Open URLs et el?
 * `gx`, see `:help gx`
 
+=== TIL
+
+* $VIMRUNTIME/defaults.vim is good reading. What is the nvim equivelant?
+** Look at `autocmd BufReadPost *` to make vim automatically move the cursor to the position it was when the file was last opened.
+** Alternative: Also use the key combo `'.` to do the same, thanks to https://stackoverflow.com/a/28279006/1698426[this SO answer]. The https://stackoverflow.com/q/7894330/1698426[whole question] is informative.
+** See also https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session[this fandom link] which leads to https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session[this SO question] and https://vimhelp.org/starting.txt.html#%3Amkview[`:mkview`] and https://vimhelp.org/starting.txt.html#%3Aloadview[`:loadview`].
+** There's also a https://github.com/farmergreg/vim-lastplace[plugin called vim-lastplace].
+* `G` will move the cursor to the end of the file, `gg` will move the cursor the the beginning of the file
+
 === Plugins
 
 I realised I have VIM plugins installed which:
@@ -422,6 +431,8 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * http://vimcasts.org/blog/2013/01/oil-and-vinegar-split-windows-and-project-drawer/ vimcast about project drawer
 * https://github.com/kdheepak/lazygit.nvim or https://github.com/tpope/vim-fugitive
 * https://github.com/nvim-telescope/telescope.nvim[telescope.nvim] "a highly extendable fuzzy finder over lists"
+* https://github.com/tpope/vim-projectionist
+* https://thevaluable.dev/vim-advanced/  I learned stuff even from the introduction, like `gx` and `gi` et al
 
 ==== language server
 
