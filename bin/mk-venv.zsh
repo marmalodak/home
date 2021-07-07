@@ -5,6 +5,9 @@ set -u
 set -o pipefail
 set +x
 
+# TODO
+# . write out the zsh script that creates the venv
+
 PARAMETERS=("${(@s/ /)*}")  # convert string to array https://stackoverflow.com/a/2930519/1698426
 VIRTUAL_ENV=${1:A}  # expand VIRTUAL_ENV to be the full path to the first parameter
 shift PARAMETERS
@@ -25,18 +28,18 @@ if [[ ${#PARAMETERS[@]} -ne 0 ]]; then
     pip --no-input install ${PARAMETERS}
 fi
 
-activate_doc=$(cat << 'EOF'
+activate_doc=$(cat << 'activate_doc_end'
 #!/usr/bin/env zsh
 
 unset PYTHONHOME
 export VIRTUAL_ENV=VIRTUAL_ENV_PLACE_HOLDER
-export PS1=$(basename ${VIRTUAL_ENV})" ${PS1}"
-export PATH=${VIRTUAL_ENV}/bin:${PATH}
+export PS1=$(basename "${VIRTUAL_ENV}) ${PS1}"
+export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 zsh -i
-EOF
+activate_doc_end
 )
 
-activate_script=${activate_doc/VIRTUAL_ENV_PLACE_HOLDER/${VIRTUAL_ENV}}
-echo ${activate_script} > ${VIRTUAL_ENV}-activate.zsh
-chmod +x ${VIRTUAL_ENV}-activate.zsh
+activate_script="${activate_doc/VIRTUAL_ENV_PLACE_HOLDER/${VIRTUAL_ENV}}"
+echo "${activate_script}" > "${VIRTUAL_ENV}-activate.zsh"
+chmod +x "${VIRTUAL_ENV}-activate.zsh"

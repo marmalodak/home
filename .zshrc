@@ -12,6 +12,10 @@ if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
     fi
 fi
 
+# https://awesomeopensource.com/project/sharkdp/bat
+export BAT_THEME=Coldark-Cold
+
+# these binding didn't work; search for "Default key bindings" in /etc/zshrc for copypasta
 # https://stackoverflow.com/a/55235069/1698426
 # alt+<- | alt+->
 bindkey "^[f" forward-word
@@ -30,6 +34,7 @@ ZSH_DISABLE_COMPFIX="true"
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 # after upgrade to Fedora 33, I needed to do this:
 export FPATH=$FPATH:/usr/share/zsh/5.8/functions
+# maybe zshversion=$(zsh --version | cut -d' ' -f 2)
 
 # I don't think I'm going to use this venv_activate, not even tested, but I'll decide in the future
 # function venv_activate()
