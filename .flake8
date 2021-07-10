@@ -1,2 +1,4 @@
 [flake8]
-ignore = E202,E272,E201,E241,E221,E501,I100,I101,I102,I103,I104,I201
+ignore = E202,E272,E201,E241,E221,E501,I100,I101,I102,I103,I104,I201,D200
+# D300 insists on douple quotes rather than single quotes
+# D200 One-line docstring should fit on one line with quotes
