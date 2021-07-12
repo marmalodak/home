@@ -5,6 +5,9 @@ set -e
 set -u
 set +x
 
+# TODO: write a script like $venv-add pipname that will maintain the requirements.txt file
+# does this need a $venv-remove
+
 PARAMETERS=("${(@s/ /)*}")  # convert string to array https://stackoverflow.com/a/2930519/1698426
 VIRTUAL_ENV=${1:A}  # expand VIRTUAL_ENV to be the full path to the first parameter
 VIRTUAL_ENV_NAME=$(basename "${VIRTUAL_ENV}")
