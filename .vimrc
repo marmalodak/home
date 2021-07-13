@@ -4,6 +4,14 @@ if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 
+" TODO: make it modular
+" https://stackoverflow.com/questions/25827839/modular-vimrc-how-to-source-vundle-plugins-from-diffrent-files
+" https://github.com/todd-dsm/vimSimple
+" https://github.com/ArtBIT/vim-modularvimrc
+" https://github.com/sunaku/.vim
+" https://github.com/jefflasslett/mod-vim
+" https://www.hiteshpaul.com/posts/1378/
+"
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
