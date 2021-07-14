@@ -12,6 +12,18 @@ endif
 " https://github.com/jefflasslett/mod-vim
 " https://www.hiteshpaul.com/posts/1378/
 "
+" TODO: find a way to make `gx` work
+" There seem to be bugs in either vim 8.2 and/or the netrw plugin
+" https://github.com/vim/vim/issues/4738
+" https://github.com/vim/vim/pull/7188
+" https://vi.stackexchange.com/questions/2801/how-can-i-make-gx-recognise-full-urls-in-vim if this is going to work in an asciidoc then the opening square brace or space have to be the delimiter, see netrw_gx and <cWORD>
+" https://vi.stackexchange.com/questions/22459/gx-doesnt-open-the-url-and-complains-netrw-no-line-in-buffer/22505#22505
+" https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser
+" https://vim.fandom.com/wiki/Open_file_under_cursor
+" https://stackoverflow.com/questions/34428944/how-to-enable-gx-in-vim-mine-doesnt-work-anymore
+" https://vi.stackexchange.com/questions/5032/gx-not-opening-url-in-gvim-but-works-in-terminal
+" https://stackoverflow.com/questions/62378898/iterm2-open-link-under-cursor-in-vim
+"
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
