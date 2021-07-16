@@ -181,6 +181,9 @@ fi
 # https://github.com/Qix-/better-exceptions/
 export BETTER_EXCEPTIONS=1
 
+# TODO: EXA_COLORS, e.g. https://github.com/ogham/exa/issues/733#issuecomment-688930008
+# https://github.com/sharkdp/vivid
+
 which exa > /dev/null 2>&1
 exa_not_exists=$?
 
@@ -200,6 +203,7 @@ else
     alias ll='exa -l --icons'
     alias lrg='exa -albh --sort=accessed --git --icons'
     alias lRg='exa -albh --sort=accessed --git --extended --icons'
+    export EXA_COLORS=$(vivid generate one-light)
 fi
 
 alias vimr='vimr --nvim -O'

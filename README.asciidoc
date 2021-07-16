@@ -43,6 +43,8 @@ brew install fping
 brew install gpg  # for rvm
 brew install ninja libtool automake cmake pkg-config gettext  # to build https://github.com/JaySandhu/neovim-mac[neovim-mac]
 brew install fortune cowsay
+brew install fzf  # for oh-my-zsh's fzf plugin
+brew install vivid # to generate LS_COLORS
 
 == https://rvm.io/rvm/install[rvm]
 
