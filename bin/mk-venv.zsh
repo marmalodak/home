@@ -37,6 +37,7 @@ activate_script="${activate_doc/VIRTUAL_ENV_PLACE_HOLDER/${VIRTUAL_ENV}}"
 echo "${activate_script}" > "${activate_script_name}"
 chmod +x "${activate_script_name}"
 
+# TODO: the venv should have -venv appended to it
 # ---- create the script to create the virtualenv and alsoe the requirements file
 mkvenv_doc=$(cat << 'mkvenv_doc_end'
 #!/usr/bin/env zsh
