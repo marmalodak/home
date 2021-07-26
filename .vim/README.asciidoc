@@ -387,6 +387,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 
 * https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
 * https://github.com/edkolev/promptline.vim
+* https://github.com/windwp/windline.nvim
 
 === Potentially useful plugins and resources to consider
 
@@ -433,6 +434,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/nvim-telescope/telescope.nvim[telescope.nvim] "a highly extendable fuzzy finder over lists"
 * https://github.com/tpope/vim-projectionist
 * https://thevaluable.dev/vim-advanced/  I learned stuff even from the introduction, like `gx` and `gi` et al
+* https://jdhao.github.io/2021/07/24/git_show_diff_when_commiting/ git commit can bring up a triple pane window that shows diffs
 
 ==== language server
 
