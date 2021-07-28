@@ -129,6 +129,7 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# TODO: increase history https://unix.stackexchange.com/a/521206/30160, see also https://zsh.sourceforge.io/Guide/zshguide02.html#l17
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # You can set one of the optional three formats:
@@ -183,6 +184,8 @@ export BETTER_EXCEPTIONS=1
 
 # TODO: EXA_COLORS, e.g. https://github.com/ogham/exa/issues/733#issuecomment-688930008
 # https://github.com/sharkdp/vivid
+# https://unix.stackexchange.com/questions/245378/common-environment-variable-to-set-dark-or-light-terminal-background#245568
+# https://github.com/rocky/shell-term-background/blob/master/term-background.zsh
 
 which exa > /dev/null 2>&1
 exa_not_exists=$?
