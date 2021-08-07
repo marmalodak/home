@@ -6,6 +6,8 @@
 " just parameters
 "
 " Would it be a good idea to make this a top level project on its own?
+" hi MatchParen  make matching brackets stand out properly
+" see also https://old.reddit.com/r/vim/comments/ov8dji/very_often_i_get_confused_about_my_current_cursor/
 
 hi clear
 if exists("syntax_on")
