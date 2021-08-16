@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+# https://github.com/koekeishiya/limelight
+
+# the colorformat is 0xaaRRGGBB where aa is opacity, 00=transparant
+limelight -m config active_color 0xff0000ff
+limelight -m config normal_color 0x00ffffff
