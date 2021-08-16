@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+        <string>com.ned.startup</string>
+    <key>KeepAlive</key>
+        <false/>
+    <key>LaunchOnlyOnce</key>
+        <true/>
+    <key>Program</key>
+        <string>/Users/john/bin/limelight</string>
+
+    <key>StandardOutPath</key>
+        <string>/tmp/limelight.out</string>
+    <key>StandardErrorPath</key>
+        <string>/tmp/limelight.err</string>
+
+</dict>
+</plist>
