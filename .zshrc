@@ -206,7 +206,10 @@ else
     alias ll='exa -l --icons'
     alias lrg='exa -albh --sort=accessed --git --icons'
     alias lRg='exa -albh --sort=accessed --git --extended --icons'
-    export EXA_COLORS=$(vivid generate one-light)
+    source ~/.config/exa-colors/exa-colors.zsh
+    export EXA_COLORS="${exa_colors_one_light}"
+    # export EXA_COLORS="${exa_colors_one_dark}"
+    # export EXA_COLORS=$(vivid generate one-light)
 fi
 
 alias vimr='vimr --nvim -O'

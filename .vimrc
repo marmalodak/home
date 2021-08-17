@@ -119,6 +119,15 @@ let g:startify_lists = [
         \ ]
 let g:startify_files_number = 40
 let g:startify_custom_header = [
+        \ ' R replace mode                                                                                                      ',
+        \ '                                                                                                                     ',
+        \ ' ctrl-O    go to previous point in the jump list                                                                     ',
+        \ ' ctrl-^    edit the alternate file                                                                                   ',
+        \ ' :brewind  go to first buffer in buffer list                                                                         ',
+        \ ' :bf[irst] same as :brewind                                                                                          ',
+        \ ' e#                                                                                                                  ',
+        \ '                                                                                                                     ',
+        \ '                                                                                                                     ',
         \ 'gv             reselect the last visual selection # https://vimtricks.com/p/vimtrick-reselect-last-visual-selection/ ',
         \ ']s             move to next misspelled word                                                                          ',
         \ 'zg             add word to spellfile                                                                                 ',
