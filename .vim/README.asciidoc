@@ -435,6 +435,8 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://github.com/tpope/vim-projectionist
 * https://thevaluable.dev/vim-advanced/  I learned stuff even from the introduction, like `gx` and `gi` et al
 * https://jdhao.github.io/2021/07/24/git_show_diff_when_commiting/ git commit can bring up a triple pane window that shows diffs
+* https://github.com/NvChad/NvChad An attempt to make neovim cli as functional as an IDE while being very beautiful , blazing fast.
+* https://github.com/liuchengxu/vim-which-key 🌷 Vim plugin that shows keybindings in popup
 
 ==== language server
 
