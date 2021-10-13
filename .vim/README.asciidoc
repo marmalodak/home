@@ -457,9 +457,11 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 * https://crispgm.com/page/neovim-is-overpowering.html
 * https://old.reddit.com/r/vimporn/comments/o4svc7/cocnvim_nvchad_perfection/ coc.nvim + NvChad
 
-==== Threads
+==== Threads and Posts
 
 * https://old.reddit.com/r/vim/comments/nlvrhd/vimmers_of_reddit_whats_an_unknown_tip_that_has/
+* https://bluz71.github.io/2017/05/15/vim-tips-tricks.html[Vim Tips & Tricks] cfdo, gn, Control+x Control+l, Control+x Control+k, infercase, improve scroll performance
+* https://bluz71.github.io/2021/09/10/vim-tips-revisited.html[Vim tips revisited] multiple leaders, breakindent, dot visual selection, signcolumn=number
 
 
 === Deprecated
