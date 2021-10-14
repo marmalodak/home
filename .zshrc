@@ -215,6 +215,8 @@ fi
 alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
+# alias nvn='nvim -O $(git status | grep -E "modified|new file" | cut -d: -f2)'
+alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR)'
 
 function git_cmds()
 {
