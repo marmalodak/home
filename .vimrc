@@ -23,7 +23,11 @@ endif
 " https://stackoverflow.com/questions/34428944/how-to-enable-gx-in-vim-mine-doesnt-work-anymore
 " https://vi.stackexchange.com/questions/5032/gx-not-opening-url-in-gvim-but-works-in-terminal
 " https://stackoverflow.com/questions/62378898/iterm2-open-link-under-cursor-in-vim
-"
+
+" cmap w!! w !sudo tee %
+" or better yet, never run vim with sudo, use sudoedit
+"   from https://stackoverflow.com/a/726920/1698426
+
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
@@ -127,6 +131,7 @@ let g:startify_custom_header = [
         \ ' :bf[irst] same as :brewind                                                                                          ',
         \ ' e#                                                                                                                  ',
         \ '                                                                                                                     ',
+        \ ' ''. Go to the spot where the last edit was made                                                                      ',
         \ '                                                                                                                     ',
         \ 'gv             reselect the last visual selection # https://vimtricks.com/p/vimtrick-reselect-last-visual-selection/ ',
         \ ']s             move to next misspelled word                                                                          ',
