@@ -1,11 +1,11 @@
 " I got the idea to do this from http://stackoverflow.com/a/2211738/1698426
 "
 " TODO
-" This needs to be parameterized so that I can have blue and other variations
-" Also, this needs to be parameterized so that the light and dark themes are
-" just parameters
-"
-" Would it be a good idea to make this a top level project on its own?
+" 1. This needs to be parameterized so that I can have blue and other variations
+" 2. Also, this needs to be parameterized so that the light and dark themes are just parameters
+" 3. test for background color to from light to dark, i.e. if &background == 'light', rather than writing a function to do this
+" 4. Q: Would it be a good idea to make this a top level project on its own?
+"    A: if testing for &backgounr == 'light', then no
 
 hi clear
 if exists("syntax_on")
