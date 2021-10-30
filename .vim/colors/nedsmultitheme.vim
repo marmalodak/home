@@ -2,7 +2,8 @@
 "
 " I got the idea to do this from http://stackoverflow.com/a/2211738/1698426
 "
-" Would it be a good idea to make this a top level project on its own?
+" See NedsDarkTheme.vim for TODO items
+" i.e. rely on &background == 'light' rather than using a function
 
 " highlight clear
 if exists("syntax_on")
