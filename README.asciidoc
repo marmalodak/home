@@ -39,8 +39,6 @@ Open a new terminal to invoke the punkte (née dotfiles)
 
 See also punkt_new() in .zshrc
 
-
-
 == Brew
 
 brew tap homebrew/cask-fonts brew install vimr exa ranger tmux htop pidof vifm brew install –cask font-bitstream-vera-sans-mono-nerd-font +
