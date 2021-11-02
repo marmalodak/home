@@ -24,7 +24,9 @@
 ** `export MANPAGER="vim -M +MANPAGER -"`
 ** `export MANPAGER="nvim +Man!"`
 ** `gO` <- killer feature
+
 ** See also this plugin: https://github.com/jez/vim-superman[vim-superman]
+
 . https://www.reddit.com/r/vim/comments/k1ydpn/a_guide_on_how_to_copy_text_from_anywhere/[About copying]?
 ** https://github.com/ojroques/vim-oscyank[vim-oscyank]
 [quote]
@@ -181,16 +183,11 @@ ____
 
 * see the dependencies for tagbar
 
-==== https://github.com/tbabej/taskwiki[TaskWiki]
-
 ===== Dependencies
 
-* https://github.com/vimwiki/vimwiki[vimwiki]
-* http://taskwarrior.org[taskwarrior]
 * https://github.com/tbabej/tasklib/[tasklib]
 * https://github.com/powerman/vim-plugin-AnsiEsc[vim-plugin-AnsiEsc]
 * https://github.com/majutsushi/tagbar[tagbar]
-* https://github.com/farseer90718/vim-taskwarrior[vim-taskwarrior]
 
 ==== https://github.com/tomtom/tlib_vim[tlib]
 
@@ -357,22 +354,98 @@ Requires both tmux an vim config
 * `:help unstack.txt`
 * `:help :UnstackFromText`
 
-==== https://github.com/vimwiki/vimwiki[vimwiki]
+==== https://github.com/ratfactor/vviki/[vviki]
 
-* `<Leader>ww` (default is `\ww`) to go to your index wiki file. By default, it is located in ~/vimwiki/index.wiki. See :h vimwiki_list for registering a different path/wiki.
-* `:Vimwiki2HTML` -- Convert current wiki link to HTML.
-* `:VimwikiAll2HTML` -- Convert all your wiki links to HTML.
-* `:help vimwiki-commands` -- List all commands.
-* `:help vimwiki` -- General vimwiki help docs.
+From the help pages for vviki:
+____
+The most important thing to understand is the link "macro" syntax:
+>
+	link:http://example.com[Example]     external URL
+	link:mypage[My Page]                 (same dir)/mypage.adoc
+	link:/mypage[My Page]                (wiki root)/mypage.adoc
+	link:../mypage[My Page]              (up a dir)/mypage.adoc
+    link:mydir/mypage2[My Page Two]      (same dir)/mydir/mypage2.adoc
+    link:mydir/[My Dir]                  (same dir)/mydir/index.adoc
+<
+(Examples assume VViki defaults - see |vviki_page_link_syntax|.)
+
+AsciiDoc's `link:<path>[label]` format is a little verbose, and that's where
+VViki's link mapping comes in handy. Enter creates links from plain words or
+follows existing links. (|vviki-enter|)
+
+Assuming VViki is installed and no defaults have been changed, here's what an
+initial wiki session might look like:
+
+1. `:e ~/wiki/index.adoc` to create and edit the wiki index page.
+2. Enter the following content:
+>
+    = My Wiki
+
+    I like toys and paper.
+<
+3. In normal mode, press Enter on the words "toys" and "paper" to turn them
+   into links:
+>
+    = My Wiki
+
+    I like link:toys[toys] and link:paper[paper].
+<
+4. Still in normal mode, press Enter on the "toys" link to create the content
+   on that page.
+5. Press Backspace to return to the index page.  You do not have to save the
+   toys page manually. VViki automatically saves as you navigate from page
+   to page.
+6. Repeat for the "paper" page.
+
+You now have a wiki with three pages.
 
 
-[WARNING]
-====
-vimwiki is going to be replaced by https://github.com/ratfactor/vviki[vviki]
+Mappings
 
-This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
-====
+VViki has no global mappings.  When a new wiki page is detected (based on
+directory), the following local mappings are available:
 
+<CR>         Create/follow link under cursor. |vviki-enter| 
+
+<Backspace>  Return to previous page. |vviki-back| 
+
+<Tab>        Jump cursor to next link on page.
+
+(See the action descriptions below for more details about what each mapping
+does.)
+
+
+Enter                                                            *vviki-enter*
+
+Put your cursor on a plain "word" in normal mode and press Enter to convert
+the word to a link. The link destination and label will both be the word. For
+example, the link below was created by pressing Enter on the word 'cheese'.
+>
+    Click on link:cheese[cheese] to learn more.
+<
+Pressing Enter again on the new 'cheese' link will open `cheese.adoc` for
+editing (whether it already exists or not).
+
+Pressing Enter on an external (Web) link will attempt to open the URL using
+the `xdg-open` application.
+
+NOTE: At this time, VViki happily creates new pages, but doesn't create
+directories. You may want to create subdirectories before editing pages within
+them.
+
+
+Back                                                              *vviki-back*
+
+VViki keeps a history of visited wiki pages. Pressing Backspace in normal mode
+visits the previously visited page and the page before that until you run out
+of history.
+
+
+Next                                                              *vviki-next*
+
+Pressing the Tab key in normal mode jumps the cursor to the next available
+wiki link in the current document.
+____
 
 ==== https://github.com/sjl/vitality.vim[vim-vitality] restores the FocusLost and FocusGained autocommand in iTerm
 
@@ -391,7 +464,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 
 === Potentially useful plugins and resources to consider
 
-* https://github.com/ratfactor/vviki/
+* https://github.com/habamax/vim-asciidoctor[vim-asciidoctor]
 * https://github.com/Shougo/vimshell.vim
 * https://github.com/vim-tw/vim-tips
 * Look for an email message from vimtricks subject "Lesson 8: Statusline and Git"
@@ -440,6 +513,7 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 
 ==== language server
 
+* [[https://old.reddit.com/r/vim/comments/qj2os2/unhappy_with_the_state_of_lsp_in_vim/][reddit thread about language servers]]
 * https://github.com/tpope/vim-endwise  automatically fill in ends of statements, e.g. `if` might fill in `then`?
 * https://www.reddit.com/r/neovim/comments/ectznp/why_was_it_decided_to_include_a_language_server/
 * https://www.reddit.com/r/neovim/comments/gs271v/anyone_knows_about_a_language_server_for_human/
@@ -479,6 +553,9 @@ This means that https://github.com/tbabej/taskwiki[TaskWiki] has to go too
 . https://github.com/vim-voom/VOoM[VOoM] VOoM (Vim Outliner of Markups) no mention of asciidoc, so buh-bye
 . https://github.com/yuttie/comfortable-motion.vim[comfortable-motion] "physics-based smooth scrolling"
 . https://github.com/AndrewRadev/splitjoin.vim[splitjoin] Switch between single-line and multiline forms of code
+. https://github.com/vimwiki/vimwiki[vimwiki]
+. https://github.com/tbabej/taskwiki[TaskWiki]
+. http://taskwarrior.org[taskwarrior]
 
 ////
     to use this function: select lines 3 to 9 and then type :@"
