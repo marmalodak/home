@@ -58,6 +58,7 @@ brew install fortune cowsay
 brew install fzf  # for oh-my-zsh's fzf plugin
 brew install vivid # to generate LS_COLORS
 brew install fd
+brew install ripgrep
 brew install git-credential-manager  # needed to push to github
 
 == https://rvm.io/rvm/install[rvm]
