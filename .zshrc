@@ -267,6 +267,7 @@ alias punkt='git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
 
 function punkt_status()
 {
+    # man gitmodules: submodule.<name>.ignore
     punkt status --ignore-submodules=all --untracked-files=no
 }
 
@@ -321,6 +322,7 @@ function punkt_zu_json()
 
 function punkt_flachen()
 {
+    # man 5 gitmodules: submodule.<name>.shallow
     # This is probably wrong:
     # 1. it doesn't seem to do what I think it should do
     # 2. probably don't need to use -f, git already knows where config files are
@@ -331,6 +333,15 @@ function punkt_flachen()
     punkt submodule foreach 'git config -f ${HOME}/.punkte/.gitmodules submodule.$name.shallow true'
     punkt submodule foreach 'git config -f ${HOME}/.punkte/.git/config submodule.$name.shallow true'
 }
+
+# vielleicht:
+# function punkt_submodule_zutat() oder punkt_submodule_neu()
+# {
+#     submodule_repo=$1
+#     punkt submodule add $1 ...
+#     man gitmodules: submodule.<name>.ignore
+#     man gitmodules: submodule.<name>.shallow
+# }
 
 function punkt_submodule_bringeum()
 {
