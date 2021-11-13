@@ -7,7 +7,7 @@ For reference: [git config --global url."git@github.com:".insteadOf "https://git
 [code]
 ----
 Copypasta:
-punkt config --local url."git@github.com".insteadOf "https://github.com"
+punkt config --local url."git@github.com:".insteadOf "https://github.com"
 ----
 
 To use, follow this advice:
