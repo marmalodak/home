@@ -248,6 +248,12 @@ function nvim-fd()
     fd ${1} -X nvim -O
 }
 
+function huh()
+{
+    whence -v $@
+    whence -f $@
+}
+
 function git_cmds()
 {
     # TODO see list-<category> in command-list.txt, https://github.com/git/git/blob/master/command-list.txt
@@ -285,9 +291,7 @@ function punkt_new()
 
 function punkt_auf()
 {
-    pushd ${HOME}
-    punkt  pull --rebase --verbose --stat && punkt submodule update --init --remote --recursive --jobs=16
-    popd
+    punkt -C ${HOME} pull --rebase --verbose --stat && punkt submodule update --init --remote --recursive --jobs=16
 }
 
 function punkt_zeige()
