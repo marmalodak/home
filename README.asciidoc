@@ -1,8 +1,14 @@
 [WARNING]
 ====
 These URLs need to be change to ssh
-[git config --global url."git@github.com:".insteadOf "https://github.com/"[https://gist.github.com/m14t/3056747#gistcomment-2086791]]
+For reference: [git config --global url."git@github.com:".insteadOf "https://github.com/"[https://gist.github.com/m14t/3056747#gistcomment-2086791]]
 ====
+
+[code]
+----
+Copypasta:
+punkt config --local url."git@github.com".insteadOf "https://github.com"
+----
 
 To use, follow this advice:
 
