@@ -510,6 +510,7 @@ ____
 * https://jdhao.github.io/2021/07/24/git_show_diff_when_commiting/ git commit can bring up a triple pane window that shows diffs
 * https://github.com/NvChad/NvChad An attempt to make neovim cli as functional as an IDE while being very beautiful , blazing fast.
 * https://github.com/liuchengxu/vim-which-key 🌷 Vim plugin that shows keybindings in popup
+* https://old.reddit.com/r/neovim/comments/qsbksd/lightspeednvim_takes_the_synergy_between_sneak/
 
 ==== language server
 
