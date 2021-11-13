@@ -291,7 +291,9 @@ function punkt_new()
 
 function punkt_auf()
 {
-    punkt -C ${HOME} pull --rebase --verbose --stat && punkt submodule update --init --remote --recursive --jobs=16
+    pushd ${HOME}
+    punkt pull --rebase --verbose --stat && punkt submodule update --init --remote --recursive --jobs=16
+    popd
 }
 
 function punkt_zeige()
