@@ -28,6 +28,8 @@ endif
 " or better yet, never run vim with sudo, use sudoedit
 "   from https://stackoverflow.com/a/726920/1698426
 
+let mapleader=" "
+
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
@@ -36,6 +38,8 @@ imap kj <Esc>
 " https://old.reddit.com/r/vim/comments/nlvrhd/vimmers_of_reddit_whats_an_unknown_tip_that_has/gzm30z3/
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
+nnoremap <Leader>p :e #<Enter>
+nnoremap <Leader>n :bnext<Enter>
 
 " reselect pasted text #  https://vimtricks.com/p/reselect-pasted-text/
 nnoremap gp `[v`]
@@ -132,6 +136,8 @@ let g:startify_custom_header = [
         \ ' e#                                                                                                                  ',
         \ '                                                                                                                     ',
         \ ' ''. Go to the spot where the last edit was made                                                                      ',
+        \ ' ''". Go to the spot where the the cursor was when this buffer was last opened                                        ',
+        \ ' ''^. Go to the spot where the cursor last exited insert mode                                                         ',
         \ '                                                                                                                     ',
         \ 'gv             reselect the last visual selection # https://vimtricks.com/p/vimtrick-reselect-last-visual-selection/ ',
         \ ']s             move to next misspelled word                                                                          ',
@@ -230,7 +236,8 @@ function! s:ZoomToggle() abort
     endif
 endfunction
 command! ZoomToggle call s:ZoomToggle()
-nnoremap <silent> <C-A> :ZoomToggle<CR>
+nnoremap <silent> <leader>z :ZoomToggle<CR>
+" nnoremap <silent> <C-A> :ZoomToggle<CR>
 
 "  http://stackoverflow.com/a/11865489/1698426
 func! Eatchar(pat)

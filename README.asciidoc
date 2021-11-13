@@ -1,3 +1,9 @@
+[WARNING]
+====
+These URLs need to be change to ssh
+[git config --global url."git@github.com:".insteadOf "https://github.com/"[https://gist.github.com/m14t/3056747#gistcomment-2086791]]
+====
+
 To use, follow this advice:
 
 * I learned about using GIT-DIR and WORK-DIR for dotfiles from:
@@ -6,6 +12,7 @@ To use, follow this advice:
 * https://www.atlassian.com/git/tutorials/dotfiles
 * https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
 * on openwrt I needed to install git, git-http
+* [exa colours reference [https://the.exa.website/docs/colour-themes]]
 
 
 On a new installation, I usually want:
