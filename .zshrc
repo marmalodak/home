@@ -299,6 +299,11 @@ function punkt_auf()
 
 function punkt_zeige()
 {
+    command -v jq > /dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        echo "Install jq"
+        return 1
+    fi
     if [[ "${1}" == "--json" ]]; then
         echo $(punkt_zu_json) | jq
     elif [[ -n "${1}" ]]; then
@@ -345,6 +350,8 @@ function punkt_flachen()
 
 function punkt_submodule_bringeum()
 {
+    # TODO this is still not reliable
+ 
     # to prevent a previous invocation of this function possibly still having these variables set:
     unset submodule_name
     unset displaypath

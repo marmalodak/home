@@ -60,6 +60,7 @@ brew install vivid # to generate LS_COLORS
 brew install fd
 brew install ripgrep
 brew install git-credential-manager  # needed to push to github
+brew install jq jo
 
 == https://rvm.io/rvm/install[rvm]
 
