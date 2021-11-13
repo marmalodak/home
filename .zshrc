@@ -12,6 +12,10 @@ if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
     fi
 fi
 
+# from Zach Riddle, better output for zsh -x
+export PS4='+%1N:%I> '
+
+
 # https://awesomeopensource.com/project/sharkdp/bat
 export BAT_THEME=Coldark-Cold
 
@@ -216,7 +220,33 @@ alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
 # alias nvn='nvim -O $(git status | grep -E "modified|new file" | cut -d: -f2)'
-alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR)'
+alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
+alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
+
+# no slash, i.e. do not git push origin HEAD:/refs/for/master, dummy
+alias pp='git push origin HEAD:refs/for/master%private' # Replaces draft. Not built by Jenkins. Reviewers/Owners don't get notifications.
+alias pm='git push origin HEAD:refs/for/master'   # Built by Jenkins. Reviewers/Owners get notifications.
+
+function nvim-rg()
+{
+    set -x
+    nvim -O $(rg -l $@)
+}
+
+function nvim-fd()
+{
+    # the ${@} was an attempt to make (for example) "nvim-fd foo bar" wher both foo and bar are patterns, but fd takes only one pattern argument
+    # the man page for fd has this at the end:
+    # Open all search results with vim:
+    # $ fd pattern -X vim
+    # so this might be better written as
+    # fd ${1} -X nvim -O
+
+    # nvim -O $(fd ${@})
+
+    set +x
+    fd ${1} -X nvim -O
+}
 
 function git_cmds()
 {

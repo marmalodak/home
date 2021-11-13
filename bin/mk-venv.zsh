@@ -8,6 +8,19 @@ set +x
 # should there be automation for adding or removing packages from the requirements file?
 # or should the customer simply modify the requirements file by hand?
 
+if ((# == 0)); then
+    print "${0} MyVenv package1 package2 ..."
+    print "Creates two scripts:"
+    print "1. mk-MyVenv-venv"
+    print "  - run this first, it creates a script called mk-MyVenv-venv.zsh"
+    print "  - additionally, this will write a file called MyVenv-venv-requirement.txt which will contain pacage1 package2 ..."
+    print "  - when new packages are needed, put them in MyVenv-venv-requirement.txt, the next mk-MyVenv-venv.zsh is run, all the requirements will be installed"
+    print "2. MyVenv-venv-activate.zsh -- run this to activate the virtual environtment MyVenv"
+    print "  - this will launch a subshell in which MyVenv is activated"
+    print "  - simply type exit or control+d to leave the subshell"
+    exit 0
+fi
+
 PARAMETERS=("${(@s/ /)*}")  # convert string to array https://stackoverflow.com/a/2930519/1698426
 VIRTUAL_ENV=${1:A}  # expand VIRTUAL_ENV to be the full path to the first parameter
 VIRTUAL_ENV_NAME=$(basename "${VIRTUAL_ENV}")-venv
