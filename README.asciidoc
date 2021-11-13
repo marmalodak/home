@@ -1,14 +1,16 @@
 [WARNING]
 ====
-These URLs need to be change to ssh
-For reference: [git config --global url."git@github.com:".insteadOf "https://github.com/"[https://gist.github.com/m14t/3056747#gistcomment-2086791]]
+Github URLs need to be changed to not use http
 ====
 
+Copypasta:
 [code]
 ----
-Copypasta:
 punkt config --local url."git@github.com:".insteadOf "https://github.com"
 ----
+
+https://gist.github.com/m14t/3056747#gistcomment-2086791[This gist got me started]
+
 
 To use, follow this advice:
 
@@ -37,7 +39,6 @@ Open a new terminal to invoke the punkte (née dotfiles)
 
 See also punkt_new() in .zshrc
 
-====
 
 
 == Brew
@@ -88,6 +89,30 @@ App::Asciio
 == Settings I like
 
 git config --global user.useconfigonly true
+
+I lifted some color settings, how do I use them without relying on ~/.gitconfig?
+[code]
+----
+[color]
+    ui = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+----
+
 
 == Bookmarks for future projects
 
