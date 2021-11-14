@@ -36,10 +36,14 @@ imap jk <Esc>
 imap kj <Esc>
 
 " https://old.reddit.com/r/vim/comments/nlvrhd/vimmers_of_reddit_whats_an_unknown_tip_that_has/gzm30z3/
-nnoremap <Leader>o o<Esc>
-nnoremap <Leader>O O<Esc>
 nnoremap <Leader>p :e #<Enter>
 nnoremap <Leader>n :bnext<Enter>
+
+" nnoremap <Leader>o o<Esc>k
+" nnoremap <Leader>O O<Esc>j
+nnoremap oo m`o<Esc>``
+nnoremap OO m`O<ESC>``
+" https://stackoverflow.com/questions/16134457/insert-a-newline-without-entering-in-insert-mode-vim#comment72864813_16136133
 
 " reselect pasted text #  https://vimtricks.com/p/reselect-pasted-text/
 nnoremap gp `[v`]
