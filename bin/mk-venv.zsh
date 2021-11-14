@@ -94,7 +94,7 @@ set -u
 set +x
 
 python3 -m venv VIRTUAL_ENV_PLACE_HOLDER
-venv_path=$(echo b1-venv(:A))
+venv_path=$(echo VIRTUAL_ENV_PLACE_HOLDER(:A))
 
 # how did this ever work without the following
 unset PYTHONHOME
