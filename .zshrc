@@ -69,7 +69,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export PATH="${HOME}/bin:${PATH}"
-export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
+test "${string#*$word}" != "$string" && echo "$word found in $string"
+
+if [[ ! "${PATH}#*/Library/Python" != "/Library/Python" ]]; then
+    export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
+fi
 
 # brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
 [[ -d /opt/brew/bin ]]   && export PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
