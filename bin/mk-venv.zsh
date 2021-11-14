@@ -74,7 +74,8 @@ export VIRTUAL_ENV=VIRTUAL_ENV_PLACE_HOLDER
 export PS1=$(basename "${VIRTUAL_ENV}" "${PS1}")
 export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-zsh -i
+# WARNING if .zshrc munges the path with Python already, the following will probably have the wrong Python in the PATH
+zsh -i  # duh TIL zshrc messes with the path
 activate_doc_end
 )
 
@@ -93,13 +94,23 @@ set -u
 set +x
 
 python3 -m venv VIRTUAL_ENV_PLACE_HOLDER
+venv_path=$(echo b1-venv(:A))
+
+# how did this ever work without the following
+unset PYTHONHOME
+export VIRTUAL_ENV=${venv_path}
+export PS1=$(basename "${VIRTUAL_ENV}" "${PS1}")
+export PATH="${venv_path}/bin:${PATH}"
+
 # should the following two use absolute paths?
 VIRTUAL_ENV_PLACE_HOLDER/bin/pip3 --no-input install --upgrade pip
 REQUIREMENTS_PLACE_HOLDER
 mkvenv_doc_end
 )
 
+
 mkvenv_script_name="mk-${VIRTUAL_ENV_NAME}.zsh"
+mkvenv_doc=${mkvenv_doc/VIRTUAL_ENV_PATH/'$(echo '${VIRTUAL_ENV_NAME}'(:A))'}
 mkvenv_doc="${mkvenv_doc//VIRTUAL_ENV_PLACE_HOLDER/${VIRTUAL_ENV_NAME}}"
 if [[ -v REQUIREMENTS_FILE ]]; then
     echo "#  requirements for ${VIRTUAL_ENV_NAME}" > "${REQUIREMENTS_FILE}"
@@ -108,7 +119,9 @@ if [[ -v REQUIREMENTS_FILE ]]; then
     done
     mkvenv_script="${mkvenv_doc/REQUIREMENTS_PLACE_HOLDER/${VIRTUAL_ENV_NAME}/bin/pip3 --no-input install --requirement ${REQUIREMENTS_FILE}}"
 else
+    # if no requirements, no pip -r ... should be present, convert the REQUIREMENtS_PLACE_HOLDER to a blank line
     mkvenv_script="${mkvenv_doc/REQUIREMENTS_PLACE_HOLDER/}"
 fi
+# WARNING: this next line requires the previous replacement of VIRTUAL_ENV_PLACE_HOLDER to be done already
 echo "${mkvenv_script}" > "${mkvenv_script_name}"
 chmod +x "${mkvenv_script_name}"
