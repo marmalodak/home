@@ -5,6 +5,7 @@ set -e
 set -u
 set +x
 
+# TIL about Python's virtualenv tool, it could probably replace all of this...
 # TODO: the activate script should check to see if the venv has been created, probably by checking for the existence of the dir or the venv/bin/activate script
 # TODO? Should these be renamed? i.e. for a venv named "foo", the filenames are now
 # mk-foo-venv.zsh
