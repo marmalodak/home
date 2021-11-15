@@ -223,6 +223,13 @@ autocmd WinEnter * setlocal   cursorline
 autocmd BufLeave * setlocal nocursorline
 autocmd BufEnter * setlocal   cursorline
 
+" https://stackoverflow.com/a/14449484/1698426
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
 " vviki
 nnoremap <leader>ww :e ~/wiki/index.adoc<CR>
 
