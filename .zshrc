@@ -69,11 +69,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export PATH="${HOME}/bin:${PATH}"
-test "${string#*$word}" != "$string" && echo "$word found in $string"
 
-if [[ ! "${PATH}#*/Library/Python" != "/Library/Python" ]]; then
-    export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
-fi
+##  if [[ ! "${PATH}#*/Library/Python" != "/Library/Python" ]]; then
+##      export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
+##  fi
 
 # brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
 [[ -d /opt/brew/bin ]]   && export PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
@@ -190,7 +189,7 @@ fi
 
 # https://github.com/Qix-/better-exceptions/
 # on 2nd thought, I don't know how much I actually like this
-export BETTER_EXCEPTIONS=1
+export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 
 # TODO: EXA_COLORS, e.g. https://github.com/ogham/exa/issues/733#issuecomment-688930008
 # https://github.com/sharkdp/vivid
