@@ -19,12 +19,11 @@ bindkey "^[[1;5C" forward-word
 # https://stackoverflow.com/a/61572895 ???
 #ZSH_DISABLE_COMPFIX="true"  # hopefully this is no longer needed
 
-# TO DO: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
+# TODO: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 # after upgrade to Fedora 33, I needed to do this:
-export FPATH=$FPATH:/usr/share/zsh/5.8/functions
+[[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
-
 
 [[ -f ~/.motd ]] && source ~/.motd
 
