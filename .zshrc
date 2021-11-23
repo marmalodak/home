@@ -1,20 +1,5 @@
-if [[ 0 == 1 ]]; then  # tmux run-shell hangs, why???
-                       # there still appear to be tmux instances running even when I close the session...
-    if [[ -o interactive ]]; then  # is zsh interactive?
-        #if [[ -z "$TMUX" ]]; then
-        tmux list-sessions > /dev/null 2>&1
-        tmux_sessions=$?
-        if [[ $tmux_session == 0 ]]; then
-            if [[ $(tmux run-shell "echo #{session_attached}") == 0 ]]; then  # if the tmux session has zero attachers
-                tmux attach
-            fi
-        fi
-    fi
-fi
-
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
-
 
 # https://awesomeopensource.com/project/sharkdp/bat
 export BAT_THEME=Coldark-Cold
@@ -32,7 +17,7 @@ bindkey "^[[1;5C" forward-word
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835#issuecomment-392755849 ???
 # https://stackoverflow.com/a/61572895 ???
-ZSH_DISABLE_COMPFIX="true"
+#ZSH_DISABLE_COMPFIX="true"  # hopefully this is no longer needed
 
 # TO DO: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
@@ -40,20 +25,6 @@ ZSH_DISABLE_COMPFIX="true"
 export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
 
-# I don't think I'm going to use this venv_activate, not even tested, but I'll decide in the future
-# function venv_activate()
-# {
-#     if [[ -z "$1" ]] || [[ ! -r "$1" ]]; then
-#         echo "Pass in a path to a python virtual environment"
-#         exit 1
-#     fi
-#     # 1) set VIRTUAL_ENV 2) modify PATH 3) unset PYTHONHOME 4) and maybe set PS1?
-#     #path_to_venv="$1"
-#     unset PYTHONHOME
-#     export VIRTUAL_ENV="$1"
-#     export PATH=${VIRTUAL_ENV}/bin:$PATH
-#     export PS1="($(basename ${VIRTUAL_ENV})${PS1}"
-# }
 
 [[ -f ~/.motd ]] && source ~/.motd
 
@@ -68,21 +39,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH="${HOME}/bin:${PATH}"
-
-##  if [[ ! "${PATH}#*/Library/Python" != "/Library/Python" ]]; then
-##      export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
-##  fi
-
-# brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
-[[ -d /opt/brew/bin ]]   && export PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
-[[ -d /usr/local/bin ]]  && export PATH="${PATH}:/usr/local/bin"
-[[ -d /usr/local/sbin ]] && export PATH="${PATH}:/usr/local/sbin"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# https://unix.stackexchange.com/a/557490/30160
+# https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
 
 # Path to your oh-my-zsh installation.
@@ -171,8 +128,7 @@ zstyle ':completion:list-expand:*' extra-verbose yes
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
-  # cannot explain why I get an error message when editing a commit message with vimr
-    export EDITOR='vim'
+    export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -224,18 +180,14 @@ fi
 alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
-# alias nvn='nvim -O $(git status | grep -E "modified|new file" | cut -d: -f2)'
 alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
-
-# no slash, i.e. do not git push origin HEAD:/refs/for/master, dummy
-alias pp='git push origin HEAD:refs/for/master%private' # Replaces draft. Not built by Jenkins. Reviewers/Owners don't get notifications.
-alias pm='git push origin HEAD:refs/for/master'   # Built by Jenkins. Reviewers/Owners get notifications.
 
 function nvim-rg()
 {
     set -x
     nvim -O $(rg -l $@)
+    set +x
 }
 
 function nvim-fd()
@@ -266,6 +218,7 @@ function git_cmds()
     for cmd in builtins parseopt main others config; do
         git --list-cmds=${cmd}
     done
+    set +x
 }
 
 alias punkt='git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
@@ -293,6 +246,7 @@ function punkt_new()
     punkt checkout -- $HOME
     punkt status --ignore-submodules=all --untracked-files=no
     echo "Jetzt führe diesen Befehl: punkt_auf"
+    set +x
 }
 
 function punkt_auf()
@@ -413,8 +367,28 @@ function punkt_submodule_bringeum()
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+export PATH="${HOME}/bin:${PATH}"
+export PATH="${HOME}/.rvm/bin:{$PATH}"
+if [[ $OSTYPE == 'darwin'* ]]; then
+    export PATH="${HOME}/Library/Python/3.10/bin:{$PATH}"
+fi
+
+##  if [[ ! "${PATH}#*/Library/Python" != "/Library/Python" ]]; then
+##      export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
+##  fi
+
+# brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
+[[ -d /opt/brew/bin ]]   && export PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
+[[ -d /usr/local/bin ]]  && export PATH="${PATH}:/usr/local/bin"
+[[ -d /usr/local/sbin ]] && export PATH="${PATH}:/usr/local/sbin"
+
 PATH="${HOME}/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="${HOME}/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="${HOME}/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"${HOME}/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=${HOME}/perl5"; export PERL_MM_OPT;
+
+# TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
+#                         https://github.com/sharkdp/fd#using-fd-with-fzf
+#                         https://github.com/lotabout/skim
+# TODO: something like zcat https://github.com/sharkdp/bat/issues/237#issuecomment-617079288                        
