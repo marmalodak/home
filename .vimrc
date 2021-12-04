@@ -23,6 +23,7 @@ endif
 " https://stackoverflow.com/questions/34428944/how-to-enable-gx-in-vim-mine-doesnt-work-anymore
 " https://vi.stackexchange.com/questions/5032/gx-not-opening-url-in-gvim-but-works-in-terminal
 " https://stackoverflow.com/questions/62378898/iterm2-open-link-under-cursor-in-vim
+" https://github.com/ThePrimeagen/.dotfiles/blob/874636dad3cbcad6ca96982047025181684993f2/nvim/.config/nvim/init.vim#L146  interesting key bindings
 
 " cmap w!! w !sudo tee %
 " or better yet, never run vim with sudo, use sudoedit
@@ -62,6 +63,7 @@ set noerrorbells
 set visualbell
 set vb t_vb=
 
+" Do the guioptions apply to things like vimR?
 set guioptions-=T
 set guioptions+=m
 
