@@ -19,7 +19,9 @@ bindkey "^[[1;5C" forward-word
 # https://stackoverflow.com/a/61572895 ???
 #ZSH_DISABLE_COMPFIX="true"  # hopefully this is no longer needed
 
-# TODO: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
+# Q: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
+# A: see https://unix.stackexchange.com/a/532155/30160
+# tldr The $path array variable is tied to the $PATH scalar (string) variable. Any modification on one is reflected in the other.
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 # after upgrade to Fedora 33, I needed to do this:
 [[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions
@@ -366,26 +368,7 @@ function punkt_submodule_bringeum()
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH="${HOME}/bin:${PATH}"
-export PATH="${HOME}/.rvm/bin:{$PATH}"
-if [[ $OSTYPE == 'darwin'* ]]; then
-    export PATH="${HOME}/Library/Python/3.10/bin:{$PATH}"
-fi
-
-##  if [[ ! "${PATH}#*/Library/Python" != "/Library/Python" ]]; then
-##      export PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # pip3 install --user wants this in the path
-##  fi
-
-# brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
-[[ -d /opt/brew/bin ]]   && export PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
-[[ -d /usr/local/bin ]]  && export PATH="${PATH}:/usr/local/bin"
-[[ -d /usr/local/sbin ]] && export PATH="${PATH}:/usr/local/sbin"
-
-PATH="${HOME}/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="${HOME}/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="${HOME}/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"${HOME}/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=${HOME}/perl5"; export PERL_MM_OPT;
+# See .zprofle for path stuff
 
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
 #                         https://github.com/sharkdp/fd#using-fd-with-fzf

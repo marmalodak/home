@@ -61,6 +61,8 @@ brew install fd
 brew install ripgrep
 brew install git-credential-manager  # needed to push to github
 brew install jq jo
+brew install util-linux  # check that it's in the path
+brew install macos-trash
 
 == https://rvm.io/rvm/install[rvm]
 

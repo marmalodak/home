@@ -30,6 +30,9 @@ endif
 
 let mapleader=" "
 
+" until the issue with gx being broken in netrw... this came from the @vim slack channel
+nmap gx viW"ay:!open <C-R>a &<CR><cr>
+
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
