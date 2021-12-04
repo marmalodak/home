@@ -74,8 +74,9 @@ export VIRTUAL_ENV=VIRTUAL_ENV_PLACE_HOLDER
 export PS1=$(basename "${VIRTUAL_ENV}" "${PS1}")
 export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-# WARNING if .zshrc munges the path with Python already, the following will probably have the wrong Python in the PATH
-zsh -i  # duh TIL zshrc messes with the path
+echo WARNING: if .zshrc munges the path with Python already, the following will probably have the wrong Python in the PATH
+echo Use .zshenv instead
+zsh -i
 activate_doc_end
 )
 
