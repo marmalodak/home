@@ -33,20 +33,21 @@ let mapleader=" "
 " until the issue with gx being broken in netrw... this came from the @vim slack channel
 nmap gx viW"ay:!open <C-R>a &<CR><cr>
 
+" timeoutlen affects the bindings ;; jk kj oo OO
+set timeoutlen=200
+
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
 imap jk <Esc>
 imap kj <Esc>
 
+" https://stackoverflow.com/questions/16134457/insert-a-newline-without-entering-in-insert-mode-vim#comment72864813_16136133
+nnoremap oo m`o<Esc>``
+nnoremap OO m`O<ESC>``
+
 " https://old.reddit.com/r/vim/comments/nlvrhd/vimmers_of_reddit_whats_an_unknown_tip_that_has/gzm30z3/
 nnoremap <Leader>p :e #<Enter>
 nnoremap <Leader>n :bnext<Enter>
-
-" nnoremap <Leader>o o<Esc>k
-" nnoremap <Leader>O O<Esc>j
-nnoremap oo m`o<Esc>``
-nnoremap OO m`O<ESC>``
-" https://stackoverflow.com/questions/16134457/insert-a-newline-without-entering-in-insert-mode-vim#comment72864813_16136133
 
 " reselect pasted text #  https://vimtricks.com/p/reselect-pasted-text/
 nnoremap gp `[v`]
