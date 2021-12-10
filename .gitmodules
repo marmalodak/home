@@ -124,3 +124,6 @@
 [submodule ".vim/pack/vim8/start/xterm-color-table"]
 	path = .vim/pack/vim8/start/xterm-color-table
 	url = https://github.com/guns/xterm-color-table.vim
+[submodule ".vim/pack/vim8/start/vim-illuminate"]
+	path = .vim/pack/vim8/start/vim-illuminate
+	url = https://github.com/rrethy/vim-illuminate
