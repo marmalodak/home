@@ -13,11 +13,12 @@
 
 # brew might be installed in /opt or /usr/local; on an m1 mac it might be in a different place still
 # the paths to util-linux/bin are needed on the mac so that setsid (from util-linux) is in the path
+# https://stackoverflow.com/a/1397020  # see here on how to tell whether a directory is in the $PATH already
 
 [[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/Library/Python/3.10/bin ]] && PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # ugh this will have to change for each version??
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
-#[[ -d /opt/brew/bin ]]                   && PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
+[[ -d /opt/brew/bin ]]                   && PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
 [[ -d /usr/local/bin ]]                  && PATH="${PATH}:/usr/local/bin"
 [[ -d /usr/local/sbin ]]                 && PATH="${PATH}:/usr/local/sbin"
 [[ -d /opt/brew/opt/util-linux/bin ]]    && PATH="/opt/brew/opt/util-linux/bin:${PATH}"
