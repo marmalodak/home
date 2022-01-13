@@ -178,11 +178,14 @@ else
     # export EXA_COLORS=$(vivid generate one-light)
 fi
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
 alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
+alias breakpath='sep=:;print -l ${(ps.$sep.)PATH}'  # https://discussions.apple.com/thread/251387981
 
 function nvim-rg()
 {
