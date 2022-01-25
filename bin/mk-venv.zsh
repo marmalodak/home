@@ -60,6 +60,8 @@ if [[ ${#PARAMETERS[@]} -ne 0 ]]; then
     REQUIREMENTS_FILE="${1}"-requirement.text
 fi
 
+mkvenv_script_name="mk-${VIRTUAL_ENV_NAME}.zsh"
+
 # ---- create the activate script
 activate_doc=$(cat << 'activate_doc_end'
 #!/usr/bin/env zsh
@@ -69,13 +71,21 @@ set -e
 set -u
 set +x
 
-unset PYTHONHOME
 export VIRTUAL_ENV=VIRTUAL_ENV_PLACE_HOLDER
+
+if [[ ! -f "${VIRTUAL_ENV}/bin/activate" ]]; then
+    echo "Does the venv exists?"
+    echo "Looking for ${VIRTUAL_ENV}/bin/activate"
+    echo "Probably need to run script to create the venv first"
+    exit 1
+fi
+
+unset PYTHONHOME
 export PS1=$(basename "${VIRTUAL_ENV}" "${PS1}")
 export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-echo WARNING: if .zshrc munges the path with Python already, the following will probably have the wrong Python in the PATH
-echo Use .zshenv instead
+echo WARNING: if .zshrc munges the path with Python already, you will probably have the wrong Python in your PATH
+echo Use .zshenv for PATH configuration instead of .zshrc
 zsh -i
 activate_doc_end
 )
@@ -97,7 +107,6 @@ set +x
 python3 -m venv VIRTUAL_ENV_PLACE_HOLDER
 venv_path=$(echo VIRTUAL_ENV_PLACE_HOLDER(:A))
 
-# how did this ever work without the following
 unset PYTHONHOME
 export VIRTUAL_ENV=${venv_path}
 export PS1=$(basename "${VIRTUAL_ENV}" "${PS1}")
@@ -110,7 +119,6 @@ mkvenv_doc_end
 )
 
 
-mkvenv_script_name="mk-${VIRTUAL_ENV_NAME}.zsh"
 mkvenv_doc=${mkvenv_doc/VIRTUAL_ENV_PATH/'$(echo '${VIRTUAL_ENV_NAME}'(:A))'}
 mkvenv_doc="${mkvenv_doc//VIRTUAL_ENV_PLACE_HOLDER/${VIRTUAL_ENV_NAME}}"
 if [[ -v REQUIREMENTS_FILE ]]; then
