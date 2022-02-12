@@ -112,7 +112,8 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf zsh-autosuggestions)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf)
+# do not add zsh-autosuggestions to plugins because it is installed manually
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -372,6 +373,9 @@ function punkt_submodule_bringeum()
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # See .zprofle for path stuff
+
+# the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
+autoload -U compinit && compinit
 
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
 #                         https://github.com/sharkdp/fd#using-fd-with-fzf
