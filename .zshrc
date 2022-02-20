@@ -13,6 +13,8 @@ bindkey "^[b" backward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
+# https://old.reddit.com/r/zsh/comments/svctvj/how_to_park_a_command_like_bash/
+bindkey '^[#' pound-insert
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835#issuecomment-392755849 ???
