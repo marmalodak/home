@@ -76,6 +76,18 @@ brew install gtk+3 gtk4 gtkextra pango (for asciio)
 
 Might be time to give up on drawing in asciidoctor or vim and use PlantUML, graphviz, pikchr
 
+# apg
+# https://github.com/wilx/apg
+# https://github.com/jabenninghoff/apg
+# https://github.com/jabenninghoff/homebrew-edge
+brew tap jabenninghoff/edge
+brew install apg
+
+=== brew tap-info
+
+https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-tap#25336816[Homebrew get list of formulas in a tap]
+
+
 
 == perl
 
