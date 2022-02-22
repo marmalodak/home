@@ -25,6 +25,8 @@ bindkey '^[#' pound-insert
 # A: see https://unix.stackexchange.com/a/532155/30160
 # tldr The $path array variable is tied to the $PATH scalar (string) variable. Any modification on one is reflected in the other.
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
+[[ -d /opt/brew/share/zsh/site-functions ]]        && fpath+=(/opt/brew/share/zsh/site-functions)  # when brew is installed by liv
+
 # after upgrade to Fedora 33, I needed to do this:
 [[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
