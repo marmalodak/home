@@ -3,6 +3,8 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core", "https://github.pie.apple.com/homebrew/homebrew-core.git"
 tap "jabenninghoff/edge"
+# deprecate ack in favour of `rg` from ripgrep
+brew "ack"
 brew "brew-cask-completion"
 brew "cowsay"
 brew "exa"
