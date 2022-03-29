@@ -6,6 +6,7 @@ tap "jabenninghoff/edge"
 # deprecate ack in favour of `rg` from ripgrep
 brew "ack"
 brew "brew-cask-completion"
+brew "ccze"
 brew "cowsay"
 brew "exa"
 brew "fd"

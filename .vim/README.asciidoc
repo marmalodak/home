@@ -514,6 +514,7 @@ ____
 
 ==== language server
 
+* https://old.reddit.com/r/neovim/comments/t1bwys/coc_lsp_or_ale_what_to_you_use_for_development/[reddit thread about neovim and language servers]
 * [[https://old.reddit.com/r/vim/comments/qj2os2/unhappy_with_the_state_of_lsp_in_vim/][reddit thread about language servers]]
 * https://github.com/tpope/vim-endwise  automatically fill in ends of statements, e.g. `if` might fill in `then`?
 * https://www.reddit.com/r/neovim/comments/ectznp/why_was_it_decided_to_include_a_language_server/
