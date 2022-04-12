@@ -31,6 +31,8 @@ brew "vivid"
 brew "jabenninghoff/edge/apg"
 brew "avibrazil-rdm"
 brew "intel-power-gadget"
+brew "zsh-completions"  # see instructions for installing
+brew "zsh-lovers"  # reference card
 cask "aerial"
 cask "alacritty"
 cask "font-bitstream-vera-sans-mono-nerd-font"

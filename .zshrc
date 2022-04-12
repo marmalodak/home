@@ -1,3 +1,4 @@
+# zsh-lovers reference card https://grml.org/zsh/zsh-lovers.html
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
 
@@ -125,6 +126,10 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
 
+# TODO: make zsh-completion a submodule and remove from Brewfile
+# https://github.com/zsh-users/zsh-completions  # should be in .zshenv/.zprofile?
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -191,6 +196,9 @@ alias ipoca='ip -o -c a'
 alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias breakpath='sep=:;print -l ${(ps.$sep.)PATH}'  # https://discussions.apple.com/thread/251387981
+
+# rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
+alias secscp='rsync -azhe ssh --progress $1 $2'
 
 function nvim-rg()
 {
