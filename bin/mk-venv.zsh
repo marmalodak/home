@@ -5,7 +5,16 @@ set -e
 set -u
 set +x
 
-# TIL about Python's virtualenv tool, it could probably replace all of this...
+# TODO: make a 'go' script that activates and then runs an app
+#       e.g.
+#
+#       #!/bin/zsh
+#       
+#       source jup-venv/bin/activate
+#       <your command goes here>
+#       # e.g.
+#       # jupyter-lab labextension list
+#       # jupyter-lab --NotebookApp.iopub_data_rate_limit=1.0e10 --browser=safari
 # TODO: make a rm/del script to nuke everything?
 # TODO: the activate script should check to see if the venv has been created, probably by checking for the existence of the dir or the venv/bin/activate script
 # TODO? Should these be renamed? i.e. for a venv named "foo", the filenames are now
