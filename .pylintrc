@@ -2,3 +2,10 @@
 
 max-line-length=120
 indent-string='  '
+
+[LOGGING]
+
+# I still do not understand this fully, adding this didn't seem to clear up the stuff I was seeing
+# # Format style used to check logging format string. `old` means using %
+# # formatting, while `new` is for `{}` formatting.
+# logging-format-style=new
