@@ -1,8 +1,10 @@
+# TODO: install limelight https://github.com/koekeishiya/limelight
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core", "https://github.pie.apple.com/homebrew/homebrew-core.git"
 tap "jabenninghoff/edge"
+tap "hudochenkov/sshpass"
 # deprecate ack in favour of `rg` from ripgrep
 brew "ack"
 brew "brew-cask-completion"
@@ -24,6 +26,7 @@ brew "pidof"
 brew "pylint"
 brew "ranger"
 brew "ripgrep"
+brew "sshpass"
 brew "subversion"
 brew "tmux"
 brew "util-linux"
