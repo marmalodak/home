@@ -26,6 +26,9 @@ endif
 " https://github.com/ThePrimeagen/.dotfiles/blob/874636dad3cbcad6ca96982047025181684993f2/nvim/.config/nvim/init.vim#L146  interesting key bindings
 " https://old.reddit.com/r/neovim/comments/rfrgq5/is_it_possible_to_do_something_like_his_on/ vim-schlepp vim-move
 
+" TODO: colors
+" https://jeffkreeftmeijer.com/vim-16-color/
+
 " cmap w!! w !sudo tee %
 " or better yet, never run vim with sudo, use sudoedit
 "   from https://stackoverflow.com/a/726920/1698426

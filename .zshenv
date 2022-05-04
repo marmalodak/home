@@ -2,6 +2,14 @@
 # https://unix.stackexchange.com/a/71258
 # inspired by https://gist.github.com/marmalodak/1ec21ea5e2953aca3204ceb9baef29e4
 #
+# TODO WARNING on macOS /usr/libexec/path_helper changes the order of the entries in $PATH
+# Long discussion: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
+# and also https://www.zsh.org/mla/users/2003/msg00600.html
+# tl;dr incorporate .zprofile
+# TODO steal fromo https://zsh.sourceforge.io/Contrib/startup/ and https://adamspiers.org/computing/zsh/
+# https://zsh.sourceforge.io/Contrib/startup/std/zshrc
+# https://zsh.sourceforge.io/Contrib/startup/std/zshenv
+#
 # # Setting PATH for Python 3.10
 # # The original version is saved in .zprofile.pysave
 # PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin:${PATH}"

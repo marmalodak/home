@@ -6,6 +6,7 @@
 " 3. test for background color to from light to dark, i.e. if &background == 'light', rather than writing a function to do this
 " 4. Q: Would it be a good idea to make this a top level project on its own?
 "    A: if testing for &backgounr == 'light', then no
+" https://jeffkreeftmeijer.com/vim-16-color/
 
 hi clear
 if exists("syntax_on")

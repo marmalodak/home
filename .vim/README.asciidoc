@@ -464,6 +464,9 @@ ____
 
 === Potentially useful plugins and resources to consider
 
+* https://github.com/tpope/vim-eunuch[Eunuch] :Cfind :Lfind and more
+* https://github.com/tpope/vim-abolish[Abolish] search and replace variants of words
+* https://github.com/psliwka/vim-dirtytalk[vim-dirtytalk] Help build personal spell file for technical docs
 * https://github.com/habamax/vim-asciidoctor[vim-asciidoctor]
 * https://github.com/Shougo/vimshell.vim
 * https://github.com/vim-tw/vim-tips
