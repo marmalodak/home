@@ -4,6 +4,9 @@ export PS4='+%1N:%I> '
 
 # https://awesomeopensource.com/project/sharkdp/bat
 export BAT_THEME=Coldark-Cold
+# https://github.com/sharkdp/bat/issues/508
+# https://github.com/sharkdp/bat#using-a-different-pager
+export BAT_PAGER="less -RF"
 
 # these binding didn't work; search for "Default key bindings" in /etc/zshrc for copypasta
 # https://stackoverflow.com/a/55235069/1698426
@@ -108,6 +111,12 @@ COMPLETION_WAITING_DOTS="true"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
+# HISTIGNORE=&
+HISTSIZE=100000
+HISTFILESIZE=100000
+SAVEHIST=100000
+HISTCONTROL=ignoreboth
+
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
