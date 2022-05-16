@@ -171,6 +171,7 @@ export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 # https://github.com/sharkdp/vivid
 # https://unix.stackexchange.com/questions/245378/common-environment-variable-to-set-dark-or-light-terminal-background#245568
 # https://github.com/rocky/shell-term-background/blob/master/term-background.zsh
+# http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
 
 which exa > /dev/null 2>&1
 exa_not_exists=$?
