@@ -6,7 +6,7 @@ export PS4='+%1N:%I> '
 export BAT_THEME=Coldark-Cold
 # https://github.com/sharkdp/bat/issues/508
 # https://github.com/sharkdp/bat#using-a-different-pager
-export BAT_PAGER="less -RF"
+# export BAT_PAGER="less -RF"
 
 # these binding didn't work; search for "Default key bindings" in /etc/zshrc for copypasta
 # https://stackoverflow.com/a/55235069/1698426
