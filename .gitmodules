@@ -127,3 +127,9 @@
 [submodule ".vim/pack/vim8/start/vim-illuminate"]
 	path = .vim/pack/vim8/start/vim-illuminate
 	url = https://github.com/rrethy/vim-illuminate
+[submodule ".zsh/zsh-autocomplete"]
+	path = .zsh/zsh-autocomplete
+	url = https://github.com/marlonrichert/zsh-autocomplete.git
+[submodule ".zsh/zsh-you-should-use"]
+	path = .zsh/zsh-you-should-use
+	url = https://github.com/MichaelAquilina/zsh-you-should-use.git
