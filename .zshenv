@@ -32,6 +32,7 @@
 [[ -d /opt/brew/opt/util-linux/bin ]]    && PATH="/opt/brew/opt/util-linux/bin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/sbin ]]   && PATH="/opt/brew/opt/util-linux/sbin:${PATH}"
 
+# skip_global_compinit=1  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=622933
 export PATH
 
 ## # installing Perl put these in my .zshrc
