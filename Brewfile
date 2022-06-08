@@ -2,7 +2,6 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
-tap "homebrew/core", "https://github.pie.apple.com/homebrew/homebrew-core.git"
 tap "jabenninghoff/edge"
 tap "hudochenkov/sshpass"
 # deprecate ack in favour of `rg` from ripgrep
