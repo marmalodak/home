@@ -132,6 +132,7 @@ plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
 
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
