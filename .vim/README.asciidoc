@@ -464,6 +464,7 @@ ____
 
 === Potentially useful plugins and resources to consider
 
+* https://github.com/mg979/vim-visual-multi[Vim has a built-in way to visually edit multiple lines at once: visual block mode. And the vim-visual-multi plugin can give you an even more powerful way to edit multiple lines at once]
 * https://github.com/tpope/vim-eunuch[Eunuch] :Cfind :Lfind and more
 * https://github.com/tpope/vim-abolish[Abolish] search and replace variants of words
 * https://github.com/psliwka/vim-dirtytalk[vim-dirtytalk] Help build personal spell file for technical docs
@@ -572,6 +573,8 @@ ____
     endfunction
     autocmd! BufWritePost,FileWritePost README.asciidoc :call MKHtml()
 
-vim: textwidth=4 shiftwidth=4 autoindent smartindent
+vim:
+textwidth=4
+shiftwidth=180 autoindent smartindent
 ////
 
