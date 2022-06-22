@@ -208,6 +208,7 @@ alias ipoca='ip -o -c a'
 alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias breakpath='sep=:;print -l ${(ps.$sep.)PATH}'  # https://discussions.apple.com/thread/251387981
+alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor && brew config'
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
