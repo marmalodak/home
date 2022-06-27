@@ -28,11 +28,13 @@
 [[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/Library/Python/3.10/bin ]] && PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # ugh this will have to change for each version??
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
+[[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -d /opt/brew/bin ]]                   && PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
 [[ -d /usr/local/bin ]]                  && PATH="${PATH}:/usr/local/bin"
 [[ -d /usr/local/sbin ]]                 && PATH="${PATH}:/usr/local/sbin"
 [[ -d /opt/brew/opt/util-linux/bin ]]    && PATH="/opt/brew/opt/util-linux/bin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/sbin ]]   && PATH="/opt/brew/opt/util-linux/sbin:${PATH}"
+
 
 # skip_global_compinit=1  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=622933
 export PATH

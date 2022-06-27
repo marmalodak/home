@@ -200,8 +200,6 @@ else
     # export EXA_COLORS=$(vivid generate one-light)
 fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
 alias ipoca='ip -o -c a'
