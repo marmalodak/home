@@ -137,10 +137,6 @@ source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
 
-# TODO: make zsh-completion a submodule and remove from Brewfile
-# https://github.com/zsh-users/zsh-completions  # should be in .zshenv/.zprofile?
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -395,7 +391,7 @@ function punkt_submodule_bringeum()
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# See .zprofle for path stuff
+# See .zprofle for path and fpath and PATH
 
 # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
 autoload -U compinit && compinit

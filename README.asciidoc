@@ -166,6 +166,24 @@ I lifted some color settings, how do I use them without relying on ~/.gitconfig?
 ** https://www.reddit.com/r/saltstack/comments/li7g81/im_using_salt_to_manage_a_dotfiles_repo_with/
 ** https://github.com/rawkode/dotfiles
 
+== Notes
+
+=== Key Repeat Rate mac: macOS need restart
+
+[CODE]
+=====
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
+=====
+
+=== Linux Key Repeat Rate
+
+[CODE]
+=====
+xset r rate 210 40
+=====
+
+
 == Historical notes
 
 * The powerline module gave me too much trouble, so I’m configuring that manually now, so I don’t need the python virtual environment anymore
