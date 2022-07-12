@@ -131,8 +131,9 @@ plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
+# source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
+source ~/.zsh/zsh-edit/zsh-edit.plugin.zsh
 
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
@@ -152,14 +153,6 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # https://github.com/Qix-/better-exceptions/
 # on 2nd thought, I don't know how much I actually like this
@@ -206,6 +199,13 @@ alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor 
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
+
+function trashit()
+{
+    for i in $*; do
+        trash $i
+    done
+}
 
 function nvim-rg()
 {

@@ -4,6 +4,9 @@ if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 
+" vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 0
+
 " TODO: make it modular
 " https://stackoverflow.com/questions/25827839/modular-vimrc-how-to-source-vundle-plugins-from-diffrent-files
 " https://github.com/todd-dsm/vimSimple
@@ -246,6 +249,17 @@ autocmd BufReadPost *
 " vviki
 nnoremap <leader>ww :e ~/wiki/index.adoc<CR>
 
+
+nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
+" nnoremap <leader>I :exec "normal I".nr2char(getchar())."\e"<CR>  " does not work
+nnoremap <leader>a :exec "normal a".nr2char(getchar())."\e"<CR>
+" nnoremap <leader>A :exec "normal A".nr2char(getchar())."\e"<CR>  " does not work
+
+" https://vim.fandom.com/wiki/Insert_a_single_character
+nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
+nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
+
+" instead of using ZoomToggle consider using c-| and c-_
 " http://stackoverflow.com/a/26551079/1698426
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
