@@ -229,6 +229,11 @@ function nvim-fd()
     fd ${1} -X nvim -O
 }
 
+function nvim-modified()
+{
+    eval nvim -O $(printf "<(git diff -p %s) " $(git status -s | awk '{if ($1 == "M") print $2}'))
+}
+
 function huh()
 {
     whence -v $@
