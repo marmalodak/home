@@ -223,10 +223,17 @@ function nvim-fd()
     # so this might be better written as
     # fd ${1} -X nvim -O
 
-    # nvim -O $(fd ${@})
+    # set -x
 
-    set +x
-    fd ${1} -X nvim -O
+    # files=$(eval $(printf "fd %s " ${@}))
+    # echo files=$files
+    # nvim -O $files
+
+    files=(  )
+    for i in ${@}; do
+        files+=( $(fd $i)  )
+    done
+    nvim -O ${files[@]}
 }
 
 function nvim-modified()
