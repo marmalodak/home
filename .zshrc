@@ -412,3 +412,7 @@ autoload -U compinit && compinit
 #                         https://github.com/sharkdp/fd#using-fd-with-fzf
 #                         https://github.com/lotabout/skim
 # TODO: something like zcat https://github.com/sharkdp/bat/issues/237#issuecomment-617079288                        
+# TODO: https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#Accessing-On_002dLine-Help
+#       this makes run-help bindkeys show the zsh man page for the bindkeys entry
+#       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
+# good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
