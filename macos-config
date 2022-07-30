@@ -1,0 +1,6 @@
+#!zsh
+
+
+# KeyRepeat and InitialKeyRepeat changes require reboot
+defaults write NSGlobalDomain KeyRepeat -int 5         # 1 is much too fast
+defaults write NSGlobalDomain InitialKeyRepeat -int 20 # 10 is too fast
