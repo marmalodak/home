@@ -1,3 +1,4 @@
+[[ -f ~/.ghtok ]] && source ~/.ghtok
 # zsh-lovers reference card https://grml.org/zsh/zsh-lovers.html
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '

@@ -279,6 +279,7 @@ command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <leader>z :ZoomToggle<CR>
 " nnoremap <silent> <C-A> :ZoomToggle<CR>
 
+" https://stackoverflow.com/a/11885018/1698426
 "  http://stackoverflow.com/a/11865489/1698426
 func! Eatchar(pat)
   let c = nr2char(getchar(0))
@@ -291,6 +292,10 @@ endfunc
 " iabbr <silent> ≥≥ »<c-r>=eatchar('\m\s\<bar>/')<cr>
 " iabbr ≤≤ «
 " iabbr ≥≥ »
+
+" these macOS shortcuts turned out very useful
+iabbr === ¶
+iabbr --- §
 
 " https://www.reddit.com/r/vim/comments/bozr66/finding_things_in_vim/ennq4i5?utm_source=share&utm_medium=web2x
 command! -bang -nargs=* History call fzf#vim#history(fzf#vim#with_preview({'options': '--no-sort'}))
