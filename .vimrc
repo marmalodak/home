@@ -4,9 +4,6 @@ if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 
-" vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 0
-
 " TODO: make it modular
 " https://stackoverflow.com/questions/25827839/modular-vimrc-how-to-source-vundle-plugins-from-diffrent-files
 " https://github.com/todd-dsm/vimSimple
@@ -43,6 +40,7 @@ nmap gx viW"ay:!open <C-R>a &<CR><cr>
 
 " timeoutlen affects the bindings ;; jk kj oo OO
 set timeoutlen=200
+set ttimeoutlen=200
 
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
@@ -464,6 +462,10 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter% says %s'
+
+" vim-indent-guides; have yet to understand why this doesn't work, for now using <leader>ig
+let g:indent_guides_enable_on_vim_startup = 0
+
 
 colorscheme NedsLightTheme
 
