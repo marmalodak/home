@@ -23,6 +23,7 @@
 [[ -d /opt/brew/opt/util-linux/sbin ]]   && PATH="/opt/brew/opt/util-linux/sbin:${PATH}"
 [[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/Library/Python/3.10/bin ]] && PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # ugh this will have to change for each version??
+[[ -d ${HOME}/Library/Python/3.8/bin ]]  && PATH="${HOME}/Library/Python/3.8/bin:${PATH}"   # do not recall how 3.8 got here, seems like a bad idea to have both in the PATH
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
 
 # BUG: $HOME/bin is still not first in the $PATH
