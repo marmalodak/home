@@ -258,7 +258,16 @@ function git_cmds()
     set +x
 }
 
+
 alias punkt='git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
+alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
+
+
+function punkt-modified()
+{
+    eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M") print $2}'))
+}
+
 
 function punkt_status()
 {
@@ -295,8 +304,7 @@ function punkt_auf()
 
 function punkt_zeige()
 {
-    command -v jq > /dev/null 2>&1
-    if [[ $? -ne 0 ]]; then
+    if ! command -v jq > /dev/null 2>&1; then
         echo "Install jq"
         return 1
     fi
@@ -307,7 +315,9 @@ function punkt_zeige()
         echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
     else
         punkt submodule foreach \
-            'echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo'
+            'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; \
+            else echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo; \
+            fi '
     fi
 }
 
@@ -347,7 +357,7 @@ function punkt_flachen()
 function punkt_submodule_bringeum()
 {
     # TODO this is still not reliable
- 
+
     # to prevent a previous invocation of this function possibly still having these variables set:
     unset submodule_name
     unset displaypath
@@ -366,7 +376,7 @@ function punkt_submodule_bringeum()
     SUBMODULE_NAME="${1}"
     if [[ -z "${SUBMODULE_NAME}" ]]; then
         echo "Must provide a submodule"
-        echo "Submoule must be passed in as report by punkt status"
+        echo "Submoule must be passed in as reported by punkt status"
         echo "NB punkt_status does not show submodules"
         echo "See also punkt_zeige"
         return 1
