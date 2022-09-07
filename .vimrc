@@ -39,8 +39,8 @@ let mapleader=" "
 nmap gx viW"ay:!open <C-R>a &<CR><cr>
 
 " timeoutlen affects the bindings ;; jk kj oo OO
-set timeoutlen=200
-set ttimeoutlen=200
+set timeoutlen=400
+set ttimeoutlen=400
 
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
