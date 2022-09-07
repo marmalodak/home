@@ -136,12 +136,6 @@
 [submodule ".tmux/tmux-resurrect"]
 	path = .tmux/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect.git
-[submodule ".vim/pack/vim8/start/vim-indentguides"]
-	path = .vim/pack/vim8/start/vim-indentguides
-	url = https://github.com/thaerkh/vim-indentguides.git
-[submodule ".vim/pack/vim8/start/vim-indent-guides"]
-	path = .vim/pack/vim8/start/vim-indent-guides
-	url = git@github.com:nathanaelkane/vim-indent-guides.git
 [submodule ".zsh/zsh-edit"]
 	path = .zsh/zsh-edit
 	url = git@github.com:marlonrichert/zsh-edit.git
