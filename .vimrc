@@ -463,9 +463,6 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter% says %s'
 
-" vim-indent-guides; have yet to understand why this doesn't work, for now using <leader>ig
-let g:indent_guides_enable_on_vim_startup = 0
-
 
 colorscheme NedsLightTheme
 

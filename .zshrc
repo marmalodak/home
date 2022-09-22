@@ -201,7 +201,7 @@ alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
 
-# since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files 
+# since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files
 function trashit()
 {
     for i in $*; do
@@ -411,17 +411,27 @@ function punkt_submodule_bringeum()
 
     if [[ -z ${submodule_name} || -z ${displaypath} || -z ${toplevel} || -z ${sm_path} ]]; then
         echo "Achtung! Kein submodule gefunden!"
-        return 1
+        # return 1
     fi
-    
-    punkt rm --force "${displaypath}"
-    rm -rf "${toplevel}/.punkte/.git/modules/${submodule_name}"
-    rm -rf "${toplevel}/${sm_path}"
-    punkt config --remove-section submodule.${submodule_name}
+
+    set -x
+    if [[ -n "${displaypath}" ]]; then
+        punkt rm -iv "${displaypath}"
+    fi
+    if [[ -n "${submodule_name}" ]]; then
+        rm -riv "${toplevel}/.punkte/.git/modules/${submodule_name}"
+    fi
+    if [[ -n "${sm_path}" ]]; then
+        rm -riv "${toplevel}/${sm_path}"
+    fi
+    if [[ -n "${submodule_name}" ]]; then
+        punkt config --remove-section submodule.${submodule_name}
+    fi
     # - one of the comments about removing submodules said that config -f config was needed
     # - I found that after the previous command, I got only an error message from config -f config --remove -section...
     # - the error was "fatal: no such section: submodule.<submodule-name>"
     # punkt config --file config --remove-section submodule.${submodule_name}
+    set +x
 }
 
 
@@ -439,7 +449,7 @@ autoload -U compinit && compinit
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
 #                         https://github.com/sharkdp/fd#using-fd-with-fzf
 #                         https://github.com/lotabout/skim
-# TODO: something like zcat https://github.com/sharkdp/bat/issues/237#issuecomment-617079288                        
+# TODO: something like zcat https://github.com/sharkdp/bat/issues/237#issuecomment-617079288
 # TODO: https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#Accessing-On_002dLine-Help
 #       this makes run-help bindkeys show the zsh man page for the bindkeys entry
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
