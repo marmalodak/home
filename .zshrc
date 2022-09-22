@@ -201,6 +201,7 @@ alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
 
+# since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files 
 function trashit()
 {
     for i in $*; do
@@ -208,6 +209,7 @@ function trashit()
     done
 }
 
+# open all the files that are found by ripgrep
 function nvim-rg()
 {
     set -x
@@ -215,9 +217,17 @@ function nvim-rg()
     set +x
 }
 
+# Do not understand why, but fd will not find CommandLineTools.dmg unless the -u flag is set
+alias fd='\fd -u'
+
+# open the files that are found by fd
+# if there are
+# dir1/dir2/foo.anext
+# dir3/foo.ext
+# nvim-fd foo should invoke nvim -O dir1/dir2/foo.anext dir3/foo.ext
 function nvim-fd()
 {
-    # the ${@} was an attempt to make (for example) "nvim-fd foo bar" wher both foo and bar are patterns, but fd takes only one pattern argument
+    # the ${@} was an attempt to make (for example) "nvim-fd foo bar" where both foo and bar are patterns, but fd takes only one pattern argument
     # the man page for fd has this at the end:
     # Open all search results with vim:
     # $ fd pattern -X vim
@@ -237,9 +247,16 @@ function nvim-fd()
     nvim -O ${files[@]}
 }
 
+# open all the files that are modified according to git
 function nvim-modified()
 {
-    eval nvim -O $(printf "<(git diff -p %s) " $(git status -s | awk '{if ($1 == "M") print $2}'))
+    eval nvim -O $(printf "<(git diff --patch %s) " $(git status --short --untracked-files=no | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
+}
+
+# when there are foo.err foo.log bar.err bar.log, open just the log files, not the .err files
+function nvim-errlog()
+{
+   nvim ${$(echo *.err)/err/log}
 }
 
 function huh()
@@ -263,11 +280,11 @@ alias punkt='git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
 alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
 
 
+# similar to nvim-modified
 function punkt-modified()
 {
-    eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M") print $2}'))
+    eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
 }
-
 
 function punkt_status()
 {
@@ -285,7 +302,7 @@ function punkt_reset()
     punkt reset --hard origin/master
 }
 
-function punkt_new()
+function punkt_neu()
 {
     set -x
     git clone https://github.com/marmalodak/home $HOME/.punkte
