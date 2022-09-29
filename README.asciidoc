@@ -1,18 +1,4 @@
-[WARNING]
-====
-Github URLs need to be changed to not use http
-====
-
-Copypasta:
-[code]
-----
-punkt config --local url."git@github.com:".insteadOf "https://github.com"
-----
-
-https://gist.github.com/m14t/3056747#gistcomment-2086791[This gist got me started]
-
-
-To use, follow this advice:
+Backround info:
 
 * I learned about using GIT-DIR and WORK-DIR for dotfiles from:
 * https://stackoverflow.com/a/16811212/1698426
@@ -34,6 +20,10 @@ punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
 punkt_auf
 p10k configure
 ....
+
+=== https://github.com/ohmyzsh/ohmyzsh[oh-my-zsh]
+
+It needs to be installed separately???
 
 Open a new terminal to invoke the punkte (née dotfiles)
 
@@ -69,20 +59,28 @@ fonts require svn
 
 == https://rvm.io/rvm/install[rvm]
 
+[source]
+----
 rvm use ruby-2.7 --default
 rvm install asciidoctor-diagram
+----
 
+[source]
+----
 brew install glib (for asciio)
 brew install cairo (for asciio)
 brew install gtk+ (for asciio)
 brew install gtk+3 gtk4 gtkextra pango (for asciio)
+----
 
 Might be time to give up on drawing in asciidoctor or vim and use PlantUML, graphviz, pikchr
 
-# apg
-# https://github.com/wilx/apg
-# https://github.com/jabenninghoff/apg
-# https://github.com/jabenninghoff/homebrew-edge
+== apg
+`apg` is a great password generator.
+
+. https://github.com/wilx/apg
+. https://github.com/jabenninghoff/apg
+. https://github.com/jabenninghoff/homebrew-edge
 
 === brew tap-info
 
@@ -92,9 +90,9 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 
 == perl
 
-cpan
-cpan App::cpanminus
-App::Asciio
+. cpan
+. cpan App::cpanminus
+. App::Asciio
 
 == TIL
 

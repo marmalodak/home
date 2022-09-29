@@ -256,7 +256,11 @@ function nvim-modified()
 # when there are foo.err foo.log bar.err bar.log, open just the log files, not the .err files
 function nvim-errlog()
 {
-   nvim ${$(echo *.err)/err/log}
+    if [[ -n $1 ]]; then
+        nvim ${$(echo *$1*.err)/err/log}
+    else
+        nvim ${$(echo *.err)/err/log}
+    fi
 }
 
 function huh()
@@ -315,7 +319,7 @@ function punkt_neu()
 function punkt_auf()
 {
     pushd ${HOME} > /dev/null 2>&1
-    punkt pull --rebase --verbose --stat && punkt submodule update --init --remote --recursive --jobs=16
+    punkt pull --rebase --verbose --stat --recurse-submodules && punkt submodule update --init --remote --recursive --jobs=16
     popd > /dev/null 2>&1
 }
 
