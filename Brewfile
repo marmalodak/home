@@ -36,6 +36,8 @@ brew "avibrazil-rdm"
 brew "intel-power-gadget"
 brew "zsh-completions"  # see instructions for installing
 brew "zsh-lovers"  # reference card
+brew "bat"
+brew "bat-extras"
 cask "aerial"
 cask "alacritty"
 cask "font-bitstream-vera-sans-mono-nerd-font"
