@@ -58,6 +58,12 @@ nnoremap <Leader>n :bnext<Enter>
 " reselect pasted text #  https://vimtricks.com/p/reselect-pasted-text/
 nnoremap gp `[v`]
 
+" https://vi.stackexchange.com/a/13699
+" nnoremap <silent> <leader>gt ?^\n\{2,}<CR>
+" nnoremap <silent> <leader>gb /^\n\{2,}<CR>
+nnoremap <silent> { ?^\n\{2,}<CR>
+nnoremap <silent> } /^\n\{2,}<CR>
+
 set mouse=
 if !has('nvim')
     set ttymouse=
