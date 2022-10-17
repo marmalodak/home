@@ -27,6 +27,8 @@
 
 [[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/Library/Python/3.10/bin ]] && PATH="${HOME}/Library/Python/3.10/bin:${PATH}"  # ugh this will have to change for each version??
+[[ -d ${HOME}/Library/Python/3.8/bin ]]  && PATH="${HOME}/Library/Python/3.8/bin:${PATH}"   # do not recall how 3.8 got here, seems like a bad idea to have both in the PATH
+[[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
 [[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -d /opt/brew/bin ]]                   && PATH="${PATH}:/opt/brew/bin:/opt/brew/sbin"
