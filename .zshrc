@@ -3,6 +3,7 @@
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
 
+# https://github.com/ChrisCummins/zsh/blob/master/zshrc <- crib from here
 # https://awesomeopensource.com/project/sharkdp/bat
 export BAT_THEME=Coldark-Cold
 # https://github.com/sharkdp/bat/issues/508
@@ -146,9 +147,9 @@ zstyle ':completion:list-expand:*' extra-verbose yes
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
+  export EDITOR='vim'
 else
-    export EDITOR='nvim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -165,30 +166,29 @@ export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 # https://github.com/rocky/shell-term-background/blob/master/term-background.zsh
 # http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
 
-which exa > /dev/null 2>&1
-exa_not_exists=$?
 
-if [[ $exa_not_exists -ne 0 ]]; then
-    if [[ $OSTYPE == 'darwin'* ]]; then
-        alias ll='ls -lG'
-        alias lr='ls -alrthG'
-    else
-        alias ll='ls -l --color=auto'
-        alias lr='ls -alrth --color=auto'
-    fi
+if command -v exa > /dev/null; then
+  alias ll='exa -l --icons'
+  alias lr='exa -alh --sort=date --icons'
+  alias lc='exa -1 --icons'
+  alias lt='exa -T --icons'
+  alias ll='exa -l --icons'
+  alias lrg='exa -albh --sort=accessed --git --icons'
+  alias lRg='exa -albh --sort=accessed --git --extended --icons'
+  source ~/.config/exa-colors/exa-colors.zsh
+  export EXA_COLORS="${exa_colors_one_light}"
+  # export EXA_COLORS="${exa_colors_one_dark}"
+  # export EXA_COLORS=$(vivid generate one-light)
 else
-    alias ll='exa -l --icons'
-    alias lr='exa -alh --sort=date --icons'
-    alias lc='exa -1 --icons'
-    alias lt='exa -T --icons'
-    alias ll='exa -l --icons'
-    alias lrg='exa -albh --sort=accessed --git --icons'
-    alias lRg='exa -albh --sort=accessed --git --extended --icons'
-    source ~/.config/exa-colors/exa-colors.zsh
-    export EXA_COLORS="${exa_colors_one_light}"
-    # export EXA_COLORS="${exa_colors_one_dark}"
-    # export EXA_COLORS=$(vivid generate one-light)
+  if [[ $OSTYPE == 'darwin'* ]]; then
+    alias ll='ls -lG'
+    alias lr='ls -alrthG'
+  else
+    alias ll='ls -l --color=auto'
+    alias lr='ls -alrth --color=auto'
+  fi
 fi
+
 
 alias vimr='vimr --nvim -O'
 alias pfzf='fzf --preview=bat {}'
@@ -201,24 +201,28 @@ alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
 
+
 # since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files
 function trashit()
 {
-    for i in $*; do
-        trash $i
-    done
+  for i in $*; do
+    trash $i
+  done
 }
+
 
 # open all the files that are found by ripgrep
 function nvim-rg()
 {
-    set -x
-    nvim -O $(rg -l $@)
-    set +x
+  set -x
+  nvim -O $(rg -l $@)
+  set +x
 }
+
 
 # Do not understand why, but fd will not find CommandLineTools.dmg unless the -u flag is set
 alias fd='\fd -u'
+
 
 # open the files that are found by fd
 # if there are
@@ -227,56 +231,60 @@ alias fd='\fd -u'
 # nvim-fd foo should invoke nvim -O dir1/dir2/foo.anext dir3/foo.ext
 function nvim-fd()
 {
-    # the ${@} was an attempt to make (for example) "nvim-fd foo bar" where both foo and bar are patterns, but fd takes only one pattern argument
-    # the man page for fd has this at the end:
-    # Open all search results with vim:
-    # $ fd pattern -X vim
-    # so this might be better written as
-    # fd ${1} -X nvim -O
+  # the ${@} was an attempt to make (for example) "nvim-fd foo bar" where both foo and bar are patterns, but fd takes only one pattern argument
+  # the man page for fd has this at the end:
+  # Open all search results with vim:
+  # $ fd pattern -X vim
+  # so this might be better written as
+  # fd ${1} -X nvim -O
 
-    # set -x
+  # set -x
 
-    # files=$(eval $(printf "fd %s " ${@}))
-    # echo files=$files
-    # nvim -O $files
+  # files=$(eval $(printf "fd %s " ${@}))
+  # echo files=$files
+  # nvim -O $files
 
-    files=(  )
-    for i in ${@}; do
-        files+=( $(fd $i)  )
-    done
-    nvim -O ${files[@]}
+  files=(  )
+  for i in ${@}; do
+    files+=( $(fd $i)  )
+  done
+  nvim -O ${files[@]}
 }
+
 
 # open all the files that are modified according to git
 function nvim-modified()
 {
-    eval nvim -O $(printf "<(git diff --patch %s) " $(git status --short --untracked-files=no | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
+  eval nvim -O $(printf "<(git diff --patch %s) " $(git status --short --untracked-files=no | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
 }
+
 
 # when there are foo.err foo.log bar.err bar.log, open just the log files, not the .err files
 function nvim-errlog()
 {
-    if [[ -n $1 ]]; then
-        nvim ${$(echo *$1*.err)/err/log}
-    else
-        nvim ${$(echo *.err)/err/log}
-    fi
+  if [[ -n $1 ]]; then
+    nvim ${$(echo *$1*.err)/err/log}
+  else
+    nvim ${$(echo *.err)/err/log}
+  fi
 }
+
 
 function huh()
 {
-    whence -v $@
-    whence -f $@
+  whence -v $@
+  whence -f $@
 }
+
 
 function git_cmds()
 {
-    # TODO see list-<category> in command-list.txt, https://github.com/git/git/blob/master/command-list.txt
-    set -x
-    for cmd in builtins parseopt main others config; do
-        git --list-cmds=${cmd}
-    done
-    set +x
+  # TODO see list-<category> in command-list.txt, https://github.com/git/git/blob/master/command-list.txt
+  set -x
+  for cmd in builtins parseopt main others config; do
+    git --list-cmds=${cmd}
+  done
+  set +x
 }
 
 
@@ -287,34 +295,53 @@ alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
 # similar to nvim-modified
 function punkt-modified()
 {
-    eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
+  eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
 }
+
 
 function punkt_status()
 {
-    # man gitmodules: submodule.<name>.ignore
-    punkt status --ignore-submodules=all --untracked-files=no
+  # man gitmodules: submodule.<name>.ignore
+  punkt status --ignore-submodules=all --untracked-files=no
 }
+
 
 function punkt_diff()
 {
-    punkt diff --patch --ignore-submodules=all
+  punkt diff --patch --ignore-submodules=all
 }
+
 
 function punkt_reset()
 {
-    punkt reset --hard origin/master
+  punkt reset --hard origin/master
 }
+
 
 function punkt_neu()
 {
-    set -x
-    git clone https://github.com/marmalodak/home $HOME/.punkte
-    punkt checkout -- $HOME
-    punkt status --ignore-submodules=all --untracked-files=no
-    echo "Jetzt führe diesen Befehl: punkt_auf"
-    set +x
+  set -x
+  git clone https://github.com/marmalodak/home $HOME/.punkte
+  punkt checkout -- $HOME
+  punkt status --ignore-submodules=all --untracked-files=no
+  echo "Jetzt führe diesen Befehl: punkt_auf"
+  set +x
 }
+
+
+function punkt_archiv()
+{
+  # https://www.geeksforgeeks.org/how-to-export-a-git-project/
+  dest=/tmp/.home.tar
+  setopt nullglob
+  if [[ -n $(echo ${dest}*) ]]; then echo remove $(echo ${dest}*); return 1; fi
+  punkt archive --format tar HEAD > ${dest}
+  if [[ -f .local.zsh ]]; then
+    tar -rvf ${dest} ~/.local.zsh
+  fi
+  gzip ${dest}
+}
+
 
 function punkt_aufbau()
 {
@@ -324,55 +351,60 @@ function punkt_aufbau()
   punkt submodule update --init --recursive
 }
 
+
 function punkt_auf()
 {
-    pushd ${HOME} > /dev/null 2>&1
-    punkt pull --rebase --verbose --stat --recurse-submodules && punkt submodule update --init --remote --recursive --jobs=16
-    popd > /dev/null 2>&1
+  pushd ${HOME} > /dev/null 2>&1
+  punkt pull --rebase --verbose --stat --recurse-submodules && punkt submodule update --init --remote --recursive --jobs=16
+  popd > /dev/null 2>&1
 }
+
 
 function punkt_zeige()
 {
-    if ! command -v jq > /dev/null 2>&1; then
-        echo "Install jq"
-        return 1
-    fi
-    if [[ "${1}" == "--json" ]]; then
-        echo $(punkt_zu_json) | jq
-    elif [[ -n "${1}" ]]; then
-        punkte_json=$(punkt_zu_json)
-        echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
-    else
-        punkt submodule foreach \
-            'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; \
-            else echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo; \
-            fi '
-    fi
+  if ! command -v jq > /dev/null 2>&1; then
+    echo "Install jq"
+    return 1
+  fi
+  if [[ "${1}" == "--json" ]]; then
+    echo $(punkt_zu_json) | jq
+  elif [[ -n "${1}" ]]; then
+    punkte_json=$(punkt_zu_json)
+    echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
+  else
+    punkt submodule foreach \
+        'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; \
+        else echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo; \
+        fi '
+  fi
 }
+
 
 function punkt_zu_json()
 {
-    command -v jo > /dev/null 2>&1
-    if [[ $? -ne 0 ]]; then
-        echo "Install jo"
-        return 1
-    fi
-    echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
+  command -v jo > /dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+    echo "Install jo"
+    return 1
+  fi
+  echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
 }
+
 
 function punkt_flachen()
 {
-    # man 5 gitmodules: submodule.<name>.shallow
-    # This is probably wrong:
-    # 1. it doesn't seem to do what I think it should do
-    # 2. probably don't need to use -f, git already knows where config files are
-    #
-    # Could this be enhanced to set the submodule repo to be bare?
-    set -x
-    # https://stackoverflow.com/a/37933909
-    punkt submodule foreach 'git config -f ${HOME}/.punkte/.gitmodules submodule.$name.shallow true'
-    punkt submodule foreach 'git config -f ${HOME}/.punkte/.git/config submodule.$name.shallow true'
+  # man 5 gitmodules: submodule.<name>.shallow
+  # This is probably wrong:
+  # 1. it doesn't seem to do what I think it should do
+  # 2. probably don't need to use -f, git already knows where config files are
+  #
+  # Could this be enhanced to set the submodule repo to be bare?
+  set -x
+  # https://stackoverflow.com/a/37933909
+  punkt submodule foreach 'git config -f ${HOME}/.punkte/.gitmodules submodule.$name.shallow true'
+  punkt submodule foreach 'git config -f ${HOME}/.punkte/.git/config submodule.$name.shallow true'
 }
+
 
 # vielleicht:
 # function punkt_submodule_zutat() oder punkt_submodule_neu()
@@ -383,67 +415,68 @@ function punkt_flachen()
 #     man gitmodules: submodule.<name>.shallow
 # }
 
+
 function punkt_submodule_bringeum()
 {
-    # TODO this is still not reliable
+  # TODO this is still not reliable
 
-    # to prevent a previous invocation of this function possibly still having these variables set:
-    unset submodule_name
-    unset displaypath
-    unset toplevel
-    unset sm_path
+  # to prevent a previous invocation of this function possibly still having these variables set:
+  unset submodule_name
+  unset displaypath
+  unset toplevel
+  unset sm_path
 
-    command -v jq > /dev/null 2>&1
-    if [[ $? -ne 0 ]]; then
-        echo "Install jq"
-        return 1
-    fi
+  command -v jq > /dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+    echo "Install jq"
+    return 1
+  fi
 
-    # https://stackoverflow.com/a/1260982/1698426
-    # https://stackoverflow.com/a/7646931/1698426
+  # https://stackoverflow.com/a/1260982/1698426
+  # https://stackoverflow.com/a/7646931/1698426
 
-    SUBMODULE_NAME="${1}"
-    if [[ -z "${SUBMODULE_NAME}" ]]; then
-        echo "Must provide a submodule"
-        echo "Submoule must be passed in as reported by punkt status"
-        echo "NB punkt_status does not show submodules"
-        echo "See also punkt_zeige"
-        return 1
-    fi
+  SUBMODULE_NAME="${1}"
+  if [[ -z "${SUBMODULE_NAME}" ]]; then
+    echo "Must provide a submodule"
+    echo "Submoule must be passed in as reported by punkt status"
+    echo "NB punkt_status does not show submodules"
+    echo "See also punkt_zeige"
+    return 1
+  fi
 
-    punkte_json=$(punkt_zu_json)
-    submodule_details=$(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
-    eval ${submodule_details}
+  punkte_json=$(punkt_zu_json)
+  submodule_details=$(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
+  eval ${submodule_details}
 
-    # now these variables exist:
-    # submodule_name=.zsh/zsh-autosuggestions
-    # displaypath=../../.zsh/zsh-autosuggestions
-    # toplevel=/Users/john
-    # sm_path=.zsh/zsh-autosuggestions
+  # now these variables exist:
+  # submodule_name=.zsh/zsh-autosuggestions
+  # displaypath=../../.zsh/zsh-autosuggestions
+  # toplevel=/Users/john
+  # sm_path=.zsh/zsh-autosuggestions
 
-    if [[ -z ${submodule_name} || -z ${displaypath} || -z ${toplevel} || -z ${sm_path} ]]; then
-        echo "Achtung! Kein submodule gefunden!"
-        # return 1
-    fi
+  if [[ -z ${submodule_name} || -z ${displaypath} || -z ${toplevel} || -z ${sm_path} ]]; then
+    echo "Achtung! Kein submodule gefunden!"
+    # return 1
+  fi
 
-    set -x
-    if [[ -n "${displaypath}" ]]; then
-        punkt rm -iv "${displaypath}"
-    fi
-    if [[ -n "${submodule_name}" ]]; then
-        rm -riv "${toplevel}/.punkte/.git/modules/${submodule_name}"
-    fi
-    if [[ -n "${sm_path}" ]]; then
-        rm -riv "${toplevel}/${sm_path}"
-    fi
-    if [[ -n "${submodule_name}" ]]; then
-        punkt config --remove-section submodule.${submodule_name}
-    fi
-    # - one of the comments about removing submodules said that config -f config was needed
-    # - I found that after the previous command, I got only an error message from config -f config --remove -section...
-    # - the error was "fatal: no such section: submodule.<submodule-name>"
-    # punkt config --file config --remove-section submodule.${submodule_name}
-    set +x
+  set -x
+  if [[ -n "${displaypath}" ]]; then
+    punkt rm -iv "${displaypath}"
+  fi
+  if [[ -n "${submodule_name}" ]]; then
+    rm -riv "${toplevel}/.punkte/.git/modules/${submodule_name}"
+  fi
+  if [[ -n "${sm_path}" ]]; then
+    rm -riv "${toplevel}/${sm_path}"
+  fi
+  if [[ -n "${submodule_name}" ]]; then
+    punkt config --remove-section submodule.${submodule_name}
+  fi
+  # - one of the comments about removing submodules said that config -f config was needed
+  # - I found that after the previous command, I got only an error message from config -f config --remove -section...
+  # - the error was "fatal: no such section: submodule.<submodule-name>"
+  # punkt config --file config --remove-section submodule.${submodule_name}
+  set +x
 }
 
 
