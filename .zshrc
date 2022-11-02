@@ -320,8 +320,8 @@ function punkt_aufbau()
 {
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
-  punkt submodule foreach --recursive git reset --hard --jobs=16
-  punkt submodule update --init --recursive --jobs=16
+  punkt submodule foreach --recursive git reset --hard
+  punkt submodule update --init --recursive
 }
 
 function punkt_auf()
