@@ -316,6 +316,14 @@ function punkt_neu()
     set +x
 }
 
+function punkt_aufbau()
+{
+  # https://gist.github.com/nicktoumpelis/11214362; see updates further down
+  # Do not call git clean!!
+  punkt submodule foreach --recursive git reset --hard --jobs=16
+  punkt submodule update --init --recursive --jobs=16
+}
+
 function punkt_auf()
 {
     pushd ${HOME} > /dev/null 2>&1
