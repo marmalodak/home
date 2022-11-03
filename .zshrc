@@ -106,6 +106,8 @@ COMPLETION_WAITING_DOTS="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # TODO: increase history https://unix.stackexchange.com/a/521206/30160, see also https://zsh.sourceforge.io/Guide/zshguide02.html#l17
+# infinite history? https://gist.github.pie.apple.com/dribin/731ee43bf44e3fd40d0765cc59f37101
+# put history in an sqlite database https://github.com/ellie/atuin
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # You can set one of the optional three formats:
@@ -333,8 +335,9 @@ function punkt-export()
 {
   set -x
   # https://www.geeksforgeeks.org/how-to-export-a-git-project/
+  # see also git checkout-index https://stackoverflow.com/a/160620/1698426
   dest=/tmp/.home.tar
-  setopt nullglob
+  setopt CSH_NULL_GLOB
   if [[ -n $(echo ${dest}*) ]]; then echo remove $(echo ${dest}*); return 1; fi
   additions=()
   if [[ -f .local.zsh ]]; then
