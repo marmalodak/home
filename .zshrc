@@ -277,7 +277,7 @@ function huh()
 }
 
 
-function git_cmds()
+function git-cmds()
 {
   # TODO see list-<category> in command-list.txt, https://github.com/git/git/blob/master/command-list.txt
   set -x
@@ -295,41 +295,41 @@ alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
 # similar to nvim-modified
 function punkt-modified()
 {
-  eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
+  eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
 }
 
 
-function punkt_status()
+function punkt-status()
 {
   # man gitmodules: submodule.<name>.ignore
   punkt status --ignore-submodules=all --untracked-files=no
 }
 
 
-function punkt_diff()
+function punkt-diff()
 {
   punkt diff --patch --ignore-submodules=all
 }
 
 
-function punkt_reset()
+function punkt-reset()
 {
   punkt reset --hard origin/master
 }
 
 
-function punkt_neu()
+function punkt-neu()
 {
   set -x
   git clone https://github.com/marmalodak/home $HOME/.punkte
   punkt checkout -- $HOME
   punkt status --ignore-submodules=all --untracked-files=no
-  echo "Jetzt führe diesen Befehl: punkt_auf"
+  echo "Jetzt führe diesen Befehl: punkt-auf"
   set +x
 }
 
 
-function punkt_archiv()
+function punkt-archiv()
 {
   # https://www.geeksforgeeks.org/how-to-export-a-git-project/
   dest=/tmp/.home.tar
@@ -343,7 +343,7 @@ function punkt_archiv()
 }
 
 
-function punkt_aufbau()
+function punkt-aufbau()
 {
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
@@ -352,7 +352,7 @@ function punkt_aufbau()
 }
 
 
-function punkt_auf()
+function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
   punkt pull --rebase --verbose --stat --recurse-submodules &&
@@ -361,17 +361,17 @@ function punkt_auf()
 }
 
 
-function punkt_zeige()
+function punkt-zeige()
 {
   if ! command -v jq > /dev/null 2>&1; then
     echo "Install jq"
     return 1
   fi
   if [[ "${1}" == "--json" ]]; then
-    echo $(punkt_zu_json) | jq
+    echo $(punkt-zu-json) | jq
   elif [[ -n "${1}" ]]; then
-    punkte_json=$(punkt_zu_json)
-    echo "${punkte_json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
+    punkte-json=$(punkt-zu-json)
+    echo "${punkte-json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
   else
     punkt submodule foreach \
         'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; \
@@ -381,7 +381,7 @@ function punkt_zeige()
 }
 
 
-function punkt_zu_json()
+function punkt-zu-json()
 {
   command -v jo > /dev/null 2>&1
   if [[ $? -ne 0 ]]; then
@@ -392,7 +392,7 @@ function punkt_zu_json()
 }
 
 
-function punkt_flachen()
+function punkt-flachen()
 {
   # man 5 gitmodules: submodule.<name>.shallow
   # This is probably wrong:
@@ -408,7 +408,7 @@ function punkt_flachen()
 
 
 # vielleicht:
-# function punkt_submodule_zutat() oder punkt_submodule_neu()
+# function punkt-submodule-zutat() oder punkt-submodule-neu()
 # {
 #     submodule_repo=$1
 #     punkt submodule add $1 ...
@@ -417,7 +417,7 @@ function punkt_flachen()
 # }
 
 
-function punkt_submodule_bringeum()
+function punkt-submodule-bringeum()
 {
   # TODO this is still not reliable
 
@@ -445,9 +445,9 @@ function punkt_submodule_bringeum()
     return 1
   fi
 
-  punkte_json=$(punkt_zu_json)
-  submodule_details=$(echo "${punkte_json}" | jq -r '.[] | select(.submodule_name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
-  eval ${submodule_details}
+  punkte-json=$(punkt-zu-json)
+  submodule-details=$(echo "${punkte-json}" | jq -r '.[] | select(.submodule-name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
+  eval ${submodule-details}
 
   # now these variables exist:
   # submodule_name=.zsh/zsh-autosuggestions
