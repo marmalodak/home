@@ -1,4 +1,6 @@
-Backround info:
+== punkte
+
+=== Backround info:
 
 * I learned about using GIT-DIR and WORK-DIR for dotfiles from:
 * https://stackoverflow.com/a/16811212/1698426
@@ -6,10 +8,10 @@ Backround info:
 * https://www.atlassian.com/git/tutorials/dotfiles
 * https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
 * on openwrt I needed to install git, git-http
-* [exa colours reference [https://the.exa.website/docs/colour-themes]]
+* https://the.exa.website/docs/colour-themes[exa colours reference]
 
 
-On a new installation, I usually want:
+=== On a new installation, I usually want:
 
 ....
 git clone https://github.com/marmalodak/home ~/.punkte
@@ -17,30 +19,44 @@ git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME checkou
 # open a new shell, then:
 punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
 # punkt pull --rebase --recurse-submodules --verbose --stat
-punkt_auf
+punkt-auf
 p10k configure
 ....
 
-=== https://github.com/ohmyzsh/ohmyzsh[oh-my-zsh]
+
+==== Trouble
+
+When `punkt-auf` failes because a submodule will not update because it wants to rebase (WHY???)
+
+For example, `powerlevel10k`:
+....
+rm -rf .powerlevel10k
+punkt-aufbau
+punkt pull --rebase --recurse-submodules --verbose --stat
+....
+
+
+=== oh-my-zsh https://github.com/ohmyzsh/ohmyzsh[source]
 
 It needs to be installed separately???
 
 Open a new terminal to invoke the punkte (née dotfiles)
 
-See also punkt_new() in .zshrc
+See also punkt-new() in .zshrc
+
 
 == Brew
 
 `brew bundle install Brewfile`
 which was created from `brew bundle dump`
 
+....
 brew tap homebrew/cask-fonts
 brew tap jabenninghoff/edge
 brew install vimr exa ranger tmux htop pidof vifm apg fzf fping gpg fortune cowsay vivid fd ripgrep git-credential-manager jq jo util-linux macos-trash brew-cask-completion alacritty neovim svn bat avibrazil-rdm intel-power-gadget
 
 brew install font-bitstream-vera-sans-mono-nerd-font font-dejavu-sans-mono-nerd-font font-fira-code font-fira-mono-nerd-font font-juliamono font-liberation-nerd-font font-sauce-code-pro-nerd-font font-source-code-pro font-inconsolata-nerd-font
 brew install aerial pylint
-
 
 brew install fping
 brew install gpg  # for rvm
@@ -54,10 +70,12 @@ brew install git-credential-manager  # needed to push to github
 brew install jq jo
 brew install util-linux  # check that it's in the path
 brew install macos-trash
+....
 
 fonts require svn
 
-== https://rvm.io/rvm/install[rvm]
+
+=== rvm https://rvm.io/rvm/install[source]
 
 [source]
 ----
@@ -75,7 +93,7 @@ brew install gtk+3 gtk4 gtkextra pango (for asciio)
 
 Might be time to give up on drawing in asciidoctor or vim and use PlantUML, graphviz, pikchr
 
-== apg
+=== apg
 `apg` is a great password generator.
 
 . https://github.com/wilx/apg
@@ -94,16 +112,23 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 . cpan App::cpanminus
 . App::Asciio
 
+
 == TIL
 
 * `${!foo}` => indirect expansion!
 * `⏎~?` Press the return key, then tilde ? to get help about live running ssh sessions; more at https://news.ycombinator.com/item?id=26053323
 
+
 == Settings I like
 
-git config --global user.useconfigonly true
+....
+git config --global user.useconfigonly true # insist that you set user.name and user.email explicitly before it will let you commit
+....
 
-I lifted some color settings, how do I use them without relying on ~/.gitconfig?
+TODO: use the `includeIf` setting like https://stackoverflow.com/a/36296990[this answer]
+
+I lifted some color settings, how do I use them without relying on `~/.gitconfig`?
+
 [code]
 ----
 [color]
