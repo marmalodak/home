@@ -355,7 +355,7 @@ function punkt-aufbau()
 function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
-  punkt pull --rebase --verbose --stat --recurse-submodules=yes --jobs=16 &&
+  punkt pull --verbose --stat --recurse-submodules=yes --jobs=16 &&
     punkt submodule update --init --remote --recursive
   popd > /dev/null 2>&1
 }
