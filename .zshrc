@@ -206,7 +206,7 @@ alias secscp='rsync -azhe ssh --progress $1 $2'
 function trashit()
 {
   for i in $*; do
-    trash $i
+    \trash $i
   done
 }
 
@@ -329,17 +329,20 @@ function punkt-neu()
 }
 
 
-function punkt-archiv()
+function punkt-export()
 {
+  set -x
   # https://www.geeksforgeeks.org/how-to-export-a-git-project/
   dest=/tmp/.home.tar
   setopt nullglob
   if [[ -n $(echo ${dest}*) ]]; then echo remove $(echo ${dest}*); return 1; fi
-  punkt archive --format tar HEAD > ${dest}
+  additions=()
   if [[ -f .local.zsh ]]; then
-    tar -rvf ${dest} ~/.local.zsh
+    additions+=.local.zsh
   fi
+  punkt archive --verbose --format tar HEAD --output=${dest} --add-file=${additions}
   gzip ${dest}
+  set +x
 }
 
 
