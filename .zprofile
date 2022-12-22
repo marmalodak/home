@@ -12,7 +12,7 @@
 # brew might be installed in /opt or /usr/local
 # the paths to util-linux/bin are needed on the mac so that setsid (from util-linux) is in the PATH
 # https://stackoverflow.com/a/1397020  # see here on how to tell whether a directory is in the $PATH already
-# NB there is no python3 binary in ~/Library/Python/...
+# NB there is no python3 binary in ~/Library/Python/... but pip3 install (--user) installs into ~/Library/Python/3.9/bin
 # NB brew is already handled, do not add it here
 
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
@@ -20,6 +20,16 @@
 [[ -d /opt/brew/opt/util-linux/bin ]]    && PATH="/opt/brew/opt/util-linux/bin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/sbin ]]   && PATH="/opt/brew/opt/util-linux/sbin:${PATH}"
 [[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
+
+pythons_base="${HOME}/Library/Python"
+pythons=( ${pythons_base}/3.11/bin ${pythons_base}/3.10/bin ${pythons_base}/3.9/bin )
+for p in ${pythons}; do
+  if [[ -d "${p}" ]]; then
+    PATH="${p}:${PATH}"
+    # break  do not end here because multiple versions can be installed
+  fi
+done
+
 [[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 
 export PATH
