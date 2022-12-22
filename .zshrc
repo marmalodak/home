@@ -502,3 +502,5 @@ autoload -U compinit && compinit
 #       this makes run-help bindkeys show the zsh man page for the bindkeys entry
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
+
+source /Users/john/.config/broot/launcher/bash/br

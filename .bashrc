@@ -138,3 +138,5 @@ if [[ $- == *i* ]]; then  # is bash interactive?
 fi
 
 [[ ! -f ~/.motd ]] || source ~/.motd
+
+source /Users/john/.config/broot/launcher/bash/br
