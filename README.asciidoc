@@ -193,6 +193,9 @@ I lifted some color settings, how do I use them without relying on `~/.gitconfig
 
 === Key Repeat Rate mac: macOS need restart
 
+* more here: https://github.com/pctony/ConfigMyMac
+* see also https://macos-defaults.com/#💻-list-of-commands
+
 [CODE]
 =====
 defaults write NSGlobalDomain KeyRepeat -int 1
