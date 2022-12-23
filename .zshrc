@@ -206,7 +206,9 @@ alias secscp='rsync -azhe ssh --progress $1 $2'
 function trashit()
 {
   for i in $*; do
-    \trash $i
+    if [[ -f "${i}" ]] ; then
+      \trash $i
+    fi
   done
 }
 
