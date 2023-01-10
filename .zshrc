@@ -106,7 +106,6 @@ COMPLETION_WAITING_DOTS="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # TODO: increase history https://unix.stackexchange.com/a/521206/30160, see also https://zsh.sourceforge.io/Guide/zshguide02.html#l17
-# infinite history? https://gist.github.pie.apple.com/dribin/731ee43bf44e3fd40d0765cc59f37101
 # put history in an sqlite database https://github.com/ellie/atuin
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -125,13 +124,11 @@ HISTCONTROL=ignoreboth
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z)
 # do not add zsh-autosuggestions to plugins because it is installed manually
+# z https://github.com/agkozak/zsh-z
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -141,6 +138,7 @@ source ~/.zsh/zsh-edit/zsh-edit.plugin.zsh
 
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
+zstyle ':completion:*' menu select  # recommended by z
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -507,5 +505,6 @@ autoload -U compinit && compinit
 #       this makes run-help bindkeys show the zsh man page for the bindkeys entry
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
+
 
 source /Users/john/.config/broot/launcher/bash/br
