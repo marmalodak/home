@@ -89,11 +89,12 @@ set backspace=indent,eol,start
 set hlsearch
 set incsearch
 set lazyredraw
-set undofile
 set splitright
+set undofile
+set undolevels=5000  " https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 
 set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
-set wildmenu
+set wildmenu  " show all matching files for tab complete
 set wildmode=list:longest,full
 
 set laststatus=2  " Always display the statusline in all windows
@@ -103,9 +104,6 @@ set title         "  show the name of the file being edited in the lower left
 
 " gitgutter and punkte  https://github.com/airblade/vim-gitgutter/issues/754
 let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'
-
-" shut up snipmate
-let g:snipMate = { 'snippet_version' : 1 }
 
 " I want lightline to show the full path of the file I'm editing
 let g:lightline = {
@@ -205,7 +203,7 @@ let g:startify_custom_header = [
         \ ':verbose nmap <leader>           all normal mode mappings that use <leader>                                          ',
         \ '                      source: https://stackoverflow.com/a/20083301/1698426                                           ',
         \ ]
-" packadd matchit
+
 
 "  I'm trying to follow vim tip #989 http://www.vim.org/tips/tip.php?tip_id=989 and adding formatoptions=l
     " au BufRead,BufWrite,BufNewFile *.txt setl formatoptions=ltcroqan1
@@ -245,6 +243,7 @@ autocmd WinEnter * setlocal   cursorline
 autocmd BufLeave * setlocal nocursorline
 autocmd BufEnter * setlocal   cursorline
 
+
 " https://stackoverflow.com/a/14449484/1698426
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -252,8 +251,33 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+
 " vviki
 nnoremap <leader>ww :e ~/wiki/index.adoc<CR>
+
+
+"====[ Toggle visibility of naughty characters ]============ https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
+
+" Make naughty characters visible...
+set lcs=tab:══»,trail:␣,nbsp:˷
+"   Tabs	shown	thusly	and	so
+"   Trailing whitespace    
+"   Non-breaking space
+
+highlight InvisibleSpaces ctermfg=Black ctermbg=Black
+call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$')
+
+
+augroup VisibleNaughtiness
+    autocmd!
+    autocmd BufEnter  *       set list
+    autocmd BufEnter  *       set list
+    autocmd BufEnter  *.txt   set nolist
+    autocmd BufEnter  *.vp*   set nolist
+    autocmd BufEnter  *       if !&modifiable
+    autocmd BufEnter  *           set nolist
+    autocmd BufEnter  *       endif
+augroup END
 
 
 nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
