@@ -1,4 +1,5 @@
-[[ -f ~/.ghtok ]] && source ~/.ghtok
+# [[ -f ~/.ghtok ]] && source ~/.ghtok  # how did this get here?
+
 # zsh-lovers reference card https://grml.org/zsh/zsh-lovers.html
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
@@ -126,7 +127,7 @@ HISTCONTROL=ignoreboth
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z timer)
 # do not add zsh-autosuggestions to plugins because it is installed manually
 # z https://github.com/agkozak/zsh-z
 
@@ -200,6 +201,15 @@ alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor 
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
+
+#
+# bc - An arbitrary precision calculator language
+function =
+{
+  echo "$@" | bc -l
+}
+alias calc="="
+
 
 
 # since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files
@@ -505,6 +515,3 @@ autoload -U compinit && compinit
 #       this makes run-help bindkeys show the zsh man page for the bindkeys entry
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
-
-
-source /Users/john/.config/broot/launcher/bash/br
