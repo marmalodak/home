@@ -422,6 +422,14 @@ function punkt-flachen()
 }
 
 
+function punkt-submodule-zutat()
+{
+  URL=$1
+  WO=$2
+  STEM=${URL##*/}
+  punkt submodule add $URL $WO/$STEM
+}
+
 # vielleicht:
 # function punkt-submodule-zutat() oder punkt-submodule-neu()
 # {
@@ -507,6 +515,7 @@ function punkt-submodule-bringeum()
 # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
 autoload -U compinit && compinit
 
+# TODO: steal from https://natelandau.com/my-mac-os-zsh-profile/
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
 #                         https://github.com/sharkdp/fd#using-fd-with-fzf
 #                         https://github.com/lotabout/skim

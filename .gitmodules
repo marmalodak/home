@@ -139,3 +139,6 @@
 [submodule ".zsh/zsh-edit"]
 	path = .zsh/zsh-edit
 	url = git@github.com:marlonrichert/zsh-edit.git
+[submodule "/Users/john/.vim/pack/vim8/start/vim-log-highlighting"]
+	path = /Users/john/.vim/pack/vim8/start/vim-log-highlighting
+	url = https://github.com/MTDL9/vim-log-highlighting

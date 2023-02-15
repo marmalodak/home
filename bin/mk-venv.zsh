@@ -9,7 +9,7 @@ set +x
 #       e.g.
 #
 #       #!/bin/zsh
-#       
+#
 #       source jup-venv/bin/activate
 #       <your command goes here>
 #       # e.g.
@@ -86,7 +86,7 @@ export VIRTUAL_ENV=VIRTUAL_ENV_PLACE_HOLDER
 if [[ ! -f "${VIRTUAL_ENV}/bin/activate" ]]; then
     echo "Does the venv exists?"
     echo "Looking for ${VIRTUAL_ENV}/bin/activate"
-    echo "Probably need to run script to create the venv first"
+    echo "Probably need to run the mk script to create the venv first"
     exit 1
 fi
 
