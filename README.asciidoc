@@ -23,8 +23,26 @@ punkt-auf
 p10k configure
 ....
 
+Before being able to push:
+
+[code]
+=====
+[user]
+	name = John Schmitt
+	email = marmalodak@gmail.com
+=====
 
 ==== Trouble
+
+NB: submodules need to be absolute paths relative to $HOME
+
+.submodule example
+[code]
+=====
+[submodule ".vim/pack/vim8/start/vim-tmux-pilot"]
+	path = .vim/pack/vim8/start/vim-tmux-pilot
+	url = https://github.com/urbainvaes/vim-tmux-pilot
+=====
 
 When `punkt-auf` failes because a submodule will not update because it wants to rebase (WHY???)
 
