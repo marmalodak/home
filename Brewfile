@@ -1,4 +1,5 @@
 # TODO: install limelight https://github.com/koekeishiya/limelight
+# actually, do not install limelight
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
@@ -7,14 +8,14 @@ tap "hudochenkov/sshpass"
 # deprecate ack in favour of `rg` from ripgrep
 brew "ack"
 brew "brew-cask-completion"
-brew "ccze"
+# brew "ccze"
 brew "cowsay"
 brew "exa"
 brew "fd"
 brew "fortune"
 brew "fping"
 brew "fzf"
-brew "git-credential-manager"
+# brew "git-credential-manager"
 brew "gnupg"
 brew "htop"
 brew "jo"
@@ -32,12 +33,13 @@ brew "util-linux"
 brew "vifm"
 brew "vivid"
 brew "jabenninghoff/edge/apg"
-brew "avibrazil-rdm"
+# brew "avibrazil-rdm"  # no longer available
 brew "intel-power-gadget"
 brew "zsh-completions"  # see instructions for installing
 brew "zsh-lovers"  # reference card
 brew "bat"
 brew "bat-extras"
+# cask "displays"  # costs money, not sure yet
 cask "aerial"
 cask "alacritty"
 cask "font-bitstream-vera-sans-mono-nerd-font"
@@ -49,4 +51,4 @@ cask "font-juliamono"
 cask "font-liberation-nerd-font"
 cask "font-sauce-code-pro-nerd-font"
 cask "font-source-code-pro"
-cask "vimr"
+# cask "vimr"
