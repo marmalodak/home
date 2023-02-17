@@ -31,8 +31,11 @@ bindkey '^[#' pound-insert
 # Q: what is the relationship between $fpath and $FPATH other than that $FPATH separates entries with colons like $PATH
 # A: see https://unix.stackexchange.com/a/532155/30160
 # tldr The $path array variable is tied to the $PATH scalar (string) variable. Any modification on one is reflected in the other.
+# TODO should this be in .zprofile?
 [[ -d /usr/local/brew/share/zsh/site-functions/ ]] && fpath+=(/usr/local/brew/share/zsh/site-functions/)
 [[ -d /opt/brew/share/zsh/site-functions ]]        && fpath+=(/opt/brew/share/zsh/site-functions)  # when brew is installed by liv
+[[ -d /opt/homebrew/share/zsh/site-functions ]]    && fpath+=(/opt/homebrew/share/zsh/site-functions)  # brew on m1
+# how do /opt/homebrew/share/zsh-completions entries get configured?
 
 # after upgrade to Fedora 33, I needed to do this:
 [[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions

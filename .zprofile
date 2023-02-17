@@ -17,6 +17,8 @@
 
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
 [[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -d /opt/homebrew/bin ]]               && PATH="/opt/homebrew/bin:${PATH}"
+[[ -d /opt/homebrew/sbin ]]              && PATH="/opt/homebrew/sbin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/bin ]]    && PATH="/opt/brew/opt/util-linux/bin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/sbin ]]   && PATH="/opt/brew/opt/util-linux/sbin:${PATH}"
 [[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
