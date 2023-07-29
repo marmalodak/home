@@ -183,6 +183,7 @@ I lifted some color settings, how do I use them without relying on `~/.gitconfig
 * `defaults write com.apple.dock autohide-delay -float 0; killall Dock`
 * `defaults write com.apple.dock autohide-time-modifier -float 0; killall Dock`
 * `defaults write com.apple.dock no-bouncing -bool TRUE`; killall Dock  # stop the dock icons from bouncing when they want attention
+* `defaults write com.apple.Dock appswitcher-all-displays -bool true` # app switcher on all displays https://gist.github.com/jthodge/c4ba15a78fb29671dfa072fe279355f0
 * https://github.com/rxhanson/Rectangle
 * https://github.com/sindresorhus/quick-look-plugins
 * https://news.ycombinator.com/item?id=26499062 focalboard, self-hosted alternative to trello...

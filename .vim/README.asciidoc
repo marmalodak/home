@@ -46,6 +46,7 @@ When this sequence is emitted by Vim, the terminal will copy the given text into
 ** See also https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session[this fandom link] which leads to https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session[this SO question] and https://vimhelp.org/starting.txt.html#%3Amkview[`:mkview`] and https://vimhelp.org/starting.txt.html#%3Aloadview[`:loadview`].
 ** There's also a https://github.com/farmergreg/vim-lastplace[plugin called vim-lastplace].
 * `G` will move the cursor to the end of the file, `gg` will move the cursor the the beginning of the file
+* `:AleToggle` to temporarily disable ALE for a file (SO)[https://stackoverflow.com/questions/54118420/how-to-disable-ale-plugin-by-default-in-vim]
 
 === Plugins
 

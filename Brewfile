@@ -34,7 +34,7 @@ brew "vifm"
 brew "vivid"
 brew "jabenninghoff/edge/apg"
 # brew "avibrazil-rdm"  # no longer available
-brew "intel-power-gadget"
+# brew "intel-power-gadget"  # not on m1
 brew "zsh-completions"  # see instructions for installing
 brew "zsh-lovers"  # reference card
 brew "bat"

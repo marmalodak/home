@@ -55,6 +55,8 @@ nnoremap OO m`O<ESC>``
 nnoremap <Leader>p :e #<Enter>
 nnoremap <Leader>n :bnext<Enter>
 
+map <leader>at :ALEToggle<CR>
+
 " reselect pasted text #  https://vimtricks.com/p/reselect-pasted-text/
 nnoremap gp `[v`]
 
@@ -270,8 +272,7 @@ call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$')
 
 augroup VisibleNaughtiness
     autocmd!
-    autocmd BufEnter  *       set list
-    autocmd BufEnter  *       set list
+    " autocmd BufEnter  *       set list
     autocmd BufEnter  *.txt   set nolist
     autocmd BufEnter  *.vp*   set nolist
     autocmd BufEnter  *       if !&modifiable
@@ -498,3 +499,7 @@ colorscheme NedsLightTheme
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
+
+function! Todaystat()
+  call append('$', '==== ' . system(['date']))
+endfunc

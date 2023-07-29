@@ -130,7 +130,7 @@ HISTCONTROL=ignoreboth
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z timer)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z timer web-search)
 # do not add zsh-autosuggestions to plugins because it is installed manually
 # z https://github.com/agkozak/zsh-z
 
@@ -200,7 +200,7 @@ alias ipoca='ip -o -c a'
 alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias breakpath='sep=:;print -l ${(ps.$sep.)PATH}'  # https://discussions.apple.com/thread/251387981
-alias brup='brew update && brew upgrade --greedy && brew cleanup && brew doctor && brew config'
+alias brup='brew update && brew upgrade --greedy-auto-updates && brew cleanup && brew doctor && brew config'
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
@@ -229,14 +229,16 @@ function trashit()
 # open all the files that are found by ripgrep
 function nvim-rg()
 {
-  set -x
-  nvim -O $(rg -l $@)
-  set +x
+  term=$1
+  shift
+  nvim -O $(rg -l $term) $*
 }
 
 
 # Do not understand why, but fd will not find CommandLineTools.dmg unless the -u flag is set
 alias fd='\fd -u'
+
+alias nvimdiff='nvim -d'
 
 
 # open the files that are found by fd
@@ -270,14 +272,17 @@ function nvim-fd()
 # open all the files that are modified according to git
 function nvim-modified()
 {
+  # broken
+  set -x
   eval nvim -O $(printf "<(git diff --patch %s) " $(git status --short --untracked-files=no | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
+  set +x
 }
 
 
 # when there are foo.err foo.log bar.err bar.log, open just the log files, not the .err files
 function nvim-errlog()
 {
-  if [[ -n $1 ]]; then
+  if [[ -n $1 ]]; then  # is this check necessary?
     nvim ${$(echo *$1*.err)/err/log}
   else
     nvim ${$(echo *.err)/err/log}
@@ -344,7 +349,15 @@ function punkt-neu()
 }
 
 
-function punkt-export()
+function punkt-export(punkt ls-files | tar Tzcf - /tmp/archive.tgz)
+{
+  # https://stackoverflow.com/a/23116607
+  punkt ls-files | tar Tzcf - /tmp/home.tgz
+  echo On the destination: cd ~; tar xvf home.tgz
+}
+
+
+function punkt-export-old-method()
 {
   set -x
   # https://www.geeksforgeeks.org/how-to-export-a-git-project/
@@ -356,7 +369,9 @@ function punkt-export()
   if [[ -f .local.zsh ]]; then
     additions+=.local.zsh
   fi
-  punkt archive --verbose --format tar HEAD --output=${dest} --add-file=${additions}
+  punkt archive --verbose --format tar.gz HEAD --output=${dest} --add-file=${additions}
+  # https://stackoverflow.com/a/23116607
+  # i.e. punkt ls-files | tar Tczf - ${dest}
   gzip ${dest}
   set +x
 }
