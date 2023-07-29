@@ -349,7 +349,7 @@ function punkt-neu()
 }
 
 
-function punkt-export(punkt ls-files | tar Tzcf - /tmp/archive.tgz)
+function punkt-export()
 {
   # https://stackoverflow.com/a/23116607
   punkt ls-files | tar Tzcf - /tmp/home.tgz
