@@ -205,7 +205,6 @@ alias brup='brew update && brew upgrade --greedy-auto-updates && brew cleanup &&
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
 
-#
 # bc - An arbitrary precision calculator language
 function =
 {
@@ -214,6 +213,11 @@ function =
 alias calc="="
 
 
+function hs()  # from #help-zsh: search history and display unique lines (for those tools you use every-so-often with arguments you can never remember)
+{
+  fc -ln 0 | grep $1 | awk '{!seen[$0]++};END{for(i in seen) if(seen[i]==1)print i}'
+  # fc -ln 0 | grep $1 | sort | uniq -c | sort -n | cut -c6- # frequent things at the end of the list
+}
 
 # since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files
 function trashit()
