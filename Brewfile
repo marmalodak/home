@@ -39,6 +39,9 @@ brew "zsh-completions"  # see instructions for installing
 brew "zsh-lovers"  # reference card
 brew "bat"
 brew "bat-extras"
+brew "watch"
+brew "hwatch"
+brew "dasht"
 # cask "displays"  # costs money, not sure yet
 cask "aerial"
 cask "alacritty"
@@ -51,4 +54,5 @@ cask "font-juliamono"
 cask "font-liberation-nerd-font"
 cask "font-sauce-code-pro-nerd-font"
 cask "font-source-code-pro"
+cask "dash"
 # cask "vimr"

@@ -465,6 +465,8 @@ ____
 
 === Potentially useful plugins and resources to consider
 
+* https://github.com/sunaku/vim-dasht[Documentation viewer dasht]
+* https://github.com/mrjones2014/dash.nvim#readme[Dash documentation viewer]
 * https://github.com/mg979/vim-visual-multi[Vim has a built-in way to visually edit multiple lines at once: visual block mode. And the vim-visual-multi plugin can give you an even more powerful way to edit multiple lines at once]
 * https://github.com/tpope/vim-eunuch[Eunuch] :Cfind :Lfind and more
 * https://github.com/tpope/vim-abolish[Abolish] search and replace variants of words

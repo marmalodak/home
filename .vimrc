@@ -57,6 +57,15 @@ nnoremap <Leader>n :bnext<Enter>
 
 map <leader>at :ALEToggle<CR>
 
+" these don't work and I need better shortcuts
+" imap <silent> <leader>r [1;31m
+" imap <silent> <leader>n [1;0m
+" imap <silent> <leader>g [1;33m
+" 
+" map <silent> <leader>r a[1;31m<ESC>
+" map <silent> <leader>n a[1;0m<ESC>
+" map <silent> <leader>g a[1;33m<ESC>
+
 " reselect pasted text #  https://vimtricks.com/p/reselect-pasted-text/
 nnoremap gp `[v`]
 

@@ -276,10 +276,10 @@ function nvim-fd()
 # open all the files that are modified according to git
 function nvim-modified()
 {
-  # broken
-  set -x
-  eval nvim -O $(printf "<(git diff --patch %s) " $(git status --short --untracked-files=no | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
-  set +x
+  # eval nvim -O printf "$(git diff --patch %s) " $(git status --short --untracked-files=no --ignore-submodules=all | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')  # broken
+  # nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
+  # Using git ls-files might be better if it excluded submodules
+  nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -w -f3)
 }
 
 
@@ -319,7 +319,9 @@ alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
 # similar to nvim-modified
 function punkt-modified()
 {
-  eval nvim -O $(printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}'))
+  # eval nvim -O printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')
+  # nvim -O $(punkt -C ~ ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
+  nvim -O $(punkt status --short --untracked-files=no --ignore-submodules=all | cut -w -f3)
 }
 
 
@@ -332,6 +334,7 @@ function punkt-status()
 
 function punkt-diff()
 {
+  # TODO something like punkt submodule foreach config ignore = dirty"
   punkt diff --patch --ignore-submodules=all
 }
 
