@@ -265,11 +265,12 @@ function nvim-fd()
   # echo files=$files
   # nvim -O $files
 
-  files=(  )
-  for i in ${@}; do
-    files+=( $(fd $i)  )
-  done
-  nvim -O ${files[@]}
+  # files=(  )
+  # for i in ${@}; do
+  #   files+=( $(fd $i)  )
+  # done
+  # nvim -O ${files[@]}
+  fd ${@} -X nvim -O
 }
 
 

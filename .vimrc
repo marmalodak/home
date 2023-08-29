@@ -126,6 +126,7 @@ let g:lightline = {
     \     'left': [ [ 'absolutepath' ] ],
     \    'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat' ], [ 'fileencoding', 'filetype' ] ]
     \ },
+    \ 'colorscheme': 'PaperColor'
     \ }
 
 set spelllang=en_ca
