@@ -42,6 +42,7 @@ brew "bat-extras"
 brew "watch"
 brew "hwatch"
 brew "dasht"
+brew "rust"
 # cask "displays"  # costs money, not sure yet
 cask "aerial"
 cask "alacritty"
