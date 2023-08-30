@@ -210,6 +210,7 @@ ____
 
 * This looks INTERESTING!
 * `:Clap[!] [provider_id_or_alias] [++opt] [+opt]`
+* vim-clap requires `cargo`, which is install on the Mac with `brew install rust`. If you see an error message from vim-clap initially, this is probably the reason
 
 ===== Dependencies
 
