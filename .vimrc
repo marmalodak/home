@@ -49,6 +49,7 @@ set timeoutlen=400
 set ttimeoutlen=400
 set number
 set relativenumber
+set iskeyword+=-
 
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>
