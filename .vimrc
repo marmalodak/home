@@ -38,6 +38,12 @@ let mapleader=" "
 " until the issue with gx being broken in netrw... this came from the @vim slack channel
 nmap gx viW"ay:!open <C-R>a &<CR><cr>
 
+" https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
+nnoremap <leader>dd :Lexplore %:p:h<CR>
+nnoremap <Leader>da :Lexplore<CR>
+" Leader dd: Will open Netrw in the directory of the current file.
+" Leader da: Will open Netrw in the current working directory.
+
 " timeoutlen affects the bindings ;; jk kj oo OO
 set timeoutlen=400
 set ttimeoutlen=400
@@ -56,6 +62,7 @@ nnoremap <Leader>p :e #<Enter>
 nnoremap <Leader>n :bnext<Enter>
 
 map <leader>at :ALEToggle<CR>
+map <leader>nh :nohl<CR>
 
 " these don't work and I need better shortcuts
 " imap <silent> <leader>r [1;31m
@@ -101,8 +108,12 @@ set hlsearch
 set incsearch
 set lazyredraw
 set splitright
+set splitbelow
 set undofile
 set undolevels=5000  " https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
+set number
+set relativenumber
+set iskeyword+=-
 
 set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 set wildmenu  " show all matching files for tab complete

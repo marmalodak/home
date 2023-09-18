@@ -280,7 +280,7 @@ function nvim-modified()
   # eval nvim -O printf "$(git diff --patch %s) " $(git status --short --untracked-files=no --ignore-submodules=all | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')  # broken
   # nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
   # Using git ls-files might be better if it excluded submodules
-  nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -w -f3)
+  nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
 }
 
 
@@ -322,7 +322,7 @@ function punkt-modified()
 {
   # eval nvim -O printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')
   # nvim -O $(punkt -C ~ ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
-  nvim -O $(punkt status --short --untracked-files=no --ignore-submodules=all | cut -w -f3)
+  nvim -O $(punkt status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
 }
 
 

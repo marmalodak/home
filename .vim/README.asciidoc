@@ -56,6 +56,11 @@ I realised I have VIM plugins installed which:
 . I don't know how to use them
 . I don't remember what I was trying to solve when I installed it
 
+==== https://github.com/nvim-telescope/telescope-fzf-native.nvim[FZF sorter for telescope written in c]
+
+`punkt-auf` et al are going to require this each time:
+`cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build`
+
 ==== https://github.com/guns/xterm-color-table.vim[xterm-color-table] All 256 xterm colors with their RGB equivalents, right in Vim!
 
 * `:XtermColorTable`
@@ -463,6 +468,15 @@ ____
 * https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
 * https://github.com/edkolev/promptline.vim
 * https://github.com/windwp/windline.nvim
+
+[CODE]
+ChatGPT wrote statuslines
+=====
+:set statusline=%<%f\ %h%m%r%{&ff!='unix'?&ff:''}\ [%{&fileformat}]%=%-14.(%l,%c%V%)\ %P
+:set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [ENC=%{&fenc}]\ [%Y]\ [%l,%v]\ %P
+" why is the bg colour red??
+=====
+
 
 === Potentially useful plugins and resources to consider
 

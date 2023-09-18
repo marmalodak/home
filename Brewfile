@@ -42,7 +42,9 @@ brew "bat-extras"
 brew "watch"
 brew "hwatch"
 brew "dasht"
+brew "walk"  # terminal file navigator
 brew "rust"
+brew "go"
 # cask "displays"  # costs money, not sure yet
 cask "aerial"
 cask "alacritty"

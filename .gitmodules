@@ -148,3 +148,33 @@
 [submodule ".vim/pack/vim8/start/vim-plugin-AnsiEsc"]
 	path = .vim/pack/vim8/start/vim-plugin-AnsiEsc
 	url = ssh://git@github.com/powerman/vim-plugin-AnsiEsc
+[submodule ".vim/pack/vim8/start/vim-vinegar"]
+	path = .vim/pack/vim8/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar
+[submodule ".vim/pack/vim8/start/vim-fugitive"]
+	path = .vim/pack/vim8/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule ".vim/pack/vim8/start/telescope.nvim"]
+	path = .vim/pack/vim8/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule ".vim/pack/vim8/start/telescope-fzf-native.nvim"]
+	path = .vim/pack/vim8/start/telescope-fzf-native.nvim
+	url = https://github.com/nvim-telescope/telescope-fzf-native.nvim
+[submodule ".vim/pack/vim8/start/plenary.nvim"]
+	path = .vim/pack/vim8/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule ".vim/pack/vim8/start/mason.nvim"]
+	path = .vim/pack/vim8/start/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
+[submodule ".vim/pack/vim8/start/mason-lspconfig.nvim"]
+	path = .vim/pack/vim8/start/mason-lspconfig.nvim
+	url = https://github.com/williamboman/mason-lspconfig.nvim
+[submodule ".vim/pack/vim8/start/nvim-lspconfig"]
+	path = .vim/pack/vim8/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule ".vim/pack/vim8/start/cmp-nvim-lsp"]
+	path = .vim/pack/vim8/start/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp
+[submodule ".vim/pack/vim8/start/lspkind.nvim"]
+	path = .vim/pack/vim8/start/lspkind.nvim
+	url = https://github.com/onsails/lspkind.nvim
