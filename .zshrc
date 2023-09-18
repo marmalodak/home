@@ -171,14 +171,19 @@ export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 # http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
 
 
-if command -v exa > /dev/null; then
-  alias ll='exa -l --icons'
-  alias lr='exa -alh --sort=date --icons'
-  alias lc='exa -1 --icons'
-  alias lt='exa -T --icons'
-  alias ll='exa -l --icons'
-  alias lrg='exa -albh --sort=accessed --git --icons'
-  alias lRg='exa -albh --sort=accessed --git --extended --icons'
+# switch from exa to eza https://github.com/eza-community/eza
+if command -v eza > /dev/null; then
+  alias ll='eza -l --icons'
+  alias lr='eza -alh --sort=date --icons'
+  alias lc='eza -1 --icons'
+  alias lt='eza -T --icons'
+  alias l2='eza -T --icons --level=2'
+  alias l3='eza -T --icons --level=3'
+  alias l4='eza -T --icons --level=4'
+  alias l5='eza -T --icons --level=5'
+  alias ll='eza -l --icons'
+  alias lrg='eza -albh --sort=accessed --git --icons'
+  alias lRg='eza -albh --sort=accessed --git --extended --icons'
   source ~/.config/exa-colors/exa-colors.zsh
   export EXA_COLORS="${exa_colors_one_light}"
   # export EXA_COLORS="${exa_colors_one_dark}"
@@ -194,9 +199,9 @@ else
 fi
 
 
-alias vimr='vimr --nvim -O'
+# alias vimr='vimr --nvim -O'  # Not sure I want to use vimr any more
 alias pfzf='fzf --preview=bat {}'
-alias ipoca='ip -o -c a'
+alias ipoca='ip -o -c a' # TODO test for macOS vs Linux
 alias nvn='nvim -O $(git diff --cached --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias nvnp='nvim -O $(punkt diff --name-only --diff-filter=ACMR --ignore-submodules=all)'
 alias breakpath='sep=:;print -l ${(ps.$sep.)PATH}'  # https://discussions.apple.com/thread/251387981
@@ -204,6 +209,13 @@ alias brup='brew update && brew upgrade --greedy-auto-updates && brew cleanup &&
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
+
+
+function cd-fd()
+{
+  IFS=
+  cd $(dirname $(fd "$1"))
+}
 
 # bc - An arbitrary precision calculator language
 function =
@@ -233,9 +245,9 @@ function trashit()
 # open all the files that are found by ripgrep
 function nvim-rg()
 {
-  term=$1
+  searchterm=$1
   shift
-  nvim -O $(rg -l $term) $*
+  nvim -O $(rg -l ${searchterm}) $*
 }
 
 
@@ -252,14 +264,9 @@ alias nvimdiff='nvim -d'
 # nvim-fd foo should invoke nvim -O dir1/dir2/foo.anext dir3/foo.ext
 function nvim-fd()
 {
-  # the ${@} was an attempt to make (for example) "nvim-fd foo bar" where both foo and bar are patterns, but fd takes only one pattern argument
-  # the man page for fd has this at the end:
-  # Open all search results with vim:
-  # $ fd pattern -X vim
-  # so this might be better written as
-  # fd ${1} -X nvim -O
+  fd ${@} -X nvim -O
 
-  # set -x
+  # TODO accept more than one search term
 
   # files=$(eval $(printf "fd %s " ${@}))
   # echo files=$files
@@ -270,7 +277,6 @@ function nvim-fd()
   #   files+=( $(fd $i)  )
   # done
   # nvim -O ${files[@]}
-  fd ${@} -X nvim -O
 }
 
 
@@ -287,10 +293,10 @@ function nvim-modified()
 # when there are foo.err foo.log bar.err bar.log, open just the log files, not the .err files
 function nvim-errlog()
 {
-  if [[ -n $1 ]]; then  # is this check necessary?
-    nvim ${$(echo *$1*.err)/err/log}
+  if [[ -n $1 ]]; then
+    nvim -O ${$(echo *$1*.err)/err/log}
   else
-    nvim ${$(echo *.err)/err/log}
+    nvim -O ${$(echo *.err)/err/log}
   fi
 }
 
@@ -305,15 +311,13 @@ function huh()
 function git-cmds()
 {
   # TODO see list-<category> in command-list.txt, https://github.com/git/git/blob/master/command-list.txt
-  set -x
   for cmd in builtins parseopt main others config; do
     git --list-cmds=${cmd}
   done
-  set +x
 }
 
 
-alias punkt='git --git-dir=$HOME/.punkte/.git --work-tree=$HOME'
+alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
 alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
 
 
@@ -389,15 +393,15 @@ function punkt-aufbau()
 {
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
-  punkt submodule foreach --recursive git reset --hard
-  punkt submodule update --init --recursive --remote
+  punkt submodule foreach --recursive git reset --hard | column -t
+  punkt submodule update --init --recursive --remote | column -t
 }
 
 
 function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
-  punkt pull --stat --recurse-submodules=yes --jobs=16 && punkt submodule update --init --remote --recursive --jobs=16
+  { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
   popd > /dev/null 2>&1
 }
 

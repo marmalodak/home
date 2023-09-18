@@ -47,6 +47,8 @@ nnoremap <Leader>da :Lexplore<CR>
 " timeoutlen affects the bindings ;; jk kj oo OO
 set timeoutlen=400
 set ttimeoutlen=400
+set number
+set relativenumber
 
 " NB the following mappings do not work in paste mode
 imap ;; <Esc>

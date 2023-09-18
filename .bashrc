@@ -4,6 +4,8 @@ set +x
 set +e  # have not yet found the error where set -o causes a problem
 set -o pipefail
 
+# remember this line when debugging shell
+# PS4='# ${BASH_SOURCE}:${LINENO}: ${FUNCNAME[0]}() - [${SHLVL},${BASH_SUBSHELL},$?] '
 
 # https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 
