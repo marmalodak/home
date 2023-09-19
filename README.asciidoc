@@ -1,3 +1,11 @@
+punkte
+======
+:description: notes on dotfiles in ~/.punkte
+:compat-mode!:
+:max-width: 100%
+:nofooter:
+:!version-label:
+
 == punkte
 
 === Backround info:
@@ -44,7 +52,7 @@ NB: submodules need to be absolute paths relative to $HOME
 	url = https://github.com/urbainvaes/vim-tmux-pilot
 =====
 
-When `punkt-auf` failes because a submodule will not update because it wants to rebase (WHY???)
+When `punkt-auf` fails because a submodule will not update because it wants to rebase (WHY???)
 
 For example, `powerlevel10k`:
 ....
@@ -53,6 +61,10 @@ punkt-aufbau
 punkt pull --rebase --recurse-submodules --verbose --stat
 ....
 
+When `punkt-auf` fails because a submodule cannot be found in .gitmodules:
+....
+punkt rm --cached .vim/pack/vim8/start/vim-plugin-AnsiEsc
+....
 
 === oh-my-zsh https://github.com/ohmyzsh/ohmyzsh[source]
 
@@ -67,28 +79,6 @@ See also punkt-new() in .zshrc
 
 `brew bundle install Brewfile`
 which was created from `brew bundle dump`
-
-....
-brew tap homebrew/cask-fonts
-brew tap jabenninghoff/edge
-brew install vimr exa ranger tmux htop pidof vifm apg fzf fping gpg fortune cowsay vivid fd ripgrep git-credential-manager jq jo util-linux macos-trash brew-cask-completion alacritty neovim svn bat avibrazil-rdm intel-power-gadget
-
-brew install font-bitstream-vera-sans-mono-nerd-font font-dejavu-sans-mono-nerd-font font-fira-code font-fira-mono-nerd-font font-juliamono font-liberation-nerd-font font-sauce-code-pro-nerd-font font-source-code-pro font-inconsolata-nerd-font
-brew install aerial pylint
-
-brew install fping
-brew install gpg  # for rvm
-brew install ninja libtool automake cmake pkg-config gettext  # to build https://github.com/JaySandhu/neovim-mac[neovim-mac]
-brew install fortune cowsay
-brew install fzf  # for oh-my-zsh's fzf plugin
-brew install vivid # to generate LS_COLORS
-brew install fd
-brew install ripgrep
-brew install git-credential-manager  # needed to push to github
-brew install jq jo
-brew install util-linux  # check that it's in the path
-brew install macos-trash
-....
 
 fonts require svn
 
