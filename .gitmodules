@@ -142,12 +142,6 @@
 [submodule ".vim/pack/vim8/start/vim-log-highlighting"]
 	path = .vim/pack/vim8/start/vim-log-highlighting
 	url = https://github.com/MTDL9/vim-log-highlighting
-[submodule ".vim/pack/vim8/start/AnsiEsc.vim"]
-	path = .vim/pack/vim8/start/AnsiEsc.vim
-	url = ssh://git@github.com/vim-scripts/AnsiEsc.vim
-[submodule ".vim/pack/vim8/start/vim-plugin-AnsiEsc"]
-	path = .vim/pack/vim8/start/vim-plugin-AnsiEsc
-	url = ssh://git@github.com/powerman/vim-plugin-AnsiEsc
 [submodule ".vim/pack/vim8/start/vim-vinegar"]
 	path = .vim/pack/vim8/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
