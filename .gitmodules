@@ -172,3 +172,6 @@
 [submodule ".vim/pack/vim8/start/lspkind.nvim"]
 	path = .vim/pack/vim8/start/lspkind.nvim
 	url = https://github.com/onsails/lspkind.nvim
+[submodule ".vim/pack/vim8/start/nvim-cmp"]
+	path = .vim/pack/vim8/start/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp
