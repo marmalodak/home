@@ -412,16 +412,30 @@ function punkt-zeige()
     echo "Install jq"
     return 1
   fi
+  tojson=0
+  short=0
   if [[ "${1}" == "--json" ]]; then
+    tojson=1
+    shift
+  fi
+  if [[ "${1}" == "--short" ]]; then
+    short=1
+    shift
+  fi
+  if [[ "${tojson}" -ne 0 ]]; then
+    shift
     echo $(punkt-zu-json) | jq
-  elif [[ -n "${1}" ]]; then
+  fi
+  if [[ -n "${1}" ]]; then
     punkte-json=$(punkt-zu-json)
-    echo "${punkte-json}" | jq -r '.[] | select(.submodule_name | contains("'${1}'"))'
+    echo "${punkte-json}" | jq -r ".[] | select(.submodule_name | contains(${1}))"  # still does not work
   else
-    punkt submodule foreach \
-        'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; \
-        else echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo; \
-        fi '
+    if [[ "${short}" -eq 1 ]]; then
+      punkt submodule foreach 'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; fi'
+    else
+      punkt submodule foreach \
+          'echo submodule_name:$name; echo displaypath:$displaypath; echo toplevel:$toplevel; echo sm_path:$sm_path; echo; git --no-pager config --list --show-origin; echo'
+    fi
   fi
 }
 
@@ -493,8 +507,8 @@ function punkt-submodule-bringeum()
   if [[ -z "${SUBMODULE_NAME}" ]]; then
     echo "Must provide a submodule"
     echo "Submoule must be passed in as reported by punkt status"
-    echo "NB punkt_status does not show submodules"
-    echo "See also punkt_zeige"
+    echo "NB punkt-status does not show submodules"
+    echo "See also punkt-zeige"
     return 1
   fi
 
