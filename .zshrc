@@ -395,6 +395,8 @@ function punkt-aufbau()
   # Do not call git clean!!
   punkt submodule foreach --recursive git reset --hard | column -t
   punkt submodule update --init --recursive --remote | column -t
+  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
+  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
 }
 
 
@@ -403,6 +405,8 @@ function punkt-auf()
   pushd ${HOME} > /dev/null 2>&1
   { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
   popd > /dev/null 2>&1
+  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
+  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
 }
 
 
@@ -568,3 +572,5 @@ autoload -U compinit && compinit
 #       this makes run-help bindkeys show the zsh man page for the bindkeys entry
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -162,6 +162,7 @@ I lifted some color settings, how do I use them without relying on `~/.gitconfig
 
 == Bookmarks for future projects
 
+* https://github.com/atuinsh/atuin magical shell history
 * https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal <- lots of links
 * stderr in red https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr/21320645#21320645
 * https://typer.tiangolo.com/ CLI apps, uses click,

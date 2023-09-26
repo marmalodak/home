@@ -43,6 +43,9 @@ brew "dasht"
 brew "walk"  # terminal file navigator
 brew "rust"
 brew "go"
+brew "nvm"  # see installation instructions
+brew "shellcheck"
+brew "bash-language-server"
 # cask "displays"  # costs money, not sure yet
 cask "aerial"
 cask "alacritty"

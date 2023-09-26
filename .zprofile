@@ -15,13 +15,23 @@
 # NB there is no python3 binary in ~/Library/Python/... but pip3 install (--user) installs into ~/Library/Python/3.9/bin
 # NB brew is already handled, do not add it here
 
+[[ ! -d ~/.nvm ]] && mkdir ~/.nvm
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
 [[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -d /opt/homebrew/bin ]]               && PATH="/opt/homebrew/bin:${PATH}"
 [[ -d /opt/homebrew/sbin ]]              && PATH="/opt/homebrew/sbin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/bin ]]    && PATH="/opt/brew/opt/util-linux/bin:${PATH}"
 [[ -d /opt/brew/opt/util-linux/sbin ]]   && PATH="/opt/brew/opt/util-linux/sbin:${PATH}"
+[[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
+
+export PATH
+
+
+export NVM_DIR="${HOME}/.nvm"
+[[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ]]                    && \. "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+[[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ]] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+
 
 pythons_base="${HOME}/Library/Python"
 pythons=( ${pythons_base}/3.11/bin ${pythons_base}/3.10/bin ${pythons_base}/3.9/bin )
@@ -31,10 +41,6 @@ for p in ${pythons}; do
     # break  do not end here because multiple versions can be installed
   fi
 done
-
-[[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
-
-export PATH
 
 
 # https://github.com/zsh-users/zsh-completions
