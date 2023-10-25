@@ -130,7 +130,8 @@ HISTCONTROL=ignoreboth
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z timer web-search)
+plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z web-search)
+# I removed the timer plugin because it makes copying console text more complicated
 # do not add zsh-autosuggestions to plugins because it is installed manually
 # z https://github.com/agkozak/zsh-z
 
@@ -393,7 +394,7 @@ function punkt-aufbau()
 {
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
-  punkt submodule foreach --recursive git reset --hard | column -t
+  punkt submodule foreach --recursive git reset --hard
   punkt submodule update --init --recursive --remote | column -t
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim

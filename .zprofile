@@ -42,6 +42,7 @@ for p in ${pythons}; do
   fi
 done
 
+export GROOVY_HOME=/opt/homebrew/opt/groovy/libexec
 
 # https://github.com/zsh-users/zsh-completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src

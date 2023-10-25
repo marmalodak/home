@@ -2,14 +2,14 @@ vim.cmd('source ~/.config/nvim/old-init.vim') -- https://www.reddit.com/r/neovim
 
 -- from How I Setup Neovim On My Mac To Make It Amazing - Complete Guide https://www.youtube.com/watch?v=vdn_pKJUda8
 
--- require("john.core.options")
--- require("john.core.colorscheme")
-require("john.core.keymaps")
-require("john.plugins-setup")
-require("john.plugins.telescope")
-require("john.plugins.lsp.mason")
-require("john.plugins.lsp.lspsaga")
-require("john.plugins.lsp.lspconfig")
+-- -- require("john.core.options")
+-- -- require("john.core.colorscheme")
+-- require("john.core.keymaps")
+-- require("john.plugins-setup")
+-- require("john.plugins.telescope")
+-- require("john.plugins.lsp.mason")
+-- require("john.plugins.lsp.lspsaga")
+-- require("john.plugins.lsp.lspconfig")
 
 -- require("josean.plugins-setup")
 -- require("josean.core.options")

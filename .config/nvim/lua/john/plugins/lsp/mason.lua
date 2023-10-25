@@ -17,11 +17,11 @@ mason_lspconfig.setup({
     "clangd",
     "cmake",
     "neocmake",
-    "groovyls",
+    -- "groovyls", -- https://github.com/GroovyLanguageServer/groovy-language-server/issues/17 https://github.com/GroovyLanguageServer/groovy-language-server/issues/60
     "jsonls",
     "biome",
     "jdtls",
-    "java_language_server",
+    -- "java_language_server",  -- https://github.com/georgewfraser/java-language-server
     "vtsls",
     "julials",
     "jqls",
@@ -32,7 +32,7 @@ mason_lspconfig.setup({
     "openscad_lsp",
     "purescriptls",
     "jedi_language_server",
-    "ruby_ls",
+    -- "ruby_ls",  -- https://www.reddit.com/r/ruby/comments/xtut45/state_of_the_ruby_language_server_lsp_ecosystem/
     "vimls",
     "yamlls",
   }

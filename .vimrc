@@ -5,6 +5,8 @@ if !has('nvim')
 endif
 
 " TODO: make it modular
+" TODO: log colorizer https://github.com/dzeban/vim-log-syntax/blob/master/syntax/log.vim
+" TODO: rm vim-plug-ansiesc and use https://github.com/powerman/vim-plugin-ansiesc
 " https://stackoverflow.com/questions/25827839/modular-vimrc-how-to-source-vundle-plugins-from-diffrent-files
 " https://github.com/todd-dsm/vimSimple
 " https://github.com/ArtBIT/vim-modularvimrc
@@ -304,6 +306,8 @@ augroup VisibleNaughtiness
     autocmd BufEnter  *       endif
 augroup END
 
+autocmd BufReadPost *.log,*.status :exec ':AnsiEsc'
+" | :exec 'colorscheme default'
 
 nnoremap <leader>i :exec "normal i".nr2char(getchar())."\e"<CR>
 " nnoremap <leader>I :exec "normal I".nr2char(getchar())."\e"<CR>  " does not work
@@ -527,3 +531,8 @@ colorscheme NedsLightTheme
 function! Todaystat()
   call append('$', '==== ' . system(['date']))
 endfunc
+
+" vim-vinegar HAS TO GO!
+" vinegar.vim maps this to open the directory of this file, typos make this hell
+" unmap -
+" nunmap -
