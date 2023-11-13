@@ -366,7 +366,8 @@ function punkt-export()
 {
   # https://stackoverflow.com/a/23116607
   punkt ls-files | tar Tzcf - /tmp/home.tgz
-  echo On the destination: cd ~; tar xvf home.tgz
+  echo On the destination: cd ~
+  echo tar xvf home.tgz
 }
 
 

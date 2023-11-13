@@ -266,6 +266,13 @@ augroup mail
     au BufRead,BufWrite,BufNewFile .letter,mutt*,/tmp/mutt* setl nomodeline
 augroup END
 
+
+function! ConvertAsciidoc()
+  " FIXME this only works if the .asciidoc file is in the current directory
+  silent execute("!asciidoctor -b html5 " . expand('%:t') . " && open -a safari " . expand('%:t:r') .. ".html")
+endfunction
+autocmd! BufWritePost,FileWritePost *.asciidoc :call ConvertAsciidoc()
+
 autocmd WinLeave * setlocal nocursorline
 autocmd WinEnter * setlocal   cursorline
 autocmd BufLeave * setlocal nocursorline

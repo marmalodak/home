@@ -1,4 +1,4 @@
-# https://news.ycombinator.com/item?id=24080378
+# https://news.ycombinator.com/item?id=24080378  https://news.ycombinator.com/item?id=24083753
 # MOTD
 function echo_color() {
   local color="$1"
@@ -14,6 +14,3 @@ echo_color "\033[0;90m" "c-d  Delete forward"
 echo_color "\033[0;90m" "c-h  Delete backward"
 echo_color "\033[0;90m" "c-k  Delete forward to end of line"
 echo_color "\033[0;90m" "c-u  Delete entire line"
-
-echo
-echo_color "\033[0;90m" "git revert filename # revert filename to HEAD"
