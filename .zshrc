@@ -365,9 +365,11 @@ function punkt-neu()
 function punkt-export()
 {
   # https://stackoverflow.com/a/23116607
+  [[ -f /tmp/home.tgz ]] && rm /tmp/home.tgz
   punkt ls-files | tar Tzcf - /tmp/home.tgz
-  echo On the destination: cd ~
-  echo tar xvf home.tgz
+  echo On the destination:
+  echo '1. cd ~'
+  echo '2. tar xvf home.tgz'
 }
 
 

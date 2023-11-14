@@ -7,6 +7,9 @@
 # TODO steal fromo https://zsh.sourceforge.io/Contrib/startup/ and https://adamspiers.org/computing/zsh/
 # https://zsh.sourceforge.io/Contrib/startup/std/zshrc
 # https://zsh.sourceforge.io/Contrib/startup/std/zshenv
+# TODO test whether brew is installed: hint: not on linux
+# TODO test for nvm
+# TODO test for rvm
 
 
 # brew might be installed in /opt or /usr/local
