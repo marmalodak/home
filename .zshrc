@@ -1,3 +1,15 @@
+# try this instead: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
+# https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
+PROFILE_STARTUP=false
+if [[ "$PROFILE_STARTUP" == true ]]; then
+  # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+  PS4=$'%D{%M%S%.} %N:%i> '
+  exec 3>&2 2>$HOME/tmp/startlog.$$
+  setopt xtrace prompt_subst
+fi
+
+
+
 # [[ -f ~/.ghtok ]] && source ~/.ghtok  # how did this get here?
 
 # zsh-lovers reference card https://grml.org/zsh/zsh-lovers.html
@@ -165,12 +177,16 @@ fi
 # on 2nd thought, I don't know how much I actually like this
 export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 
+# alias fzf='\fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'  # TODO fix colors
+# FZF_DEFAULT_COMMAND="fd --type f --exclude .git"
+FZF_DEFAULT_COMMAND="eza -1"
+
+
 # TODO: EXA_COLORS, e.g. https://github.com/ogham/exa/issues/733#issuecomment-688930008
 # https://github.com/sharkdp/vivid
 # https://unix.stackexchange.com/questions/245378/common-environment-variable-to-set-dark-or-light-terminal-background#245568
 # https://github.com/rocky/shell-term-background/blob/master/term-background.zsh
 # http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
-
 
 # switch from exa to eza https://github.com/eza-community/eza
 if command -v eza > /dev/null; then
@@ -564,8 +580,27 @@ function punkt-submodule-bringeum()
 
 # See .zprofle for path and fpath and PATH
 
+
+compdef ll=exa
+compdef lr=exa
+compdef eza=exa
+compdef punkt=git
+compdef lc=eza
+compdef lt=eza
+compdef l2=eza
+compdef l3=eza
+compdef l4=eza
+compdef l5=eza
+compdef lrg=eza
+compdef lRg=eza
+
+
+# https://unix.stackexchange.com/a/736909/30160, enable completion in the middle of a word, ignore everything after the cursor
+zstyle ':completion:*' completer _complete _prefix
+set -o completeinword
+
 # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
 
 # TODO: steal from https://natelandau.com/my-mac-os-zsh-profile/
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
@@ -578,3 +613,9 @@ autoload -U compinit && compinit
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+fi
