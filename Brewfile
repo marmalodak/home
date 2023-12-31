@@ -1,5 +1,10 @@
 # TODO: install limelight https://github.com/koekeishiya/limelight
 # actually, do not install limelight
+# add meld? onefetch?
+# add fff? fff.vim requires it
+# https://ctags.io/[Universal Ctags]
+# brew install ctags installs http://ctags.sourceforge.net/[Exuberant Ctags] :thumbsdown:
+#
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
@@ -7,6 +12,7 @@ tap "jabenninghoff/edge"
 # tap "hudochenkov/sshpass"
 brew "brew-cask-completion"
 # brew "ccze"
+brew "asciidoctor"
 brew "cowsay"
 brew "eza"  # exa is deprecated https://github.com/eza-community/eza
 brew "fd"

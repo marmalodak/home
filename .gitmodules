@@ -175,3 +175,6 @@
 [submodule ".vim/pack/vim8/start/nvim-cmp"]
 	path = .vim/pack/vim8/start/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp
+[submodule ".vim/pack/vim8/start/fern.vim"]
+	path = .vim/pack/vim8/start/fern.vim
+	url = https://github.com/lambdalisue/fern.vim

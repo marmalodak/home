@@ -1,0 +1,11 @@
+[colors.primary]
+background = "#f4f4f4"
+foreground = "#444444"
+
+[font.normal]
+family = "SauceCodePro Nerd Font Mono"
+size = 18
+style = "Regular"
+
+[window]
+decorations = "none"
