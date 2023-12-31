@@ -1,0 +1,38 @@
+Notes and Bookmarks
+===================
+:compat-mode!:
+:description: Notes
+:max-width: 100%
+:nofooter:
+:!version-label:
+
+
+== Notes & Bookmarks
+
+. https://lukeplant.me.uk/blog/posts/pythons-disappointing-superpowers/[Python’s “Disappointing” Superpowers] (Cool examples of Python dynamic programming)
+.. I learned about this link from https://news.ycombinator.com/item?id=34611969[this hacker news thread], discussion of dyname vs static in Python
+. https://www.grulic.org.ar/%7Emdione/glob/posts/customizing-the-python-language/[Customizing the Python language]
+
+
+////
+✔
+HEAVY CHECK MARK
+Unicode: U+2714, UTF-8: E2 9C 94
+✘
+HEAVY BALLOT X
+Unicode: U+2718, UTF-8: E2 9C 98
+⁃
+HYPHEN BULLET
+Unicode: U+2043, UTF-8: E2 81 83
+?
+QUESTION MARK
+Unicode: U+003F, UTF-8: 3F
+////
+
+////
+To use this macro: yank down to the autocomd! line, then type :@"
+function! ConvertAsciidoc()
+  silent execute("!asciidoctor -b html5 " . expand('%:t') . " && open -a safari " . expand('%:t:r') .. ".html")
+endfunction
+autocmd! BufWritePost,FileWritePost *.asciidoc :call ConvertAsciidoc()
+////
