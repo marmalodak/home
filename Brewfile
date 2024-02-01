@@ -43,6 +43,8 @@ brew "zsh-completions"  # see instructions for installing
 brew "zsh-lovers"  # reference card
 brew "bat"
 brew "bat-extras"
+brew "delta"
+brew "diff-so-fancy"  # similar to delta, do not need both
 brew "watch"
 brew "hwatch"
 brew "dasht"

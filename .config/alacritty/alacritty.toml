@@ -1,10 +1,12 @@
 [colors.primary]
-background = "#f4f4f4"
+background = "#f5f5f5"
 foreground = "#444444"
+
+[font]
+size = 12
 
 [font.normal]
 family = "SauceCodePro Nerd Font Mono"
-size = 18
 style = "Regular"
 
 [window]

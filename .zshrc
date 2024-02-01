@@ -69,9 +69,6 @@ fi
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -147,6 +144,9 @@ plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf
 # do not add zsh-autosuggestions to plugins because it is installed manually
 # z https://github.com/agkozak/zsh-z
 
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
@@ -181,6 +181,11 @@ export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 # FZF_DEFAULT_COMMAND="fd --type f --exclude .git"
 FZF_DEFAULT_COMMAND="eza -1"
 
+
+alias r1='rg --max-depth=1'
+alias r2='rg --max-depth=2'
+alias r3='rg --max-depth=3'
+alias r4='rg --max-depth=4'
 
 # TODO: EXA_COLORS, e.g. https://github.com/ogham/exa/issues/733#issuecomment-688930008
 # https://github.com/sharkdp/vivid
@@ -230,8 +235,10 @@ alias secscp='rsync -azhe ssh --progress $1 $2'
 
 function cd-fd()
 {
-  IFS=
-  cd $(dirname $(fd "$1"))
+  # IFS=  # I do not recall why this was even here...
+  somefile="$(fd $1)"
+  if [[ -z "$1" ]] || [[ -z "${somefile}" ]] || [[ ! -f "${somefile}" ]]; then echo "File $1 not found"; return 1; fi
+  cd $(dirname ${somefile})
 }
 
 # bc - An arbitrary precision calculator language
@@ -262,9 +269,15 @@ function trashit()
 # open all the files that are found by ripgrep
 function nvim-rg()
 {
-  searchterm=$1
+  maxdepth=()
+  if [[ "${1:0:2}" == '-d' ]]; then
+    maxdepth="--max-depth=${2}"
+    shift
+    shift
+  fi
+  searchterm=$*
   shift
-  nvim -O $(rg -l ${searchterm}) $*
+  nvim -O $(rg ${maxdepth} -l ${searchterm}) $*
 }
 
 
@@ -398,9 +411,7 @@ function punkt-export-old-method()
   setopt CSH_NULL_GLOB
   if [[ -n $(echo ${dest}*) ]]; then echo remove $(echo ${dest}*); return 1; fi
   additions=()
-  if [[ -f .local.zsh ]]; then
-    additions+=.local.zsh
-  fi
+  [[ -f .local.zsh ]] && additions+=.local.zsh
   punkt archive --verbose --format tar.gz HEAD --output=${dest} --add-file=${additions}
   # https://stackoverflow.com/a/23116607
   # i.e. punkt ls-files | tar Tczf - ${dest}
@@ -581,9 +592,8 @@ function punkt-submodule-bringeum()
 # See .zprofle for path and fpath and PATH
 
 
-compdef ll=exa
-compdef lr=exa
-compdef eza=exa
+compdef ll=eza
+compdef lr=eza
 compdef punkt=git
 compdef lc=eza
 compdef lt=eza
@@ -602,6 +612,7 @@ set -o completeinword
 # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
 autoload -Uz compinit && compinit
 
+# TODO: steal from https://github.com/gibfahn/dot/blob/539fb6881ee8ddb184c0a41a31d7b6e3c0573f82/dotfiles/.config/zsh/deferred/deferred.zsh#L570-L572
 # TODO: steal from https://natelandau.com/my-mac-os-zsh-profile/
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
 #                         https://github.com/sharkdp/fd#using-fd-with-fzf
@@ -611,6 +622,7 @@ autoload -Uz compinit && compinit
 #       this makes run-help bindkeys show the zsh man page for the bindkeys entry
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
+# TODO: consider https://github.com/z-shell/zsh-lint which requires https://github.com/z-shell/zi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

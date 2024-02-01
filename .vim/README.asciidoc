@@ -361,7 +361,8 @@ Requires both tmux an vim config
 * `:help unstack.txt`
 * `:help :UnstackFromText`
 
-==== https://github.com/ratfactor/vviki/[vviki]
+==== http://ratfactor.com/repos/vviki/[vviki]
+Formerly on https://github.com/ratfactor/vviki/[github]
 
 From the help pages for vviki:
 ____

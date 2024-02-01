@@ -33,11 +33,11 @@ p10k configure
 
 Before being able to push:
 
-[code]
+[code,shell]
 =====
-[user]
-	name = John Schmitt
-	email = marmalodak@gmail.com
+    [user]
+        name = John Schmitt
+        email = marmalodak@gmail.com
 =====
 
 ==== Trouble
@@ -46,11 +46,11 @@ NB: submodules need to be absolute paths relative to $HOME
 
 .submodule example
 [code]
-=====
-[submodule ".vim/pack/vim8/start/vim-tmux-pilot"]
-	path = .vim/pack/vim8/start/vim-tmux-pilot
-	url = https://github.com/urbainvaes/vim-tmux-pilot
-=====
+======
+    [submodule ".vim/pack/vim8/start/vim-tmux-pilot"]
+        path = .vim/pack/vim8/start/vim-tmux-pilot
+        url = https://github.com/urbainvaes/vim-tmux-pilot
+======
 
 When `punkt-auf` fails because a submodule will not update because it wants to rebase (WHY???)
 
@@ -68,7 +68,7 @@ punkt rm --cached .vim/pack/vim8/start/vim-plugin-AnsiEsc
 
 === oh-my-zsh https://github.com/ohmyzsh/ohmyzsh[source]
 
-It needs to be installed separately???
+`ohmyzsh` is a git submodule.
 
 Open a new terminal to invoke the punkte (née dotfiles)
 
@@ -80,10 +80,15 @@ See also punkt-new() in .zshrc
 `brew bundle install Brewfile`
 which was created from `brew bundle dump`
 
-fonts require svn
+fonts require `svn`
 
 
 === rvm https://rvm.io/rvm/install[source]
+
+[NOTE]
+======
+The RVM installer is beautiful bash code, going to read it and improve my shell game
+======
 
 [source]
 ----
@@ -111,7 +116,6 @@ Might be time to give up on drawing in asciidoctor or vim and use PlantUML, grap
 === brew tap-info
 
 https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-tap#25336816[Homebrew get list of formulas in a tap]
-
 
 
 == perl

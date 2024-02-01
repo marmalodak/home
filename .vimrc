@@ -27,6 +27,9 @@ endif
 " https://stackoverflow.com/questions/62378898/iterm2-open-link-under-cursor-in-vim
 " https://github.com/ThePrimeagen/.dotfiles/blob/874636dad3cbcad6ca96982047025181684993f2/nvim/.config/nvim/init.vim#L146  interesting key bindings
 " https://old.reddit.com/r/neovim/comments/rfrgq5/is_it_possible_to_do_something_like_his_on/ vim-schlepp vim-move
+" https://github.com/folke/trouble.nvim 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing
+" https://github.com/iamcco/diagnostic-languageserver diagnostic language server integrate with linters
+" https://github.com/mattn/efm-langserver General purpose Language Server
 
 " TODO: colors
 " https://jeffkreeftmeijer.com/vim-16-color/
