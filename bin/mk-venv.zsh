@@ -94,6 +94,8 @@ unset PYTHONHOME
 export PS1=$(basename "${VIRTUAL_ENV}" "${PS1}")
 export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
+export PYTHONPATH=$(find "${VIRTUAL_ENV}" -name site-packages)  # so that pylint can find python packages https://vi.stackexchange.com/a/43346
+
 echo WARNING: if .zshrc munges the path with Python already, you will probably have the wrong Python in your PATH
 echo Use .zshenv for PATH configuration instead of .zshrc
 zsh -i
