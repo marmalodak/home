@@ -16,6 +16,7 @@ fi
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
 
+# https://wiki.archlinux.org/title/Zsh
 # https://github.com/ChrisCummins/zsh/blob/master/zshrc <- crib from here
 # https://awesomeopensource.com/project/sharkdp/bat
 export BAT_THEME=Coldark-Cold
@@ -604,13 +605,22 @@ compdef l5=eza
 compdef lrg=eza
 compdef lRg=eza
 
+bindkey '^I' expand-or-complete-prefix
 
 # https://unix.stackexchange.com/a/736909/30160, enable completion in the middle of a word, ignore everything after the cursor
 zstyle ':completion:*' completer _complete _prefix
 set -o completeinword
 
 # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit  # does oh-my-zsh already run compinit??  # https://gist.github.com/ctechols/ca1035271ad134841284
+
+# https://postgresqlstan.github.io/cli/zsh-run-help/ https://unix.stackexchange.com/a/282649/30160 https://stackoverflow.com/a/7060716
+(( $+aliases[run-help] )) && unalias run-help  # https://www.reddit.com/r/zsh/comments/g1srzn/comment/fnhomy8/
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svk
+autoload -Uz run-help-sudo
+alias help=run-help
 
 # TODO: steal from https://github.com/gibfahn/dot/blob/539fb6881ee8ddb184c0a41a31d7b6e3c0573f82/dotfiles/.config/zsh/deferred/deferred.zsh#L570-L572
 # TODO: steal from https://natelandau.com/my-mac-os-zsh-profile/
