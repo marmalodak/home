@@ -273,6 +273,9 @@ augroup END
 function! ConvertAsciidoc()
   " FIXME this only works if the .asciidoc file is in the current directory
   silent execute("!asciidoctor -b html5 " . expand('%:t') . " && open -a safari " . expand('%:t:r') .. ".html")
+  silent execute("!asciidoctor -b docbook " . expand('%:t'))
+  silent execute("!pandoc -f docbook -t markdown_strict " . expand('%:t:r') .. ".xml" . " -o " . expand('%:t:r') .. ".md")
+  silent execute("!rm " . expand('%:t:r') .. ".xml")
 endfunction
 autocmd! BufWritePost,FileWritePost *.asciidoc :call ConvertAsciidoc()
 
