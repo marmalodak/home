@@ -67,7 +67,7 @@ VIRTUAL_ENV_NAME=$(basename "${VIRTUAL_ENV}")-venv
 shift PARAMETERS
 
 if [[ ${#PARAMETERS[@]} -ne 0 ]]; then
-    REQUIREMENTS_FILE="${1}"-requirement.text
+    REQUIREMENTS_FILE="${1}"-venv-requirement.text
 fi
 
 mkvenv_script_name="mk-${VIRTUAL_ENV_NAME}.zsh"
@@ -126,6 +126,9 @@ export PATH="${venv_path}/bin:${PATH}"
 
 # should the following two use absolute paths?
 VIRTUAL_ENV_PLACE_HOLDER/bin/pip3 --no-input install --upgrade pip
+if [[ -f VIRTUAL_ENV_PLACE_HOLDER-requirement.text ]]; then
+  VIRTUAL_ENV_PLACE_HOLDER/bin/pip3 --no-input install --requirement VIRTUAL_ENV_PLACE_HOLDER-requirement.text
+fi
 REQUIREMENTS_PLACE_HOLDER
 mkvenv_doc_end
 )
