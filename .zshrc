@@ -134,6 +134,7 @@ HISTFILESIZE=100000
 SAVEHIST=100000
 HISTCONTROL=ignoreboth
 
+[[ -z LC_CTYPE ]] && export LC_CTYPE="${LC_ALL}"  # tmux needs this for UTF-8 text? I must be  mistaken; see the tmux man page seciont "ENVIRONMENT"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
