@@ -127,49 +127,8 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 . App::Asciio
 
 
-== TIL
-
-* `${!foo}` => indirect expansion!
-* `⏎~?` Press the return key, then tilde ? to get help about live running ssh sessions; more at https://news.ycombinator.com/item?id=26053323
-
-
-== Settings I like
-
-....
-git config --global user.useconfigonly true # insist that you set user.name and user.email explicitly before it will let you commit
-....
-
-TODO: use the `includeIf` setting like https://stackoverflow.com/a/36296990[this answer]
-
-I lifted some color settings, how do I use them without relying on `~/.gitconfig`?
-
-[code]
-----
-[color]
-    ui = true
-
-[color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
-
-[color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-
-[color "status"]
-    added = yellow
-    changed = green
-    untracked = red
-----
-
-
 == Bookmarks for future projects
 
-* https://github.com/atuinsh/atuin magical shell history
-* https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal <- lots of links
 * stderr in red https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr/21320645#21320645
 * https://typer.tiangolo.com/ CLI apps, uses click,
 * https://github.com/willmcgugan/rich rich text and colours in a terminal
@@ -198,7 +157,6 @@ I lifted some color settings, how do I use them without relying on `~/.gitconfig
 * zsh setopt SHARED_HISTORY and append_history, is SHARED_HISTORY why control+p shows things from a different session?
 * https://www.reddit.com/r/selfhosted/comments/m9zhoy/what_are_some_lesser_known_services_that_have 
 * https://venthur.de/2021-03-31-python-makefiles.html venv target should depend on requirements.txt and setup.py?
-* should I be using salt to manage my dot files?
 ** not sure it adds anything beyond practicing salt
 ** https://github.com/remusao/salt-dotfiles
 ** https://github.com/robertu94/dotfiles

@@ -12,9 +12,53 @@ Notes and Bookmarks
 . https://lukeplant.me.uk/blog/posts/pythons-disappointing-superpowers/[Python’s “Disappointing” Superpowers] (Cool examples of Python dynamic programming)
 .. I learned about this link from https://news.ycombinator.com/item?id=34611969[this hacker news thread], discussion of dyname vs static in Python
 . https://www.grulic.org.ar/%7Emdione/glob/posts/customizing-the-python-language/[Customizing the Python language]
+. https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs[All I ever wanted to know about visualizing git graphs]
+. https://github.com/atuinsh/atuin[magical shell history]
+. https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal <- lots of links
+
+
+== TIL
+
+* `${!foo}` => indirect expansion!
+* `⏎~?` Press the return key, then tilde ? to get help about live running ssh sessions; more at https://news.ycombinator.com/item?id=26053323
+
+
+== Settings I like
+
+....
+git config --global user.useconfigonly true # insist that you set user.name and user.email explicitly before it will let you commit
+....
+
+TODO: use the `includeIf` setting like https://stackoverflow.com/a/36296990[this answer]
+
+I lifted some color settings, how do I use them without relying on `~/.gitconfig`?
+
+[code]
+----
+[color]
+    ui = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+----
 
 
 ////
+Make sure Unicode HEX input is selected under Input Source menu bar
+
 ✔
 HEAVY CHECK MARK
 Unicode: U+2714, UTF-8: E2 9C 94
@@ -27,6 +71,23 @@ Unicode: U+2043, UTF-8: E2 81 83
 ?
 QUESTION MARK
 Unicode: U+003F, UTF-8: 3F
+
+→
+RIGHTWARDS ARROW
+Unicode: U+2192, UTF-8: E2 86 92
+➡︎
+BLACK RIGHTWARDS ARROW
+Unicode: U+27A1 U+FE0E, UTF-8: E2 9E A1 EF B8 8E
+←
+LEFTWARDS ARROW
+Unicode: U+2190, UTF-8: E2 86 90
+⬅︎
+LEFTWARDS BLACK ARROW
+Unicode: U+2B05 U+FE0E, UTF-8: E2 AC 85 EF B8 8Et
+
+X
+LATIN CAPITAL LETTER X
+Unicode: U+0058, UTF-8: 58
 ////
 
 ////
