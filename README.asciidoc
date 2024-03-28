@@ -162,6 +162,7 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 ** https://github.com/robertu94/dotfiles
 ** https://www.reddit.com/r/saltstack/comments/li7g81/im_using_salt_to_manage_a_dotfiles_repo_with/
 ** https://github.com/rawkode/dotfiles
+* https://serverfault.com/questions/174909/mount-block-file-on-osx[mount block file on macOS]
 
 == Notes
 
@@ -176,18 +177,18 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 * more here: https://github.com/pctony/ConfigMyMac
 * see also https://macos-defaults.com/#💻-list-of-commands
 
-[CODE]
-=====
+[source,shell]
+----
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
-=====
+----
 
 === Linux Key Repeat Rate
 
-[CODE]
-=====
+[source,shell]
+----
 xset r rate 210 40
-=====
+----
 
 
 == Historical notes
