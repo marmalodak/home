@@ -179,5 +179,5 @@
 	path = .vim/pack/vim8/start/fern.vim
 	url = https://github.com/lambdalisue/fern.vim
 [submodule "/Users/john/.vim/pack/vim8/start/papercolor-theme.git"]
-	path = /Users/john/.vim/pack/vim8/start/papercolor-theme.git
+	path = .vim/pack/vim8/start/papercolor-theme.git
 	url = https://github.com/NLKNguyen/papercolor-theme.git

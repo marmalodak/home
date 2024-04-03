@@ -507,23 +507,25 @@ function punkt-submodule-zutat()
 {
   URL=$1
   WO=$2
+  if [[ ${WO} =~ $(whoami) || ${WO} =~ "home" || ${WO} =~ "Users" ]]; then
+    echo "Do not add tilde or $HOME or \$HOME an absolute path to the destination directory"
+    echo "Example:"
+    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git .vim/pack/vim8/start"
+    echo "Do not do any of the following:"
+    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git ~/.vim/pack/vim8/start"
+    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git $HOME/.vim/pack/vim8/start"
+    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git \$HOME/.vim/pack/vim8/start"
+    return -1
+  fi
   STEM=${URL##*/}
   punkt submodule add $URL $WO/$STEM
 }
-
-# vielleicht:
-# function punkt-submodule-zutat() oder punkt-submodule-neu()
-# {
-#     submodule_repo=$1
-#     punkt submodule add $1 ...
-#     man gitmodules: submodule.<name>.ignore
-#     man gitmodules: submodule.<name>.shallow
-# }
 
 
 function punkt-submodule-bringeum()
 {
   # TODO this is still not reliable
+  # TODO just use the equivelant of git rm, it deletes the working directory and the .gitmodules entry
 
   # to prevent a previous invocation of this function possibly still having these variables set:
   unset submodule_name
