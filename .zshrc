@@ -587,6 +587,9 @@ function punkt-submodule-bringeum()
 
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
+[[ $(command -v batcat) ]] && alias bat='batcat'  # ubuntu
+[[ $(command -v fdfind) ]] && alias fd='fdfind'  # ubuntu
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
