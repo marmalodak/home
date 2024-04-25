@@ -273,6 +273,8 @@ augroup END
 function! ConvertAsciidoc()
   " FIXME this only works if the .asciidoc file is in the current directory
   silent execute("!asciidoctor -b html5 " . expand('%:t') . " && open -a safari " . expand('%:t:r') .. ".html")
+  " silent !if command -v open; then open -a safari README.html; fi
+  " silent !if command -v xdg-open; then xdg-open README.html; fi
   silent execute("!asciidoctor -b docbook " . expand('%:t'))
   silent execute("!pandoc -f docbook -t markdown_strict " . expand('%:t:r') .. ".xml" . " -o " . expand('%:t:r') .. ".md")
   silent execute("!rm " . expand('%:t:r') .. ".xml")
@@ -536,7 +538,9 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 let g:ale_echo_msg_format = '%linter% says %s'
 
 
-colorscheme NedsLightTheme
+" colorscheme NedsLightTheme
+set background=light
+colorscheme PaperColor
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
