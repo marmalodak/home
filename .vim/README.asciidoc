@@ -3,6 +3,10 @@
     <meta http-equiv="refresh" content="3000"/>
     </head>
 ++++
+////
+the above refreshes the screen every three seconds
+not needed anymore with .asciidoc files being compiled and opened on :write
+////
 
 == My VIM info
 
@@ -481,6 +485,7 @@ ChatGPT wrote statuslines
 
 === Potentially useful plugins and resources to consider
 
+* http://bytefluent.com/vivify/index.php[Vivify colors for vim] a Vim color scheme editor
 * https://github.com/sunaku/vim-dasht[Documentation viewer dasht]
 * https://github.com/mrjones2014/dash.nvim#readme[Dash documentation viewer]
 * https://github.com/mg979/vim-visual-multi[Vim has a built-in way to visually edit multiple lines at once: visual block mode. And the vim-visual-multi plugin can give you an even more powerful way to edit multiple lines at once]
@@ -583,15 +588,6 @@ ChatGPT wrote statuslines
 . http://taskwarrior.org[taskwarrior]
 
 ////
-    to use this function: select lines 3 to 9 and then type :@"
-    function! MKHtml()
-        silent !asciidoctor -b html README.asciidoc
-        silent !if command -v open; then open -a safari README.html; fi
-        silent !if command -v xdg-open; then xdg-open README.html; fi
-        execute("redraw!")
-    endfunction
-    autocmd! BufWritePost,FileWritePost README.asciidoc :call MKHtml()
-
 vim:
 textwidth=4
 shiftwidth=180 autoindent smartindent
