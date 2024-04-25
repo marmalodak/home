@@ -81,6 +81,7 @@ export BETTER_EXCEPTIONS=1
 ## PROMPT_COMMAND='if [ $? == 0 ]; then PS1="$NORMAL:-) $PS1_SAVE"; else PS1="$SCARY:-( $PS1_SAVE$NORMAL"; fi'
 
 # Codi
+# https://github.com/metakirby5/codi.vim
 # Usage: codi [filetype] [filename]
 function codi() {
   local syntax="${1:-python}"
