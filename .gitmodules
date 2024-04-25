@@ -181,3 +181,9 @@
 [submodule "/Users/john/.vim/pack/vim8/start/papercolor-theme.git"]
 	path = .vim/pack/vim8/start/papercolor-theme.git
 	url = https://github.com/NLKNguyen/papercolor-theme.git
+[submodule ".vim/pack/vim8/start/vim-svelte-theme"]
+	path = .vim/pack/vim8/start/vim-svelte-theme
+	url = https://github.com/leafOfTree/vim-svelte-theme
+[submodule ".vim/pack/vim8/start/vim-colors"]
+	path = .vim/pack/vim8/start/vim-colors
+	url = https://github.com/travisjeffery/vim-colors
