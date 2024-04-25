@@ -9,6 +9,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 fi
 
 
+# TODO there are useful things that can be taken from .bashrc
 
 # [[ -f ~/.ghtok ]] && source ~/.ghtok  # how did this get here?
 
@@ -19,10 +20,10 @@ export PS4='+%1N:%I> '
 # https://wiki.archlinux.org/title/Zsh
 # https://github.com/ChrisCummins/zsh/blob/master/zshrc <- crib from here
 # https://awesomeopensource.com/project/sharkdp/bat
-export BAT_THEME=Coldark-Cold
 # https://github.com/sharkdp/bat/issues/508
 # https://github.com/sharkdp/bat#using-a-different-pager
 # export BAT_PAGER="less -RF"
+export BAT_THEME=Coldark-Cold
 
 # these binding didn't work; search for "Default key bindings" in /etc/zshrc for copypasta
 # https://stackoverflow.com/a/55235069/1698426
@@ -119,6 +120,8 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# https://stackoverflow.com/a/19454838 # HISTSIZE vs HISTFILESIZE
+# https://martinheinz.dev/blog/110
 # TODO: increase history https://unix.stackexchange.com/a/521206/30160, see also https://zsh.sourceforge.io/Guide/zshguide02.html#l17
 # put history in an sqlite database https://github.com/ellie/atuin
 # Uncomment the following line if you want to change the command execution time
@@ -129,9 +132,9 @@ COMPLETION_WAITING_DOTS="true"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 # HISTIGNORE=&
-HISTSIZE=100000
-HISTFILESIZE=100000
 SAVEHIST=100000
+HISTSIZE=1000000
+HISTFILESIZE=$SAVEHIST
 HISTCONTROL=ignoreboth
 
 [[ -z LC_CTYPE ]] && export LC_CTYPE="${LC_ALL}"  # tmux needs this for UTF-8 text? I must be  mistaken; see the tmux man page seciont "ENVIRONMENT"
@@ -205,7 +208,6 @@ if command -v eza > /dev/null; then
   alias l3='eza -T --icons --level=3'
   alias l4='eza -T --icons --level=4'
   alias l5='eza -T --icons --level=5'
-  alias ll='eza -l --icons'
   alias lrg='eza -albh --sort=accessed --git --icons'
   alias lRg='eza -albh --sort=accessed --git --extended --icons'
   source ~/.config/exa-colors/exa-colors.zsh
@@ -401,6 +403,7 @@ function punkt-export()
   echo On the destination:
   echo '1. cd ~'
   echo '2. tar xvf home.tgz'
+  echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
 }
 
 
@@ -599,17 +602,20 @@ function punkt-submodule-bringeum()
 # See .zprofle for path and fpath and PATH
 
 
-compdef ll=eza
-compdef lr=eza
 compdef punkt=git
-compdef lc=eza
-compdef lt=eza
-compdef l2=eza
-compdef l3=eza
-compdef l4=eza
-compdef l5=eza
-compdef lrg=eza
-compdef lRg=eza
+
+if command -v eza > /dev/null; then
+  compdef ll=eza
+  compdef lr=eza
+  compdef lc=eza
+  compdef lt=eza
+  compdef l2=eza
+  compdef l3=eza
+  compdef l4=eza
+  compdef l5=eza
+  compdef lrg=eza
+  compdef lRg=eza
+fi
 
 bindkey '^I' expand-or-complete-prefix
 
@@ -618,7 +624,13 @@ zstyle ':completion:*' completer _complete _prefix
 set -o completeinword
 
 # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
-# autoload -Uz compinit && compinit  # does oh-my-zsh already run compinit??  # https://gist.github.com/ctechols/ca1035271ad134841284
+autoload -Uz compinit # does oh-my-zsh already run compinit??  # https://gist.github.com/ctechols/ca1035271ad134841284
+# https://gist.github.com/ctechols/ca1035271ad134841284
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # https://postgresqlstan.github.io/cli/zsh-run-help/ https://unix.stackexchange.com/a/282649/30160 https://stackoverflow.com/a/7060716
 (( $+aliases[run-help] )) && unalias run-help  # https://www.reddit.com/r/zsh/comments/g1srzn/comment/fnhomy8/
