@@ -652,6 +652,8 @@ alias help=run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
 # TODO: consider https://github.com/z-shell/zsh-lint which requires https://github.com/z-shell/zi
 
+eval "$(fzf --zsh)"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
