@@ -22,7 +22,8 @@ punkte
 === On a new installation, I usually want:
 
 ....
-git clone https://github.com/marmalodak/home ~/.punkte
+# git clone https://github.com/marmalodak/home ~/.punkte # switch to using ssh on github
+git clone git@github.com:marmalodak/home.git ~/.punkte
 git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME checkout -- $HOME
 # open a new shell, then:
 punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
