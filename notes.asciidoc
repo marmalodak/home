@@ -15,6 +15,8 @@ Notes and Bookmarks
 . https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs[All I ever wanted to know about visualizing git graphs]
 . https://github.com/atuinsh/atuin[magical shell history]
 . https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal <- lots of links
+. Investigate https://structurizr.com/[structurizr], also on https://github.com/structurizr[github]
+.. Learned about it from https://www.youtube.com/watch?v=Za1-v4Zkq5E[Diagrams as Code 2.0 • Simon Brown • GOTO 2021] on youtube
 
 
 == TIL
