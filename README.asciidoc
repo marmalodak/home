@@ -5,6 +5,9 @@ punkte
 :max-width: 100%
 :nofooter:
 :!version-label:
+:listing-caption: Listing
+:source-highlighter: pygments
+
 
 == punkte
 
@@ -17,11 +20,13 @@ punkte
 * https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
 * on openwrt I needed to install git, git-http
 * https://the.exa.website/docs/colour-themes[exa colours reference]
+* `exa` has been abandoned, but there is a better tool called https://eza.rocks[`eza`]
 
 
 === On a new installation, I usually want:
 
-....
+[source,zsh,linenums]
+----
 # git clone https://github.com/marmalodak/home ~/.punkte # switch to using ssh on github
 git clone git@github.com:marmalodak/home.git ~/.punkte
 git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME checkout -- $HOME
@@ -30,16 +35,16 @@ punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
 # punkt pull --rebase --recurse-submodules --verbose --stat
 punkt-auf
 p10k configure
-....
+----
 
 Before being able to push:
 
-[code,shell]
-=====
+[source,ini,linenums]
+----
     [user]
         name = John Schmitt
         email = marmalodak@gmail.com
-=====
+----
 
 ==== Trouble
 
@@ -48,12 +53,12 @@ YTF is there a colon in the path to `zsh-edit`? The URL should be `url = https:/
 NB: submodules need to be absolute paths relative to $HOME
 
 .submodule example
-[code]
-======
+[source,git,linenums]
+----
     [submodule ".vim/pack/vim8/start/vim-tmux-pilot"]
         path = .vim/pack/vim8/start/vim-tmux-pilot
         url = https://github.com/urbainvaes/vim-tmux-pilot
-======
+----
 
 When `punkt-auf` fails because a submodule will not update because it wants to rebase (WHY???)
 
@@ -75,7 +80,7 @@ punkt rm --cached .vim/pack/vim8/start/vim-plugin-AnsiEsc
 
 Open a new terminal to invoke the punkte (née dotfiles)
 
-See also punkt-new() in .zshrc
+See also `punkt-neu()` in .zshrc
 
 
 == Brew
@@ -89,22 +94,23 @@ fonts require `svn`
 === rvm https://rvm.io/rvm/install[source]
 
 [NOTE]
-======
+----
 The RVM installer is beautiful bash code, going to read it and improve my shell game
-======
+----
 
-[source]
+[source,shell,linenums]
 ----
 rvm use ruby-2.7 --default
 rvm install asciidoctor-diagram
 ----
 
-[source]
+.These are required for `asciio`
+[source,shell,linenums]
 ----
-brew install glib (for asciio)
-brew install cairo (for asciio)
-brew install gtk+ (for asciio)
-brew install gtk+3 gtk4 gtkextra pango (for asciio)
+brew install glib
+brew install cairo
+brew install gtk+
+brew install gtk+3 gtk4 gtkextra pango
 ----
 
 Might be time to give up on drawing in asciidoctor or vim and use PlantUML, graphviz, pikchr
