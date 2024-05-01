@@ -429,7 +429,10 @@ function punkt-aufbau()
 {
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
-  punkt submodule foreach --recursive git reset --hard
+  # should this test for branch? if it's not master...? can git status report whether it's attempting to rebase?
+  set -x
+  punkt submodule foreach --recursive "git rebase --quit; git reset --hard; git switch master; git reset --hard"
+  set +x
   punkt submodule update --init --recursive --remote | column -t
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
@@ -439,7 +442,8 @@ function punkt-aufbau()
 function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
-  { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
+  { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t }
+  { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
   popd > /dev/null 2>&1
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
