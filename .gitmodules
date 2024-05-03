@@ -187,3 +187,6 @@
 [submodule ".vim/pack/vim8/start/vim-colors"]
 	path = .vim/pack/vim8/start/vim-colors
 	url = https://github.com/travisjeffery/vim-colors
+[submodule ".config/alacritty/alacritty-theme"]
+	path = .config/alacritty/alacritty-theme
+	url = https://github.com/alacritty/alacritty-theme
