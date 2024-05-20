@@ -53,6 +53,9 @@ brew "rust"
 brew "go"
 brew "nvm"  # see installation instructions
 brew "shellcheck"
+brew "ipython"
+brew "ptpython"
+brew "bpython"
 # brew "bash-language-server"  # I think :Mason handles this
 # cask "displays"  # costs money, not sure yet
 cask "aerial"
