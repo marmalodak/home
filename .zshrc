@@ -236,6 +236,7 @@ alias brup='brew update && brew upgrade --greedy-auto-updates && brew cleanup &&
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
 
+source <(fzf --zsh)
 
 function cd-fd()
 {
@@ -281,7 +282,7 @@ function nvim-rg()
   fi
   searchterm=$*
   shift
-  nvim -O $(rg ${maxdepth} -l ${searchterm}) $*
+  nvim -O $(rg --color=never --files-with-matches ${maxdepth} ${searchterm}) $*
 }
 
 
@@ -397,12 +398,16 @@ function punkt-neu()
 
 function punkt-export()
 {
+  pushd ${HOME}
   # https://stackoverflow.com/a/23116607
   [[ -f /tmp/home.tgz ]] && rm /tmp/home.tgz
   punkt ls-files | tar Tzcf - /tmp/home.tgz
+  popd
+  ls -l /tmp/home.*
+  echo copy /tmp/home.* to the destination computer
   echo On the destination:
   echo '1. cd ~'
-  echo '2. tar xvf home.tgz'
+  echo '2. gtar xvf home.tgz'
   echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
 }
 
@@ -665,3 +670,44 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
     exec 2>&3 3>&-
 fi
+
+# This is the .zshrc that is default on ubuntu
+#
+# john@bna-vm-01 ~ % cat .zshrc
+# # Set up the prompt
+#
+# autoload -Uz promptinit
+# promptinit
+# prompt adam1
+#
+# setopt histignorealldups sharehistory
+#
+# # Use emacs keybindings even if our EDITOR is set to vi
+# bindkey -e
+#
+# # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+# HISTSIZE=1000
+# SAVEHIST=1000
+# HISTFILE=~/.zsh_history
+#
+# # Use modern completion system
+# autoload -Uz compinit
+# compinit
+#
+# zstyle ':completion:*' auto-description 'specify: %d'
+# zstyle ':completion:*' completer _expand _complete _correct _approximate
+# zstyle ':completion:*' format 'Completing %d'
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*' menu select=2
+# eval "$(dircolors -b)"
+# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors ''
+# zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+# zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+# zstyle ':completion:*' menu select=long
+# zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+# zstyle ':completion:*' use-compctl false
+# zstyle ':completion:*' verbose true
+#
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+# zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'

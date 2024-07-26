@@ -132,6 +132,9 @@ set showtabline=1 " show the tabline only when two or more tabs are open
 set showmode      " show the default mode text (e.g. -- INSERT -- below the statusline)
 set title         "  show the name of the file being edited in the lower left
 
+" This is for the mac with homebrew, what is it for Linux?
+set rtp+=/opt/homebrew/opt/fzf
+
 " gitgutter and punkte  https://github.com/airblade/vim-gitgutter/issues/754
 let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'
 
@@ -278,6 +281,7 @@ function! ConvertAsciidoc()
   silent execute("!asciidoctor -b docbook " . expand('%:t'))
   silent execute("!pandoc -f docbook -t markdown_strict " . expand('%:t:r') .. ".xml" . " -o " . expand('%:t:r') .. ".md")
   silent execute("!rm " . expand('%:t:r') .. ".xml")
+  " whar pdf?
 endfunction
 autocmd! BufWritePost,FileWritePost *.asciidoc :call ConvertAsciidoc()
 
