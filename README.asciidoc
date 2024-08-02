@@ -136,6 +136,7 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 
 == Bookmarks for future projects
 
+* https://github.com/eevee/rc/blob/master/.zshrc
 * stderr in red https://stackoverflow.com/questions/6841143/how-to-set-font-color-for-stdout-and-stderr/21320645#21320645
 * https://typer.tiangolo.com/ CLI apps, uses click,
 * https://github.com/willmcgugan/rich rich text and colours in a terminal

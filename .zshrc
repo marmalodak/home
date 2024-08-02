@@ -192,7 +192,6 @@ alias r2='rg --max-depth=2'
 alias r3='rg --max-depth=3'
 alias r4='rg --max-depth=4'
 
-# TODO: EXA_COLORS, e.g. https://github.com/ogham/exa/issues/733#issuecomment-688930008
 # https://github.com/sharkdp/vivid
 # https://unix.stackexchange.com/questions/245378/common-environment-variable-to-set-dark-or-light-terminal-background#245568
 # https://github.com/rocky/shell-term-background/blob/master/term-background.zsh
@@ -200,20 +199,19 @@ alias r4='rg --max-depth=4'
 
 # switch from exa to eza https://github.com/eza-community/eza
 if command -v eza > /dev/null; then
-  alias ll='eza -l --icons'
-  alias lr='eza -alh --sort=date --icons'
-  alias lc='eza -1 --icons'
-  alias lt='eza -T --icons'
-  alias l2='eza -T --icons --level=2'
-  alias l3='eza -T --icons --level=3'
-  alias l4='eza -T --icons --level=4'
-  alias l5='eza -T --icons --level=5'
-  alias lrg='eza -albh --sort=accessed --git --icons'
-  alias lRg='eza -albh --sort=accessed --git --extended --icons'
-  source ~/.config/exa-colors/exa-colors.zsh
-  export EXA_COLORS="${exa_colors_one_light}"
-  # export EXA_COLORS="${exa_colors_one_dark}"
-  # export EXA_COLORS=$(vivid generate one-light)
+  alias ll='eza --long --icons=always'
+  alias lr='eza --all --long --header --sort=date --icons=always'
+  alias lc='eza --oneline --icons=always'
+  alias lt='eza --tree --icons=always'
+  alias l1='eza --oneline'
+  alias l2='eza --tree --icons=always --level=2'
+  alias l3='eza --tree --icons=always --level=3'
+  alias l4='eza --tree --icons=always --level=4'
+  alias l5='eza --tree --icons=always --level=5'
+  alias lrg='eza --all --long --header --binary --sort=accessed --git --icons=always'
+  alias lRg='eza --all --long --header --binary --sort=accessed --git --extended --icons=always'
+  source ~/.config/eza-colors/eza-colors.zsh
+  export EZA_COLORS="${eza_colors_one_light}"
 else
   if [[ $OSTYPE == 'darwin'* ]]; then
     alias ll='ls -lG'
@@ -599,6 +597,16 @@ function punkt-submodule-bringeum()
 }
 
 
+function zsh-completions-show-all
+{
+  # https://stackoverflow.com/a/40014760/1698426
+  for command completion in ${(kv)_comps:#-*(-|-,*)}
+  do
+    printf "%-32s %s\n" $command $completion
+  done | sort
+}
+
+
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
 [[ $(command -v batcat) ]] && alias bat='batcat'  # ubuntu
@@ -611,20 +619,20 @@ function punkt-submodule-bringeum()
 # See .zprofle for path and fpath and PATH
 
 
-compdef punkt=git
-
-if command -v eza > /dev/null; then
-  compdef ll=eza
-  compdef lr=eza
-  compdef lc=eza
-  compdef lt=eza
-  compdef l2=eza
-  compdef l3=eza
-  compdef l4=eza
-  compdef l5=eza
-  compdef lrg=eza
-  compdef lRg=eza
-fi
+# compdef punkt=git
+# 
+# if command -v eza > /dev/null; then
+#   compdef ll=eza
+#   compdef lr=eza
+#   compdef lc=eza
+#   compdef lt=eza
+#   compdef l2=eza
+#   compdef l3=eza
+#   compdef l4=eza
+#   compdef l5=eza
+#   compdef lrg=eza
+#   compdef lRg=eza
+# fi
 
 bindkey '^I' expand-or-complete-prefix
 
@@ -632,14 +640,17 @@ bindkey '^I' expand-or-complete-prefix
 zstyle ':completion:*' completer _complete _prefix
 set -o completeinword
 
-# the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
-autoload -Uz compinit # does oh-my-zsh already run compinit??  # https://gist.github.com/ctechols/ca1035271ad134841284
-# https://gist.github.com/ctechols/ca1035271ad134841284
-if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
+# # the next time completions stop working: rm ~/.zcompdump*, and then autoload -U compinit && compinit
+# autoload -Uz compinit # does oh-my-zsh already run compinit??  # https://gist.github.com/ctechols/ca1035271ad134841284
+# # https://gist.github.com/ctechols/ca1035271ad134841284
+# if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+#   compinit
+# else
+#   compinit -C
+# fi
+
+# autoload -Uz compinit && compinit
+
 
 # https://postgresqlstan.github.io/cli/zsh-run-help/ https://unix.stackexchange.com/a/282649/30160 https://stackoverflow.com/a/7060716
 (( $+aliases[run-help] )) && unalias run-help  # https://www.reddit.com/r/zsh/comments/g1srzn/comment/fnhomy8/
