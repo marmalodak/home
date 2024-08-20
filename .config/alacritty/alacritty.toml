@@ -3,11 +3,12 @@ background = "#f5f5f5"
 foreground = "#444444"
 
 [font]
-size = 12
+size = 18
 
 [font.normal]
 family = "SauceCodePro Nerd Font Mono"
 style = "Regular"
 
 [window]
-decorations = "none"
+# decorations = "none"
+decorations = "full"
