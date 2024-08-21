@@ -607,6 +607,12 @@ function zsh-completions-show-all
 }
 
 
+functiom punkt-mini()
+{
+  # maybe install ~/.mini/* on a remote host?
+}
+
+
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
 [[ $(command -v batcat) ]] && alias bat='batcat'  # ubuntu
@@ -722,3 +728,6 @@ fi
 #
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+source <(capri --zsh-completions 2>/dev/null)
+source <(isc --zsh-completions 2>/dev/null)
+source <(acc --zsh-completions 2>/dev/null)

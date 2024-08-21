@@ -7,7 +7,7 @@
 #
 tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "homebrew/cask-fonts"
+tap "homebrew/homebrew-cask"
 tap "jabenninghoff/edge"
 # tap "hudochenkov/sshpass"
 brew "brew-cask-completion"

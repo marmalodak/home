@@ -1,9 +1,26 @@
-# # https://news.ycombinator.com/item?id=24080378  https://news.ycombinator.com/item?id=24083753
-# # MOTD
-# function echo_color() {
-#   local color="$1"
-#   printf "${color}$2\033[0m\n"
-# }
+# https://news.ycombinator.com/item?id=24080378  https://news.ycombinator.com/item?id=24083753
+# MOTD
+function echo_color() {
+  local color="$1"
+  printf "${color}$2\033[0m\n"
+}
+
+echo_color "\033[0;90m" "mkcd   <dir> is like mkdir <dir> && cd <dir>"
+echo_color "\033[0;90m" "take   <dir> is like mkdir <dir> && cd <dir>, handles remote URLs"
+echo_color "\033[0;90m" "c-x-e  opens the command in an editor"
+echo_color "\033[0;90m" "c-q    park a command; bindkey '^[#' pound-insert"
+echo_color "\033[0;90m" "google <word> launches a google search for <word>"
+
+echo_color "\033[0;90m" "..     cd .."
+echo_color "\033[0;90m" "...    cd ../.."
+echo_color "\033[0;90m" "....   cd ../../.."
+echo_color "\033[0;90m" ".....  cd ../../../.."
+echo_color "\033[0;90m" "cd +n  switch to directory number n?"
+echo_color "\033[0;90m" "1      cd -1"
+echo_color "\033[0;90m" "2      cd -2"
+echo_color "\033[0;90m" "..."
+
+
 # echo_color "\033[0;90m" "c-f  Move forward"
 # echo_color "\033[0;90m" "c-b  Move backward"
 # echo_color "\033[0;90m" "c-p  Move up"
