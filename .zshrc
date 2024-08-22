@@ -398,14 +398,16 @@ function punkt-export()
 {
   pushd ${HOME}
   # https://stackoverflow.com/a/23116607
-  [[ -f /tmp/home.tgz ]] && rm /tmp/home.tgz
-  punkt ls-files | tar Tzcf - /tmp/home.tgz
+  [[ -f /tmp/home.tar.gz ]] && rm /tmp/home.tar.gz
+  punkt ls-files | tar Tcf - /tmp/home.tar
+  [[ -f .local.zsh ]] && tar --append --file=/tmp/home.tar .local.zsh
+  gzip /tmp/home.tar
   popd
   ls -l /tmp/home.*
   echo copy /tmp/home.* to the destination computer
   echo On the destination:
   echo '1. cd ~'
-  echo '2. gtar xvf home.tgz'
+  echo '2. gtar xvf home.tar.gz'
   echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
 }
 
