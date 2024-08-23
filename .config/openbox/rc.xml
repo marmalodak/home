@@ -7,7 +7,7 @@
     <screen_edge_strength>20</screen_edge_strength>
   </resistance>
   <focus>
-    <focusNew>yes</focusNew>
+    <focusNew>no</focusNew>
     <!-- always try to focus new windows when they appear. other rules do
        apply -->
     <followMouse>no</followMouse>
@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Onyx-Citrus</name>
+    <name>Natura</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -180,22 +180,22 @@
     <!-- custom local Keybindings -->
     <keybind key="Alt-F2">
       <action name="execute">
-	      <dommand>rofi -show run</dommand>
+        <dommand>rofi -show run</dommand>
       </action>
     </keybind>
     <keybind key="C-Space">
       <action name="execute">
-	      <dommand>rofi -show run</dommand>
+        <dommand>rofi -show run</dommand>
       </action>
     </keybind>
     <keybind key="Alt-F1">
       <action name="ShowMenu">
-	      <menu>root-menu</menu>
+        <menu>root-menu</menu>
       </action>
     </keybind>
     <keybind key="Super_L">
       <action name="ShowMenu">
-	      <menu>root-menu</menu>
+        <menu>root-menu</menu>
       </action>
     </keybind>
     <chainQuitKey>C-g</chainQuitKey>

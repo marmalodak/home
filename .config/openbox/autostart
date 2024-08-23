@@ -17,5 +17,5 @@
 #xfce-mcs-manager &
 
 nohup qt5-virt-manager 2>&1 &
-nohup terminology      2>&1 &
+nohup alacritty        2>&1 &
 nohup firefox          2>&1 &
