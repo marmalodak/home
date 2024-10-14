@@ -40,7 +40,7 @@ fi
 
 # python stuff below needs work
 pythons_base="${HOME}/Library/Python"
-pythons=( ${pythons_base}/3.11/bin ${pythons_base}/3.10/bin ${pythons_base}/3.9/bin )
+pythons=( ${pythons_base}/3.14/bin  ${pythons_base}/3.13/bin  ${pythons_base}/3.12/bin  ${pythons_base}/3.11/bin ${pythons_base}/3.10/bin ${pythons_base}/3.9/bin )
 for p in ${pythons}; do
   if [[ -d "${p}" ]]; then
     PATH="${p}:${PATH}"

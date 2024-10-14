@@ -164,15 +164,10 @@ zstyle ':completion:*' menu select  # recommended by z
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='vim'
+command -v nvim && export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -200,7 +195,8 @@ alias r4='rg --max-depth=4'
 # switch from exa to eza https://github.com/eza-community/eza
 if command -v eza > /dev/null; then
   alias ll='eza --long --icons=always'
-  alias lr='eza --all --long --header --sort=date --icons=always'
+  alias lr='eza --long --header --sort=date --icons=always'
+  alias lra='eza --all --long --header --sort=date --icons=always'
   alias lc='eza --oneline --icons=always'
   alias lt='eza --tree --icons=always'
   alias l1='eza --oneline'
@@ -233,8 +229,6 @@ alias brup='brew update && brew upgrade --greedy-auto-updates && brew cleanup &&
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
-
-source <(fzf --zsh)
 
 function cd-fd()
 {
@@ -435,6 +429,7 @@ function punkt-aufbau()
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
   # should this test for branch? if it's not master...? can git status report whether it's attempting to rebase?
+  # https://stackoverflow.com/a/68086677/1698426
   set -x
   punkt submodule foreach --recursive "git rebase --quit; git reset --hard; git switch master; git reset --hard"
   set +x
@@ -680,8 +675,7 @@ alias help=run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
 # TODO: consider https://github.com/z-shell/zsh-lint which requires https://github.com/z-shell/zi
 
-eval "$(fzf --zsh)"
-
+source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
