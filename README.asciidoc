@@ -134,6 +134,15 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 . App::Asciio
 
 
+== check these out
+
+* Yazi
+* Arai2
+* FastFetch
+* erdtree
+* Dust
+* tealdear
+
 == Bookmarks for future projects
 
 * https://github.com/eevee/rc/blob/master/.zshrc
