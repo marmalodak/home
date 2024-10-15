@@ -536,8 +536,11 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 "    augroup END
 
 " I want to see the name of linter which is giving me an error message
-let g:ale_echo_msg_format = '%linter% says %s'
+" let g:ale_echo_msg_format = '%linter% says %s'
 
+" let g:ale_linter_aliases = {
+"   \ 'sls': 'salt'
+" \}
 
 " colorscheme NedsLightTheme
 set background=light

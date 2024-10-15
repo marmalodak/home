@@ -485,6 +485,7 @@ ChatGPT wrote statuslines
 
 === Potentially useful plugins and resources to consider
 
+* https://github.com/wellle/tmux-complete.vim[Vim plugin for insert mode completion of words in adjacent tmux panes]
 * http://bytefluent.com/vivify/index.php[Vivify colors for vim] a Vim color scheme editor
 * https://github.com/sunaku/vim-dasht[Documentation viewer dasht]
 * https://github.com/mrjones2014/dash.nvim#readme[Dash documentation viewer]
