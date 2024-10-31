@@ -11,6 +11,7 @@ echo_color "\033[0;90m" "c-x-e  opens the command in an editor"
 echo_color "\033[0;90m" "c-q    park a command; bindkey '^[#' pound-insert"
 echo_color "\033[0;90m" "google <word> launches a google search for <word>"
 
+echo
 echo_color "\033[0;90m" "..     cd .."
 echo_color "\033[0;90m" "...    cd ../.."
 echo_color "\033[0;90m" "....   cd ../../.."
@@ -20,6 +21,17 @@ echo_color "\033[0;90m" "1      cd -1"
 echo_color "\033[0;90m" "2      cd -2"
 echo_color "\033[0;90m" "..."
 
+
+echo
+echo_color "\033[0;90m" "            ⤹ programming language"
+echo_color "\033[0;90m" "curl cht.sh/go/execute+external_program"
+echo_color "\033[0;90m" "                      ↳ question"
+
+echo
+echo_color "\033[0;90m" "curl v2.wttr.in/94041 for weather in Mountain View"
+
+echo
+echo_color "\033[0;90m" "curl cht.sh/:help"
 
 # echo_color "\033[0;90m" "c-f  Move forward"
 # echo_color "\033[0;90m" "c-b  Move backward"

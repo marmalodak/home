@@ -70,6 +70,10 @@ unsetopt beep  # I hate, hate, hate being beeped at
 
 eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/powerlevel10k_rainbow.omp.json)"
 
+# set -x
+# eval "$(oh-my-posh init zsh --config $(brew --prefix)/oh-my-posh/23.20.3/themes/powerlevel10k_modern.omp.json)"
+# set +x
+
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
 
@@ -615,6 +619,13 @@ function zsh-completions-show-all
 functiom punkt-mini()
 {
   # maybe install ~/.mini/* on a remote host?
+}
+
+
+# https://x.com/igor_chubin/status/1343294742315020293
+function fzfc()
+{
+  curl -ks cht\.sh/$(curl -ks cht\.sh/:list | IFS=+ fzf --preview 'curl -ks http://cht.sh{}' -q "$*");
 }
 
 

@@ -102,6 +102,7 @@ set guioptions-=T
 set guioptions+=m
 
 set expandtab
+set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set smarttab
@@ -119,6 +120,7 @@ set undolevels=5000  " https://github.com/thoughtstream/Damian-Conway-s-Vim-Setu
 set number
 set relativenumber
 set iskeyword+=-
+set showmatch
 
 set path+=**  " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 set wildmenu  " show all matching files for tab complete
@@ -311,6 +313,8 @@ set lcs=tab:══»,trail:␣,nbsp:˷
 highlight InvisibleSpaces ctermfg=Black ctermbg=Black
 call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$')
 
+" overwrite the settings in e.g. /usr/share/vim/vim90/ftplugin/python.vim
+autocmd FileType python setlocal showmatch tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 augroup VisibleNaughtiness
     autocmd!
@@ -536,7 +540,14 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 "    augroup END
 
 " I want to see the name of linter which is giving me an error message
-" let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_echo_msg_format = '%linter% says: %code: %s'
+
+" " next and previous ALE error/warning; something is overwriting this setting
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+nmap <silent> <leader>an :ALENextWrap<cr>
+nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 
 " let g:ale_linter_aliases = {
 "   \ 'sls': 'salt'

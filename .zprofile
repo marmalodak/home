@@ -41,15 +41,17 @@ if whence brew > /dev/null; then
 fi
 
 
-# python stuff below needs work
-pythons_base="${HOME}/Library/Python"
-pythons=( ${pythons_base}/3.14/bin  ${pythons_base}/3.13/bin  ${pythons_base}/3.12/bin  ${pythons_base}/3.11/bin ${pythons_base}/3.10/bin ${pythons_base}/3.9/bin )
-for p in ${pythons}; do
-  if [[ -d "${p}" ]]; then
-    PATH="${p}:${PATH}"
-    # break  do not end here because multiple versions can be installed
-  fi
-done
+if [[ "${OSTYPE}" == *"darwin"* ]]; then
+  # python stuff below needs work
+  pythons_base="${HOME}/Library/Python"
+  pythons=( ${pythons_base}/3.14/bin  ${pythons_base}/3.13/bin  ${pythons_base}/3.12/bin  ${pythons_base}/3.11/bin ${pythons_base}/3.10/bin ${pythons_base}/3.9/bin )
+  for p in ${pythons}; do
+    if [[ -d "${p}" ]]; then
+      PATH="${p}:${PATH}"
+      break  # do end here because stop at first one
+    fi
+  done
+fi
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 

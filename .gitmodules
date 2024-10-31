@@ -193,3 +193,6 @@
 [submodule ".oh-my-posh"]
 	path = .oh-my-posh
 	url = https://github.com/jandedobbeleer/oh-my-posh
+[submodule ".vim/pack/vim8/start/cheat.sh-vim"]
+	path = .vim/pack/vim8/start/cheat.sh-vim
+	url = https://gitlab.com/dbeniamine/cheat.sh-vim.git
