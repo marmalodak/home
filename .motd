@@ -33,6 +33,10 @@ echo_color "\033[0;90m" "curl v2.wttr.in/94041 for weather in Mountain View"
 echo
 echo_color "\033[0;90m" "curl cht.sh/:help"
 
+echo
+echo_color "\033[0;90m" "C-<space> ' to select a window index"
+echo_color "\033[0;90m" "C-<space> w to select a window interactively"
+
 # echo_color "\033[0;90m" "c-f  Move forward"
 # echo_color "\033[0;90m" "c-b  Move backward"
 # echo_color "\033[0;90m" "c-p  Move up"
