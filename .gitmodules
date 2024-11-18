@@ -190,3 +190,6 @@
 [submodule ".config/alacritty/alacritty-theme"]
 	path = .config/alacritty/alacritty-theme
 	url = https://github.com/alacritty/alacritty-theme
+[submodule ".oh-my-posh"]
+	path = .oh-my-posh
+	url = https://github.com/jandedobbeleer/oh-my-posh

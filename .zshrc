@@ -59,14 +59,16 @@ bindkey '^[#' pound-insert
 
 unsetopt beep  # I hate, hate, hate being beeped at
 
-source ~/.powerlevel10k/powerlevel10k.zsh-theme
+# source ~/.powerlevel10k/powerlevel10k.zsh-theme
+# 
+# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# # Initialization code that may require console input (password prompts, [y/n]
+# # confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/powerlevel10k_rainbow.omp.json)"
 
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
@@ -430,23 +432,29 @@ function punkt-aufbau()
   # Do not call git clean!!
   # should this test for branch? if it's not master...? can git status report whether it's attempting to rebase?
   # https://stackoverflow.com/a/68086677/1698426
-  set -x
-  punkt submodule foreach --recursive "git rebase --quit; git reset --hard; git switch master; git reset --hard"
-  set +x
-  punkt submodule update --init --recursive --remote | column -t
+  punkt submodule foreach --recursive git reset --hard
+
+  punkt pull --rebase --no-recurse-submodules
+  punkt submodule update --recursive
+
+  # punkt submodule update --init --recursive --remote | column -t
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
+  { go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh }
 }
 
 
 function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
-  { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t }
-  { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
+  # https://stackoverflow.com/a/76182448/1698426
+  punkt pull --rebase --no-recurse-submodules
+  punkt submodule update --recursive
+  # { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
   popd > /dev/null 2>&1
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
+  { go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh }
 }
 
 
