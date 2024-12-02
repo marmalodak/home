@@ -278,7 +278,7 @@ function! ConvertAsciidoc()
   " silent !if command -v open; then open -a safari README.html; fi
   " silent !if command -v xdg-open; then xdg-open README.html; fi
   silent execute("!asciidoctor -b docbook " . expand('%:t'))
-  silent execute("!pandoc -f docbook -t markdown_strict " . expand('%:t:r') .. ".xml" . " -o " . expand('%:t:r') .. ".md")
+  silent execute("!pandoc -f docbook -t markdown " . expand('%:t:r') .. ".xml" . " -o " . expand('%:t:r') .. ".md")
   silent execute("!rm " . expand('%:t:r') .. ".xml")
   " whar pdf?
 endfunction

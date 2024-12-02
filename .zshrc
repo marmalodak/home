@@ -451,10 +451,14 @@ function punkt-aufbau()
 function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
+<<<<<<< HEAD
   # https://stackoverflow.com/a/76182448/1698426
   punkt pull --rebase --no-recurse-submodules
   punkt submodule update --recursive
   # { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
+  punkt pull --stat --rebase --verbose
+  punkt pull --stat --rebase --verbose --recurse-submodules=yes --jobs=16 | column -t
+  punkt submodule update --init --remote --recursive --jobs=16 | column -t
   popd > /dev/null 2>&1
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
@@ -626,6 +630,13 @@ functiom punkt-mini()
 function fzfc()
 {
   curl -ks cht\.sh/$(curl -ks cht\.sh/:list | IFS=+ fzf --preview 'curl -ks http://cht.sh{}' -q "$*");
+}
+
+function cht()
+{
+  # curl cht.sh/git/saltstack+schedule\?style=xcode
+  # term="{1}"'?style=xcode'
+  curl cht.sh/$1'?style=xcode'
 }
 
 
