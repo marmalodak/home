@@ -640,10 +640,27 @@ function cht()
 }
 
 
+# if cmd is available use it, otherwise run cmd2
+function ifcmd()
+{
+  cmd1=${1}; shift
+  cmd2=${1}; shift
+  if command -v > /dev/null ${cmd1}; then
+    ${cmd1} $*
+  else
+    ${cmd2} $*
+  fi
+  # command -v ${cmd1} && ${cmd1} $* || ${cmd2} $*
+}
+
+
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
-[[ $(command -v batcat) ]] && alias bat='batcat'  # ubuntu
-[[ $(command -v fdfind) ]] && alias fd='fdfind'  # ubuntu
+# # who writes this drivel?
+# [[ $(command -v batcat) ]] && alias bat='batcat'  # ubuntu
+# [[ $(command -v fdfind) ]] && alias fd='fdfind'  # ubuntu
+command -v batcat > /dev/null && alias bat='batcat'  # ubuntu
+command -v fdfind > /dev/null && alias fd='fdfind'  # ubuntu
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

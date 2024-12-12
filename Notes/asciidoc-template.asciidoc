@@ -1,0 +1,147 @@
+Title Goes Here
+===============
+:compat-mode!:
+:description: an asciidoc template
+:max-width: 100%
+:nofooter:
+:!version-label:
+:icons: font
+:listing-caption: Listing
+:source-highlighter: pygments
+:!sectlinks:
+// sectlinks makes each section a clickable HTML link
+:copycss:
+:stylesheet: asciidoc-template.css
+
+== Asciidoc template
+
+=== Subtitle
+
+[options="interactive"]
+* [ ] item 1
+* [ ] item 2
+
+use [✔] [✗]
+
+=== bookmarks
+
+https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/#ex-block-subs[AsciiDoc Syntax Quick Reference]
+https://github.com/powerman/asciidoc-cheatsheet[Asciidoc cheatsheet for GitHub]
+{empty} +
+
+=== table
+
+.A table with a title
+[%autowidth]
+|===
+|Column 1, header row |Column 2, header row | Column 3
+
+m|Cell in column 1, row 2
+|Cell in column 2, row 2
+a| * [x] item 4
+
+e|Cell in column 1, row 3
+s|Cell in column 2, row 3
+a| * [*] item 5
+
+e|Cell in column 1, row 4
+s|Cell in column 2, row 4
+a| * [ ] unchecked
+|===
+
+https://docs.asciidoctor.org/asciidoc/latest/tables/format-cell-content/[More about formatting cell contents].
+I learned about checklists in tables from https://github.com/asciidoctor/asciidoctor/issues/1674#issuecomment-1760568225[SO].
+
+=== blocks
+
+[NOTE]
+====
+A quote inside a block.
+
+From https://asciidoc-py.github.io/userguide.html#X51[10.1. Quoted Text]
+
+> Words and phrases can be formatted by enclosing inline text with quote characters
+====
+
+In addtion to `NOTE`, there are `CODE`, `TIP`, `WARNING`, `IMPORTANT`, `CAUTION`
+
+[TIP]
+====
+TIP...
+====
+
+[WARNING]
+====
+WARNING...
+====
+
+[IMPORTANT]
+====
+Important...
+====
+
+[CAUTION]
+====
+Caution...
+====
+
+.Some Ruby code, with line numbers
+[source,ruby,linenums]
+----
+require 'sinatra'
+
+get '/hi' do
+  "Hello World!"
+end
+----
+
+==== passthrough block
+
+++++
+<p>
+Content in a passthrough block is passed to the output unprocessed.
+That means you can include raw HTML, like this embedded Gist:
+</p>
+
+<script src="https://gist.github.com/mojavelinux/5333524.js">
+</script>
+++++
+
+
+=== blanks and newline
+
+
+https://github.com/asciidoctor/asciidoctor/wiki/How-to-insert-sequential-blank-lines[Learn about blank lines] on the asciidoctor wiki or on https://github.com/asciidoctor/asciidoctor/wiki/How-to-insert-sequential-blank-lines[the github page]
+
+{empty} +
+ +
+Also simply space plus newline +
+ +
+
+=== embedded image
+
+image::8iRAIDTrimodeAdapters.png[8i RAID/HBA Trimode adapters]
+
+
+=== list continuation
+
+. this is the first item in the list
++
+
+[IMPORTANT]
+====
+See the plus sign directly underneath the first item in the list, it signals that the list should continue
+====
+
+. second item in the list
+
+
+=== lists with custom markers, https://docs.asciidoctor.org/asciidoc/latest/lists/unordered/#markers[docs]
+
+[circle]
+* an item
+** another item
+* an item
+** yai
+[square]
+*** yyai
