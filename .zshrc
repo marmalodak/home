@@ -457,7 +457,7 @@ function punkt-auf()
   # { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
   punkt pull --stat --rebase --verbose
   punkt pull --stat --rebase --verbose --recurse-submodules=yes --jobs=16 | column -t
-  punkt submodule update --init --remote --recursive --jobs=16 | column -t
+  punkt submodule update --init --remote --jobs=16 | column -t
   popd > /dev/null 2>&1
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
   make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim

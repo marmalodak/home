@@ -554,8 +554,8 @@ nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 " \}
 
 " colorscheme NedsLightTheme
-set background=light
-colorscheme PaperColor
+set background=dark
+colorscheme NedsDarkTheme
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL

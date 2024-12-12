@@ -162,7 +162,7 @@ let b:NedColourScheme =
     \   'Widget':
     \   {
     \       'fg': b:FGDim,
-    \       'bg': b:BGDim,
+    \       'bg': b:BG,
     \       'keywords':
     \       [
     \           "MoreMsg",
