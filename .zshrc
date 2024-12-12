@@ -68,11 +68,7 @@ unsetopt beep  # I hate, hate, hate being beeped at
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/powerlevel10k_rainbow.omp.json)"
-
-# set -x
-# eval "$(oh-my-posh init zsh --config $(brew --prefix)/oh-my-posh/23.20.3/themes/powerlevel10k_modern.omp.json)"
-# set +x
+eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/unicorn.omp.json)"
 
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
