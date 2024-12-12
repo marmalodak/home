@@ -451,7 +451,6 @@ function punkt-aufbau()
 function punkt-auf()
 {
   pushd ${HOME} > /dev/null 2>&1
-<<<<<<< HEAD
   # https://stackoverflow.com/a/76182448/1698426
   punkt pull --rebase --no-recurse-submodules
   punkt submodule update --recursive
