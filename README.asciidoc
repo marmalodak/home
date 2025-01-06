@@ -100,8 +100,16 @@ The RVM installer is beautiful bash code, going to read it and improve my shell 
 
 [source,shell,linenums]
 ----
+rvm install "ruby-2.7.8
 rvm use ruby-2.7 --default
 rvm install asciidoctor-diagram
+----
+
+I had trouble installing ruby on my m2 mbp
+
+[source,shell,linenums]
+----
+rvm install ruby-3.3.0 --with-openss-dir=$(brew --prefix openssl@3)
 ----
 
 .These are required for `asciio`
