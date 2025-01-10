@@ -451,7 +451,7 @@ function punkt-auf()
   echo "Pulling, ignoring submodules"
   punkt pull --stat --verbose --rebase --no-recurse-submodules
   echo "Updating submodules"
-  punkt submodule update --inite --remote --recursive --jobs=16 | column -t
+  punkt submodule update --init --remote --recursive --jobs=16 | column -t
   # { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
   # punkt pull --stat --rebase --verbose
   # punkt pull --stat --rebase --verbose --recurse-submodules=yes --jobs=16 | column -t
