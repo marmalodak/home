@@ -395,8 +395,9 @@ function punkt-export()
   pushd ${HOME}
   # https://stackoverflow.com/a/23116607
   [[ -f /tmp/home.tar.gz ]] && rm /tmp/home.tar.gz
-  punkt ls-files | tar Tcf - /tmp/home.tar
+  punkt ls-files --full-name --recurse-submodules | tar Tcf - /tmp/home.tar
   [[ -f .local.zsh ]] && tar --append --file=/tmp/home.tar .local.zsh
+  # punkt submodule foreach 'cd $toplevel; git ls-files | tar Tcf - /tmp/$toplevel.tar; tar --append --file /tmp/home.tar'
   gzip /tmp/home.tar
   popd
   ls -l /tmp/home.*
@@ -405,6 +406,20 @@ function punkt-export()
   echo '1. cd ~'
   echo '2. gtar xvf home.tar.gz'
   echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
+  echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
+  echo 'wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz'
+  ecoh 'tar -C ${HOME}/bin -xzf go1.23.0.linux-amd64.tar.gz'
+  echo 'go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh'
+}
+
+
+function punkt-import-startup()
+{
+  # After putting the output of punkt-export() on a host, some things need to be refresh
+  echo 'After tar xvf ..., make sure .zshrc et all are sourced, i.e. start a frew shell'
+  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
+  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
+  go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
 }
 
 

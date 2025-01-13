@@ -18,6 +18,7 @@
 # NB there is no python3 binary in ~/Library/Python/... but pip3 install (--user) installs into ~/Library/Python/3.9/bin
 # NB brew is already handled, do not add it here
 
+[[ -d ${HOME}/bin/go/bin ]]              && PATH="${HOME}/bin/go/bin:${PATH}"
 [[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
 [[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -d /opt/homebrew/bin ]]               && PATH="/opt/homebrew/bin:${PATH}"
