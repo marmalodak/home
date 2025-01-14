@@ -154,7 +154,7 @@ plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
@@ -169,7 +169,7 @@ zstyle ':completion:*' menu select  # recommended by z
 export LANG=en_US.UTF-8
 
 export EDITOR='vim'
-command -v nvim && export EDITOR='nvim'
+command -v nvim > /dev/null && export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
