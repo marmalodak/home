@@ -68,7 +68,7 @@ unsetopt beep  # I hate, hate, hate being beeped at
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/unicorn.omp.json)"
+eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/atomic.omp.json)"
 
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
@@ -408,8 +408,13 @@ function punkt-export()
   echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
   echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
   echo 'wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz'
-  ecoh 'tar -C ${HOME}/bin -xzf go1.23.0.linux-amd64.tar.gz'
-  echo 'go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh'
+  echo 'tar -C ${HOME}/bin -xzf go1.23.0.linux-amd64.tar.gz'
+  echo 'go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work'
+  echo 'cd .oh-my-posh/src && ~/bin/go/bin/go build ... # never mind'
+  echo 'https://ohmyposh.dev/docs/installation/linux'
+  echo 'apt install unzip fzf fd-find ripgrep bat'
+  echo 'mkdir -p ~/.oh-my-posh'
+  echo 'curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
 }
 
 
@@ -734,7 +739,9 @@ alias help=run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
 # TODO: consider https://github.com/z-shell/zsh-lint which requires https://github.com/z-shell/zi
 
-source <(fzf --zsh)
+if ! source <(fzf --zsh 2> /dev/null); then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh # ubuntu 22
+fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # https://kevin.burke.dev/kevin/profiling-zsh-startup-time/

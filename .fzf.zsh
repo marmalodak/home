@@ -21,6 +21,8 @@ fi
 
 if [[ -f /usr/share/fzf/shell/key-bindings.zsh ]]; then
   source /usr/share/fzf/shell/key-bindings.zsh
+elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then # ubuntu
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
 else
   key_bindings=$(fd key-bindings.zsh $(brew --prefix))
   source ${key_bindings}
