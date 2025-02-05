@@ -418,68 +418,68 @@ function punkt-export()
 }
 
 
-function punkt-import-startup()
-{
-  # After putting the output of punkt-export() on a host, some things need to be refresh
-  echo 'After tar xvf ..., make sure .zshrc et all are sourced, i.e. start a frew shell'
-  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
-  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
-  go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
-}
-
-
-function punkt-export-old-method()
-{
-  set -x
-  # https://www.geeksforgeeks.org/how-to-export-a-git-project/
-  # see also git checkout-index https://stackoverflow.com/a/160620/1698426
-  dest=/tmp/.home.tar
-  setopt CSH_NULL_GLOB
-  if [[ -n $(echo ${dest}*) ]]; then echo remove $(echo ${dest}*); return 1; fi
-  additions=()
-  [[ -f .local.zsh ]] && additions+=.local.zsh
-  punkt archive --verbose --format tar.gz HEAD --output=${dest} --add-file=${additions}
-  # https://stackoverflow.com/a/23116607
-  # i.e. punkt ls-files | tar Tczf - ${dest}
-  gzip ${dest}
-  set +x
-}
-
-
 function punkt-aufbau()
 {
+  if ! punkt show; then
+    echo "Since punkt is not a git repo, this is probably not what you want"
+    echo "Maybe punkt-auf?"
+    return 1
+  fi
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!!
   # should this test for branch? if it's not master...? can git status report whether it's attempting to rebase?
   # https://stackoverflow.com/a/68086677/1698426
   punkt submodule foreach --recursive git reset --hard
-
-  punkt pull --rebase --no-recurse-submodules
-  punkt submodule update --recursive
-
-  # punkt submodule update --init --recursive --remote | column -t
-  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
-  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
-  { go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh }
+  punkt-auf
 }
 
 
 function punkt-auf()
 {
+  if punkt show; then
+    # https://stackoverflow.com/a/76182448/1698426
+    echo "Pulling, ignoring submodules"
+    punkt pull --stat --verbose --rebase --no-recurse-submodules
+    echo "Updating submodules"
+    punkt submodule update --init --remote --recursive --jobs=16 | column -t
+    punkt-build-utils
+  else
+    echo "Not a punkt repo"
+    pushd ${HOME} > /dev/null 2>&1
+    homeball="home.tar.gz"
+    if [[ -f "${homeball}" ]]; then
+      echo "Import instead?"
+      if command -v gtar; then # brew on macOS
+        TAR=gtar
+      else
+        TAR=tar
+      fi
+      ${TAR} xvf "${homeball}" > /dev/null 2>&1
+      punkt-build-utils
+    fi
+    popd > /dev/null 2>&1
+  fi
+}
+
+
+function punkt-build-utils()
+{
   pushd ${HOME} > /dev/null 2>&1
-  # https://stackoverflow.com/a/76182448/1698426
-  echo "Pulling, ignoring submodules"
-  punkt pull --stat --verbose --rebase --no-recurse-submodules
-  echo "Updating submodules"
-  punkt submodule update --init --remote --recursive --jobs=16 | column -t
-  # { punkt pull --stat --recurse-submodules=yes --jobs=16 | column -t } && { punkt submodule update --init --remote --recursive --jobs=16 | column -t }
-  # punkt pull --stat --rebase --verbose
-  # punkt pull --stat --rebase --verbose --recurse-submodules=yes --jobs=16 | column -t
-  # punkt submodule update --init --remote --jobs=16 | column -t
+  if command -v make; then
+    make -C .vim/pack/vim8/start/telescope-fzf-native.nvim clean all
+  else
+    echo "Install make"
+  fi
+  if command -v go; then
+    if [[ ! $(go env GOVERSION) < 'go1.23.0' ]]; then
+      { go build -C .oh-my-posh/src -o .oh-my-posh/oh-my-posh }
+    else
+      echo "Get a newer version of go"
+    fi
+  else
+    echo "Install go"
+  fi
   popd > /dev/null 2>&1
-  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean
-  make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim
-  { go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh }
 }
 
 
