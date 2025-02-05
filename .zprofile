@@ -19,17 +19,18 @@
 # NB brew/{bin,sbin} is already handled, do not add it here
 
 brewpath=$(brew --prefix)
-[[ -d ${HOME}/bin/go/bin ]]                && PATH="${HOME}/bin/go/bin:${PATH}"
-[[ -d ${HOME}/.rvm/bin ]]                  && PATH="${HOME}/.rvm/bin:${PATH}"
-[[ -s "$HOME/.rvm/scripts/rvm" ]]          && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -d ${HOME}/bin/go/bin ]]              && PATH="${HOME}/bin/go/bin:${PATH}"
+[[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
+[[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -d ${brewpath}/opt/util-linux/bin ]]  && PATH="${brewpath}/opt/util-linux/bin:${PATH}"
 [[ -d ${brewpath}/opt/util-linux/sbin ]] && PATH="${brewpath}/opt/util-linux/sbin:${PATH}"
-[[ -d /usr/local/sbin ]]                   && PATH="/usr/local/sbin:${PATH}"
-[[ -d /usr/local/opt/util-linux/bin ]]     && PATH="/usr/local/opt/util-linux/bin:${PATH}"
-[[ -d /usr/local/opt/util-linux/sbin ]]    && PATH="/usr/local/opt/util-linux/sbin:${PATH}"
-[[ -d ${HOME}/bin ]]                       && PATH="${HOME}/bin:${PATH}"
-[[ -d ${HOME}/.local/bin ]]                && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
+[[ -d /usr/local/sbin ]]                 && PATH="/usr/local/sbin:${PATH}"
+[[ -d /usr/local/opt/util-linux/bin ]]   && PATH="/usr/local/opt/util-linux/bin:${PATH}"
+[[ -d /usr/local/opt/util-linux/sbin ]]  && PATH="/usr/local/opt/util-linux/sbin:${PATH}"
+[[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
+[[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
 
+typeset -U PATH
 export PATH
 
 
