@@ -13,12 +13,13 @@ punkte
 
 === Backround info:
 
-* I learned about using GIT-DIR and WORK-DIR for dotfiles from:
+I learned about using GIT-DIR and WORK-DIR for dotfiles from:
+
 * https://stackoverflow.com/a/16811212/1698426
 * https://news.ycombinator.com/item?id=25564555, the whole thread is about dotfiles
 * https://www.atlassian.com/git/tutorials/dotfiles
 * https://news.opensuse.org/2020/03/27/Manage-dotfiles-with-Git/
-* on openwrt I needed to install git, git-http
+* probably not a good idea to run this on the Turris Omnia, but on openwrt I needed to install git, git-http
 * https://the.exa.website/docs/colour-themes[exa colours reference]
 * `exa` has been abandoned, but there is a better tool called https://eza.rocks[`eza`]
 
@@ -34,7 +35,7 @@ git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME checkou
 punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
 # punkt pull --rebase --recurse-submodules --verbose --stat
 punkt-auf
-p10k configure
+oh-my-posh init # untested; p10k deprecated
 ----
 
 Before being able to push:
@@ -63,6 +64,8 @@ NB: submodules need to be absolute paths relative to $HOME
 When `punkt-auf` fails because a submodule will not update because it wants to rebase (WHY???)
 
 For example, `powerlevel10k`:
+
+.P10K has been deprecated, but...
 ....
 rm -rf .powerlevel10k
 punkt-aufbau
