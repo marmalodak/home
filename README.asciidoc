@@ -47,6 +47,15 @@ Before being able to push:
         email = marmalodak@gmail.com
 ----
 
+==== To Do
+
+. Delete p10k submodule, use a different module as an example below
+. do not care about asciio any more
+. document install asciidoctor-diagram et al
+. the vim macro to convert asciidoc to html should not always try to use Safari, maybe use the OS default
+.. e.g. use `open` on macOS and `xdg-open` everywhere else?
+
+
 ==== Trouble
 
 YTF is there a colon in the path to `zsh-edit`? The URL should be `url = https://github.com/marlonrichert/zsh-edit.git`, not `url = https://github.com:marlonrichert/zsh-edit.git`. How did that happen?
