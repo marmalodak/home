@@ -30,6 +30,8 @@ brewpath=$(brew --prefix)
 [[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
 
+# https://zsh.sourceforge.io/Guide/zshguide02.html#l24
+# https://www.zsh.org/mla/users/1998/msg00490.html
 typeset -U PATH
 export PATH
 

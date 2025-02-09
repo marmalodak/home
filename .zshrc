@@ -68,7 +68,44 @@ unsetopt beep  # I hate, hate, hate being beeped at
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/atomic.omp.json)"
+oh_my_posh_theme="pure.omp.json"
+# other oh-my-posh themese I like: https://ohmyposh.dev/docs/themes/
+all_oh_my_posh_themes=(
+  1_shell.omp.json
+  aliens.omp.json
+  amro.omp.json
+  darkblood.omp.json
+  emodipt-extend.omp.json
+  fish.omp.json
+  cobalt2.omp.json
+  honukai.omp.json
+  illusi0n.omp.json
+  kali.omp.json
+  kushal.omp.json
+  lambdageneration.omp.json
+  montys.omp.json
+  negligible.omp.json
+  paradox.omp.json
+  powerlevel10k_rainbow.omp.json
+  probua.minimal.omp.json
+  pure.omp.json
+  simweb.omp.json
+  slimfat.omp.json
+  sorin.omp.json # needs a newline before the cursor
+  stelbent-compact.minimal.omp.json
+  takuya.omp.json
+  thecyberden.omp.json
+  uew.omp.json # needs git info in the prompt and newline
+  wholespace.omp.json # needs newline
+  wopian.omp.json
+  ys.omp.json
+)
+ri=$(( $RANDOM % ${#all_oh_my_posh_themes[@]} + 1)) # https://unix.stackexchange.com/a/287333
+oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
+echo "oh-my-posh theme ${oh_my_posh_theme}"
+
+autoload -Uz zle-line-init  # some of these oh-my-posh themes complain `No such widget `zle-line-init'`, hopefully this will fix that...
+eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/${oh_my_posh_theme})"
 
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
