@@ -71,30 +71,30 @@ unsetopt beep  # I hate, hate, hate being beeped at
 oh_my_posh_theme="pure.omp.json"
 # other oh-my-posh themese I like: https://ohmyposh.dev/docs/themes/
 all_oh_my_posh_themes=(
-  1_shell.omp.json
+  1_shell.omp.json # needs newline
   aliens.omp.json
   amro.omp.json
   darkblood.omp.json
   emodipt-extend.omp.json
   fish.omp.json
-  cobalt2.omp.json
-  honukai.omp.json
-  illusi0n.omp.json
-  kali.omp.json
+  cobalt2.omp.json # needs newline
+  honukai.omp.json # 1
+  illusi0n.omp.json # needs newline
+  kali.omp.json # 1
   kushal.omp.json
-  lambdageneration.omp.json
+  lambdageneration.omp.json # 1
   montys.omp.json
-  negligible.omp.json
+  negligible.omp.json # needs newline
   paradox.omp.json
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json
   pure.omp.json
   simweb.omp.json
-  slimfat.omp.json
+  slimfat.omp.json # 1
   sorin.omp.json # needs a newline before the cursor
   stelbent-compact.minimal.omp.json
   takuya.omp.json
-  thecyberden.omp.json
+  thecyberden.omp.json # 1
   uew.omp.json # needs git info in the prompt and newline
   wholespace.omp.json # needs newline
   wopian.omp.json

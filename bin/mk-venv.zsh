@@ -5,6 +5,7 @@ set -e
 set -u
 set +x
 
+# TODO: the activate script should not be created until the mk-venv script has run
 # TODO: make a 'go' script that activates and then runs an app
 #       e.g.
 #
