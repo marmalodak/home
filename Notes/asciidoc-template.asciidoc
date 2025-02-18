@@ -8,6 +8,7 @@ Title Goes Here
 :icons: font
 :listing-caption: Listing
 :source-highlighter: pygments
+// sudo gem install pygments.rb
 :!sectlinks:
 // sectlinks makes each section a clickable HTML link
 :copycss:
@@ -145,3 +146,22 @@ See the plus sign directly underneath the first item in the list, it signals tha
 ** yai
 [square]
 *** yyai
+
+
+
+
+////
+This is an asciidoc document.
+https://github.com/powerman/asciidoc-cheatsheet
+https://docs.asciidoctor.org/asciidoc/latest/
+https://dburet.gitlab.io/blog/2020-01-18-hugo-adoc-plant/  tutorial
+
+brew install asciidoctor
+sudo gem install pygments.rb
+
+To generate an HTML page:
+asciidoc -b html5 bna-bootstrapper.asciidoc
+
+To generate a PDF page:
+asciidoctor-pdf bna-bootstrapper.asciidoc
+////

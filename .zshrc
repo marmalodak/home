@@ -25,6 +25,10 @@ export PS4='+%1N:%I> '
 # export BAT_PAGER="less -RF"
 export BAT_THEME=Coldark-Cold
 
+# why did control+p and control+n break?
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
 # these binding didn't work; search for "Default key bindings" in /etc/zshrc for copypasta
 # https://stackoverflow.com/a/55235069/1698426
 # alt+<- | alt+->
@@ -71,31 +75,34 @@ unsetopt beep  # I hate, hate, hate being beeped at
 oh_my_posh_theme="pure.omp.json"
 # other oh-my-posh themese I like: https://ohmyposh.dev/docs/themes/
 all_oh_my_posh_themes=(
-  1_shell.omp.json # needs newline
-  aliens.omp.json
-  amro.omp.json
-  darkblood.omp.json # 1
-  emodipt-extend.omp.json
-  fish.omp.json
   kali.omp.json # 3 # a bit too shiny
-  kushal.omp.json
-  lambdageneration.omp.json # 1
+  1_shell.omp.json # needs newline # 1
+  aliens.omp.json # a bit too shiny
+  amro.omp.json # 1
+  darkblood.omp.json # 2
+  emodipt-extend.omp.json # 1
+  fish.omp.json # a bit too shiny # needs newline
+  cobalt2.omp.json # needs newline # a bit too shiny
+  honukai.omp.json # 2
+  illusi0n.omp.json # needs newline
+  kushal.omp.json # 1 very slow
+  lambdageneration.omp.json # 3 # not sure about the amber colour tho
   montys.omp.json
-  negligible.omp.json # needs newline
-  paradox.omp.json
+  negligible.omp.json # needs newline 2
+  paradox.omp.json # 1 # a bit too shiny
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json
-  pure.omp.json
+  pure.omp.json # 1
   simweb.omp.json
-  slimfat.omp.json # 1
-  sorin.omp.json # needs a newline before the cursor
+  slimfat.omp.json # 2
+  sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json
   takuya.omp.json
-  thecyberden.omp.json # 1
-  uew.omp.json # needs git info in the prompt and newline
+  thecyberden.omp.json # 1 # a bit too shiny
+  uew.omp.json # needs git info in the prompt and another newline 2
   wholespace.omp.json # needs newline
-  wopian.omp.json
-  ys.omp.json
+  wopian.omp.json # 1
+  ys.omp.json # 1
 )
 ri=$(( $RANDOM % ${#all_oh_my_posh_themes[@]} + 1)) # https://unix.stackexchange.com/a/287333
 oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
@@ -761,6 +768,7 @@ autoload -Uz run-help-svk
 autoload -Uz run-help-sudo
 alias help=run-help
 
+# TODO: steal from https://github.com/vincentbernat/zshrc/blob/master/rc/alias.zsh
 # TODO: steal from https://github.com/gibfahn/dot/blob/539fb6881ee8ddb184c0a41a31d7b6e3c0573f82/dotfiles/.config/zsh/deferred/deferred.zsh#L570-L572
 # TODO: steal from https://natelandau.com/my-mac-os-zsh-profile/
 # TODO: use the fzf hints https://github.com/sharkdp/bat/issues/357
@@ -776,7 +784,7 @@ alias help=run-help
 if ! source <(fzf --zsh 2> /dev/null); then
   source /usr/share/doc/fzf/examples/key-bindings.zsh # ubuntu 22
 fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh # when did this ever exist?
 
 # https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
 if [[ "$PROFILE_STARTUP" == true ]]; then

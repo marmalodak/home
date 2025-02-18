@@ -133,6 +133,12 @@ set title         "  show the name of the file being edited in the lower left
 
 " This is for the mac with homebrew, what is it for Linux?
 set rtp+=/opt/homebrew/opt/fzf
+" on ubuntu this should be /usr/share/doc/fzf/examples/key-bindings.zsh?
+" https://vi.stackexchange.com/a/20213 !empty(glob(name))
+" https://thevaluable.dev/fzf-vim-integration/
+" https://www.linode.com/docs/guides/how-to-use-fzf/
+" https://pragmaticpineapple.com/improving-vim-workflow-with-fzf/
+" https://matt-a-bennett.github.io/fzf_search_dirs/fzf_search_dirs.html
 
 " gitgutter and punkte  https://github.com/airblade/vim-gitgutter/issues/754
 let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'
