@@ -74,13 +74,10 @@ all_oh_my_posh_themes=(
   1_shell.omp.json # needs newline
   aliens.omp.json
   amro.omp.json
-  darkblood.omp.json
+  darkblood.omp.json # 1
   emodipt-extend.omp.json
   fish.omp.json
-  cobalt2.omp.json # needs newline
-  honukai.omp.json # 1
-  illusi0n.omp.json # needs newline
-  kali.omp.json # 1
+  kali.omp.json # 3 # a bit too shiny
   kushal.omp.json
   lambdageneration.omp.json # 1
   montys.omp.json
