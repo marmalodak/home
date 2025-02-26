@@ -77,8 +77,7 @@ unsetopt beep  # I hate, hate, hate being beeped at
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-oh_my_posh_theme="pure.omp.json"
-# other oh-my-posh themese I like: https://ohmyposh.dev/docs/themes/
+# other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
   1_shell.omp.json # needs newline # 1
   # aliens.omp.json # a bit too shiny and needs a newline -1
