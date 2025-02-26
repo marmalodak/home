@@ -559,14 +559,18 @@ nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 "   \ 'sls': 'salt'
 " \}
 
+" let theme = system('defaults read -g AppleInterfaceStyle') " ddg AI answer
+" https://aprotyas.github.io/posts/2021/10/macos-change-vim-background
+" most thorough answer https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/, even does tmux and alacritty
 " colorscheme NedsLightTheme
-set background=dark
-colorscheme NedsDarkTheme
+set background=light
+" colorscheme NedsDarkTheme
+colorscheme PaperColor
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
 
-function! Todaystat()
+function! Todaystat() " :call Todaystat()
   call append('$', '==== ' . system(['date']))
 endfunc
 

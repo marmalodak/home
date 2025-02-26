@@ -1,5 +1,5 @@
 general.import = [
-    "~/.config/alacritty/alacritty-theme/themes/alabaster_dark.toml"
+    "~/.config/alacritty/alacritty-theme/themes/papertheme.toml"
 ]
 
 # others:
@@ -15,8 +15,8 @@ general.import = [
 # chicago95
 
 [colors.primary]
-background = "#222222"
-foreground = "#e8e8e8"
+foreground = "#222222"
+background = "#e8e8e8"
 
 # # Colors (Alabaster Dark)
 # # author tonsky

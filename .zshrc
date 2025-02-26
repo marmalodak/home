@@ -25,6 +25,10 @@ export PS4='+%1N:%I> '
 # export BAT_PAGER="less -RF"
 export BAT_THEME=Coldark-Cold
 
+# defaults read -g AppleInterfaceStyle
+# Dark # $? = 0, $? = 1 # when not in dark mode
+
+
 # why did control+p and control+n break?
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
@@ -40,6 +44,7 @@ bindkey "^[[1;5C" forward-word
 
 # https://old.reddit.com/r/zsh/comments/svctvj/how_to_park_a_command_like_bash/
 bindkey '^[#' pound-insert
+# bindkey "^q" pound-insert # no worky??
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835#issuecomment-392755849 ???
@@ -75,31 +80,31 @@ unsetopt beep  # I hate, hate, hate being beeped at
 oh_my_posh_theme="pure.omp.json"
 # other oh-my-posh themese I like: https://ohmyposh.dev/docs/themes/
 all_oh_my_posh_themes=(
-  kali.omp.json # 3 # a bit too shiny
   1_shell.omp.json # needs newline # 1
-  aliens.omp.json # a bit too shiny
-  amro.omp.json # 1
-  darkblood.omp.json # 2
+  # aliens.omp.json # a bit too shiny and needs a newline -1
+  amro.omp.json # 2
+  darkblood.omp.json # 3 too light on a light background, otherwise great
   emodipt-extend.omp.json # 1
   fish.omp.json # a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 2
-  illusi0n.omp.json # needs newline
+  illusi0n.omp.json # 1 needs newline
+  kali.omp.json # 4 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
-  lambdageneration.omp.json # 3 # not sure about the amber colour tho
+  lambdageneration.omp.json # 4 # not sure about the amber colour tho
   montys.omp.json
   negligible.omp.json # needs newline 2
   paradox.omp.json # 1 # a bit too shiny
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json
   pure.omp.json # 1
-  simweb.omp.json
+  # simweb.omp.json # -1
   slimfat.omp.json # 2
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json
   takuya.omp.json
   thecyberden.omp.json # 1 # a bit too shiny
-  uew.omp.json # needs git info in the prompt and another newline 2
+  # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
   wholespace.omp.json # needs newline
   wopian.omp.json # 1
   ys.omp.json # 1
