@@ -5,21 +5,23 @@ function echo_color() {
   printf "${color}$2\033[0m\n"
 }
 
-echo_color "\033[0;90m" "mkcd   <dir> is like mkdir <dir> && cd <dir>"
-echo_color "\033[0;90m" "take   <dir> is like mkdir <dir> && cd <dir>, handles remote URLs"
-echo_color "\033[0;90m" "c-x-e  opens the command in an editor"
-echo_color "\033[0;90m" "c-q    park a command; bindkey '^[#' pound-insert"
-echo_color "\033[0;90m" "google <word> launches a google search for <word>"
+# where these from p10k?
+# echo_color "\033[0;90m" "mkcd   <dir> is like mkdir <dir> && cd <dir>"
+# echo_color "\033[0;90m" "take   <dir> is like mkdir <dir> && cd <dir>, handles remote URLs"
+# echo_color "\033[0;90m" "google <word> launches a google search for <word>"
+# echo_color "\033[0;90m" "c-x-e  opens the command in an editor"
+# echo_color "\033[0;90m" "c-q    park a command; bindkey '^[#' pound-insert"
 
 echo
 echo_color "\033[0;90m" "..     cd .."
 echo_color "\033[0;90m" "...    cd ../.."
 echo_color "\033[0;90m" "....   cd ../../.."
 echo_color "\033[0;90m" ".....  cd ../../../.."
-echo_color "\033[0;90m" "cd +n  switch to directory number n?"
-echo_color "\033[0;90m" "1      cd -1"
-echo_color "\033[0;90m" "2      cd -2"
-echo_color "\033[0;90m" "..."
+# the following were done by p10k?
+# echo_color "\033[0;90m" "cd +n  switch to directory number n?"
+# echo_color "\033[0;90m" "1      cd -1"
+# echo_color "\033[0;90m" "2      cd -2"
+# echo_color "\033[0;90m" "..."
 
 
 echo

@@ -79,7 +79,7 @@ unsetopt beep  # I hate, hate, hate being beeped at
 
 # other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
-  1_shell.omp.json # needs newline # 1
+  1_shell.omp.json # needs newline # 2, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
   amro.omp.json # 2
   darkblood.omp.json # 3 too light on a light background, otherwise great
@@ -91,7 +91,7 @@ all_oh_my_posh_themes=(
   kali.omp.json # 4 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
-  montys.omp.json
+  montys.omp.json # 1 pretty but shiny
   negligible.omp.json # needs newline 2
   paradox.omp.json # 1 # a bit too shiny
   powerlevel10k_rainbow.omp.json
@@ -233,6 +233,11 @@ alias r1='rg --max-depth=1'
 alias r2='rg --max-depth=2'
 alias r3='rg --max-depth=3'
 alias r4='rg --max-depth=4'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # https://github.com/sharkdp/vivid
 # https://unix.stackexchange.com/questions/245378/common-environment-variable-to-set-dark-or-light-terminal-background#245568
