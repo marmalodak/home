@@ -435,18 +435,22 @@ function punkt-neu()
 }
 
 
+home_tarball_file=/tmp/home.tar
+home_tarball_file_timestamp=.punkt-timestamp.text
 function punkt-export()
 {
   pushd ${HOME}
   # https://stackoverflow.com/a/23116607
-  [[ -f /tmp/home.tar.gz ]] && rm /tmp/home.tar.gz
-  punkt ls-files --full-name --recurse-submodules | tar Tcf - /tmp/home.tar
-  [[ -f .local.zsh ]] && tar --append --file=/tmp/home.tar .local.zsh
-  # punkt submodule foreach 'cd $toplevel; git ls-files | tar Tcf - /tmp/$toplevel.tar; tar --append --file /tmp/home.tar'
-  gzip /tmp/home.tar
+  [[ -f ${home_tarball_file}.gz ]] && rm ${home_tarball_file}.gz
+  punkt ls-files --full-name --recurse-submodules | tar Tcf - ${home_tarball_file}
+  [[ -f .local.zsh ]] && tar --append --file=${home_tarball_file} .local.zsh
+  date > ${home_tarball_file_timestamp}
+  tar --append --file=${home_tarball_file} ${home_tarball_file_timestamp}
+  rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
+  gzip ${home_tarball_file}
   popd
-  ls -l /tmp/home.*
-  echo copy /tmp/home.* to the destination computer
+  ls -l ${home_tarball_file}
+  echo copy ${home_tarball_file} to the destination computer
   echo On the destination:
   echo '1. cd ~'
   echo '2. gtar xvf home.tar.gz'
@@ -465,9 +469,9 @@ function punkt-export()
 
 function punkt-aufbau()
 {
-  if ! punkt show; then
+  if [[ -f ${home_tarball_file_timestamp} ]]; then
     echo "Since punkt is not a git repo, this is probably not what you want"
-    echo "Maybe punkt-auf?"
+    echo "Maybe punkt-auf, since it checks for this?"
     return 1
   fi
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
@@ -481,17 +485,10 @@ function punkt-aufbau()
 
 function punkt-auf()
 {
-  if punkt show; then
-    # https://stackoverflow.com/a/76182448/1698426
-    echo "Pulling, ignoring submodules"
-    punkt pull --stat --verbose --rebase --no-recurse-submodules
-    echo "Updating submodules"
-    punkt submodule update --init --remote --recursive --jobs=16 | column -t
-    punkt-build-utils
-  else
+  if [[ -f ${home_tarball_file_timestamp} ]]; then
     echo "Not a punkt repo"
     pushd ${HOME} > /dev/null 2>&1
-    homeball="home.tar.gz"
+    homeball="${home_tarball_file}.gz"
     if [[ -f "${homeball}" ]]; then
       echo "Import instead?"
       if command -v gtar; then # brew on macOS
@@ -503,28 +500,41 @@ function punkt-auf()
       punkt-build-utils
     fi
     popd > /dev/null 2>&1
+  else
+    echo "Probably a real punkt repo"
+    # https://stackoverflow.com/a/76182448/1698426
+    echo "Pulling, ignoring submodules"
+    punkt pull --stat --verbose --rebase --no-recurse-submodules
+    echo "Updating submodules"
+    punkt submodule update --init --remote --recursive --jobs=16 | column -t
+    punkt-build-utils
   fi
 }
 
 
 function punkt-build-utils()
 {
+  local return_status=0
   pushd ${HOME} > /dev/null 2>&1
   if command -v make; then
     make -C .vim/pack/vim8/start/telescope-fzf-native.nvim clean all
   else
     echo "Install make"
+    return_status=1
   fi
   if command -v go; then
     if [[ ! $(go env GOVERSION) < 'go1.23.0' ]]; then
       { go build -C .oh-my-posh/src -o .oh-my-posh/oh-my-posh }
     else
       echo "Get a newer version of go"
+      return_status=1
     fi
   else
     echo "Install go"
+    return_status=1
   fi
   popd > /dev/null 2>&1
+  return ${return_status}
 }
 
 
