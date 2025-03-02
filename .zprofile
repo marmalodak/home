@@ -47,14 +47,16 @@ fi
 if [[ "${OSTYPE}" == *"darwin"* ]]; then
   # python stuff below needs work
   pythons_base="${HOME}/Library/Python"
-  pythons=( ${pythons_base}/*/bin )
-  for p in ${pythons}; do
-    if [[ -d "${p}" ]]; then
-      PATH="${p}:${PATH}"
-      export PATH
-      break  # do end here because stop at first one
-    fi
-  done
+  if [[ -d "${pythons_base}" ]]; then
+    pythons=( ${pythons_base}/*/bin )
+    for p in ${pythons}; do
+      if [[ -d "${p}" ]]; then
+        PATH="${p}:${PATH}"
+        export PATH
+        break  # do end here because stop at first one
+      fi
+    done
+  fi
 fi
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc

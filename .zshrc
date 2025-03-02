@@ -65,6 +65,7 @@ bindkey '^[#' pound-insert
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
 
 [[ -f ~/.motd ]] && source ~/.motd
+command -v nerdfetch && nerdfetch
 
 unsetopt beep  # I hate, hate, hate being beeped at
 
