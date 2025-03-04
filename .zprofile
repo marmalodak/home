@@ -18,17 +18,20 @@
 # NB there is no python3 binary in ~/Library/Python/... but pip3 install (--user) installs into ~/Library/Python/3.9/bin
 # NB brew/{bin,sbin} is already handled, do not add it here
 
-brewpath=$(brew --prefix)
-[[ -d ${HOME}/bin/go/bin ]]              && PATH="${HOME}/bin/go/bin:${PATH}"
-[[ -d ${HOME}/.rvm/bin ]]                && PATH="${HOME}/.rvm/bin:${PATH}"
-[[ -s "$HOME/.rvm/scripts/rvm" ]]        && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-[[ -d ${brewpath}/opt/util-linux/bin ]]  && PATH="${brewpath}/opt/util-linux/bin:${PATH}"
-[[ -d ${brewpath}/opt/util-linux/sbin ]] && PATH="${brewpath}/opt/util-linux/sbin:${PATH}"
-[[ -d /usr/local/sbin ]]                 && PATH="/usr/local/sbin:${PATH}"
-[[ -d /usr/local/opt/util-linux/bin ]]   && PATH="/usr/local/opt/util-linux/bin:${PATH}"
-[[ -d /usr/local/opt/util-linux/sbin ]]  && PATH="/usr/local/opt/util-linux/sbin:${PATH}"
-[[ -d ${HOME}/bin ]]                     && PATH="${HOME}/bin:${PATH}"
-[[ -d ${HOME}/.local/bin ]]              && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
+brewpath=''
+if command -v brew; then
+  brewpath=$(brew --prefix)
+fi
+[[ -d ${HOME}/bin/go/bin ]]                                && PATH="${HOME}/bin/go/bin:${PATH}"
+[[ -d ${HOME}/.rvm/bin ]]                                  && PATH="${HOME}/.rvm/bin:${PATH}"
+[[ -s "$HOME/.rvm/scripts/rvm" ]]                          && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -n ${brewpath} && -d ${brewpath}/opt/util-linux/bin ]]  && PATH="${brewpath}/opt/util-linux/bin:${PATH}"
+[[ -n ${brewpath} && -d ${brewpath}/opt/util-linux/sbin ]] && PATH="${brewpath}/opt/util-linux/sbin:${PATH}"
+[[ -d /usr/local/sbin ]]                                   && PATH="/usr/local/sbin:${PATH}"
+[[ -d /usr/local/opt/util-linux/bin ]]                     && PATH="/usr/local/opt/util-linux/bin:${PATH}"
+[[ -d /usr/local/opt/util-linux/sbin ]]                    && PATH="/usr/local/opt/util-linux/sbin:${PATH}"
+[[ -d ${HOME}/bin ]]                                       && PATH="${HOME}/bin:${PATH}"
+[[ -d ${HOME}/.local/bin ]]                                && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
 
 # https://zsh.sourceforge.io/Guide/zshguide02.html#l24
 # https://www.zsh.org/mla/users/1998/msg00490.html
@@ -36,11 +39,15 @@ typeset -U PATH
 export PATH
 
 
-[[ ! -d ~/.nvm ]] && mkdir ~/.nvm  # nvm = Node Version Manager; why was this dir created?
-export NVM_DIR="${HOME}/.nvm"
-if whence brew > /dev/null; then
-  [[ -s "${brewpath}/opt/nvm/nvm.sh" ]]                    && \. "${brewpath}/opt/nvm/nvm.sh" # This loads nvm
-  [[ -s "${brewpath}/opt/nvm/etc/bash_completion.d/nvm" ]] && \. "${brewpath}/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+if command -v nvm; then
+  if [[ ! -d ~/.nvm ]]; then
+    mkdir ~/.nvm  # nvm = Node Version Manager
+  fi
+  export NVM_DIR="${HOME}/.nvm"
+  if [[ -n ${brewpath} ]]; then
+    [[ -s "${brewpath}/opt/nvm/nvm.sh" ]]                    && \. "${brewpath}/opt/nvm/nvm.sh" # This loads nvm
+    [[ -s "${brewpath}/opt/nvm/etc/bash_completion.d/nvm" ]] && \. "${brewpath}/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+  fi
 fi
 
 
