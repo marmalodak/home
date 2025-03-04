@@ -64,6 +64,13 @@ bindkey '^[#' pound-insert
 [[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
 
+if command -v fastfetch; then
+  fastfetch
+elif command -v nerdfetch; then
+  nerdfetch
+elif command -v neofetch; then
+  neofetch
+fi
 [[ -f ~/.motd ]] && source ~/.motd
 command -v nerdfetch && nerdfetch
 
@@ -105,7 +112,7 @@ all_oh_my_posh_themes=(
   takuya.omp.json
   thecyberden.omp.json # 1 # a bit too shiny
   # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
-  wholespace.omp.json # needs newline
+  wholespace.omp.json # needs newline, very slow
   wopian.omp.json # 1
   ys.omp.json # 1
 )
@@ -398,7 +405,7 @@ function git-cmds()
 
 
 alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
-alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
+# alias punkt-status='punkt status --ignore-submodules=all --untracked-files=no'
 
 
 # similar to nvim-modified
@@ -406,14 +413,20 @@ function punkt-modified()
 {
   # eval nvim -O printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')
   # nvim -O $(punkt -C ~ ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
+  pushd ${HOME} # file names from the line below are relative to ${HOME}
   nvim -O $(punkt status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
+  popd
 }
 
 
 function punkt-status()
 {
   # man gitmodules: submodule.<name>.ignore
-  punkt status --ignore-submodules=all --untracked-files=no
+  if punkt-is-repo; then
+    punkt status --ignore-submodules=all --untracked-files=no
+    return $?
+  fi
+  echo "Not a punkt-repo, what now?"
 }
 
 
@@ -442,12 +455,13 @@ function punkt-neu()
 
 
 home_tarball_file=/tmp/home.tar
+home_tarball_file_zip=${home_tarball_file}.gz
 home_tarball_file_timestamp=.punkt-timestamp.text
-function punkt-export()
+function punkt-ausführe()
 {
   pushd ${HOME}
   # https://stackoverflow.com/a/23116607
-  [[ -f ${home_tarball_file}.gz ]] && rm ${home_tarball_file}.gz
+  [[ -f ${home_tarball_file_zip} ]] && rm ${home_tarball_file_zip}
   punkt ls-files --full-name --recurse-submodules | tar Tcf - ${home_tarball_file}
   [[ -f .local.zsh ]] && tar --append --file=${home_tarball_file} .local.zsh
   date > ${home_tarball_file_timestamp}
@@ -455,16 +469,26 @@ function punkt-export()
   rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
   gzip ${home_tarball_file}
   popd
-  ls -l ${home_tarball_file}
-  echo copy ${home_tarball_file} to the destination computer
+  if [[ -f ${home_tarball_file_zip} ]]; then
+    ls -l ${home_tarball_file_zip}
+  else
+    echo "Something went wrong, whar tarball ${home_tarball_file_zip}?"
+    return 1
+  fi
+  echo copy ${home_tarball_file_zip} to the destination computer
   echo On the destination:
   echo '1. cd ~'
-  echo '2. gtar xvf home.tar.gz'
+  echo "2. gtar xvf ${home_tarball_file_zip}"
   echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
   echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
-  echo 'wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz'
-  echo 'tar -C ${HOME}/bin -xzf go1.23.0.linux-amd64.tar.gz'
-  echo 'go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work'
+  echo 'wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
+  echo ' OR '
+  echo 'wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
+  echo ' OR '
+  echo 'tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
+  echo ' OR '
+  echo 'tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
+  echo '~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
   echo 'cd .oh-my-posh/src && ~/bin/go/bin/go build ... # never mind'
   echo 'https://ohmyposh.dev/docs/installation/linux'
   echo 'apt install unzip fzf fd-find ripgrep bat'
@@ -473,48 +497,66 @@ function punkt-export()
 }
 
 
+function punkt-is-repo()
+{
+  # return 1 if there is a tarball timestamp, and therefore not ~/.punkte is not a real git repo
+  if [[ -f ${home_tarball_file_timestamp} ]]; then
+    return 1
+  fi
+  return 0
+}
+
+
 function punkt-aufbau()
 {
-  if [[ -f ${home_tarball_file_timestamp} ]]; then
+  if ! punkt-is-repo; then
     echo "Since punkt is not a git repo, this is probably not what you want"
     echo "Maybe punkt-auf, since it checks for this?"
     return 1
   fi
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
-  # Do not call git clean!!
-  # should this test for branch? if it's not master...? can git status report whether it's attempting to rebase?
+  # Do not call git clean!! git clean recursively deletes files that are not under version control
   # https://stackoverflow.com/a/68086677/1698426
   punkt submodule foreach --recursive git reset --hard
+  # if this isn't enough, maybe 
+  # git submodule deinit -f . && git submodule update --init --recursive
   punkt-auf
 }
 
 
-function punkt-auf()
+function punkt-einfüre()
 {
-  if [[ -f ${home_tarball_file_timestamp} ]]; then
-    echo "Not a punkt repo"
-    pushd ${HOME} > /dev/null 2>&1
-    homeball="${home_tarball_file}.gz"
-    if [[ -f "${homeball}" ]]; then
-      echo "Import instead?"
-      if command -v gtar; then # brew on macOS
-        TAR=gtar
-      else
-        TAR=tar
-      fi
-      ${TAR} xvf "${homeball}" > /dev/null 2>&1
-      punkt-build-utils
+  pushd ${HOME} > /dev/null 2>&1
+  homeball="${home_tarball_file}.gz"
+  if [[ -f "${homeball}" ]]; then
+    echo "Import instead?"
+    if command -v gtar; then # brew on macOS
+      TAR=gtar
+    else
+      TAR=tar
     fi
-    popd > /dev/null 2>&1
-  else
-    echo "Probably a real punkt repo"
-    # https://stackoverflow.com/a/76182448/1698426
-    echo "Pulling, ignoring submodules"
-    punkt pull --stat --verbose --rebase --no-recurse-submodules
-    echo "Updating submodules"
-    punkt submodule update --init --remote --recursive --jobs=16 | column -t
+    ${TAR} xvf "${homeball}" > /dev/null 2>&1
     punkt-build-utils
   fi
+  popd > /dev/null 2>&1
+}
+
+
+# https://german.stackexchange.com/questions/22438/repository-oder-repositorium
+function punkt-auf()
+{
+  if ! punkt-is-repo; then
+    echo "Not a punkt repo"
+    punkt-einfüre
+    return 0
+  fi
+  echo "Probably a real punkt repo"
+  # https://stackoverflow.com/a/76182448/1698426
+  echo "Pulling, ignoring submodules"
+  punkt pull --stat --verbose --rebase --no-recurse-submodules
+  echo "Updating submodules"
+  punkt submodule update --init --remote --recursive --jobs=16 | column -t
+  punkt-build-utils
 }
 
 
@@ -634,8 +676,7 @@ function punkt-submodule-bringeum()
   unset toplevel
   unset sm_path
 
-  command -v jq > /dev/null 2>&1
-  if [[ $? -ne 0 ]]; then
+  if ! command -v jq > /dev/null 2>&1; then
     echo "Install jq"
     return 1
   fi
