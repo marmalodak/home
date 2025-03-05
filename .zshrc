@@ -72,36 +72,27 @@ elif command -v neofetch; then
   neofetch
 fi
 [[ -f ~/.motd ]] && source ~/.motd
-command -v nerdfetch && nerdfetch
 
 unsetopt beep  # I hate, hate, hate being beeped at
 
-# source ~/.powerlevel10k/powerlevel10k.zsh-theme
-# 
-# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# # Initialization code that may require console input (password prompts, [y/n]
-# # confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
+# NB some of these feel very slow in the rs-cfe repo
 # other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
   1_shell.omp.json # needs newline # 2, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
-  amro.omp.json # 2
-  darkblood.omp.json # 3 too light on a light background, otherwise great
+  amro.omp.json # 2 a bit too light on a light background
+  darkblood.omp.json # 4 too light on a light background, otherwise great
   emodipt-extend.omp.json # 1
   fish.omp.json # a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 2
   illusi0n.omp.json # 1 needs newline
-  kali.omp.json # 4 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
+  kali.omp.json # 5 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
   montys.omp.json # 1 pretty but shiny
   negligible.omp.json # needs newline 2
-  paradox.omp.json # 1 # a bit too shiny
+  paradox.omp.json # 2 # a bit too shiny
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json
   pure.omp.json # 1
@@ -112,7 +103,7 @@ all_oh_my_posh_themes=(
   takuya.omp.json
   thecyberden.omp.json # 1 # a bit too shiny
   # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
-  wholespace.omp.json # needs newline, very slow
+  wholespace.omp.json # 1 needs newline, very slow
   wopian.omp.json # 1
   ys.omp.json # 1
 )
@@ -760,6 +751,8 @@ function cht()
 
 
 # if cmd is available use it, otherwise run cmd2
+# could this be made to work for cmd3? cmd4?
+# probably not because how do you distinguish between a cmd and a argument to a cmd?
 function ifcmd()
 {
   cmd1=${1}; shift
@@ -775,17 +768,8 @@ function ifcmd()
 
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
-# # who writes this drivel?
-# [[ $(command -v batcat) ]] && alias bat='batcat'  # ubuntu
-# [[ $(command -v fdfind) ]] && alias fd='fdfind'  # ubuntu
 command -v batcat > /dev/null && alias bat='batcat'  # ubuntu
 command -v fdfind > /dev/null && alias fd='fdfind'  # ubuntu
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# See .zprofle for path and fpath and PATH
 
 
 # compdef punkt=git
