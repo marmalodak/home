@@ -78,12 +78,12 @@ unsetopt beep  # I hate, hate, hate being beeped at
 # NB some of these feel very slow in the rs-cfe repo
 # other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
-  1_shell.omp.json # needs newline # 2, it does NOT need a newline, what? slightly too light on white background
+  1_shell.omp.json # needs newline # 2 -1, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
   amro.omp.json # 2 a bit too light on a light background
   darkblood.omp.json # 4 too light on a light background, otherwise great
-  emodipt-extend.omp.json # 1
-  fish.omp.json # a bit too shiny # needs newline
+  emodipt-extend.omp.json # 2
+  fish.omp.json # 1 a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 2
   illusi0n.omp.json # 1 needs newline

@@ -196,3 +196,6 @@
 [submodule ".vim/pack/vim8/start/cheat.sh-vim"]
 	path = .vim/pack/vim8/start/cheat.sh-vim
 	url = https://gitlab.com/dbeniamine/cheat.sh-vim.git
+[submodule ".vim/pack/vim8/start/unicode.vim"]
+	path = .vim/pack/vim8/start/unicode.vim
+	url = https://github.com/chrisbra/unicode.vim
