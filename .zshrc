@@ -64,12 +64,12 @@ bindkey '^[#' pound-insert
 [[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
 
-if command -v fastfetch; then
+if whence fastfetch > /dev/null; then
   fastfetch
-elif command -v nerdfetch; then
-  nerdfetch
-elif command -v neofetch; then
+elif whence neofetch > /dev/null; then
   neofetch
+elif whence nerdfetch > /dev/null; then
+  nerdfetch
 fi
 [[ -f ~/.motd ]] && source ~/.motd
 
@@ -213,7 +213,7 @@ zstyle ':completion:*' menu select  # recommended by z
 export LANG=en_US.UTF-8
 
 export EDITOR='vim'
-command -v nvim > /dev/null && export EDITOR='nvim'
+whence nvim > /dev/null && export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -244,7 +244,7 @@ alias .....='cd ../../../..'
 # http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
 
 # switch from exa to eza https://github.com/eza-community/eza
-if command -v eza > /dev/null; then
+if whence eza > /dev/null; then
   alias ll='eza --long --icons=always'
   alias lr='eza --long --header --sort=date --icons=always'
   alias lra='eza --all --long --header --sort=date --icons=always'
@@ -521,7 +521,7 @@ function punkt-einfüre()
   homeball="${home_tarball_file}.gz"
   if [[ -f "${homeball}" ]]; then
     echo "Import instead?"
-    if command -v gtar; then # brew on macOS
+    if whence gtar > /dev/null; then # brew on macOS
       TAR=gtar
     else
       TAR=tar
@@ -555,13 +555,13 @@ function punkt-build-utils()
 {
   local return_status=0
   pushd ${HOME} > /dev/null 2>&1
-  if command -v make; then
+  if whence make > /dev/null; then
     make -C .vim/pack/vim8/start/telescope-fzf-native.nvim clean all
   else
     echo "Install make"
     return_status=1
   fi
-  if command -v go; then
+  if whence go > /dev/null; then
     if [[ ! $(go env GOVERSION) < 'go1.23.0' ]]; then
       { go build -C .oh-my-posh/src -o .oh-my-posh/oh-my-posh }
     else
@@ -579,7 +579,7 @@ function punkt-build-utils()
 
 function punkt-zeige()
 {
-  if ! command -v jq > /dev/null 2>&1; then
+  if ! whence jq > /dev/null 2>&1; then
     echo "Install jq"
     return 1
   fi
@@ -613,7 +613,7 @@ function punkt-zeige()
 
 function punkt-zu-json()
 {
-  command -v jo > /dev/null 2>&1
+  whence jo > /dev/null 2>&1
   if [[ $? -ne 0 ]]; then
     echo "Install jo"
     return 1
@@ -667,7 +667,7 @@ function punkt-submodule-bringeum()
   unset toplevel
   unset sm_path
 
-  if ! command -v jq > /dev/null 2>&1; then
+  if ! whence jq > /dev/null 2>&1; then
     echo "Install jq"
     return 1
   fi
@@ -720,6 +720,7 @@ function punkt-submodule-bringeum()
 }
 
 
+# requires autoload -Uz compinit && compinit
 function zsh-completions-show-all
 {
   # https://stackoverflow.com/a/40014760/1698426
@@ -757,24 +758,24 @@ function ifcmd()
 {
   cmd1=${1}; shift
   cmd2=${1}; shift
-  if command -v > /dev/null ${cmd1}; then
+  if whence ${cmd1} > /dev/null ${cmd1}; then
     ${cmd1} $*
   else
     ${cmd2} $*
   fi
-  # command -v ${cmd1} && ${cmd1} $* || ${cmd2} $*
+  # whence ${cmd1} > /dev/null && ${cmd1} $* || ${cmd2} $*
 }
 
 
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
-command -v batcat > /dev/null && alias bat='batcat'  # ubuntu
-command -v fdfind > /dev/null && alias fd='fdfind'  # ubuntu
+whence batcat > /dev/null && alias bat='batcat'  # ubuntu
+whence fdfind > /dev/null && alias fd='fdfind'  # ubuntu
 
 
 # compdef punkt=git
 # 
-# if command -v eza > /dev/null; then
+# if whence eza > /dev/null; then
 #   compdef ll=eza
 #   compdef lr=eza
 #   compdef lc=eza
@@ -803,6 +804,11 @@ set -o completeinword
 # fi
 
 # autoload -Uz compinit && compinit
+# zsh can load bash completion functions! https://stackoverflow.com/a/70893451/1698426
+# # Load bash completion functions
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
+
 
 
 # https://postgresqlstan.github.io/cli/zsh-run-help/ https://unix.stackexchange.com/a/282649/30160 https://stackoverflow.com/a/7060716

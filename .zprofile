@@ -19,7 +19,7 @@
 # NB brew/{bin,sbin} is already handled, do not add it here
 
 brewpath=''
-if command -v brew; then
+if whence brew > /dev/null; then
   brewpath=$(brew --prefix)
 fi
 [[ -d ${HOME}/bin/go/bin ]]                                && PATH="${HOME}/bin/go/bin:${PATH}"
@@ -39,7 +39,7 @@ typeset -U PATH
 export PATH
 
 
-if command -v nvm; then
+if whence nvm > /dev/null; then
   if [[ ! -d ~/.nvm ]]; then
     mkdir ~/.nvm  # nvm = Node Version Manager
   fi
