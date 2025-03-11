@@ -85,12 +85,12 @@ all_oh_my_posh_themes=(
   emodipt-extend.omp.json # 2
   fish.omp.json # 1 a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
-  honukai.omp.json # 2
+  honukai.omp.json # 3 some colour adjustments needed on light background
   illusi0n.omp.json # 1 needs newline
   kali.omp.json # 5 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
-  montys.omp.json # 1 pretty but shiny
+  montys.omp.json # 2 pretty but shiny
   negligible.omp.json # needs newline 2
   paradox.omp.json # 2 # a bit too shiny
   powerlevel10k_rainbow.omp.json
@@ -518,15 +518,14 @@ function punkt-aufbau()
 function punkt-einfüre()
 {
   pushd ${HOME} > /dev/null 2>&1
-  homeball="${home_tarball_file}.gz"
-  if [[ -f "${homeball}" ]]; then
-    echo "Import instead?"
+  if [[ -f "${home_tarball_file_zip}" ]]; then
     if whence gtar > /dev/null; then # brew on macOS
       TAR=gtar
     else
       TAR=tar
     fi
-    ${TAR} xvf "${homeball}" > /dev/null 2>&1
+    echo "Unpacking ${home_tarball_file_zip}"
+    ${TAR} xvf "${home_tarball_file_zip}" > /dev/null 2>&1
     punkt-build-utils
   fi
   popd > /dev/null 2>&1

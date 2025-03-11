@@ -1,6 +1,6 @@
 Title Goes Here
 ===============
-:compat-mode!:
+// :compat-mode!: // compat-mode preserves compatibility with AsciiDoc.py, do I need this?
 :description: an asciidoc template
 :max-width: 100%
 :nofooter:
@@ -13,6 +13,11 @@ Title Goes Here
 // sectlinks makes each section a clickable HTML link
 :copycss:
 :stylesheet: asciidoc-template.css
+
+// max-width is not recommended, but gets rid of the silly wide waste of space on the left and right side of html pages
+// NB: the underline of the title of this doc must match the length of the title text
+
+// :icons: font changes the words NOTE/IMPORTANT/WANT et al to be shows as icons rather than the literal "NOTE" / "IMPORTANT" ...
 
 == Asciidoc template
 

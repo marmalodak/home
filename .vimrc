@@ -97,9 +97,10 @@ set noerrorbells
 set visualbell
 set vb t_vb=
 
-" Do the guioptions apply to things like vimR?
-set guioptions-=T
-set guioptions+=m
+if has("gui_running")
+  set guioptions-=T
+  set guioptions+=m
+endif
 
 set expandtab
 set tabstop=2
@@ -310,11 +311,13 @@ nnoremap <leader>ww :e ~/wiki/index.adoc<CR>
 
 "====[ Toggle visibility of naughty characters ]============ https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 
-" Make naughty characters visible...
-set lcs=tab:══»,trail:␣,nbsp:˷
-"   Tabs	shown	thusly	and	so
-"   Trailing whitespace    
-"   Non-breaking space
+if has("gui_running")
+  " Make naughty characters visible...
+  set lcs=tab:══»,trail:␣,nbsp:˷
+  "   Tabs	shown	thusly	and	so
+  "   Trailing whitespace    
+  "   Non-breaking space
+endif
 
 highlight InvisibleSpaces ctermfg=Black ctermbg=Black
 call matchadd('InvisibleSpaces', '\S\@<=\s\+\%#\ze\s*$')
