@@ -64,13 +64,17 @@ bindkey '^[#' pound-insert
 [[ $OSTYPE == 'linux'* ]] && export FPATH=$FPATH:/usr/share/zsh/5.8/functions
 # maybe zshversion=$(zsh --version | cut -d' ' -f 2)
 
-if whence fastfetch > /dev/null; then
-  fastfetch
-elif whence neofetch > /dev/null; then
-  neofetch
-elif whence nerdfetch > /dev/null; then
-  nerdfetch
+if ! whence ~/bin/cht.sh > /dev/null; then
+  echo "Consider curl https://cht.sh/:cht.sh > /tmp/cht.sh ... "
 fi
+# The fat logo in each pane is too much
+# if whence fastfetch > /dev/null; then
+#   fastfetch
+# elif whence neofetch > /dev/null; then
+#   neofetch
+# elif whence nerdfetch > /dev/null; then
+#   nerdfetch
+# fi
 [[ -f ~/.motd ]] && source ~/.motd
 
 unsetopt beep  # I hate, hate, hate being beeped at
@@ -81,20 +85,20 @@ all_oh_my_posh_themes=(
   1_shell.omp.json # needs newline # 2 -1, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
   amro.omp.json # 2 a bit too light on a light background
-  darkblood.omp.json # 4 too light on a light background, otherwise great
+  darkblood.omp.json # 5 too light on a light background, otherwise great
   emodipt-extend.omp.json # 2
   fish.omp.json # 1 a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
-  honukai.omp.json # 3 some colour adjustments needed on light background
+  honukai.omp.json # 4 some colour adjustments needed on light background
   illusi0n.omp.json # 1 needs newline
   kali.omp.json # 5 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
-  montys.omp.json # 2 pretty but shiny
+  # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
   negligible.omp.json # needs newline 2
-  paradox.omp.json # 2 # a bit too shiny
+  paradox.omp.json # 3 # a bit too shiny
   powerlevel10k_rainbow.omp.json
-  probua.minimal.omp.json
+  probua.minimal.omp.json # -1 illegible on white background
   pure.omp.json # 1
   # simweb.omp.json # -1
   slimfat.omp.json # 2
@@ -180,8 +184,17 @@ COMPLETION_WAITING_DOTS="true"
 # HISTIGNORE=&
 SAVEHIST=100000
 HISTSIZE=1000000
-HISTFILESIZE=$SAVEHIST
-HISTCONTROL=ignoreboth
+HISTFILESIZE=10000000
+# HISTCONTROL=ignoreboth # bashism? zsh equivelant is HIST_IGNORE_DUPS
+
+setopt APPEND_HISTORY           # append to history rather than replace it
+setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
+# setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
+setopt SHARE_HISTORY            # imports new commands from the history file, and also causes your typed commands to be appended to the history file
+                                # also enables EXTENDED_HISTORY
+setopt EXTENDED_HISTORY         # record command start time
+setopt HIST_IGNORE_SPACE        # do not record if the command starts with whitespace
+# https://askubuntu.com/a/23631 Either set inc_append_history or share_history but not both
 
 [[ -z LC_CTYPE ]] && export LC_CTYPE="${LC_ALL}"  # tmux needs this for UTF-8 text? I must be  mistaken; see the tmux man page seciont "ENVIRONMENT"
 
@@ -237,6 +250,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
 
 # https://github.com/sharkdp/vivid
 # https://unix.stackexchange.com/questions/245378/common-environment-variable-to-set-dark-or-light-terminal-background#245568
@@ -410,6 +425,16 @@ function punkt-modified()
 }
 
 
+function punkt-is-repo()
+{
+  # return 1 if there is a tarball timestamp, and therefore not ~/.punkte is not a real git repo
+  if [[ -f ${home_tarball_file_timestamp} ]]; then
+    return 1
+  fi
+  return 0
+}
+
+
 function punkt-status()
 {
   # man gitmodules: submodule.<name>.ignore
@@ -466,35 +491,30 @@ function punkt-ausführe()
     echo "Something went wrong, whar tarball ${home_tarball_file_zip}?"
     return 1
   fi
-  echo copy ${home_tarball_file_zip} to the destination computer
-  echo On the destination:
-  echo '1. cd ~'
-  echo "2. gtar xvf ${home_tarball_file_zip}"
-  echo 'Consider `brew install gnu-tar` if on the mac and want GNU tar which works more like tar on linux'
+  echo "copy ${home_tarball_file_zip} to the destination computer"
+  echo 'On the destination:'
+  echo '1. apt install unzip fzf fd-find ripgrep bat'
+  echo ' OR '
+  echo '1. brew install fzf fd ripgrep bat go gnu-tar'
+  echo '2. cd ~'
+  echo "3. gtar xvf ${home_tarball_file_zip}"
   echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
-  echo 'wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
+  echo '4. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
   echo ' OR '
-  echo 'wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
+  echo '4. wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
+  echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
   echo ' OR '
-  echo 'tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
+  echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
+  echo '6. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
   echo ' OR '
-  echo 'tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
-  echo '~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
-  echo 'cd .oh-my-posh/src && ~/bin/go/bin/go build ... # never mind'
+  echo '6. cd .oh-my-posh/src && ~/bin/go/bin/go build'
   echo 'https://ohmyposh.dev/docs/installation/linux'
-  echo 'apt install unzip fzf fd-find ripgrep bat'
-  echo 'mkdir -p ~/.oh-my-posh'
-  echo 'curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
-}
-
-
-function punkt-is-repo()
-{
-  # return 1 if there is a tarball timestamp, and therefore not ~/.punkte is not a real git repo
-  if [[ -f ${home_tarball_file_timestamp} ]]; then
-    return 1
-  fi
-  return 0
+  echo '6. apt install unzip fzf fd-find ripgrep bat'
+  echo ' OR '
+  echo '7. brew install fzf fd ripgrep bat'
+  echo ' OR maybe'
+  echo '8. mkdir -p ~/.oh-my-posh'
+  echo '9. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
 }
 
 
@@ -509,7 +529,7 @@ function punkt-aufbau()
   # Do not call git clean!! git clean recursively deletes files that are not under version control
   # https://stackoverflow.com/a/68086677/1698426
   punkt submodule foreach --recursive git reset --hard
-  # if this isn't enough, maybe 
+  # if this is not enough, maybe 
   # git submodule deinit -f . && git submodule update --init --recursive
   punkt-auf
 }
