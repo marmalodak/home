@@ -66,7 +66,7 @@ nnoremap OO m`O<ESC>``
 nnoremap <Leader>p :e #<Enter>
 nnoremap <Leader>n :bnext<Enter>
 
-map <leader>at :ALEToggle<CR>
+map <leader>at :ALEToggle<CR> " toggle pylint
 map <leader>nh :nohl<CR>
 
 " these don't work and I need better shortcuts

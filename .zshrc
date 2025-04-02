@@ -67,14 +67,13 @@ bindkey '^[#' pound-insert
 if ! whence ~/bin/cht.sh > /dev/null; then
   echo "Consider curl https://cht.sh/:cht.sh > /tmp/cht.sh ... "
 fi
-# The fat logo in each pane is too much
-# if whence fastfetch > /dev/null; then
-#   fastfetch
-# elif whence neofetch > /dev/null; then
-#   neofetch
-# elif whence nerdfetch > /dev/null; then
-#   nerdfetch
-# fi
+if whence fastfetch > /dev/null; then
+  fastfetch # The fat logo in each pane is a bit much
+elif whence neofetch > /dev/null; then
+  neofetch
+elif whence nerdfetch > /dev/null; then
+  nerdfetch
+fi
 [[ -f ~/.motd ]] && source ~/.motd
 
 unsetopt beep  # I hate, hate, hate being beeped at
@@ -91,12 +90,12 @@ all_oh_my_posh_themes=(
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 4 some colour adjustments needed on light background
   illusi0n.omp.json # 1 needs newline
-  kali.omp.json # 5 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
+  kali.omp.json # 7 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
-  negligible.omp.json # needs newline 2
-  paradox.omp.json # 3 # a bit too shiny
+  negligible.omp.json # needs newline 3
+  paradox.omp.json # 4 # a bit too shiny
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json # -1 illegible on white background
   pure.omp.json # 1
@@ -108,8 +107,8 @@ all_oh_my_posh_themes=(
   thecyberden.omp.json # 1 # a bit too shiny
   # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
   wholespace.omp.json # 1 needs newline, very slow
-  wopian.omp.json # 1
-  ys.omp.json # 1
+  wopian.omp.json # 1 # needs hostname in the prompt
+  ys.omp.json # 1 # too light on a light background
 )
 ri=$(( $RANDOM % ${#all_oh_my_posh_themes[@]} + 1)) # https://unix.stackexchange.com/a/287333
 oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
@@ -190,8 +189,9 @@ HISTFILESIZE=10000000
 setopt APPEND_HISTORY           # append to history rather than replace it
 setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
 # setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
-setopt SHARE_HISTORY            # imports new commands from the history file, and also causes your typed commands to be appended to the history file
-                                # also enables EXTENDED_HISTORY
+# setopt SHARE_HISTORY            # imports new commands from the history file, and also causes your typed commands to be appended to the history file
+#                                 # also enables EXTENDED_HISTORY
+#                                 # SHARE_HISTORY isn't that great because local history is more important 
 setopt EXTENDED_HISTORY         # record command start time
 setopt HIST_IGNORE_SPACE        # do not record if the command starts with whitespace
 # https://askubuntu.com/a/23631 Either set inc_append_history or share_history but not both
@@ -483,6 +483,8 @@ function punkt-ausführe()
   date > ${home_tarball_file_timestamp}
   tar --append --file=${home_tarball_file} ${home_tarball_file_timestamp}
   rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
+  infocmp alacritty > alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
+  tar --apend --file=${home_tarball_file} alacritty.terminfo
   gzip ${home_tarball_file}
   popd
   if [[ -f ${home_tarball_file_zip} ]]; then
@@ -546,7 +548,11 @@ function punkt-einfüre()
     fi
     echo "Unpacking ${home_tarball_file_zip}"
     ${TAR} xvf "${home_tarball_file_zip}" > /dev/null 2>&1
+    tic -x alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
     punkt-build-utils
+    mv "${home_tarball_file_zip}" "/tmp/${home_tarball_file_zip}.done"
+  else
+    echo "No ${home_tarball_file_zip}, nothing to do"
   fi
   popd > /dev/null 2>&1
 }
@@ -822,11 +828,8 @@ set -o completeinword
 #   compinit -C
 # fi
 
-# autoload -Uz compinit && compinit
-# zsh can load bash completion functions! https://stackoverflow.com/a/70893451/1698426
-# # Load bash completion functions
-autoload -Uz +X compinit && compinit
-autoload -Uz +X bashcompinit && bashcompinit
+autoload -Uz +X compinit && compinit -u # https://stackoverflow.com/questions/13762280/zsh-compinit-insecure-directories?noredirect=1&lq=1
+autoload -Uz +X bashcompinit && bashcompinit # zsh can load bash completion functions! https://stackoverflow.com/a/70893451/1698426
 
 
 
@@ -836,7 +839,12 @@ autoload -Uz run-help
 autoload -Uz run-help-git
 autoload -Uz run-help-svk
 autoload -Uz run-help-sudo
+autoload -Uz run−help−ip
+autoload -Uz run−help−openssl
+autoload -Uz run−help−p4
+autoload -Uz run−help−svn
 alias help=run-help
+HELPDIR="/usr/share/zsh/$(zsh --version | cut -d' ' -f2)/help"
 
 # TODO: steal from https://github.com/vincentbernat/zshrc/blob/master/rc/alias.zsh
 # TODO: steal from https://github.com/gibfahn/dot/blob/539fb6881ee8ddb184c0a41a31d7b6e3c0573f82/dotfiles/.config/zsh/deferred/deferred.zsh#L570-L572
