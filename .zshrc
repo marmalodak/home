@@ -572,6 +572,8 @@ function punkt-auf()
   punkt pull --stat --verbose --rebase --no-recurse-submodules
   echo "Updating submodules"
   punkt submodule update --init --remote --recursive --jobs=16 | column -t
+  # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
+  # - might have to do each individually?
   punkt-build-utils
 }
 
@@ -587,8 +589,8 @@ function punkt-build-utils()
     return_status=1
   fi
   if whence go > /dev/null; then
-    if [[ ! $(go env GOVERSION) < 'go1.23.0' ]]; then
-      { go build -C .oh-my-posh/src -o .oh-my-posh/oh-my-posh }
+    if [[ ! $(go env GOVERSION) < 'go1.24.0' ]]; then # zsh has no <= >= for strings?
+      { go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh }
     else
       echo "Get a newer version of go"
       return_status=1
