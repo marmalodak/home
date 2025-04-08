@@ -570,12 +570,19 @@ function punkt-auf()
   echo "Probably a real punkt repo"
   # https://stackoverflow.com/a/76182448/1698426
   echo "Pulling, ignoring submodules"
-  punkt pull --stat --verbose --rebase --no-recurse-submodules
-  echo "Updating submodules"
-  punkt submodule update --init --remote --recursive --jobs=16 | column -t
-  # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
-  # - might have to do each individually?
-  punkt-build-utils
+  if punkt pull --stat --verbose --rebase --no-recurse-submodules; then
+    echo "Updating submodules"
+    punkt submodule update --init --remote --recursive --jobs=16 | column -t
+    punkt pull --recurse-submodules --jobs=16 | column -t
+    # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
+    # - might have to do each individually?
+    punkt-build-utils
+  else
+    echo
+    echo "Do you have uncommitted changes?"
+    echo
+    punkt-status
+  fi
 }
 
 
