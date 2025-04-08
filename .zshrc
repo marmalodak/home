@@ -477,6 +477,7 @@ function punkt-ausführe()
 {
   pushd ${HOME}
   # https://stackoverflow.com/a/23116607
+  [[ -f ${home_tarball_file} ]]     && rm ${home_tarball_file}
   [[ -f ${home_tarball_file_zip} ]] && rm ${home_tarball_file_zip}
   punkt ls-files --full-name --recurse-submodules | tar Tcf - ${home_tarball_file}
   [[ -f .local.zsh ]] && tar --append --file=${home_tarball_file} .local.zsh
@@ -484,7 +485,7 @@ function punkt-ausführe()
   tar --append --file=${home_tarball_file} ${home_tarball_file_timestamp}
   rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
   infocmp alacritty > alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
-  tar --apend --file=${home_tarball_file} alacritty.terminfo
+  tar --append --file=${home_tarball_file} alacritty.terminfo
   gzip ${home_tarball_file}
   popd
   if [[ -f ${home_tarball_file_zip} ]]; then
@@ -550,7 +551,7 @@ function punkt-einfüre()
     ${TAR} xvf "${home_tarball_file_zip}" > /dev/null 2>&1
     tic -x alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
     punkt-build-utils
-    mv "${home_tarball_file_zip}" "/tmp/${home_tarball_file_zip}.done"
+    mv "${home_tarball_file_zip}" "${home_tarball_file_zip}.done"
   else
     echo "No ${home_tarball_file_zip}, nothing to do"
   fi
