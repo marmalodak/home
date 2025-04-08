@@ -90,7 +90,7 @@ all_oh_my_posh_themes=(
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 4 some colour adjustments needed on light background
   illusi0n.omp.json # 1 needs newline
-  kali.omp.json # 7 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
+  kali.omp.json # 8 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 1 very slow
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
@@ -340,7 +340,7 @@ function nvim-rg()
   fi
   searchterm=$*
   shift
-  nvim -O $(rg --color=never --files-with-matches ${maxdepth} ${searchterm}) $*
+  nvim -O $(rg -i --color=never --files-with-matches ${maxdepth} ${searchterm}) $*
 }
 
 
@@ -580,6 +580,7 @@ function punkt-auf()
 
 function punkt-build-utils()
 {
+  # install nerd fonts? e.g. https://github.com/aorith/blueconfig/blob/master/post-install/manual/install-fonts.sh
   local return_status=0
   pushd ${HOME} > /dev/null 2>&1
   if whence make > /dev/null; then
