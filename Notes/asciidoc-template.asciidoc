@@ -21,6 +21,8 @@ Title Goes Here
 
 == Asciidoc template
 
+See the appendix <<a-unique-appendix-id,for a cool entry>>.
+
 === Subtitle
 
 [options="interactive"]
@@ -153,6 +155,11 @@ See the plus sign directly underneath the first item in the list, it signals tha
 *** yyai
 
 
+[appendix]
+=== The First Appendix Entry
+[[a-unique-appendix-id,optional caption to be used if the referrer does not provide a caption]]
+
+Do I need some text here? Yes, without this line of text the reference to <<a-unique-appendix-id,this appendix>> does not work? For real??
 
 
 ////
