@@ -240,7 +240,7 @@ export BETTER_EXCEPTIONS=1  # https://github.com/qix-/better-exceptions
 # FZF_DEFAULT_COMMAND="fd --type f --exclude .git"
 FZF_DEFAULT_COMMAND="eza -1"
 
-if [[ -r ~/.punkt.zsh ]]; then
+if [[ -r ~/.punkte.zsh ]]; then
   source ~/.punkte.zsh
 else
   echo "\e[1;31mNo Punkte?\e[0m"
