@@ -81,7 +81,7 @@ unsetopt beep  # I hate, hate, hate being beeped at
 # NB some of these feel very slow in the rs-cfe repo
 # other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
-  1_shell.omp.json # needs newline # 2 -1, it does NOT need a newline, what? slightly too light on white background
+  1_shell.omp.json # needs newline # 3, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
   amro.omp.json # 2 a bit too light on a light background
   darkblood.omp.json # 5 too light on a light background, otherwise great
@@ -431,7 +431,7 @@ function punkt-is-repo()
   if [[ -f ${home_tarball_file_timestamp} ]]; then
     return 1
   fi
-  return 0
+  punkt show > /dev/null # returns 128 if ~/.punkte is not a git repo
 }
 
 
