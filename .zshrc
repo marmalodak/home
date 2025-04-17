@@ -532,6 +532,8 @@ function punkt-aufbau()
   # Do not call git clean!! git clean recursively deletes files that are not under version control
   # https://stackoverflow.com/a/68086677/1698426
   punkt submodule foreach --recursive git reset --hard
+  punkt submodule foreach --recursive git submodule deinit -f .
+  punkt submodule update --init --recursive --remote
   # if this is not enough, maybe 
   # git submodule deinit -f . && git submodule update --init --recursive
   punkt-auf
