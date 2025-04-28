@@ -86,12 +86,12 @@ all_oh_my_posh_themes=(
   amro.omp.json # 2 a bit too light on a light background
   darkblood.omp.json # 5 too light on a light background, otherwise great
   emodipt-extend.omp.json # 2
-  fish.omp.json # 1 a bit too shiny # needs newline
+  fish.omp.json # 2 a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 4 some colour adjustments needed on light background
-  illusi0n.omp.json # 1 needs newline
+  illusi0n.omp.json # 2 needs newline
   kali.omp.json # 8 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
-  kushal.omp.json # 1 very slow
+  kushal.omp.json # 2 very slow, too light on a white background and also a bit too shiny
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
   negligible.omp.json # needs newline 3
@@ -102,7 +102,7 @@ all_oh_my_posh_themes=(
   # simweb.omp.json # -1
   slimfat.omp.json # 2
   sorin.omp.json # needs a newline before the cursor # 1
-  stelbent-compact.minimal.omp.json
+  stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
   thecyberden.omp.json # 1 # a bit too shiny
   # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background

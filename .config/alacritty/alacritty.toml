@@ -50,7 +50,7 @@ background = "#e8e8e8"
 # white = '#FFFFFF'
 
 [font]
-size = 18
+size = 12
 
 [font.normal]
 family = "SauceCodePro Nerd Font Mono"
