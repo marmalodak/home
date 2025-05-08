@@ -549,7 +549,7 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 "    augroup END
 
 " I want to see the name of linter which is giving me an error message
-let g:ale_echo_msg_format = '%linter% says: %code%: %s'
+let g:ale_echo_msg_format = '%linter%: %code%: %s ⟪%severity%⟫'
 
 " " next and previous ALE error/warning; something is overwriting this setting
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
