@@ -49,7 +49,7 @@ set +x
 # That's why the newly created activate script must use the full path to the newly-created venv
 # This is how I solved the problem of using mk-venv like "mk-venv.zsh foo ipython", then running ipython from the shell would crash because it was invoking the built-in Python
 
-if ((# == 0)); then
+if ((# == 0)) || [[ ${1:0:1} == "-" ]]; then
     print "${0} MyVenv package1 package2 ..."
     print "Creates two scripts:"
     print "1. mk-MyVenv-venv"
@@ -59,7 +59,7 @@ if ((# == 0)); then
     print "2. MyVenv-venv-activate.zsh -- run this to activate the virtual environtment MyVenv"
     print "  - this will launch a subshell in which MyVenv is activated"
     print "  - simply type exit or control+d to leave the subshell"
-    exit 0
+    return 0
 fi
 
 PARAMETERS=("${(@s/ /)*}")  # convert string to array https://stackoverflow.com/a/2930519/1698426

@@ -90,7 +90,7 @@ all_oh_my_posh_themes=(
   cobalt2.omp.json # needs newline # a bit too shiny
   honukai.omp.json # 4 some colour adjustments needed on light background
   illusi0n.omp.json # 2 needs newline
-  kali.omp.json # 8 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
+  kali.omp.json # 9 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 2 very slow, too light on a white background and also a bit too shiny
   lambdageneration.omp.json # 4 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
@@ -104,7 +104,7 @@ all_oh_my_posh_themes=(
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
-  thecyberden.omp.json # 1 # a bit too shiny
+  # thecyberden.omp.json # 1 # a bit too shiny
   # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
   wholespace.omp.json # 1 needs newline, very slow
   wopian.omp.json # 1 # needs hostname in the prompt
@@ -302,7 +302,6 @@ alias secscp='rsync -azhe ssh --progress $1 $2'
 
 function cd-fd()
 {
-  # IFS=  # I do not recall why this was even here...
   somefile="$(fd $1)"
   if [[ -z "$1" ]] || [[ -z "${somefile}" ]] || [[ ! -f "${somefile}" ]]; then echo "File $1 not found"; return 1; fi
   cd $(dirname ${somefile})
@@ -322,16 +321,6 @@ function hs()  # from #help-zsh: search history and display unique lines (for th
   # fc -ln 0 | grep $1 | sort | uniq -c | sort -n | cut -c6- # frequent things at the end of the list
 }
 
-# since the trash *.foo *.bar command aborts when no .bar files are found, use this for trashing multiple files
-function trashit()
-{
-  for i in $*; do
-    if [[ -f "${i}" ]] ; then
-      \trash $i
-    fi
-  done
-}
-
 
 # open all the files that are found by ripgrep
 function nvim-rg()
@@ -344,12 +333,16 @@ function nvim-rg()
   fi
   searchterm=$*
   shift
-  nvim -O $(rg -i --color=never --files-with-matches ${maxdepth} ${searchterm}) $*
+  nvim -O $(rg --ignore-case --color=never --files-with-matches ${maxdepth} ${searchterm}) # $*
+  #                                                                                          ⤷ What? I don't think this is necessary
 }
 
 
 # Do not understand why, but fd will not find CommandLineTools.dmg unless the -u flag is set
 alias fd='\fd -u'
+
+whence batcat > /dev/null && alias bat='batcat'  # ubuntu
+whence fdfind > /dev/null && alias fd='fdfind'  # ubuntu
 
 alias nvimdiff='nvim -d'
 
@@ -361,9 +354,14 @@ alias nvimdiff='nvim -d'
 # nvim-fd foo should invoke nvim -O dir1/dir2/foo.anext dir3/foo.ext
 function nvim-fd()
 {
-  fd ${@} -X nvim -O
+  if whence fdfind > /dev/null; then
+    fdfind ${@} --exec-batch nvim -O  # oh ubuntu, why??
+  else
+    fd ${@} --exec-batch nvim -O
+  fi
 
   # TODO accept more than one search term
+  # TODO accept a --maxdepth option
 
   # files=$(eval $(printf "fd %s " ${@}))
   # echo files=$files
@@ -454,9 +452,6 @@ function ifcmd()
 
 
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
-
-whence batcat > /dev/null && alias bat='batcat'  # ubuntu
-whence fdfind > /dev/null && alias fd='fdfind'  # ubuntu
 
 
 # compdef punkt=git

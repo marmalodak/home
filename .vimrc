@@ -569,6 +569,7 @@ nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 set background=light
 " colorscheme NedsDarkTheme
 colorscheme PaperColor
+hi Normal guibg=#f7f7f7 " PaperColor default bg is a bit too dim
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
