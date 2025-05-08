@@ -350,18 +350,18 @@ function punkt-submodule-bringeum()
 function go_get()
 {
   if [[ ${OSTYPE} != "linux-gnu" ]]; then
-    echo "Use brew on the Mac"
-    return 1
+    echo "Use brew on the Mac to get GO"
+    return -1
   fi
   if [[ -f ${HOME}/bin/go ]]; then
     echo "Should the old ${HOME}/bin/go be deleted/saved first?"
-    return 1
+    return -1
   fi
   local arch_host=$(arch)
   if [[ ${arch_host} == "x86_64" ]]; then
     wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz
     tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz
-  elif [[ ${arch_host} == "arm64" ]]; then
+  elif [[ ${arch_host} == "arm64" || ${arch_host} == "aarch64" ]]; then
     wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz
     tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz
   else
