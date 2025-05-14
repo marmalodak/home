@@ -88,7 +88,7 @@ all_oh_my_posh_themes=(
   emodipt-extend.omp.json # 2
   fish.omp.json # 2 a bit too shiny # needs newline
   cobalt2.omp.json # needs newline # a bit too shiny
-  honukai.omp.json # 4 some colour adjustments needed on light background
+  honukai.omp.json # 5 some colour adjustments needed on light background
   illusi0n.omp.json # 2 needs newline
   kali.omp.json # 9 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 2 very slow, too light on a white background and also a bit too shiny
@@ -100,7 +100,7 @@ all_oh_my_posh_themes=(
   probua.minimal.omp.json # -1 illegible on white background
   pure.omp.json # 1
   # simweb.omp.json # -1
-  slimfat.omp.json # 2
+  # slimfat.omp.json # 2
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
@@ -282,10 +282,10 @@ if whence eza > /dev/null; then
 else
   if [[ $OSTYPE == 'darwin'* ]]; then
     alias ll='ls -lG'
-    alias lr='ls -alrthG'
+    alias lr='ls -lrthG'
   else
     alias ll='ls -l --color=auto'
-    alias lr='ls -alrth --color=auto'
+    alias lr='ls -lrth --color=auto'
   fi
 fi
 
