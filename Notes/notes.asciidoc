@@ -1,0 +1,205 @@
+I Want to Remember
+==================
+:description: Q&A with myself, that is, I look up something useful and then forget about it until I need it again
+:max-width: 100%
+:nofooter:
+:!version-label:
+:icons: font
+:listing-caption: Listing
+// :source-highlighter: pygments
+:!sectlinks:
+:copycss:
+// :stylesheet: asciidoc-template.css
+
+
+== TIL
+
+=== zsh
+
+==== zsh flags
+
+man zshoptions + 
+I cannot find set -o in zshoptions + 
+set +u == set -o UNSET ?? + 
+set -e == set -o ERR_EXIT ?? + 
+set ERR_RETURN exits from functions then the outer shell too + 
+set -o pipe == set -o PIPE_FAIL + 
+set -x == set -o XTRACE + 
+Instead of set -x, consider set -o verbose or set -v + 
+
+
+==== join a zsh array
+
+```
+zsh array join: a=( a b c d ); echo ${(j|,|)a}
+```
+
+https://www.arp242.net/why-zsh.html[s/bash/zsh/g] is great, I learned about it from https://news.ycombinator.com/item?id=28927966[hacker news]
+
+
+==== zsh indirect dereference
+
+Indirect dereference
+```
+❯ foo=bar; bar=baz; echo ${foo}; echo ${(P)foo}
+bar
+baz
+```
+
+
+==== zsh quotes
+
+Use either arrays or `${=FOO}` to get zsh to not insert quotes
+
+See https://unix.stackexchange.com/questions/19530/expanding-variables-in-zsh[Splitting variables in ZSH]
+
+
+=== Vim
+
+==== Run a Python Script on Save
+
+When I save a single-script Python program, run it in the virtual environment for it, save the output.
+In a separate neovim buffer, open the file it writes, make sure that both `autoread` and the `autocmd CursorHold * checktime` are on.
+
+.Autorun a Python program
+[source,python,linenums]
+----
+#!/usr/bin/env python3
+
+import re
+
+
+data = '''
+ foo=1 baz=2 bar=3
+ foo=2
+ foo=3 baz=3 bar=4
+'''.strip().split('\n')
+
+
+m = re.compile(r'^.*foo=(?P<foo>\d*).*bar=(?P<bar>\d*).*')
+
+for d in data:
+  print(d)
+  if (foobar := m.match(d)):
+    print(f'foo={foobar["foo"]} bar={foobar["bar"]}')
+  else:
+    print("no matches")
+
+print("done")
+
+# yank from function! to autocmd!
+# :@"
+comment = '''
+function! Run_prog()
+  silent! execute '!log2sheet-venv/bin/python3 ' . expand('%') . ' > ' . expand('%') . '.out' . ' 2>&1'
+endfunction
+autocmd! BufWritePost,FileWritePost expand('%') :call Run_prog()
+in the whatever.out buffer:
+:set autoread
+:autocmd CursorHold * checktime
+'''
+----
+
+==== delete n lines after a search result
+
+In Vim, search for a simcloud machine and then delete it and the 6 consecutive lines after
+
+.https://vi.stackexchange.com/questions/8504/how-to-delete-searched-line-and-next[Delete searched line and next]
+[CODE]
+-----
+:g/^some-long-search-term.*/.,.+6d
+-----
+
+
+=== Mac
+
+==== Create Bootable Monterey ISO in bash
+
+.https://gist.github.com/julianxhokaxhiu/d26a8974eb0d723285c6b06c99d7207e[Simple bash script to create a Bootable ISO from macOS Monterey Install Image from Mac App Store]
+[CODE]
+-----
+#!/usr/bin/env bash
+#===========================================================================
+# Works only with the official image available in the Mac App Store.
+# Make sure you download the official installer before running this script.
+#===========================================================================
+
+# Change this at your desire. Sometimes this works out of the box, sometimes not.
+# Default size: ~16 GB
+DISK_SIZE="15361m"
+
+#===========================================================================
+
+hdiutil create -o /tmp/Monterey.cdr -size $DISK_SIZE -layout SPUD -fs HFS+J
+hdiutil attach /tmp/Monterey.cdr.dmg -noverify -mountpoint /Volumes/install_build
+sudo "/Applications/Install macOS Monterey.app/Contents/Resources/createinstallmedia"  --volume /Volumes/install_build --nointeraction
+hdiutil detach "/Volumes/Shared Support"
+hdiutil detach "/Volumes/Install macOS Monterey"
+hdiutil convert /tmp/Monterey.cdr.dmg -format UDTO -o /tmp/Monterey.iso
+mv /tmp/Monterey.iso.cdr ~/Desktop/Monterey.iso
+rm /tmp/Monterey.cdr.dmg
+-----
+
+
+=== Python
+
+==== relative imports
+
+https://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time?rq=1[Relative imports for the billionth time] for the next time I need to do this
+
+
+
+=== ESXi
+
+==== Updating ESXi to a new version via CLI
+
+. download zip file from vmware portal
+. upload zip file to local storage on the esxi host
+. on th esxi host, invoke:
+```
+esxcli software sources profile list -d /vmfs/volumes/datastore path where zip file is saved/VMware ESXI update.zip
+```
+* This will list two lines, choose the standard one in the left column
+* Then the following, where <standard> is the copied and pasted from the previous step, and the -d path is the full path to the .zip
+```
+esxcli software profile update -p <-Standard> -d /vmfs/volumes/<zip file path>
+```
+
+
+==== `esxcli` installed on a linux host to run `esxcli` remotely
+
+* https://www.nakivo.com/blog/most-useful-esxcli-esxi-shell-commands-vmware-environment/[esxcli can be installed and run from a remote host]
+
+
+==== Portgroup, Private storage virtual switch, Private storage port group, vmk1
+
+From the ESXi web page UI:
+
+. create a virtual switch
+.. `vmnic1`
+. create a port group
+. create a VMKernel NIC
+.. `vmk1`
+.. static, follow IP settings from previous ESXi host
+.. enable all the things
+
+Go to vcenter, mount storage
+
+
+==== VM Network Security
+
+On a host with ESXi 8.0.3, it took me a while to find where to set the security policy (e.g. "Promiscuous mode", "Mac address changes", "Forged transmits") for the "VM Network".
+In VCenter, start with the ESX, click "Configure", then under "Networking" select "Virtual switches", then select (in my case) "vSwitch0".
+Then click the three vertical dots next to "VM Network" click "Edit Settings" and then "Security".
+
+=== Other
+
+==== Lenovo Secure Boot
+
+* physical presence must be asserted in order to enable secure boot mode
+** cannot be enabled via BMC, use `ipmitool`
+** `ipmitool -H some-esx-host.somedomain.com -U localadmin -P 'S00p3rP4sw04rd' -I lanplus raw 0x3a 0x7d 0x01`
+** `ipmitool -H some-esx-host.somedomain.com -U localadmin -P 'S00p3rP4sw04rd' -I lanplus raw 0x3a 0x7d` to check whether it is asserted or not
+** `ipmitool -H some-esx-host.somedomain.com -U localadmin -P 'S00p3rP4sw04rd' -I lanplus raw 0x3a 0x7d 0x00` to de-assert
+** https://support.lenovo.com/us/en/solutions/ht503964-toggling-of-tpm-12-and-20-can-only-be-done-using-hardware-physical-presence-lenovo-system-x3850-x6-x3950-x6[Toggle TPM 1.2 2.0 SR650]
+** ipmi and ssh to the bmc are enabled from the BMC controller page, click on "BMC Configuration" in the menu on the left, then click the "Network" item that opened up, then look for "Service Enablement and Port Assignment"
