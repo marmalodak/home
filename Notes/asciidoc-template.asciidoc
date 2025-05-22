@@ -161,6 +161,16 @@ See the plus sign directly underneath the first item in the list, it signals tha
 
 Do I need some text here? Yes, without this line of text the reference to <<a-unique-appendix-id,this appendix>> does not work? For real??
 
+[appendix]
+=== Vim Considerations
+
+Since asciidoc is mostly prose, two `vim` changes might help:
+
+. `set wrap` for word wrapping
+. `set linebreak` to break at word boundaries
+
+https://vimtricks.com/p/word-wrapping/[This blog post has more suggestions.]
+
 
 ////
 This is an asciidoc document.
