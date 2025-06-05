@@ -6,7 +6,7 @@ I Want to Remember
 :!version-label:
 :icons: font
 :listing-caption: Listing
-// :source-highlighter: pygments
+:source-highlighter: pygments
 :!sectlinks:
 :copycss:
 // :stylesheet: asciidoc-template.css
@@ -58,10 +58,10 @@ See https://unix.stackexchange.com/questions/19530/expanding-variables-in-zsh[Sp
 
 ==== Run a Python Script on Save
 
-When I save a single-script Python program, run it in the virtual environment for it, save the output.
-In a separate neovim buffer, open the file it writes, make sure that both `autoread` and the `autocmd CursorHold * checktime` are on.
+I don't use an IDE. I miss the feature that automatically run a Python program and show its output. I can mimic this in vim by using `autocmd` and opening the output file in a separate window.
+The window with the output should both enable `autoread` and run `autocmd CursorHold * checktime`.
 
-.Autorun a Python program
+.Example, this is `log2sheet`, run it on save, see line 26 onwards
 [source,python,linenums]
 ----
 #!/usr/bin/env python3
@@ -87,14 +87,15 @@ for d in data:
 
 print("done")
 
-# yank from function! to autocmd!
+# yank from function! to autocmd!, i.e. lines 27 to 30
 # :@"
 comment = '''
 function! Run_prog()
   silent! execute '!log2sheet-venv/bin/python3 ' . expand('%') . ' > ' . expand('%') . '.out' . ' 2>&1'
 endfunction
 autocmd! BufWritePost,FileWritePost expand('%') :call Run_prog()
-in the whatever.out buffer:
+
+in the log2sheet.out window:
 :set autoread
 :autocmd CursorHold * checktime
 '''
@@ -102,7 +103,7 @@ in the whatever.out buffer:
 
 ==== delete n lines after a search result
 
-In Vim, search for a simcloud machine and then delete it and the 6 consecutive lines after
+In Vim, search for a term and then delete it and the 6 consecutive lines after
 
 .https://vi.stackexchange.com/questions/8504/how-to-delete-searched-line-and-next[Delete searched line and next]
 [CODE]
@@ -148,10 +149,32 @@ rm /tmp/Monterey.cdr.dmg
 https://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time?rq=1[Relative imports for the billionth time] for the next time I need to do this
 
 
+=== Ubuntu
 
-=== ESXi
+I like Ubuntu "minimal". Do not `unminimize` though. Instead,
 
-==== Updating ESXi to a new version via CLI
+. nuke `/etc/dpkg/dpkgs.cfd.d/excludes`
+. read `/usr/bin/unminimize` for nuggets like `dpkg-divert` and `dpkg --verify`
+. `sudo apt install --reinstall man manpages manpages-posix man-db vim ...`
+. `sudo mandb -c`
+. maybe nuke entries in `/etc/update-motd.d/`
+
+`unminimize` will install a lot, even snap.
+
+
+=== VMWare
+
+==== VSphere
+
+===== VM Network Security
+
+On a host with ESXi 8.0.3, it took me a while to find where to set the security policy (e.g. "Promiscuous mode", "Mac address changes", "Forged transmits") for the "VM Network".
+In VCenter, start with the ESX, click "Configure", then under "Networking" select "Virtual switches", then select (in my case) "vSwitch0".
+Then click the three vertical dots next to "VM Network" click "Edit Settings" and then "Security".
+
+==== ESXi
+
+===== Updating ESXi to a new version via CLI
 
 . download zip file from vmware portal
 . upload zip file to local storage on the esxi host
@@ -166,12 +189,12 @@ esxcli software profile update -p <-Standard> -d /vmfs/volumes/<zip file path>
 ```
 
 
-==== `esxcli` installed on a linux host to run `esxcli` remotely
+===== Run `esxcli` Remotely
 
 * https://www.nakivo.com/blog/most-useful-esxcli-esxi-shell-commands-vmware-environment/[esxcli can be installed and run from a remote host]
 
 
-==== Portgroup, Private storage virtual switch, Private storage port group, vmk1
+===== Portgroup, Private storage virtual switch, Private storage port group, vmk1
 
 From the ESXi web page UI:
 
@@ -185,12 +208,6 @@ From the ESXi web page UI:
 
 Go to vcenter, mount storage
 
-
-==== VM Network Security
-
-On a host with ESXi 8.0.3, it took me a while to find where to set the security policy (e.g. "Promiscuous mode", "Mac address changes", "Forged transmits") for the "VM Network".
-In VCenter, start with the ESX, click "Configure", then under "Networking" select "Virtual switches", then select (in my case) "vSwitch0".
-Then click the three vertical dots next to "VM Network" click "Edit Settings" and then "Security".
 
 === Other
 
