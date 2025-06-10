@@ -74,12 +74,12 @@ function punkt-ausführe()
   date > ${home_tarball_file_timestamp}
   tar --append --file=${home_tarball_file} ${home_tarball_file_timestamp}
   rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
-  infocmp alacritty > alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
-  infocmp xterm-kitty > xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
-  ls -l xterm-kitty.terminfo
-  tar --append --file=${home_tarball_file} alacritty.terminfo
-  tar --append --file=${home_tarball_file} xterm-kitty.terminfo
-  tar --exclude='./*/*' -tv --file=${home_tarball_file}
+  # switched to Terminal.app, maybe terminfos do not neet to be copied around any more
+  # infocmp alacritty > alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
+  # infocmp xterm-kitty > xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
+  # tar --append --file=${home_tarball_file} alacritty.terminfo
+  # tar --append --file=${home_tarball_file} xterm-kitty.terminfo
+  # tar --exclude='./*/*' -tv --file=${home_tarball_file}
   gzip ${home_tarball_file}
   popd
   if [[ -f ${home_tarball_file_zip} ]]; then
@@ -143,9 +143,10 @@ function punkt-einfüre()
     fi
     echo "Unpacking ${home_tarball_file_zip}"
     ${TAR} xvf "${home_tarball_file_zip}" > /dev/null 2>&1
-    tic -x alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
-    tic -x xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
-      # or maybe install `kitty-terminfo`
+    # switched to Terminal.app, maybe terminfos do not neet to be copied around any more
+    # tic -x alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
+    # tic -x xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
+    #   # or maybe install `kitty-terminfo`
     punkt-build-utils
     mv "${home_tarball_file_zip}" "${home_tarball_file_zip}.done"
   else
