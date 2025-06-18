@@ -36,6 +36,9 @@ echo
 echo_color "\033[0;90m" "curl cht.sh/:help"
 
 echo
+echo_color "\033[0;90m" "remember run-help"
+
+echo
 echo_color "\033[0;90m" "C-<space> ' to select a window index"
 echo_color "\033[0;90m" "C-<space> w to select a window interactively"
 

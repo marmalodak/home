@@ -81,7 +81,7 @@ unsetopt beep  # I hate, hate, hate being beeped at
 # NB some of these feel very slow in the rs-cfe repo
 # other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
-  1_shell.omp.json # needs newline # 3, it does NOT need a newline, what? slightly too light on white background
+  1_shell.omp.json # needs newline # 4, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
   amro.omp.json # 2 a bit too light on a light background
   darkblood.omp.json # 5 too light on a light background, otherwise great
@@ -341,7 +341,11 @@ function nvim-rg()
 # Do not understand why, but fd will not find CommandLineTools.dmg unless the -u flag is set
 alias fd='\fd -u'
 
-whence batcat > /dev/null && alias bat='batcat'  # ubuntu
+if whence batcat > /dev/null; then
+  alias bat='batcat'  # ubuntu
+elif ! whence bat > /dev/null; then
+  alias bat='cat'  # if bat is not installed
+fi
 whence fdfind > /dev/null && alias fd='fdfind'  # ubuntu
 
 alias nvimdiff='nvim -d'
