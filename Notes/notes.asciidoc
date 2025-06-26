@@ -18,14 +18,47 @@ I Want to Remember
 
 ==== zsh flags
 
-man zshoptions + 
-I cannot find set -o in zshoptions + 
-set +u == set -o UNSET ?? + 
-set -e == set -o ERR_EXIT ?? + 
-set ERR_RETURN exits from functions then the outer shell too + 
-set -o pipe == set -o PIPE_FAIL + 
-set -x == set -o XTRACE + 
-Instead of set -x, consider set -o verbose or set -v + 
+`man zshoptions`
+
+`set -e` is the same as `setopt ERR_EXIT` and the same as `set -o ERR_EXIT`
+
+`set +e` is the same as `unsetopt ERR_EXIT` and the same as `setopt NO_ERR_EXIT`
+
+https://linux.die.net/man/1/zshoptions[zsh man page] and https://zsh.sourceforge.io/Doc/Release/Options.html[zsh options]
+
+.case insensitive and underscores are ignored
+[%autowidth]
+|===
+|Single Letter|Full Word| Explanation
+
+|`-e`
+|`ERR_EXIT`
+|If a command has a non-zero exit status, execute the ZERR trap, if set, and exit. This is disabled while running initialization scripts...
+
+|`-u`
+|`UNSET`
+|Treat unset parameters as if they were empty when substituting. Otherwise they are treated as an error
+
+|`-x`
+|`XTRACE`
+|Print commands and their arguments as they are executed
+
+|
+|`PIPE_FAIL`
+|By default, when a pipeline exits the exit status recorded by the shell and returned by the shell variable $? reflects that of the rightmost element of a pipeline. If this option is set, the exit status instead reflects the status of the rightmost element of the pipeline that was non-zero, or zero if all elements exited with zero status
+
+|
+|`ERR_RETURN`
+|If a command has a non-zero exit status, return immediately from the enclosing function. The logic is identical to that for ERR_EXIT, except that an implicit return statement is executed instead of an exit. This will trigger an exit at the outermost level of a non-interactive script
+
+|`-G`
+|`NULL_GLOB`
+|If numeric filenames are matched by a filename generation pattern, sort the filenames numerically rather than lexicographically
+
+|`C`
+|`CSH_NULL_GLOB`
+|If a pattern for filename generation has no matches, delete the pattern from the argument list; do not report an error unless all the patterns in a command have no matches. Overrides NOMATCH
+|===
 
 
 ==== join a zsh array

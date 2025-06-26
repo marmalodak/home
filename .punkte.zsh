@@ -105,11 +105,9 @@ function punkt-ausführe()
   echo '6. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
   echo ' OR '
   echo '6. cd .oh-my-posh/src && ~/bin/go/bin/go build'
-  echo 'https://ohmyposh.dev/docs/installation/linux'
-  echo '6. apt install unzip fzf fd-find ripgrep bat'
   echo ' OR '
-  echo '7. brew install fzf fd ripgrep bat'
-  echo ' OR maybe'
+  echo '6. punkt-auf # or maybe punkt-build-utils'
+  echo 'https://ohmyposh.dev/docs/installation/linux'
   echo '8. mkdir -p ~/.oh-my-posh'
   echo '9. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
 }
