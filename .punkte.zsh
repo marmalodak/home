@@ -2,6 +2,7 @@ alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
 
 
 # similar to nvim-modified
+# open in neovim all the .punkte files' in the working directory
 function punkt-modified()
 {
   # eval nvim -O printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')
@@ -12,6 +13,8 @@ function punkt-modified()
 }
 
 
+# if ~/.punkte is a git repo, return success
+# if ~/.punkte was imported with punkt-einfüre, return falsey
 function punkt-is-repo()
 {
   # return 0 if ~/.punkte is a real git repo
@@ -25,6 +28,7 @@ function punkt-is-repo()
 }
 
 
+# have any of the files in the ~/.punkte'.git repo's files in the work tree been modified?
 function punkt-status()
 {
   # man gitmodules: submodule.<name>.ignore
@@ -33,6 +37,7 @@ function punkt-status()
     return $?
   fi
   echo "Not a punkt-repo, what now?"
+  return -1
 }
 
 
@@ -49,6 +54,7 @@ function punkt-reset()
 }
 
 
+# which comes first?
 function punkt-neu()
 {
   set -x
@@ -63,6 +69,7 @@ function punkt-neu()
 home_tarball_file=/tmp/home.tar
 home_tarball_file_zip=${home_tarball_file}.gz
 home_tarball_file_timestamp=.punkt-timestamp.text
+# create a tarball of the .punkte repo's files to be imported by punkt-einfüre
 function punkt-ausführe()
 {
   pushd ${HOME}
@@ -113,6 +120,9 @@ function punkt-ausführe()
 }
 
 
+# sometimes a submodule is detached or not checked out on its main branch
+# I still do not understand why this happens when all I want is to update each submodule
+# repairing this is still mostly manual
 function punkt-aufbau()
 {
   if ! punkt-is-repo; then
@@ -124,12 +134,15 @@ function punkt-aufbau()
   # Do not call git clean!! git clean recursively deletes files that are not under version control
   # https://stackoverflow.com/a/68086677/1698426
   punkt submodule foreach --recursive git reset --hard
+  # punkt submodule foreach --recursive 'git rebase --abort; if ! git switch main; then git switch master; fi; git reset --hard'
+  # git submodule foreach --recursive git clean -ffxd # git clean erases files, is this safe? maybe --dry-run? maybe --interactive?
   # if this is not enough, maybe 
   # git submodule deinit -f . && git submodule update --init --recursive
   punkt-auf
 }
 
 
+# import a tarbal that has been created with punkt-ausführe
 function punkt-einfüre()
 {
   pushd ${HOME} > /dev/null 2>&1
@@ -154,6 +167,8 @@ function punkt-einfüre()
 }
 
 
+# update the ~/.punkt git repo
+# assumes that ~/.punkte already exists
 # https://german.stackexchange.com/questions/22438/repository-oder-repositorium
 function punkt-auf()
 {
