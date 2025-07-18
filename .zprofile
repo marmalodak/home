@@ -16,7 +16,7 @@
 # the paths to util-linux/bin are needed on the mac so that setsid (from util-linux) is in the PATH
 # https://stackoverflow.com/a/1397020  # see here on how to tell whether a directory is in the $PATH already
 # NB there is no python3 binary in ~/Library/Python/... but pip3 install (--user) installs into ~/Library/Python/3.9/bin
-# NB brew/{bin,sbin} is already handled, do not add it here
+# $brew/{bin,sbin} is maybe already handled
 
 brewpath=''
 if whence brew > /dev/null; then
@@ -39,9 +39,9 @@ typeset -U PATH
 export PATH
 
 
-if whence nvm > /dev/null; then
+if whence nvm > /dev/null; then  # nvm = Node Version Manager
   if [[ ! -d ~/.nvm ]]; then
-    mkdir ~/.nvm  # nvm = Node Version Manager
+    mkdir ~/.nvm
   fi
   export NVM_DIR="${HOME}/.nvm"
   if [[ -n ${brewpath} ]]; then
@@ -51,7 +51,7 @@ if whence nvm > /dev/null; then
 fi
 
 
-if [[ "${OSTYPE}" == *"darwin"* ]]; then
+if [[ ${OSTYPE} == darwin* ]]; then
   # python stuff below needs work
   pythons_base="${HOME}/Library/Python"
   if [[ -d "${pythons_base}" ]]; then
