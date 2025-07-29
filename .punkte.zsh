@@ -123,6 +123,7 @@ function punkt-ausführe()
 # sometimes a submodule is detached or not checked out on its main branch
 # I still do not understand why this happens when all I want is to update each submodule
 # repairing this is still mostly manual
+# still must delete 'clitest' manually from ~/.zsh/*/
 function punkt-aufbau()
 {
   if ! punkt-is-repo; then
@@ -147,6 +148,8 @@ function punkt-aufbau()
      fi
      git pull --rebase --stat'
   # is HEAD detached? git symbolic-ref -q HEAD https://stackoverflow.com/a/52222248/1698426
+  # why does git switch --discard-changes not do the same as git switch --force?
+  # git reset --hard not needed?
   # git submodule foreach --recursive git clean -ffxd # git clean erases files, is this safe? maybe --dry-run? maybe --interactive?
   # if this is not enough, maybe 
   # git submodule deinit -f . && git submodule update --init --recursive
