@@ -133,8 +133,20 @@ function punkt-aufbau()
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!! git clean recursively deletes files that are not under version control
   # https://stackoverflow.com/a/68086677/1698426
-  punkt submodule foreach --recursive git reset --hard
-  # punkt submodule foreach --recursive 'git rebase --abort; if ! git switch main; then git switch master; fi; git reset --hard'
+  # punkt submodule foreach --recursive git reset --hard
+  punkt submodule foreach --recursive \
+    'if ! git symbolic-ref --quiet HEAD > /dev/null 2>&1; then
+       if git show-ref --quiet --verify refs/heads/main; then 
+         git switch --force main
+       elif git show-ref --quiet --verify refs/heads/master; then 
+         git switch --force master
+       else
+         echo git branch --list
+         false
+       fi
+     fi
+     git pull --rebase --stat'
+  # is HEAD detached? git symbolic-ref -q HEAD https://stackoverflow.com/a/52222248/1698426
   # git submodule foreach --recursive git clean -ffxd # git clean erases files, is this safe? maybe --dry-run? maybe --interactive?
   # if this is not enough, maybe 
   # git submodule deinit -f . && git submodule update --init --recursive
@@ -209,7 +221,7 @@ function punkt-build-utils()
   fi
   if whence go > /dev/null; then
     if [[ ! $(go env GOVERSION) < 'go1.24.0' ]]; then # zsh has no <= >= for strings?
-      { go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh }
+      go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
     else
       echo "Get a newer version of go"
       go_get
@@ -371,19 +383,20 @@ function go_get()
 {
   if [[ ${OSTYPE} != "linux-gnu" ]]; then
     echo "Use brew on the Mac to get GO"
-    return -1
+    return 1
   fi
   if [[ -f ${HOME}/bin/go ]]; then
     echo "Should the old ${HOME}/bin/go be deleted/saved first?"
-    return -1
+    return 1
   fi
   local arch_host=$(arch)
+  local go_version=go1.24.5
   if [[ ${arch_host} == "x86_64" ]]; then
-    wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz
-    tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz
+    wget https://go.dev/dl/${go_version}.linux-amd64.tar.gz
+    tar -C ${HOME}/bin -xzf ${go_version}.linux-amd64.tar.gz
   elif [[ ${arch_host} == "arm64" || ${arch_host} == "aarch64" ]]; then
-    wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz
-    tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz
+    wget https://go.dev/dl/${go_version}.linux-arm64.tar.gz
+    tar -C ${HOME}/bin -xzf ${go_version}.linux-arm64.tar.gz
   else
     echo "Arch = ${arch_host} !?!?"
     return 1

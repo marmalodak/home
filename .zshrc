@@ -115,6 +115,9 @@ oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
 echo "oh-my-posh theme ${oh_my_posh_theme}"
 
 autoload -Uz zle-line-init  # some of these oh-my-posh themes complain `No such widget `zle-line-init'`, hopefully this will fix that...
+if [[ ! -f ~/.oh-my-posh/oh-my-posh ]]; then
+  go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
+fi
 eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/${oh_my_posh_theme})"
 
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
