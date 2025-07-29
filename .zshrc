@@ -92,7 +92,7 @@ all_oh_my_posh_themes=(
   illusi0n.omp.json # 2 needs newline
   kali.omp.json # 9 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
   kushal.omp.json # 2 very slow, too light on a white background and also a bit too shiny
-  lambdageneration.omp.json # 4 # not sure about the amber colour tho
+  lambdageneration.omp.json # 5 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
   negligible.omp.json # needs newline 3
   paradox.omp.json # 4 # a bit too shiny
@@ -119,6 +119,7 @@ if [[ ! -f ~/.oh-my-posh/oh-my-posh ]]; then
   go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
 fi
 eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/${oh_my_posh_theme})"
+# TODO customize themes that assume a dark background a la https://ohmyposh.dev/docs/installation/customize
 
 # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 setopt interactive_comments
@@ -254,6 +255,8 @@ alias r2='rg --max-depth=2'
 alias r3='rg --max-depth=3'
 alias r4='rg --max-depth=4'
 
+setopt autocd
+# omg setopt autocd https://zsh.sourceforge.io/Intro/intro_16.html#SEC16 seems to remove the need for any of the following!
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
