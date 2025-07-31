@@ -1,0 +1,8 @@
+30c30
+<           "foreground": "lightWhite",
+---
+>           "foreground": "darkGray",
+40c40
+<           "foreground": "white",
+---
+>           "foreground": "darkGray",

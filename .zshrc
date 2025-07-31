@@ -78,6 +78,12 @@ fi
 
 unsetopt beep  # I hate, hate, hate being beeped at
 
+autoload -Uz zle-line-init  # some of these oh-my-posh themes complain `No such widget `zle-line-init'`, hopefully this will fix that...
+if [[ ! -f ~/.oh-my-posh/oh-my-posh ]]; then
+  go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
+fi
+
+
 # NB some of these feel very slow in the rs-cfe repo
 # other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
 all_oh_my_posh_themes=(
@@ -112,66 +118,23 @@ all_oh_my_posh_themes=(
 )
 ri=$(( $RANDOM % ${#all_oh_my_posh_themes[@]} + 1)) # https://unix.stackexchange.com/a/287333
 oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
-echo "oh-my-posh theme ${oh_my_posh_theme}"
-
-autoload -Uz zle-line-init  # some of these oh-my-posh themes complain `No such widget `zle-line-init'`, hopefully this will fix that...
-if [[ ! -f ~/.oh-my-posh/oh-my-posh ]]; then
-  go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
+# to make changes to a theme:
+# 1. cp themefile ~/.patches
+# 2. hack on ~/.patches/theme.omp.json
+# 3. eval "$(~/.oh-my-posh/oh-my-posh init zish --config theme.omp.json)"
+# 4. diff ~/.oh-my-posh/themes/theme.omp.json theme.omp.json > theme.omp.json.diff
+# 5. open new terminal or eval ... from #3
+oh_my_posh_theme_file=~/.oh-my-posh/themes/${oh_my_posh_theme}
+patches_path=~/.patches
+if [[ -f ${patches_path}/${oh_my_posh_theme}.diff ]]; then
+  oh_my_posh_theme_file=${patches_path}/${oh_my_posh_theme}
+  if [[ ! -f ${patches_path}/${oh_my_posh_theme} ]]; then
+    patch ~/.oh-my-posh/themes/${oh_my_posh_theme} ${oh_my_posh_theme_file}.diff --output ${patches_path}/${oh_my_posh_theme}
+  fi
 fi
-eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ~/.oh-my-posh/themes/${oh_my_posh_theme})"
-# TODO customize themes that assume a dark background a la https://ohmyposh.dev/docs/installation/customize
+echo "oh-my-posh theme ${oh_my_posh_theme_file}"
+eval "$(~/.oh-my-posh/oh-my-posh init zsh --config ${oh_my_posh_theme_file})"
 
-# https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
-setopt interactive_comments
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # https://stackoverflow.com/a/19454838 # HISTSIZE vs HISTFILESIZE
 # https://martinheinz.dev/blog/110
@@ -188,17 +151,18 @@ COMPLETION_WAITING_DOTS="true"
 SAVEHIST=100000
 HISTSIZE=1000000
 HISTFILESIZE=10000000
-# HISTCONTROL=ignoreboth # bashism? zsh equivelant is HIST_IGNORE_DUPS
 
+setopt HIST_IGNORE_DUPS         # ignore duplicate of previous event
 setopt APPEND_HISTORY           # append to history rather than replace it
 setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
+setopt EXTENDED_HISTORY         # record command start time
+setopt HIST_IGNORE_SPACE        # do not record if the command starts with whitespace
+setopt interactive_comments     # https://unix.stackexchange.com/a/557490/30160, so that # can be used in interactive mode
 # setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
 # setopt SHARE_HISTORY            # imports new commands from the history file, and also causes your typed commands to be appended to the history file
 #                                 # also enables EXTENDED_HISTORY
 #                                 # SHARE_HISTORY isn't that great because local history is more important 
-setopt EXTENDED_HISTORY         # record command start time
-setopt HIST_IGNORE_SPACE        # do not record if the command starts with whitespace
-# https://askubuntu.com/a/23631 Either set inc_append_history or share_history but not both
+#                                 # https://askubuntu.com/a/23631 Either set inc_append_history or share_history but not both
 
 [[ -z LC_CTYPE ]] && export LC_CTYPE="${LC_ALL}"  # tmux needs this for UTF-8 text? I must be  mistaken; see the tmux man page seciont "ENVIRONMENT"
 
