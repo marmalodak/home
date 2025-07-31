@@ -1,0 +1,8 @@
+8c8
+<           "foreground": "#ffffff",
+---
+>           "foreground": "darkGray",
+20c20
+<           "foreground": "#ffffff",
+---
+>           "foreground": "darkGray",
