@@ -1,0 +1,20 @@
+8c8
+<           "foreground": "#ffffff",
+---
+>           "foreground": "darkGray",
+16c16
+<           "template": "<#CB4B16>[</>{{ .HEAD }}<#CB4B16>]</>",
+---
+>           "template": "<dargGray>[</>{{ .HEAD }}<#CB4B16>]</>",
+20c20
+<           "foreground": "#ffffff",
+---
+>           "foreground": "darkGray",
+26c26
+<           "foreground": "#ffffff",
+---
+>           "foreground": "darkGray",
+39c39
+<           "foreground": "#ffffff",
+---
+>           "foreground": "darkGray",

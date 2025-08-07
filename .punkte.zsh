@@ -13,22 +13,20 @@ function punkt-modified()
 }
 
 
-# if ~/.punkte is a git repo, return success
-# if ~/.punkte was imported with punkt-einfüre, return falsey
+# if ~/.punkte is a git repo, return success, if ~/.punkte was imported with punkt-einfüre, return false
 function punkt-is-repo()
 {
-  # return 0 if ~/.punkte is a real git repo
-  if [[ -f ${home_tarball_file_timestamp} ]]; then
-    return 1 # if there is a tarball timestamp we are here because punkt-einfüre/punkt-ausführe
+  if [[ -d ~/.punkte/.git ]]; then  # this probably the only test that is actually needed
+                                    # i.e. punkt-einfüre does not create that dir, the actual git repo lives there
+    if punkt show > /dev/null; then # returns 128 if ~/.punkte is not a git repo
+      return 0
+    fi
   fi
-  if [[ ! -d ~/.punkte ]]; then # this probably the only test that is actually needed
-    return 1
-  fi
-  punkt show > /dev/null # returns 128 if ~/.punkte is not a git repo
+  return 1
 }
 
 
-# have any of the files in the ~/.punkte'.git repo's files in the work tree been modified?
+# have any of the files in the ~/.punkte/.git repo's files in the work tree been modified?
 function punkt-status()
 {
   # man gitmodules: submodule.<name>.ignore
@@ -68,11 +66,11 @@ function punkt-neu()
 
 home_tarball_file=/tmp/home.tar
 home_tarball_file_zip=${home_tarball_file}.gz
-home_tarball_file_timestamp=.punkt-timestamp.text
+home_tarball_file_timestamp=.punkte-timestamp.text
 # create a tarball of the .punkte repo's files to be imported by punkt-einfüre
 function punkt-ausführe()
 {
-  pushd ${HOME}
+  pushd ${HOME} > /dev/null
   # https://stackoverflow.com/a/23116607
   [[ -f ${home_tarball_file} ]]     && rm ${home_tarball_file}
   [[ -f ${home_tarball_file_zip} ]] && rm ${home_tarball_file_zip}
@@ -88,16 +86,16 @@ function punkt-ausführe()
   # tar --append --file=${home_tarball_file} xterm-kitty.terminfo
   # tar --exclude='./*/*' -tv --file=${home_tarball_file}
   gzip ${home_tarball_file}
-  popd
   if [[ -f ${home_tarball_file_zip} ]]; then
     ls -l ${home_tarball_file_zip}
   else
     echo "Something went wrong, whar tarball ${home_tarball_file_zip}?"
     return 1
   fi
+  popd > /dev/null
   echo "copy ${home_tarball_file_zip} to the destination computer"
   echo 'On the destination:'
-  echo '1. apt install unzip fzf fd-find ripgrep bat'
+  echo '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc'
   echo ' OR '
   echo '1. brew install fzf fd ripgrep bat go gnu-tar'
   echo '2. cd ~'
@@ -185,7 +183,7 @@ function punkt-einfüre()
 # update the ~/.punkt git repo
 # assumes that ~/.punkte already exists
 # https://german.stackexchange.com/questions/22438/repository-oder-repositorium
-function punkt-auf()
+function punkt-auf()  # TODO punkte-auf? punkte-los?
 {
   if ! punkt-is-repo; then
     echo "Not a punkt repo"
@@ -197,7 +195,7 @@ function punkt-auf()
   echo "Pulling, ignoring submodules"
   if punkt pull --stat --verbose --rebase --no-recurse-submodules; then
     echo "Updating submodules"
-    punkt submodule update --init --remote --recursive --jobs=16 | column -t
+    punkt submodule update --init --remote --recursive --jobs=16 | column -t  # shallow submodules?
     punkt pull --recurse-submodules --jobs=16 | column -t
     # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
     # - might have to do each individually?
@@ -211,36 +209,41 @@ function punkt-auf()
 }
 
 
-function punkt-build-utils()
+function punkte-build-utils()  # punkte-mache?
 {
   # install nerd fonts? e.g. https://github.com/aorith/blueconfig/blob/master/post-install/manual/install-fonts.sh
-  local return_status=0
-  pushd ${HOME} > /dev/null 2>&1
   if whence make > /dev/null; then
-    make -C .vim/pack/vim8/start/telescope-fzf-native.nvim clean all
-  else
-    echo "Install make"
-    return_status=1
-  fi
-  if whence go > /dev/null; then
-    if [[ ! $(go env GOVERSION) < 'go1.24.0' ]]; then # zsh has no <= >= for strings?
-      go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
-    else
-      echo "Get a newer version of go"
-      go_get
-      return_status=$?
+    make -C ~/.vim/pack/vim8/start/telescope-fzf-native.nvim clean all
+    if [[ $? -ne 0 ]]; then
+      return $?
     fi
   else
-    echo "Install go"
-    return_status=1
+    echo "Install make"
+    return 1
   fi
-  popd > /dev/null 2>&1
-  return ${return_status}
+  local have_go=0
+  if whence go > /dev/null; then
+    if [[ ! $(go env GOVERSION) < 'go1.24.0' ]]; then # zsh has no <= >= for strings?
+      have_go=1
+    fi
+  fi
+  if ((!have_go)); then
+    if go_get; then
+      have_go=1
+    fi
+  fi
+  if ((have_go)); then
+    go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
+    return $?
+  fi
+  echo 'Install Go'
+  return 1
 }
 
 
 function punkt-zeige()
 {
+  # TODO: does not work when ~/.punkte is not a real git repo
   if ! whence jq > /dev/null 2>&1; then
     echo "Install jq"
     return 1
@@ -280,6 +283,7 @@ function punkt-zu-json()
     echo "Install jo"
     return 1
   fi
+  # TODO: does not work when ~/.punkte is not a real git repo
   echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
 }
 
@@ -395,13 +399,16 @@ function go_get()
   local arch_host=$(arch)
   local go_version=go1.24.5
   if [[ ${arch_host} == "x86_64" ]]; then
-    wget https://go.dev/dl/${go_version}.linux-amd64.tar.gz
-    tar -C ${HOME}/bin -xzf ${go_version}.linux-amd64.tar.gz
+    go_file=${go_version}.linux-amd64.tar.gz
   elif [[ ${arch_host} == "arm64" || ${arch_host} == "aarch64" ]]; then
-    wget https://go.dev/dl/${go_version}.linux-arm64.tar.gz
-    tar -C ${HOME}/bin -xzf ${go_version}.linux-arm64.tar.gz
+    go_file=${go_version}.linux-arm64.tar.gz
   else
     echo "Arch = ${arch_host} !?!?"
     return 1
   fi
+  if wget https://go.dev/dl/${go_file}; then
+    tar -C ${HOME}/bin -xzf ${go_file}
+    return $?
+  fi
+  return 1
 }

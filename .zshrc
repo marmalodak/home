@@ -84,8 +84,7 @@ if [[ ! -f ~/.oh-my-posh/oh-my-posh ]]; then
 fi
 
 
-# NB some of these feel very slow in the rs-cfe repo
-# other oh-my-posh themese I like: (source https://ohmyposh.dev/docs/themes/)
+# NB some of these feel very slow in a large repo
 all_oh_my_posh_themes=(
   1_shell.omp.json # needs newline # 4, it does NOT need a newline, what? slightly too light on white background
   # aliens.omp.json # a bit too shiny and needs a newline -1
@@ -101,21 +100,23 @@ all_oh_my_posh_themes=(
   lambdageneration.omp.json # 5 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
   negligible.omp.json # needs newline 3
-  paradox.omp.json # 4 # a bit too shiny
+  paradox.omp.json # 5 # a bit too shiny
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json # -1 illegible on white background
-  pure.omp.json # 1
-  # simweb.omp.json # -1
-  # slimfat.omp.json # 2
+  pure.omp.json # 1 # needs host name
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
   # thecyberden.omp.json # 1 # a bit too shiny
-  # uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
-  wholespace.omp.json # 1 needs newline, very slow
+  uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
+  wholespace.omp.json # 2 needs newline, very slow
   wopian.omp.json # 1 # needs hostname in the prompt
   ys.omp.json # 1 # too light on a light background
 )
+# source https://ohmyposh.dev/docs/themes
+# have new themes been added? git -C ~/.oh-my-posh whatchanged --diff-filter=A --oneline -- ~/.oh-my-posh/themes
+# all_oh_my_posh_themes=( $(basename $(echo ~/.oh-my-posh/themes/*.json)) )  # just playing
+# typeset -p 1 all_oh_my_posh_themes
 ri=$(( $RANDOM % ${#all_oh_my_posh_themes[@]} + 1)) # https://unix.stackexchange.com/a/287333
 oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
 # to make changes to a theme:
@@ -295,16 +296,21 @@ function hs()  # from #help-zsh: search history and display unique lines (for th
 # open all the files that are found by ripgrep
 function nvim-rg()
 {
-  maxdepth=()
-  if [[ "${1:0:2}" == '-d' ]]; then
+  local word_regexp=()
+  local maxdepth=()
+  if [[ "${1:0:2}" == '-d' ]] || [[ "${1:0:7}" == '--depth' ]] || [[ "${1:0:11}" == '--max-depth' ]]; then
     maxdepth="--max-depth=${2}"
     shift
     shift
   fi
+  if [[ "${1:0:2}" == '-w' ]] || [[ "${1:0:6}" == '--word' ]]; then
+    word_regexp=( --word-regexp )
+    shift
+  fi
   searchterm=$*
   shift
-  nvim -O $(rg --ignore-case --color=never --files-with-matches ${maxdepth} ${searchterm}) # $*
-  #                                                                                          ⤷ What? I don't think this is necessary
+  nvim -O $(rg --ignore-case --color=never --files-with-matches ${word_regexp} ${maxdepth} ${searchterm}) # $*
+  #                                                                                                         ⤷ What? I don't think this is necessary
 }
 
 
@@ -540,6 +546,3 @@ fi
 #
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source <(capri --zsh-completions 2>/dev/null)
-source <(isc --zsh-completions 2>/dev/null)
-source <(acc --zsh-completions 2>/dev/null)
