@@ -144,6 +144,10 @@ In Vim, search for a term and then delete it and the 6 consecutive lines after
 :g/^some-long-search-term.*/.,.+6d
 -----
 
+==== Everything Else
+
+https://www.youtube.com/watch?v=oQB8lYUZtrY[3 Levels of Vim Refactoring]
+
 
 === Mac
 
