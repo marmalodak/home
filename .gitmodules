@@ -115,9 +115,6 @@
 [submodule ".zsh/zsh-autosuggestions"]
 	path = .zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule ".powerlevel10k"]
-	path = .powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
 [submodule ".vim/pack/vim8/start/vviki"]
 	path = .vim/pack/vim8/start/vviki
 	url = https://github.com/ratfactor/vviki
