@@ -209,7 +209,7 @@ function punkt-auf()  # TODO punkte-auf? punkte-los?
 }
 
 
-function punkte-build-utils()  # punkte-mache?
+function punkt-build-utils()  # punkte-mache?
 {
   # install nerd fonts? e.g. https://github.com/aorith/blueconfig/blob/master/post-install/manual/install-fonts.sh
   if whence make > /dev/null; then
