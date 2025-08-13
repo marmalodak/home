@@ -73,6 +73,8 @@ elif whence neofetch > /dev/null; then
   neofetch
 elif whence nerdfetch > /dev/null; then
   nerdfetch
+elif whence hyfetch > /dev/null; then
+  hyfetch
 fi
 [[ -f ~/.motd ]] && source ~/.motd
 
@@ -104,6 +106,7 @@ all_oh_my_posh_themes=(
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json # -1 illegible on white background
   pure.omp.json # 1 # needs host name
+  rudolfs-light.omp.json
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
