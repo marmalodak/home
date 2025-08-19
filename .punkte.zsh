@@ -134,17 +134,31 @@ function punkt-aufbau()
   # https://stackoverflow.com/a/68086677/1698426
   # punkt submodule foreach --recursive git reset --hard
   punkt submodule foreach --recursive \
-    'if ! git symbolic-ref --quiet HEAD > /dev/null 2>&1; then
-       if git show-ref --quiet --verify refs/heads/main; then 
-         git switch --force main
-       elif git show-ref --quiet --verify refs/heads/master; then 
-         git switch --force master
-       else
-         echo git branch --list
-         false
-       fi
+    'git pull --rebase --stat
+     if git rebase --show-current-patch; then # is head detached?
+       set -x
+       git rebase --abort
+       main_branch=$(git describe --contains --all HEAD | head -n 1) # e.g. refs/heads/main
+       # main_branch=${main_branch//\// } # e.g. refs heads main
+       # main_branch=(${(@s: :)main_branch}) # e.g. (refs heads main)
+       # main_branch=${main_branch[-1]} # e.g. main
+       echo main_branch=${main_branch}
+       git reset --hard origin/${main_branch}
+       set +x
      fi
-     git pull --rebase --stat'
+     # if ! git symbolic-ref --quiet HEAD > /dev/null 2>&1; then # works only on recent git
+     #   if git show-ref --quiet --verify refs/heads/main; then 
+     #     git reset --hard origin/main
+     #     git switch --force main
+     #   elif git show-ref --quiet --verify refs/heads/master; then 
+     #     git reset --hard origin/master
+     #     git switch --force master
+     #   else
+     #     echo git branch --list
+     #     false
+     #   fi
+     # fi
+     '
   # is HEAD detached? git symbolic-ref -q HEAD https://stackoverflow.com/a/52222248/1698426
   # why does git switch --discard-changes not do the same as git switch --force?
   # git reset --hard not needed?
