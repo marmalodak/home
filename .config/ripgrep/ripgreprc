@@ -4,4 +4,11 @@ plist:*.plist
 --type-add
 sls:*.sls
 
+# GNU make standard library https://gmsl.jgc.org
+--type-add
+make:gmsl
+
+--type-add
+make:__gmsl
+
 --color=always
