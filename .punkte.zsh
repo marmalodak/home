@@ -3,9 +3,9 @@ alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
 
 # similar to nvim-modified
 # open in neovim all the .punkte files' in the working directory
-function punkt-modified()
+function punkt_modified()
 {
-  # eval nvim -O printf "<(punkt diff -p %s) " $(punkt-status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')
+  # eval nvim -O printf "<(punkt diff -p %s) " $(punkt_status --short | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')
   # nvim -O $(punkt -C ~ ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
   pushd ${HOME} # file names from the line below are relative to ${HOME}
   nvim -O $(punkt status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
@@ -13,11 +13,11 @@ function punkt-modified()
 }
 
 
-# if ~/.punkte is a git repo, return success, if ~/.punkte was imported with punkt-einfüre, return false
-function punkt-is-repo()
+# if ~/.punkte is a git repo, return success, if ~/.punkte was imported with punkt_einfüre, return false
+function punkt_is_repo()
 {
   if [[ -d ~/.punkte/.git ]]; then  # this probably the only test that is actually needed
-                                    # i.e. punkt-einfüre does not create that dir, the actual git repo lives there
+                                    # i.e. punkt_einfüre does not create that dir, the actual git repo lives there
     if punkt show > /dev/null; then # returns 128 if ~/.punkte is not a git repo
       return 0
     fi
@@ -27,10 +27,10 @@ function punkt-is-repo()
 
 
 # have any of the files in the ~/.punkte/.git repo's files in the work tree been modified?
-function punkt-status()
+function punkt_status()
 {
   # man gitmodules: submodule.<name>.ignore
-  if punkt-is-repo; then
+  if punkt_is_repo; then
     punkt status --ignore-submodules=all --untracked-files=no
     return $?
   fi
@@ -39,27 +39,27 @@ function punkt-status()
 }
 
 
-function punkt-diff()
+function punkt_diff()
 {
   # TODO something like punkt submodule foreach config ignore = dirty"
   punkt diff --patch --ignore-submodules=all
 }
 
 
-function punkt-reset()
+function punkt_reset()
 {
   punkt reset --hard origin/master
 }
 
 
 # which comes first?
-function punkt-neu()
+function punkt_neu()
 {
   set -x
   git clone https://github.com/marmalodak/home $HOME/.punkte
   punkt checkout -- $HOME
   punkt status --ignore-submodules=all --untracked-files=no
-  echo "Jetzt führe diesen Befehl: punkt-auf"
+  echo "Jetzt führe diesen Befehl: punkt_auf"
   set +x
 }
 
@@ -67,8 +67,8 @@ function punkt-neu()
 home_tarball_file=/tmp/home.tar
 home_tarball_file_zip=${home_tarball_file}.gz
 home_tarball_file_timestamp=.punkte-timestamp.text
-# create a tarball of the .punkte repo's files to be imported by punkt-einfüre
-function punkt-ausführe()
+# create a tarball of the .punkte repo's files to be imported by punkt_einfüre
+function punkt_ausführe()
 {
   pushd ${HOME} > /dev/null
   # https://stackoverflow.com/a/23116607
@@ -111,7 +111,7 @@ function punkt-ausführe()
   echo ' OR '
   echo '6. cd .oh-my-posh/src && ~/bin/go/bin/go build'
   echo ' OR '
-  echo '6. punkt-auf # or maybe punkt-build-utils'
+  echo '6. punkt_auf # or maybe punkt_build_utils'
   echo 'https://ohmyposh.dev/docs/installation/linux'
   echo '8. mkdir -p ~/.oh-my-posh'
   echo '9. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
@@ -122,11 +122,11 @@ function punkt-ausführe()
 # I still do not understand why this happens when all I want is to update each submodule
 # repairing this is still mostly manual
 # still must delete 'clitest' manually from ~/.zsh/*/
-function punkt-aufbau()
+function punkt_aufbau()
 {
-  if ! punkt-is-repo; then
+  if ! punkt_is_repo; then
     echo "Since punkt is not a git repo, this is probably not what you want"
-    echo "Maybe punkt-auf, since it checks for this?"
+    echo "Maybe punkt_auf, since it checks for this?"
     return 1
   fi
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
@@ -165,12 +165,12 @@ function punkt-aufbau()
   # git submodule foreach --recursive git clean -ffxd # git clean erases files, is this safe? maybe --dry-run? maybe --interactive?
   # if this is not enough, maybe 
   # git submodule deinit -f . && git submodule update --init --recursive
-  punkt-auf
+  punkt_auf
 }
 
 
-# import a tarbal that has been created with punkt-ausführe
-function punkt-einfüre()
+# import a tarbal that has been created with punkt_ausführe
+function punkt_einfüre()
 {
   pushd ${HOME} > /dev/null 2>&1
   if [[ -f "${home_tarball_file_zip}" ]]; then
@@ -185,7 +185,7 @@ function punkt-einfüre()
     # tic -x alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
     # tic -x xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
     #   # or maybe install `kitty-terminfo`
-    punkt-build-utils
+    punkt_build_utils
     mv "${home_tarball_file_zip}" "${home_tarball_file_zip}.done"
   else
     echo "No ${home_tarball_file_zip}, nothing to do"
@@ -197,11 +197,11 @@ function punkt-einfüre()
 # update the ~/.punkt git repo
 # assumes that ~/.punkte already exists
 # https://german.stackexchange.com/questions/22438/repository-oder-repositorium
-function punkt-auf()  # TODO punkte-auf? punkte-los?
+function punkt_auf()  # TODO punkte-auf? punkte-los?
 {
-  if ! punkt-is-repo; then
+  if ! punkt_is_repo; then
     echo "Not a punkt repo"
-    punkt-einfüre
+    punkt_einfüre
     return 0
   fi
   echo "Probably a real punkt repo"
@@ -213,17 +213,17 @@ function punkt-auf()  # TODO punkte-auf? punkte-los?
     punkt pull --recurse-submodules --jobs=16 | column -t
     # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
     # - might have to do each individually?
-    punkt-build-utils
+    punkt_build_utils
   else
     echo
     echo "Do you have uncommitted changes?"
     echo
-    punkt-status
+    punkt_status
   fi
 }
 
 
-function punkt-build-utils()  # punkte-mache?
+function punkt_build_utils()  # punkte_mache?
 {
   # install nerd fonts? e.g. https://github.com/aorith/blueconfig/blob/master/post-install/manual/install-fonts.sh
   if whence make > /dev/null; then
@@ -255,9 +255,12 @@ function punkt-build-utils()  # punkte-mache?
 }
 
 
-function punkt-zeige()
+function punkt_submodules_zeige()
 {
-  # TODO: does not work when ~/.punkte is not a real git repo
+  if ! punkt_is_repo; then
+    echo "Since punkt is not a git repo, this is probably not what you want"
+    return 1
+  fi
   if ! whence jq > /dev/null 2>&1; then
     echo "Install jq"
     return 1
@@ -274,11 +277,11 @@ function punkt-zeige()
   fi
   if [[ "${tojson}" -ne 0 ]]; then
     shift
-    echo $(punkt-zu-json) | jq
+    echo $(punkt_zu_json) | jq
   fi
   if [[ -n "${1}" ]]; then
-    punkte-json=$(punkt-zu-json)
-    echo "${punkte-json}" | jq -r ".[] | select(.submodule_name | contains(${1}))"  # still does not work
+    punkte_json=$(punkt_zu_json)
+    echo "${punkte_json}" | jq -r ".[] | select(.submodule_name | contains(${1}))"  # still does not work
   else
     if [[ "${short}" -eq 1 ]]; then
       punkt submodule foreach 'if [[ "$*" =~ "--short" ]]; then echo submodule_name:$name; echo; fi'
@@ -290,19 +293,21 @@ function punkt-zeige()
 }
 
 
-function punkt-zu-json()
+function punkt_zu_json()
 {
-  whence jo > /dev/null 2>&1
-  if [[ $? -ne 0 ]]; then
+  if ! punkt_is_repo; then
+    echo "Since punkt is not a git repo, this is probably not what you want"
+    return 1
+  fi
+  if ! whence jo > /dev/null 2>&1; then
     echo "Install jo"
     return 1
   fi
-  # TODO: does not work when ~/.punkte is not a real git repo
   echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
 }
 
 
-function punkt-flachen()
+function punkt_flachen()
 {
   # man 5 gitmodules: submodule.<name>.shallow
   # This is probably wrong:
@@ -317,18 +322,18 @@ function punkt-flachen()
 }
 
 
-function punkt-submodule-zutat()
+function punkt_submodule_zutat()
 {
   URL=$1
   WO=$2
   if [[ ${WO} =~ $(whoami) || ${WO} =~ "home" || ${WO} =~ "Users" ]]; then
     echo "Do not add tilde or $HOME or \$HOME an absolute path to the destination directory"
     echo "Example:"
-    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git .vim/pack/vim8/start"
+    echo "punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git .vim/pack/vim8/start"
     echo "Do not do any of the following:"
-    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git ~/.vim/pack/vim8/start"
-    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git $HOME/.vim/pack/vim8/start"
-    echo "punkt-submodule-zutat https://github.com/NLKNguyen/papercolor-theme.git \$HOME/.vim/pack/vim8/start"
+    echo 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git ~/.vim/pack/vim8/start'
+    echo 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git $HOME/.vim/pack/vim8/start'
+    echo 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git \$HOME/.vim/pack/vim8/start'
     return -1
   fi
   STEM=${URL##*/}
@@ -336,16 +341,16 @@ function punkt-submodule-zutat()
 }
 
 
-function punkt-submodule-bringeum()
+function punkt_submodule_bringeum()
 {
   # TODO this is still not reliable
   # TODO just use the equivelant of git rm, it deletes the working directory and the .gitmodules entry
 
-  # to prevent a previous invocation of this function possibly still having these variables set:
-  unset submodule_name
-  unset displaypath
-  unset toplevel
-  unset sm_path
+  # to prevent a previous invocation of this function possibly still having these variables set; using local is enough, right?
+  local unset submodule_name
+  local unset displaypath
+  local unset toplevel
+  local unset sm_path
 
   if ! whence jq > /dev/null 2>&1; then
     echo "Install jq"
@@ -359,14 +364,16 @@ function punkt-submodule-bringeum()
   if [[ -z "${SUBMODULE_NAME}" ]]; then
     echo "Must provide a submodule"
     echo "Submoule must be passed in as reported by punkt status"
-    echo "NB punkt-status does not show submodules"
+    echo "NB punkt_status does not show submodules"
     echo "See also punkt-zeige"
     return 1
   fi
 
-  punkte-json=$(punkt-zu-json)
-  submodule-details=$(echo "${punkte-json}" | jq -r '.[] | select(.submodule-name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
+  punkte_json=$(punkt_zu_json)
+  set -x
+  submodule-details=$(echo "${punkte_json}" | jq -r '.[] | select(.submodule-name=="'${SUBMODULE_NAME}'") | to_entries | .[] | .key + "=\"" + .value + "\""')
   eval ${submodule-details}
+  set +x
 
   # now these variables exist:
   # submodule_name=.zsh/zsh-autosuggestions
