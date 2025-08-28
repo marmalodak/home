@@ -30,6 +30,7 @@ fi
 [[ -d /usr/local/sbin ]]                                   && PATH="/usr/local/sbin:${PATH}"
 [[ -d /usr/local/opt/util-linux/bin ]]                     && PATH="/usr/local/opt/util-linux/bin:${PATH}"
 [[ -d /usr/local/opt/util-linux/sbin ]]                    && PATH="/usr/local/opt/util-linux/sbin:${PATH}"
+[[ -d ${brewpath}/sbin ]]                                  && PATH="${brewpath}/sbin:${PATH}"
 [[ -d ${HOME}/bin ]]                                       && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/.local/bin ]]                                && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
 

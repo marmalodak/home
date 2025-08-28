@@ -106,7 +106,7 @@ all_oh_my_posh_themes=(
   powerlevel10k_rainbow.omp.json
   probua.minimal.omp.json # -1 illegible on white background
   pure.omp.json # 1 # needs host name
-  rudolfs-light.omp.json
+  rudolfs-light.omp.json # 2
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
@@ -364,7 +364,9 @@ function nvim-modified()
   # eval nvim -O printf "$(git diff --patch %s) " $(git status --short --untracked-files=no --ignore-submodules=all | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')  # broken
   # nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
   # Using git ls-files might be better if it excluded submodules
-  nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
+  # nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
+                                                                                              # fails for renamed files
+  nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
 }
 
 
@@ -497,6 +499,7 @@ HELPDIR="/usr/share/zsh/$(zsh --version | cut -d' ' -f2)/help"
 #       see also https://stackoverflow.com/a/7060716/1698426 where I learned about run-help
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
 # TODO: consider https://github.com/z-shell/zsh-lint which requires https://github.com/z-shell/zi
+# https://gist.github.com/ChristopherA/562c2e62d01cf60458c5fa87df046fbd Zsh Opinionated - A Guide to Best Practices
 
 if ! source <(fzf --zsh 2> /dev/null); then
   source /usr/share/doc/fzf/examples/key-bindings.zsh # ubuntu 22
