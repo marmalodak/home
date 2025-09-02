@@ -66,6 +66,7 @@ function punkt_neu()
 
 home_tarball_file=/tmp/home.tar
 home_tarball_file_zip=${home_tarball_file}.gz
+home_tarball_file_zip_done=${home_tarball_file}.gz.done
 home_tarball_file_timestamp=.punkte-timestamp.text
 # create a tarball of the .punkte repo's files to be imported by punkt_einfüre
 function punkt_ausführe()
@@ -95,26 +96,30 @@ function punkt_ausführe()
   popd > /dev/null
   echo "copy ${home_tarball_file_zip} to the destination computer"
   echo 'On the destination:'
-  echo '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc'
+  echo '1. cd ~'
+  echo '2. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc gcc'
   echo ' OR '
-  echo '1. brew install fzf fd ripgrep bat go gnu-tar'
-  echo '2. cd ~'
+  echo '2. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
   echo "3. gtar xvf ${home_tarball_file_zip}"
-  echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
-  echo '4. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
   echo ' OR '
-  echo '4. wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
-  echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
-  echo ' OR '
-  echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
-  echo '6. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
-  echo ' OR '
-  echo '6. cd .oh-my-posh/src && ~/bin/go/bin/go build'
-  echo ' OR '
-  echo '6. punkt_auf # or maybe punkt_build_utils'
-  echo 'https://ohmyposh.dev/docs/installation/linux'
-  echo '8. mkdir -p ~/.oh-my-posh'
-  echo '9. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
+  echo "3. tar xvf ${home_tarball_file_zip}"
+  echo "4. Start a new shell session"
+  echo "5. punkt_einfüre"
+  # echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
+  # echo '4. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
+  # echo ' OR '
+  # echo '4. wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
+  # echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
+  # echo ' OR '
+  # echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
+  # echo '6. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
+  # echo ' OR '
+  # echo '6. cd .oh-my-posh/src && ~/bin/go/bin/go build'
+  # echo ' OR '
+  # echo '6. punkt_auf # or maybe punkt_build_utils'
+  # echo 'https://ohmyposh.dev/docs/installation/linux'
+  # echo '8. mkdir -p ~/.oh-my-posh'
+  # echo '9. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
 }
 
 
@@ -169,7 +174,7 @@ function punkt_aufbau()
 }
 
 
-# import a tarbal that has been created with punkt_ausführe
+# import a tarball that has been created with punkt_ausführe
 function punkt_einfüre()
 {
   pushd ${HOME} > /dev/null 2>&1
@@ -186,9 +191,12 @@ function punkt_einfüre()
     # tic -x xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
     #   # or maybe install `kitty-terminfo`
     punkt_build_utils
-    mv "${home_tarball_file_zip}" "${home_tarball_file_zip}.done"
+    mv "${home_tarball_file_zip}" "${home_tarball_file_zip_done}"
   else
     echo "No ${home_tarball_file_zip}, nothing to do"
+    if [[ -f ${home_tarball_file_zip_done} ]]; then
+      echo "${home_tarball_file_zip_done} exists, so you might mv ${home_tarball_file_zip_done} ${home_tarball_file_zip} and invoke me again" 
+    fi
   fi
   popd > /dev/null 2>&1
 }
@@ -247,6 +255,7 @@ function punkt_build_utils()  # punkte_mache?
     fi
   fi
   if ((have_go)); then
+    echo "Building oh-my-posh"
     go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
     return $?
   fi
@@ -418,7 +427,7 @@ function go_get()
     return 1
   fi
   local arch_host=$(arch)
-  local go_version=go1.24.5
+  local go_version=go1.25.0
   if [[ ${arch_host} == "x86_64" ]]; then
     go_file=${go_version}.linux-amd64.tar.gz
   elif [[ ${arch_host} == "arm64" || ${arch_host} == "aarch64" ]]; then
