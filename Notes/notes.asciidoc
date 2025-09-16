@@ -151,6 +151,13 @@ https://www.youtube.com/watch?v=oQB8lYUZtrY[3 Levels of Vim Refactoring]
 
 === Mac
 
+==== macOS Tahoe ssh
+
+> Power on the Mac, then SSH to it. A simple SSH server will handle your request. Typing the password there is equivalent to typing it on the keyboard. The connection then closes and the machine boots normally.
+
+From https://mastodon.social/@arroz/115214974855505705[Miguel Arroz on mastodon]
+
+
 ==== Create Bootable Monterey ISO in bash
 
 .https://gist.github.com/julianxhokaxhiu/d26a8974eb0d723285c6b06c99d7207e[Simple bash script to create a Bootable ISO from macOS Monterey Install Image from Mac App Store]
@@ -195,8 +202,9 @@ I like Ubuntu "minimal". Do not `unminimize` though. Instead,
 . `sudo apt install --reinstall man manpages manpages-posix man-db vim ...`
 . `sudo mandb -c`
 . maybe nuke entries in `/etc/update-motd.d/`
+. maybe next time try `rm -f /usr/bin/man; dpkg-divert --quiet --remove --rename /usr/bin/man` (taken from `/usr/bin/unminimize`)
 
-`unminimize` will install a lot, even snap.
+`/usr/bin/unminimize` will install a lot, even snap.
 
 
 === VMWare

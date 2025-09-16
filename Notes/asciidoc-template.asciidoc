@@ -154,6 +154,11 @@ See the plus sign directly underneath the first item in the list, it signals tha
 [square]
 *** yyai
 
+=== Q and A
+
+[qanda]
+What is the meaning of life?::
+42
 
 [appendix]
 === The First Appendix Entry
