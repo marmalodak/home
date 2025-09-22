@@ -139,18 +139,26 @@ function punkt_aufbau()
   # https://stackoverflow.com/a/68086677/1698426
   # punkt submodule foreach --recursive git reset --hard
   punkt submodule foreach --recursive \
-    'git pull --rebase --stat
-     if git rebase --show-current-patch; then # is head detached?
-       set -x
-       git rebase --abort
-       main_branch=$(git describe --contains --all HEAD | head -n 1) # e.g. refs/heads/main
+    '#git pull --rebase --stat
+     if git status | grep 'detached'; then # is HEAD detached?
+       main_branch=$(git describe --contains --all origin | head -n 1) # e.g. refs/heads/main
        # main_branch=${main_branch//\// } # e.g. refs heads main
        # main_branch=(${(@s: :)main_branch}) # e.g. (refs heads main)
        # main_branch=${main_branch[-1]} # e.g. main
        echo main_branch=${main_branch}
-       git reset --hard origin/${main_branch}
-       set +x
+       git reset --hard ${main_branch}
      fi
+     # if git rebase --show-current-patch 2> /dev/null 2>&1; then # is head detached?
+     #   set -x
+     #   git rebase --abort
+     #   main_branch=$(git describe --contains --all HEAD | head -n 1) # e.g. refs/heads/main
+     #   # main_branch=${main_branch//\// } # e.g. refs heads main
+     #   # main_branch=(${(@s: :)main_branch}) # e.g. (refs heads main)
+     #   # main_branch=${main_branch[-1]} # e.g. main
+     #   echo main_branch=${main_branch}
+     #   git reset --hard origin/${main_branch}
+     #   set +x
+     # fi
      # if ! git symbolic-ref --quiet HEAD > /dev/null 2>&1; then # works only on recent git
      #   if git show-ref --quiet --verify refs/heads/main; then 
      #     git reset --hard origin/main
