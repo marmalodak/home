@@ -168,6 +168,13 @@ setopt interactive_comments     # https://unix.stackexchange.com/a/557490/30160,
 #                                 # SHARE_HISTORY isn't that great because local history is more important 
 #                                 # https://askubuntu.com/a/23631 Either set inc_append_history or share_history but not both
 
+# https://superuser.com/a/1061539
+function hgrep()
+{
+  fc -Dlim "*$@*" 0
+}
+# maybe try https://superuser.com/a/1833358
+
 [[ -z LC_CTYPE ]] && export LC_CTYPE="${LC_ALL}"  # tmux needs this for UTF-8 text? I must be  mistaken; see the tmux man page seciont "ENVIRONMENT"
 
 # Would you like to use another custom folder than $ZSH/custom?

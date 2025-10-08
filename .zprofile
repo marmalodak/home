@@ -75,6 +75,15 @@ export GROOVY_HOME=/opt/homebrew/opt/groovy/libexec
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 
+if [[ -f ${HOME}/.local-venv/bin/activate ]]; then
+  source ${HOME}/.local-venv/bin/activate
+  export PATH=${HOME}/.local-venv/bin:${PATH}
+fi
+
+if [[ -d ${HOME}/.local/bin ]]; then
+  export PATH=${HOME}/.local/bin:${PATH}
+fi
+
 ## # installing Perl put these in my .zshrc
 ## PATH="${HOME}/perl5/bin${PATH:+:${PATH}}"; export PATH;
 ## PERL5LIB="${HOME}/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
