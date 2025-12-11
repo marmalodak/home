@@ -17,7 +17,7 @@ Title Goes Here
 // max-width is not recommended, but gets rid of the silly wide waste of space on the left and right side of html pages
 // NB: the underline of the title of this doc must match the length of the title text
 
-// :icons: font changes the words NOTE/IMPORTANT/WANT et al to be shows as icons rather than the literal "NOTE" / "IMPORTANT" ...
+// :icons: changes the words NOTE/IMPORTANT/WANT et al to icons rather than the literal "NOTE" / "IMPORTANT" ...
 
 == Asciidoc template
 
@@ -61,6 +61,13 @@ https://docs.asciidoctor.org/asciidoc/latest/tables/format-cell-content/[More ab
 I learned about checklists in tables from https://github.com/asciidoctor/asciidoctor/issues/1674#issuecomment-1760568225[SO].
 
 === blocks
+
+[quote,AsciiDoc blockquotes]
+____
+Prose excerpts, quotes and verses share the same syntax structure, including...
+
+https://docs.asciidoctor.org/asciidoc/latest/blocks/blockquotes/[AsciiDoc blockquotes]
+____
 
 [NOTE]
 ====

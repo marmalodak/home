@@ -16,7 +16,7 @@ general.import = [
 
 [colors.primary]
 foreground = "#222222"
-background = "#e8e8e8"
+background = "#fafafa"
 
 # # Colors (Alabaster Dark)
 # # author tonsky

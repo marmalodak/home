@@ -206,7 +206,7 @@ let g:startify_custom_header = [
         \ 'zug            undo zg                                                                                               ',
         \ 'z=             suggest spelling                                                                                      ',
         \ ':spellr[epall] repeat z=                                                                                             ',
-        \ '                                                                                                                     ',
+        \ 'gn             go to the next search result and select it                                                            ',
         \ 'Instead of using :ZoomToggle, use c-w-| and c-w-_ for vertical and horizontal splits and use c-w-= to restore        ',
         \ '                                                                                                                     ',
         \ 'yiw viwp       to replace the word under cursor by paste  # kttps://stackoverflow.com/a/21318895/1698426             ',

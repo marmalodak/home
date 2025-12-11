@@ -203,9 +203,29 @@ I like Ubuntu "minimal". Do not `unminimize` though. Instead,
 . `sudo mandb -c`
 . maybe nuke entries in `/etc/update-motd.d/`
 . maybe next time try `rm -f /usr/bin/man; dpkg-divert --quiet --remove --rename /usr/bin/man` (taken from `/usr/bin/unminimize`)
+. the locale `en_US.UTF-8` might not be installed, look for an error on login about `$LANG` and `$LC_*`. Fix it with `sudo locale-gen en_US.UTF-8`
 
 `/usr/bin/unminimize` will install a lot, even snap.
 
+==== still more Ubuntu updates to disable
+
+Next time, when install a fresh Ubuntu host, consider also:
+
+[CODE]
+-----
+sudo systemctl disable unattended-upgrades.service
+sudo systemctl disable apt-daily-upgrade.timer
+sudo systemctl disable apt-daily.timer
+-----
+
+See `/etc/apt/apt.conf.d` for more possibilities.
+
+Also try `systemctl list-unit-files --all` to see what services have the word 'update' or 'apt' or 'daily' or 'timer' in them.
+
+
+==== lxd-what?
+
+`sudo apt remove --purge lxd-installer`. Snap what?
 
 === VMWare
 

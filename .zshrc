@@ -98,7 +98,7 @@ all_oh_my_posh_themes=(
   honukai.omp.json # 5 some colour adjustments needed on light background
   illusi0n.omp.json # 2 needs newline
   kali.omp.json # 9 maybe change $ to > or ＞ FULLWIDTH GREATER-THAN SIGN Unicode: U+FF1E, UTF-8: EF BC 9E
-  kushal.omp.json # 2 very slow, too light on a white background and also a bit too shiny
+  # kushal.omp.json # 2 very slow, too light on a white background and also a bit too shiny
   lambdageneration.omp.json # 5 # not sure about the amber colour tho
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
   negligible.omp.json # needs newline 3
@@ -175,6 +175,11 @@ function hgrep()
 }
 # maybe try https://superuser.com/a/1833358
 
+function pane_urls() # https://www.reddit.com/r/tmux/comments/sv6skh/comment/hxj5zq4
+{
+  tmux capture-pane -J -p | grep -oE '(https?):\/\/.*[^>]' | fzf-tmux -d20 --multi --bind alt-a:select-all,alt-d:deselect-all | xargs open
+}
+
 [[ -z LC_CTYPE ]] && export LC_CTYPE="${LC_ALL}"  # tmux needs this for UTF-8 text? I must be  mistaken; see the tmux man page seciont "ENVIRONMENT"
 
 # Would you like to use another custom folder than $ZSH/custom?
@@ -230,6 +235,11 @@ alias r2='rg --max-depth=2'
 alias r3='rg --max-depth=3'
 alias r4='rg --max-depth=4'
 
+setopt cdablevars
+setopt correct
+setopt correctall
+setopt globdots
+setopt rcquotes
 setopt autocd
 # omg setopt autocd https://zsh.sourceforge.io/Intro/intro_16.html#SEC16 seems to remove the need for any of the following!
 alias ..='cd ..'
@@ -280,6 +290,8 @@ alias brup='brew update && brew upgrade --greedy-auto-updates && brew cleanup &&
 
 # rsync instead of ssh https://gist.github.com/dingzeyuli/1cadb1a58d2417dce3a586272551ec4f
 alias secscp='rsync -azhe ssh --progress $1 $2'
+
+alias git-show-head="git log -1 --pretty='%s'"
 
 function cd-fd()
 {
@@ -374,6 +386,13 @@ function nvim-modified()
   # nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
                                                                                               # fails for renamed files
   nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
+}
+
+
+function nvim-changed-branch()
+{
+  other_branch="$1"
+  nvim -O $(git diff --name-only ${other_branch})
 }
 
 

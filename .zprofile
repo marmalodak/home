@@ -75,10 +75,11 @@ export GROOVY_HOME=/opt/homebrew/opt/groovy/libexec
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 
-if [[ -f ${HOME}/.local-venv/bin/activate ]]; then
-  source ${HOME}/.local-venv/bin/activate
-  export PATH=${HOME}/.local-venv/bin:${PATH}
-fi
+# I've gone back and forth with this a bunch of times, should there be a default venv?
+# if [[ -f ${HOME}/.local-venv/bin/activate ]]; then
+#   source ${HOME}/.local-venv/bin/activate
+#   export PATH=${HOME}/.local-venv/bin:${PATH}
+# fi
 
 if [[ -d ${HOME}/.local/bin ]]; then
   export PATH=${HOME}/.local/bin:${PATH}
