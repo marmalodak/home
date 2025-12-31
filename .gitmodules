@@ -135,7 +135,7 @@
 	url = https://github.com/tmux-plugins/tmux-resurrect.git
 [submodule ".zsh/zsh-edit"]
 	path = .zsh/zsh-edit
-	url = https://github.com:marlonrichert/zsh-edit.git
+	url = https://github.com/marlonrichert/zsh-edit.git
 [submodule ".vim/pack/vim8/start/vim-log-highlighting"]
 	path = .vim/pack/vim8/start/vim-log-highlighting
 	url = https://github.com/MTDL9/vim-log-highlighting
