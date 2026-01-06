@@ -235,12 +235,12 @@ alias r2='rg --max-depth=2'
 alias r3='rg --max-depth=3'
 alias r4='rg --max-depth=4'
 
-setopt cdablevars
-setopt correct
-setopt correctall
-setopt globdots
-setopt rcquotes
-setopt autocd
+# setopt cdable_vars
+# setopt correct
+# setopt correctall
+# setopt globdots
+setopt rc_quotes # two single quotes in a single-quoted string represents a single single quote
+setopt auto_cd # typing just the name of a dir will cd to it
 # omg setopt autocd https://zsh.sourceforge.io/Intro/intro_16.html#SEC16 seems to remove the need for any of the following!
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -257,8 +257,9 @@ alias .......='cd ../../../../../..'
 # switch from exa to eza https://github.com/eza-community/eza
 if whence eza > /dev/null; then
   alias ll='eza --long --icons=always'
-  alias lr='eza --long --header --sort=date --icons=always'
-  alias lra='eza --all --long --header --sort=date --icons=always'
+  alias la='eza --long --icons=always --all'
+  alias lr='eza --long --sort=date --icons=always'
+  alias lra='eza --all --long --sort=date --icons=always'
   alias lc='eza --oneline --icons=always'
   alias lt='eza --tree --icons=always'
   alias l1='eza --oneline'
@@ -404,6 +405,22 @@ function nvim-errlog()
   else
     nvim -O ${$(echo *.err)/err/log}
   fi
+}
+
+
+# show the current gerrit change as a diff
+function gerrit-change-show()
+{
+  git-show-head
+  git diff -p HEAD~1..HEAD
+}
+
+
+# open the files that are in the current gerrit change
+function nvim-gerrit-change()
+{
+  git-show-head
+  nvim -O $(git diff --name-only HEAD~1..HEAD)
 }
 
 

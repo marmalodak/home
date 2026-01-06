@@ -185,6 +185,19 @@ mv /tmp/Monterey.iso.cdr ~/Desktop/Monterey.iso
 rm /tmp/Monterey.cdr.dmg
 -----
 
+==== Convert a .iso to a bootable USB
+
+Inspired by https://discussions.apple.com/thread/256163060[The best way to burn iso to usb on MAC for windows iso?]
+
+.`dd` and `diskutil` can create a bootable USB disk
+[CODE]
+-----
+diskutil image create from --format UDRW ubuntu-24.04.3-live-server-amd64.iso ubuntu-server-24.img
+diskutil list # find the USB drive, it was /dev/disk4, also look in /Volumes/
+sudo dd if=ubuntu-server-24.img of=/dev/rdisk4 bs=1m # next time maybe try `iflag=direct oflag=direct`?
+diskutil eject /dev/disk4
+-----
+
 
 === Python
 
@@ -285,3 +298,9 @@ Go to vcenter, mount storage
 ** `ipmitool -H some-esx-host.somedomain.com -U localadmin -P 'S00p3rP4sw04rd' -I lanplus raw 0x3a 0x7d 0x00` to de-assert
 ** https://support.lenovo.com/us/en/solutions/ht503964-toggling-of-tpm-12-and-20-can-only-be-done-using-hardware-physical-presence-lenovo-system-x3850-x6-x3950-x6[Toggle TPM 1.2 2.0 SR650]
 ** ipmi and ssh to the bmc are enabled from the BMC controller page, click on "BMC Configuration" in the menu on the left, then click the "Network" item that opened up, then look for "Service Enablement and Port Assignment"
+
+
+=== Fun reads
+
+* https://news.ycombinator.com/item?id=13349211[dd is not a disk writing tool]
+** i.e. for writing to USB disks, use `iflag=direct oflag=direct`
