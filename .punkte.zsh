@@ -76,11 +76,11 @@ function punkt_ausführe()
   [[ -f ${home_tarball_file} ]]     && rm ${home_tarball_file}
   [[ -f ${home_tarball_file_zip} ]] && rm ${home_tarball_file_zip}
   punkt ls-files --full-name --recurse-submodules | tar Tcf - ${home_tarball_file}
-  [[ -f .local.zsh ]] && tar --append --file=${home_tarball_file} .local.zsh
+  [[ -f .local.zsh ]] && tar --append --file=${home_tarball_file} .local.zsh  # TODO: are there more files that are local to the host?
   date > ${home_tarball_file_timestamp}
   tar --append --file=${home_tarball_file} ${home_tarball_file_timestamp}
   rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
-  # switched to Terminal.app, maybe terminfos do not neet to be copied around any more
+  # if terminfos need to be copied: # maybe it would be better to install alacritty or kitty on the destination
   # infocmp alacritty > alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
   # infocmp xterm-kitty > xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
   # tar --append --file=${home_tarball_file} alacritty.terminfo

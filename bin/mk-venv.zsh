@@ -41,6 +41,9 @@ set +x
 # TODO? Should there be automation for adding or removing packages from the requirements file?
 # No, simply add or delete entries in the requirements file and then run mk-foo-venv... again
 #
+# TODO? Accept --python for a path to the python installation
+# TODO? Handle `pip3 install -i ...`, currently it requires manually editing the requirements file and putting -i and the pypi repo on the same line
+#
 # I learned about $(echo apath(:A)) from https://stackoverflow.com/a/12566609/1698426
 #
 # On the mac there is an old Python in /usr/bin and-or /usr/local/bin if the user has tried to install a new Python

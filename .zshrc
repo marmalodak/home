@@ -115,6 +115,13 @@ all_oh_my_posh_themes=(
   wholespace.omp.json # 2 needs newline, very slow
   wopian.omp.json # 1 # needs hostname in the prompt
   ys.omp.json # 1 # too light on a light background
+  # have I tried these?
+  lightgreen.omp.json # doesn't show the cwd
+  catppuccin.omp.json
+  catppuccin_frappe.omp.json # colours a bit too light
+  catppuccin_latte.omp.json
+  catppuccin_macchiato.omp.json # colours a bit too light
+  catppuccin_mocha.omp.json # colours a bit too light
 )
 # source https://ohmyposh.dev/docs/themes
 # have new themes been added? git -C ~/.oh-my-posh whatchanged --diff-filter=A --oneline -- ~/.oh-my-posh/themes
@@ -338,7 +345,7 @@ function nvim-rg()
 
 
 # Do not understand why, but fd will not find CommandLineTools.dmg unless the -u flag is set
-alias fd='\fd -u'
+alias fd='\fd --unrestricted'
 
 if whence batcat > /dev/null; then
   alias bat='batcat'  # ubuntu
@@ -358,9 +365,9 @@ alias nvimdiff='nvim -d'
 function nvim-fd()
 {
   if whence fdfind > /dev/null; then
-    fdfind ${@} --exec-batch nvim -O  # oh ubuntu, why??
+    \fdfind --unrestricted ${@} --exec-batch nvim -O  # oh ubuntu, why??
   else
-    fd ${@} --exec-batch nvim -O
+    \fd --unrestricted ${@} --exec-batch nvim -O
   fi
 
   # TODO accept more than one search term

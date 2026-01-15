@@ -14,9 +14,15 @@ I Want to Remember
 
 == TIL
 
+
+=== git
+
+Use `git whatchanged` to see recent changes?  e.g. what recent themes were added to oh-my-posh: `git whatchanged --diff-filter=A -- ~/.oh-my-posh/themes`
+
+
 === zsh
 
-==== zsh flags
+==== flags
 
 `man zshoptions`
 
@@ -61,16 +67,16 @@ https://linux.die.net/man/1/zshoptions[zsh man page] and https://zsh.sourceforge
 |===
 
 
-==== join a zsh array
+==== join an array
 
 ```
-zsh array join: a=( a b c d ); echo ${(j|,|)a}
+a=( a b c d ); echo ${(j|,|)a}
 ```
 
 https://www.arp242.net/why-zsh.html[s/bash/zsh/g] is great, I learned about it from https://news.ycombinator.com/item?id=28927966[hacker news]
 
 
-==== zsh indirect dereference
+==== indirect dereference
 
 Indirect dereference
 ```
@@ -80,18 +86,21 @@ baz
 ```
 
 
-==== zsh quotes
+==== quotes
 
-Use either arrays or `${=FOO}` to get zsh to not insert quotes
+Use either arrays or `${=FOO}` to get zsh to not insert quotes.
+See also `man zshexpn` (https://man.x-cmd.com/zsh/man1/zshexpn[here] and https://zsh.sourceforge.io/Guide/zshguide05.html[ZSH Chapter 5]) for info about removing quotes. e.g. `${(Q)FOO}` removes one level of quotes.
 
 See https://unix.stackexchange.com/questions/19530/expanding-variables-in-zsh[Splitting variables in ZSH]
 
 
 === Vim
 
+
 ==== Run a Python Script on Save
 
-I don't use an IDE. I miss the feature that automatically run a Python program and show its output. I can mimic this in vim by using `autocmd` and opening the output file in a separate window.
+I don't use an IDE. I miss the feature that automatically runs a Python program and show its output.
+I can mimic this in vim by using `autocmd` and opening the output file in a separate window.
 The window with the output should both enable `autoread` and run `autocmd CursorHold * checktime`.
 
 .Example, this is `log2sheet`, run it on save, see line 26 onwards
@@ -208,17 +217,29 @@ https://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-
 
 === Ubuntu
 
-I like Ubuntu "minimal". Do not `unminimize` though. Instead,
+I like Ubuntu "minimal". Do not `unminimize` though, even when prompted to do that. `/usr/bin/unminimize` will install a lot, even snap. Instead, do this to make a 'minimized' Ubuntu installation useful:
 
-. nuke `/etc/dpkg/dpkgs.cfd.d/excludes`
+. nuke `/etc/dpkg/dpkg.cfd.d/excludes`
 . read `/usr/bin/unminimize` for nuggets like `dpkg-divert` and `dpkg --verify`
 . `sudo apt install --reinstall man manpages manpages-posix man-db vim ...`
 . `sudo mandb -c`
 . maybe nuke entries in `/etc/update-motd.d/`
-. maybe next time try `rm -f /usr/bin/man; dpkg-divert --quiet --remove --rename /usr/bin/man` (taken from `/usr/bin/unminimize`)
-. the locale `en_US.UTF-8` might not be installed, look for an error on login about `$LANG` and `$LC_*`. Fix it with `sudo locale-gen en_US.UTF-8`
+. `rm -f /usr/bin/man; dpkg-divert --quiet --remove --rename /usr/bin/man` (taken from `/usr/bin/unminimize`)
 
-`/usr/bin/unminimize` will install a lot, even snap.
+If a man page is not available (e.g. `man tar` does not show the man page for `tar`), try `sudo apt install --reinstall tar`.
+
+=== locale
+
+A minimized Ubuntu complained about locale. The locale `en_US.UTF-8` might not be installed, look for an error on login about `$LANG` and `$LC_*`.
+
+.prevent warning messages about `en_US.UTF-8` being absent
+[CODE]
+-----
+sudo apt update
+sudo apt install locales
+sudo locale-gen en_US.UTF-8
+sudo update-locale
+-----
 
 ==== still more Ubuntu updates to disable
 
@@ -235,10 +256,10 @@ See `/etc/apt/apt.conf.d` for more possibilities.
 
 Also try `systemctl list-unit-files --all` to see what services have the word 'update' or 'apt' or 'daily' or 'timer' in them.
 
-
 ==== lxd-what?
 
 `sudo apt remove --purge lxd-installer`. Snap what?
+
 
 === VMWare
 
@@ -265,7 +286,6 @@ esxcli software sources profile list -d /vmfs/volumes/datastore path where zip f
 ```
 esxcli software profile update -p <-Standard> -d /vmfs/volumes/<zip file path>
 ```
-
 
 ===== Run `esxcli` Remotely
 
