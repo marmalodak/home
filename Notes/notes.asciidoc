@@ -256,9 +256,21 @@ See `/etc/apt/apt.conf.d` for more possibilities.
 
 Also try `systemctl list-unit-files --all` to see what services have the word 'update' or 'apt' or 'daily' or 'timer' in them.
 
-==== lxd-what?
+Actually, maybe:
 
-`sudo apt remove --purge lxd-installer`. Snap what?
+[CODE]
+-----
+sudo apt remove --purge unattended-upgrades
+sudo apt remove --purge snapd
+sudo apt remove --purge lxd-installer
+-----
+
+
+==== everything else
+
+. `sudo apt remove --purge lxd-installer`. Snap what?
+. On a VM, I usually want to install `parted` and `open-vm-tools`.
+. `sudo systemctl set-default multi-user.target`
 
 
 === VMWare
