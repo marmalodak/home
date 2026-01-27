@@ -551,6 +551,21 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter%: %code%: %s ⟪%severity%⟫'
 
+" why doesn't groovy linting work??
+" let g:ale_enable_for_languages = ['groovy']
+" let g:ale_linters = {
+"     \ 'groovy': ['groovyc', 'npm-groovy-lint'],
+" \}
+
+" call ale#linter#Define('groovy', {
+" \   'name': 'groovyc',
+" \   'executable': 'groovyc',
+" \   'command': 'groovyc -e %t',
+" \   'callback': 'ale#handlers#unix#HandleAsError',
+" \})
+" - I couldn't get either of these to work, so I had claude write me a vim
+"   plugin that calls groovyc
+
 " " next and previous ALE error/warning; something is overwriting this setting
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -577,8 +592,3 @@ hi Normal guibg=#f7f7f7 " PaperColor default bg is a bit too dim
 function! Todaystat() " :call Todaystat()
   call append('$', '==== ' . system(['date']))
 endfunc
-
-" vim-vinegar HAS TO GO!
-" vinegar.vim maps this to open the directory of this file, typos make this hell
-" unmap -
-" nunmap -
