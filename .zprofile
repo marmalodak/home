@@ -3,19 +3,13 @@
 #
 # inspired by https://gist.github.com/marmalodak/1ec21ea5e2953aca3204ceb9baef29e4 for info on why .zshenv was moved to .zprofile
 # Long discussion: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2 and also https://www.zsh.org/mla/users/2003/msg00600.html
-# tl;dr incorporate .zprofile
 # TODO steal from https://zsh.sourceforge.io/Contrib/startup/ and https://adamspiers.org/computing/zsh/
 # https://zsh.sourceforge.io/Contrib/startup/std/zshrc
 # https://zsh.sourceforge.io/Contrib/startup/std/zshenv
-# TODO test whether brew is installed: hint: not on linux
-# TODO test for nvm
-# TODO test for rvm
 
 
 # brew might be installed in /opt or /usr/local
-# the paths to util-linux/bin are needed on the mac so that setsid (from util-linux) is in the PATH
 # https://stackoverflow.com/a/1397020  # see here on how to tell whether a directory is in the $PATH already
-# NB there is no python3 binary in ~/Library/Python/... but pip3 install (--user) installs into ~/Library/Python/3.9/bin
 # $brew/{bin,sbin} is maybe already handled
 
 brewpath=''
@@ -34,11 +28,6 @@ fi
 [[ -d ${HOME}/bin ]]                                       && PATH="${HOME}/bin:${PATH}"
 [[ -d ${HOME}/.local/bin ]]                                && PATH="${HOME}/.local/bin:${PATH}"  # fedora's pip --user path 
 
-# https://zsh.sourceforge.io/Guide/zshguide02.html#l24
-# https://www.zsh.org/mla/users/1998/msg00490.html
-typeset -U PATH
-export PATH
-
 
 if whence nvm > /dev/null; then  # nvm = Node Version Manager
   if [[ ! -d ~/.nvm ]]; then
@@ -52,24 +41,31 @@ if whence nvm > /dev/null; then  # nvm = Node Version Manager
 fi
 
 
-if [[ ${OSTYPE} == darwin* ]]; then
-  # python stuff below needs work
-  pythons_base="${HOME}/Library/Python"
-  if [[ -d "${pythons_base}" ]]; then
-    pythons=( ${pythons_base}/*/bin )
-    for p in ${pythons}; do
-      if [[ -d "${p}" ]]; then
-        PATH="${p}:${PATH}"
-        export PATH
-        break  # do end here because stop at first one
-      fi
-    done
-  fi
-fi
+# not sure if this is the right thing to do
+# ~/Library/Python/* are only packages when `pip install --user` is invoked, no python3 interpreter is installed here
+# IOW this doesn't actually do what I want
+# if [[ ${OSTYPE} == darwin* ]]; then
+#   # python stuff below needs work
+#   pythons_base="${HOME}/Library/Python"
+#   if [[ -d "${pythons_base}" ]]; then
+#     pythons=( ${pythons_base}/*/bin )
+#     for p in ${pythons}; do
+#       if [[ -d "${p}" ]]; then
+#         PATH="${p}:${PATH}"
+#         export PATH
+#         break  # do end here because stop at first one
+#       fi
+#     done
+#   fi
+# fi
+# - Download Python from python.org and running their installer asks for permission to install in / somewhere
+# - I want to avoid homebrew's Python
+# - use uv, I guess? Maybe ~/.uv-venv?
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
 export GROOVY_HOME=/opt/homebrew/opt/groovy/libexec
+export JAVA_HOME=/opt/homebrew/Cellar/openjdk@21/21.0.10 # for groovyc
 
 # https://github.com/zsh-users/zsh-completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
@@ -84,6 +80,11 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 if [[ -d ${HOME}/.local/bin ]]; then
   export PATH=${HOME}/.local/bin:${PATH}
 fi
+
+# https://zsh.sourceforge.io/Guide/zshguide02.html#l24
+# https://www.zsh.org/mla/users/1998/msg00490.html
+typeset -U PATH
+export PATH
 
 ## # installing Perl put these in my .zshrc
 ## PATH="${HOME}/perl5/bin${PATH:+:${PATH}}"; export PATH;
