@@ -26,15 +26,16 @@ I learned about using GIT-DIR and WORK-DIR for dotfiles from:
 
 === On a new installation, I usually want:
 
+On the mac install homebrew and alacritty and fonts before this (see Brewfile).
+
 [source,zsh,linenums]
 ----
-# git clone https://github.com/marmalodak/home ~/.punkte # switch to using ssh on github
-git clone git@github.com:marmalodak/home.git ~/.punkte
+git clone git@github.com:marmalodak/home.git ~/.punkte # requires ssh key installed on github
 git -C $HOME/.punkte/.git --git-dir=$HOME/.punkte/.git --work-tree=$HOME checkout -- $HOME
 # open a new shell, then:
 punkt reset --hard  # when re-installing dotfiles into a messed up $HOME
 # punkt pull --rebase --recurse-submodules --verbose --stat
-punkt-auf
+punkt_auf
 oh-my-posh init # untested; p10k deprecated
 ----
 

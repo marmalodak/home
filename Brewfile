@@ -1,3 +1,4 @@
+# To use this file: brew bundle
 # TODO: install limelight https://github.com/koekeishiya/limelight
 # actually, do not install limelight
 # add meld? onefetch?
@@ -5,10 +6,10 @@
 # https://ctags.io/[Universal Ctags]
 # brew install ctags installs http://ctags.sourceforge.net/[Exuberant Ctags] :thumbsdown:
 #
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/homebrew-cask"
-tap "jabenninghoff/edge"
+# tap "homebrew/bundle"
+# tap "homebrew/cask"
+# tap "homebrew/homebrew-cask"
+# tap "jabenninghoff/edge" # needed if apg is installed directly?
 # tap "hudochenkov/sshpass"
 brew "brew-cask-completion"
 # brew "ccze"
@@ -21,6 +22,8 @@ brew "fping"
 brew "fzf"
 # brew "git-credential-manager"
 brew "gnupg"
+brew "btop"
+brew "glances"
 brew "htop"
 brew "jo"
 brew "jq"
@@ -30,7 +33,6 @@ brew "pidof"
 brew "pylint"
 brew "ranger"
 brew "ripgrep"
-brew "sshpass"
 brew "subversion"
 brew "tmux"
 brew "util-linux"
