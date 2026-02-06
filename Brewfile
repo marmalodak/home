@@ -9,8 +9,9 @@
 # tap "homebrew/bundle"
 # tap "homebrew/cask"
 # tap "homebrew/homebrew-cask"
-# tap "jabenninghoff/edge" # needed if apg is installed directly?
+tap "jabenninghoff/edge" # https://github.com/jabenninghoff/homebrew-edge
 # tap "hudochenkov/sshpass"
+brew "apg"
 brew "brew-cask-completion"
 # brew "ccze"
 brew "asciidoctor"
