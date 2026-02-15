@@ -110,18 +110,10 @@ all_oh_my_posh_themes=(
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
-  # thecyberden.omp.json # 1 # a bit too shiny
   uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
   wholespace.omp.json # 2 needs newline, very slow
   wopian.omp.json # 1 # needs hostname in the prompt
   ys.omp.json # 1 # too light on a light background
-  # have I tried these?
-  lightgreen.omp.json # doesn't show the cwd
-  catppuccin.omp.json
-  catppuccin_frappe.omp.json # colours a bit too light
-  catppuccin_latte.omp.json
-  catppuccin_macchiato.omp.json # colours a bit too light
-  catppuccin_mocha.omp.json # colours a bit too light
 )
 # source https://ohmyposh.dev/docs/themes
 # have new themes been added? git -C ~/.oh-my-posh whatchanged --diff-filter=A --oneline -- ~/.oh-my-posh/themes
@@ -300,6 +292,7 @@ alias brup='sudo --validate && brew update && brew upgrade --greedy-auto-updates
 alias secscp='rsync -azhe ssh --progress $1 $2'
 
 alias git-show-head="git log -1 --pretty='%s'"
+alias gerrit-show-message='git-show-head'
 
 function cd-fd()
 {
@@ -418,16 +411,23 @@ function nvim-errlog()
 # show the current gerrit change as a diff
 function gerrit-change-show()
 {
-  git-show-head
-  git diff -p HEAD~1..HEAD
+  {
+    git-show-head
+    echo
+    git diff --name-only HEAD~1..HEAD
+    echo
+    git diff -p HEAD~1..HEAD
+  } | bat
 }
 
 
 # open the files that are in the current gerrit change
+# works only from the directory in which .git resides??
 function nvim-gerrit-change()
 {
   git-show-head
-  nvim -O $(git diff --name-only HEAD~1..HEAD)
+  # nvim -O $(git diff --name-only HEAD~1..HEAD) # do I want to open files that have been deleted?
+  nvim -O $(git diff --name-status HEAD~1..HEAD | while read fstatus fname; do if [[ $fstatus != "D" ]]; then echo $fname; fi; done)
 }
 
 
@@ -550,6 +550,7 @@ HELPDIR="/usr/share/zsh/$(zsh --version | cut -d' ' -f2)/help"
 # good primer on bools in bash https://stackoverflow.com/a/47876317/1698426
 # TODO: consider https://github.com/z-shell/zsh-lint which requires https://github.com/z-shell/zi
 # https://gist.github.com/ChristopherA/562c2e62d01cf60458c5fa87df046fbd Zsh Opinionated - A Guide to Best Practices
+# TODO: ssh completions host https://stackoverflow.com/a/56760494/1698426
 
 if ! source <(fzf --zsh 2> /dev/null); then
   source /usr/share/doc/fzf/examples/key-bindings.zsh # ubuntu 22
