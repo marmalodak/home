@@ -114,17 +114,17 @@ function punkt_ausführe()
     return 1
   fi
   popd > /dev/null
-  echo "copy ${home_tarball_file_zip} to the destination computer"
-  echo 'On the destination:'
-  echo '1. cd ~'
-  echo '2. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc gcc'
-  echo ' OR '
-  echo '2. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
-  echo "3. gtar xvf ${home_tarball_file_zip}"
-  echo ' OR '
-  echo "3. tar xvf ${home_tarball_file_zip}"
-  echo "4. Start a new shell session"
-  echo "5. punkt_einfüre"
+  info "copy ${home_tarball_file_zip} to the destination computer"
+  info 'On the destination:'
+  info '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc gcc'
+  info ' OR '
+  info '1. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
+  info "2. gtar xvf ${home_tarball_file_zip}"
+  info ' OR '
+  info '1. cd ~'
+  info "2. tar xvf ${home_tarball_file_zip}"
+  info "3. Start a new shell session"
+  info "4. punkt_einfüre"
   # echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
   # echo '4. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
   # echo ' OR '
@@ -221,7 +221,7 @@ function punkt_einfüre()
     punkt_build_utils
     mv "${home_tarball_file_zip}" "${home_tarball_file_zip_done}"
   else
-    info "No ${home_tarball_file_zip}, nothing to do"
+    warn "No ${home_tarball_file_zip}, nothing to do"
     if [[ -f ${home_tarball_file_zip_done} ]]; then
       warn "${home_tarball_file_zip_done} exists, so you might mv ${home_tarball_file_zip_done} ${home_tarball_file_zip} and invoke me again" 
     fi
