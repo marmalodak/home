@@ -17,7 +17,7 @@ I Want to Remember
 
 === git
 
-Use `git whatchanged` to see recent changes?  e.g. what recent themes were added to oh-my-posh: `git whatchanged --diff-filter=A -- ~/.oh-my-posh/themes`
+Use `git whatchanged` to see recent changes?  e.g. what recent themes were added to oh-my-posh: `git -C ~/.oh-my-posh whatchanged --diff-filter=A -- themes`
 
 
 === zsh
@@ -265,6 +265,15 @@ sudo apt remove --purge snapd
 sudo apt remove --purge lxd-installer
 -----
 
+
+==== ntp
+
+I saw an error trying to install `ntp` with `apt`. Remove `systemd-timesyncd`:
+
+[CODE]
+-----
+sudo apt remove systemd-timesyncd
+-----
 
 ==== everything else
 
