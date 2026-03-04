@@ -475,3 +475,7 @@ function go_get()
   fi
   return -1
 }
+
+
+# compdef punkt=git? maybe?
+# 

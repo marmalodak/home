@@ -381,12 +381,14 @@ function nvim-fd()
 # open all the files that are modified according to git
 function nvim-modified()
 {
+  # do not invoke `punkt`, this file is not related to punkte
   # eval nvim -O printf "$(git diff --patch %s) " $(git status --short --untracked-files=no --ignore-submodules=all | awk '{if ($1 == "M" || $1 == "MM" || $1 == " M") print $2}')  # broken
   # nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
   # Using git ls-files might be better if it excluded submodules
-  # nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere
-                                                                                              # fails for renamed files
+  # nvim -O $(git status --short --untracked-files=no --ignore-submodules=all | cut -d' ' -f3)  # cut -w does not work everywhere, fails for renamed files
   nvim -O $(git ls-files --modified --exclude-standard)  # https://stackoverflow.com/a/28280636/1698426
+  # sadly git ls-files --modified does not provide the same info as `git status`
+  # nvim -O $(git status --porcelain | awk '{print $2}') # must be at git root?
 }
 
 
@@ -409,6 +411,8 @@ function nvim-errlog()
 
 
 # show the current gerrit change as a diff
+# only works if change is already pushed
+# - see also nvim-modified
 function gerrit-change-show()
 {
   {
@@ -423,6 +427,9 @@ function gerrit-change-show()
 
 # open the files that are in the current gerrit change
 # works only from the directory in which .git resides??
+# only works if change is already pushed
+# - maybe see if 'modifiled:' is in `git status`?
+# - see also nvim-modified
 function nvim-gerrit-change()
 {
   git-show-head
@@ -489,8 +496,6 @@ function ifcmd()
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
 
 
-# compdef punkt=git
-# 
 # if whence eza > /dev/null; then
 #   compdef ll=eza
 #   compdef lr=eza
