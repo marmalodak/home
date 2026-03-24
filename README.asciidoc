@@ -48,7 +48,7 @@ Before being able to push:
         email = marmalodak@gmail.com
 ----
 
-==== Adding a submodule
+=== Adding a submodule
 
 Example, to add the Papercolor theme:
 
@@ -62,14 +62,14 @@ submodules need to be absolute paths relative to `$HOME`
 ====
 
 
-==== To Do
+=== To Do
 
 . document install asciidoctor-diagram et al
 . the vim macro to convert asciidoc to html should not always try to use Safari, maybe use the OS default
 .. e.g. use `open` on macOS and `xdg-open` everywhere else?
 
 
-==== Trouble
+=== Trouble
 
 YTF is there a colon in the path to `zsh-edit`? The URL should be `url = https://github.com/marlonrichert/zsh-edit.git`, not `url = https://github.com:marlonrichert/zsh-edit.git`. How did that happen?
 
@@ -127,15 +127,6 @@ I had trouble installing ruby on my m2 mbp
 rvm install ruby-3.3.0 --with-openss-dir=$(brew --prefix openssl@3)
 ----
 
-.These are required for `asciio`
-[source,shell,linenums]
-----
-brew install glib
-brew install cairo
-brew install gtk+
-brew install gtk+3 gtk4 gtkextra pango
-----
-
 Might be time to give up on drawing in asciidoctor or vim and use PlantUML, graphviz, pikchr
 
 === apg
@@ -161,7 +152,6 @@ https://stackoverflow.com/questions/25334787/homebrew-get-list-of-formulas-in-a-
 
 * Yazi
 * Arai2
-* FastFetch
 * erdtree
 * Dust
 * tealdear
