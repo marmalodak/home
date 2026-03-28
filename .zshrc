@@ -74,7 +74,8 @@ elif whence neofetch > /dev/null; then
 elif whence nerdfetch > /dev/null; then
   nerdfetch
 elif whence hyfetch > /dev/null; then
-  hyfetch
+  # hyfetch
+  echo hyfetch takes too long
 fi
 [[ -f ~/.motd ]] && source ~/.motd
 
@@ -103,7 +104,7 @@ all_oh_my_posh_themes=(
   # montys.omp.json # 2 pretty but shiny -1, I think this one screws up the console with junk chars or something
   negligible.omp.json # needs newline 3
   paradox.omp.json # 5 # a bit too shiny
-  powerlevel10k_rainbow.omp.json
+  powerlevel10k_rainbow.omp.json # a bit too loud
   probua.minimal.omp.json # -1 illegible on white background
   pure.omp.json # 1 # needs host name
   rudolfs-light.omp.json # 2
@@ -111,7 +112,7 @@ all_oh_my_posh_themes=(
   stelbent-compact.minimal.omp.json # 1
   takuya.omp.json
   uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
-  wholespace.omp.json # 2 needs newline, very slow
+  # wholespace.omp.json # 2 needs newline, very slow; ram & cpu et al not that useful
   wopian.omp.json # 1 # needs hostname in the prompt
   ys.omp.json # 1 # too light on a light background
 )
@@ -124,7 +125,7 @@ oh_my_posh_theme=${all_oh_my_posh_themes[$ri]}
 # to make changes to a theme:
 # 1. cp themefile ~/.patches
 # 2. hack on ~/.patches/theme.omp.json
-# 3. eval "$(~/.oh-my-posh/oh-my-posh init zish --config theme.omp.json)"
+# 3. eval "$(~/.oh-my-posh/oh-my-posh init zsh --config theme.omp.json)"
 # 4. diff ~/.oh-my-posh/themes/theme.omp.json theme.omp.json > theme.omp.json.diff
 # 5. open new terminal or eval ... from #3
 oh_my_posh_theme_file=~/.oh-my-posh/themes/${oh_my_posh_theme}
@@ -192,7 +193,7 @@ plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf
 # z https://github.com/agkozak/zsh-z
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh" # I do not use oh-my-zsh anymore, I use oh-my-posh...
 
 # source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -294,11 +295,13 @@ alias secscp='rsync -azhe ssh --progress $1 $2'
 alias git-show-head="git log -1 --pretty='%s'"
 alias gerrit-show-message='git-show-head'
 
-function cd-fd()
+function cd_fd()
 {
-  somefile="$(fd $1)"
-  if [[ -z "$1" ]] || [[ -z "${somefile}" ]] || [[ ! -f "${somefile}" ]]; then echo "File $1 not found"; return 1; fi
-  cd $(dirname ${somefile})
+  [[ -z "$1" ]] && return 1
+  somepath="$(fd $1)"
+  [[ -z "${somepath}" ]] && { echo "fd found nothing for $1"; return 1; }
+  [[ -d "${somepath}" ]] && { cd "${somepath}"; return 0; }
+  cd $(dirname ${somepath})
 }
 
 # bc - An arbitrary precision calculator language
