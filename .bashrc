@@ -9,7 +9,6 @@ set -o pipefail
 
 # https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 
-# TODO: consider zsh and fish shells
 # TODO: other things to consider: tig pgcli httpie jo jq doitlive pipsi https://github.com/facebook/PathPicker 
 
 if [ -f /etc/bashrc ]; then
@@ -142,6 +141,6 @@ fi
 
 [[ ! -f ~/.motd ]] || source ~/.motd
 
-source /Users/john/.config/broot/launcher/bash/br
+[[ -r  ~/.config/broot/launcher/bash/br ]] && source ~/.config/broot/launcher/bash/br
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
