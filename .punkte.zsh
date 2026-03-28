@@ -42,7 +42,7 @@ function punkt_is_repo()
       return 0
     fi
   fi
-  return 1
+  return -1
 }
 
 
@@ -111,7 +111,7 @@ function punkt_ausführe()
     ls -l ${home_tarball_file_zip}
   else
     error "Something went wrong, whar tarball ${home_tarball_file_zip}?"
-    return 1
+    return -1
   fi
   popd > /dev/null
   info "copy ${home_tarball_file_zip} to the destination computer"
@@ -152,7 +152,7 @@ function punkt_aufbau()
   if ! punkt_is_repo; then
     error "Since punkt is not a git repo, this is probably not what you want"
     error "Maybe punkt_auf, since it checks for this?"
-    return 1
+    return -1
   fi
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
   # Do not call git clean!! git clean recursively deletes files that are not under version control
@@ -238,7 +238,7 @@ function punkt_auf()  # TODO punkte-auf? punkte-los?
   if ! punkt_is_repo; then
     info "Not a punkt repo"
     punkt_einfüre
-    return 0
+    return $?
   fi
   info "Probably a real punkt repo"
   # https://stackoverflow.com/a/76182448/1698426
@@ -249,6 +249,11 @@ function punkt_auf()  # TODO punkte-auf? punkte-los?
     punkt pull --recurse-submodules --jobs=16 | column -t
     # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
     # - might have to do each individually?
+    if (( $? )); then
+      error "punk pull --recurse-submodules failed"
+      error "Not invoking punkt_build_utils"
+      return -1
+    fi
     punkt_build_utils
   else
     print
@@ -269,7 +274,7 @@ function punkt_build_utils()  # punkte_mache?
     fi
   else
     error "Install make"
-    return 1
+    return -1
   fi
   local have_go=0
   if whence go > /dev/null; then
@@ -288,7 +293,7 @@ function punkt_build_utils()  # punkte_mache?
     return $?
   fi
   error 'Install Go'
-  return 1
+  return -1
 }
 
 
@@ -296,11 +301,11 @@ function punkt_submodules_zeige()
 {
   if ! punkt_is_repo; then
     error "Since punkt is not a git repo, this is probably not what you want"
-    return 1
+    return -1
   fi
   if ! whence jq > /dev/null 2>&1; then
     error "Install jq"
-    return 1
+    return -1
   fi
   tojson=0
   short=0
@@ -334,11 +339,11 @@ function punkt_zu_json()
 {
   if ! punkt_is_repo; then
     error "Since punkt is not a git repo, this is probably not what you want"
-    return 1
+    return -1
   fi
   if ! whence jo > /dev/null 2>&1; then
     error "Install jo"
-    return 1
+    return -1
   fi
   echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
 }
@@ -403,7 +408,7 @@ function punkt_submodule_bringeum()
     error "Submoule must be passed in as reported by punkt status"
     error "NB punkt_status does not show submodules"
     error "See also punkt-zeige"
-    return 1
+    return -1
   fi
 
   punkte_json=$(punkt_zu_json)
@@ -420,7 +425,7 @@ function punkt_submodule_bringeum()
 
   if [[ -z ${submodule_name} || -z ${displaypath} || -z ${toplevel} || -z ${sm_path} ]]; then
     error "Achtung! Kein submodule gefunden!"
-    # return 1
+    # return -1
   fi
 
   set -x
@@ -448,11 +453,11 @@ function go_get()
 {
   if [[ ${OSTYPE} != "linux-gnu" ]]; then
     info "Use brew on the Mac to get GO"
-    return 1
+    return -1
   fi
   if [[ -f ${HOME}/bin/go ]]; then
     error "Should the old ${HOME}/bin/go be deleted/saved first?"
-    return 1
+    return -1
   fi
   local arch_host=$(arch)
   local go_version=go1.25.0
@@ -462,11 +467,11 @@ function go_get()
     go_file=${go_version}.linux-arm64.tar.gz
   else
     error "Arch = ${arch_host} !?!?"
-    return 1
+    return -1
   fi
   if wget https://go.dev/dl/${go_file}; then
     tar -C ${HOME}/bin -xzf ${go_file}
     return $?
   fi
-  return 1
+  return -1
 }
