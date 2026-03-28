@@ -142,7 +142,8 @@ set rtp+=/opt/homebrew/opt/fzf
 " https://matt-a-bennett.github.io/fzf_search_dirs/fzf_search_dirs.html
 
 " gitgutter and punkte  https://github.com/airblade/vim-gitgutter/issues/754
-let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'
+" let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'  " does this not interfere with normal git??
+let g:gitgutter_log=1 " TIL gitgutter.log
 
 " I want lightline to show the full path of the file I'm editing
 let g:lightline = {
@@ -237,11 +238,16 @@ let g:startify_custom_header = [
         \ 'R enters replace mode, over write like old school editors                                                            ',
         \ 'c is change, C is change for the whole line                                                                          ',
         \ '                                                                                                                     ',
-        \ ':enew!|pu=execute(''verbose map'') show all mappings and where they are defined                                        ',
+        \ ':enew!|pu=execute(''verbose map'') show all mappings and where they are defined                                      ',
         \ ':verbose map <leader>            all mapping in all modes that use <leader>                                          ',
         \ ':verbose map <buffer>            all mappings defined for the current buffer                                         ',
         \ ':verbose nmap <leader>           all normal mode mappings that use <leader>                                          ',
         \ '                      source: https://stackoverflow.com/a/20083301/1698426                                           ',
+        \ '                                                                                                                     ',
+        \ ':lopen open all the pylint warnings in a new split                                                                   ',
+        \ ':lnext                                                                                                               ',
+        \ ':lprev                                                                                                               ',
+        \ '                                                                                                                     ',
         \ ]
 
 
@@ -280,7 +286,9 @@ augroup END
 
 
 function! ConvertAsciidoc()
-  " FIXME this only works if the .asciidoc file is in the current directory
+  " TODO: maybe if file's name is something like `status.asciidoc` then skip this whole thing?
+  " FIXME: this only works if the .asciidoc file is in the current directory
+  " FIXME: test for presence of safari or firefox or default browser? linux vs macos?
   silent execute("!asciidoctor -b html5 " . expand('%:t') . " && open -a safari " . expand('%:t:r') .. ".html")
   " silent !if command -v open; then open -a safari README.html; fi
   " silent !if command -v xdg-open; then xdg-open README.html; fi
@@ -290,6 +298,7 @@ function! ConvertAsciidoc()
   " whar pdf?
 endfunction
 autocmd! BufWritePost,FileWritePost *.asciidoc :call ConvertAsciidoc()
+" maybe autocmd! BufWritePost,FileWritePost to disable the preceding autocmds?
 
 autocmd WinLeave * setlocal nocursorline
 autocmd WinEnter * setlocal   cursorline
