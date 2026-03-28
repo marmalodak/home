@@ -3,19 +3,20 @@ autoload -Uz colors && colors # first learned about it here https://stackoverflo
 alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
 
 
-function info()
+# TODO some functions should be made "private", maybe _punkt_info()? _pinfo()?
+function _punkt_info()
 {
   print -- "$fg_bold[blue]${*}$reset_color"
 }
 
 
-function warn()
+function _punkt_warn()
 {
   print -- "$fg_bold[yellow]${*}$reset_color"
 }
 
 
-function error()
+function _punkt_error()
 {
   print -- "$fg_bold[red]${*}$reset_color"
 }
@@ -54,7 +55,8 @@ function punkt_status()
     punkt status --ignore-submodules=all --untracked-files=no
     return $?
   fi
-  error "Not a punkt-repo, what now?"
+  # TODO how to detect hand-edited changes? e.g. if I edit ~/Notes/whatever, is there a way to check?
+  _punkt_error "Not a punkt-repo, what now?"
   return -1
 }
 
@@ -79,7 +81,7 @@ function punkt_neu()
   git clone https://github.com/marmalodak/home $HOME/.punkte
   punkt checkout -- $HOME
   punkt status --ignore-submodules=all --untracked-files=no
-  info "Jetzt führe diesen Befehl: punkt_auf"
+  _punkt_info "Jetzt führe diesen Befehl: punkt_auf"
   set +x
 }
 
@@ -110,21 +112,21 @@ function punkt_ausführe()
   if [[ -f ${home_tarball_file_zip} ]]; then
     ls -l ${home_tarball_file_zip}
   else
-    error "Something went wrong, whar tarball ${home_tarball_file_zip}?"
-    return -1
+    _punkt_error "Something went wrong, whar tarball ${home_tarball_file_zip}?"
+    return 1
   fi
   popd > /dev/null
-  info "copy ${home_tarball_file_zip} to the destination computer"
-  info 'On the destination:'
-  info '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc gcc'
-  info ' OR '
-  info '1. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
-  info "2. gtar xvf ${home_tarball_file_zip}"
-  info ' OR '
-  info '1. cd ~'
-  info "2. tar xvf ${home_tarball_file_zip}"
-  info "3. Start a new shell session"
-  info "4. punkt_einfüre"
+  _punkt_info "copy ${home_tarball_file_zip} to the destination computer"
+  _punkt_info 'On the destination:'
+  _punkt_info '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc gcc'
+  _punkt_info ' OR '
+  _punkt_info '1. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
+  _punkt_info "2. gtar xvf ${home_tarball_file_zip}"
+  _punkt_info ' OR '
+  _punkt_info '1. cd ~'
+  _punkt_info "2. tar xvf ${home_tarball_file_zip}"
+  _punkt_info "3. Start a new shell session"
+  _punkt_info "4. punkt_auf"
   # echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
   # echo '4. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
   # echo ' OR '
@@ -150,8 +152,8 @@ function punkt_ausführe()
 function punkt_aufbau()
 {
   if ! punkt_is_repo; then
-    error "Since punkt is not a git repo, this is probably not what you want"
-    error "Maybe punkt_auf, since it checks for this?"
+    _punkt_error "Since punkt is not a git repo, this is probably not what you want"
+    _punkt_error "Maybe punkt_auf, since it checks for this?"
     return -1
   fi
   # https://gist.github.com/nicktoumpelis/11214362; see updates further down
@@ -212,7 +214,7 @@ function punkt_einfüre()
     else
       TAR=tar
     fi
-    info "Unpacking ${home_tarball_file_zip}"
+    _punkt_info "Unpacking ${home_tarball_file_zip}"
     ${TAR} xvf "${home_tarball_file_zip}" > /dev/null 2>&1
     # switched to Terminal.app, maybe terminfos do not neet to be copied around any more
     # tic -x alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
@@ -221,9 +223,9 @@ function punkt_einfüre()
     punkt_build_utils
     mv "${home_tarball_file_zip}" "${home_tarball_file_zip_done}"
   else
-    warn "No ${home_tarball_file_zip}, nothing to do"
+    _punkt_warn "No ${home_tarball_file_zip}, nothing to do"
     if [[ -f ${home_tarball_file_zip_done} ]]; then
-      warn "${home_tarball_file_zip_done} exists, so you might mv ${home_tarball_file_zip_done} ${home_tarball_file_zip} and invoke me again" 
+      _punkt_warn "${home_tarball_file_zip_done} exists, so you might mv ${home_tarball_file_zip_done} ${home_tarball_file_zip} and invoke me again" 
     fi
   fi
   popd > /dev/null 2>&1
@@ -233,18 +235,18 @@ function punkt_einfüre()
 # update the ~/.punkt git repo
 # assumes that ~/.punkte already exists
 # https://german.stackexchange.com/questions/22438/repository-oder-repositorium
-function punkt_auf()  # TODO punkte-auf? punkte-los?
+function punkt_auf()  # TODO punkte_auf? punkte_los?
 {
   if ! punkt_is_repo; then
-    info "Not a punkt repo"
+    _punkt_info "Not a punkt repo"
     punkt_einfüre
     return $?
   fi
-  info "Probably a real punkt repo"
+  _punkt_info "Probably a real punkt repo"
   # https://stackoverflow.com/a/76182448/1698426
-  info "Pulling, ignoring submodules"
+  _punkt_info "Pulling, ignoring submodules"
   if punkt pull --stat --verbose --rebase --no-recurse-submodules; then
-    info "Updating submodules"
+    _punkt_info "Updating submodules"
     punkt submodule update --init --remote --recursive --jobs=16 | column -t  # shallow submodules?
     punkt pull --recurse-submodules --jobs=16 | column -t
     # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
@@ -257,7 +259,7 @@ function punkt_auf()  # TODO punkte-auf? punkte-los?
     punkt_build_utils
   else
     print
-    error "Do you have uncommitted changes?"
+    _punkt_error "Do you have uncommitted changes?"
     print
     punkt_status
   fi
@@ -273,7 +275,7 @@ function punkt_build_utils()  # punkte_mache?
       return $?
     fi
   else
-    error "Install make"
+    _punkt_error "Install make"
     return -1
   fi
   local have_go=0
@@ -288,11 +290,11 @@ function punkt_build_utils()  # punkte_mache?
     fi
   fi
   if ((have_go)); then
-    info "Building oh-my-posh"
+    _punkt_info "Building oh-my-posh"
     go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
     return $?
   fi
-  error 'Install Go'
+  _punkt_error 'Install Go'
   return -1
 }
 
@@ -300,11 +302,11 @@ function punkt_build_utils()  # punkte_mache?
 function punkt_submodules_zeige()
 {
   if ! punkt_is_repo; then
-    error "Since punkt is not a git repo, this is probably not what you want"
+    _punkt_error "Since punkt is not a git repo, this is probably not what you want"
     return -1
   fi
   if ! whence jq > /dev/null 2>&1; then
-    error "Install jq"
+    _punkt_error "Install jq"
     return -1
   fi
   tojson=0
@@ -338,11 +340,11 @@ function punkt_submodules_zeige()
 function punkt_zu_json()
 {
   if ! punkt_is_repo; then
-    error "Since punkt is not a git repo, this is probably not what you want"
+    _punkt_error "Since punkt is not a git repo, this is probably not what you want"
     return -1
   fi
   if ! whence jo > /dev/null 2>&1; then
-    error "Install jo"
+    _punkt_error "Install jo"
     return -1
   fi
   echo $(jo -a $(punkt submodule foreach --quiet 'jo submodule_name=$name displaypath=$displaypath toplevel=$toplevel sm_path=$sm_path'))
@@ -369,13 +371,13 @@ function punkt_submodule_zutat()
   URL=$1
   WO=$2
   if [[ ${WO} =~ $(whoami) || ${WO} =~ "home" || ${WO} =~ "Users" ]]; then
-    error "Do not add tilde or $HOME or \$HOME an absolute path to the destination directory"
-    error "Example:"
-    error "punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git .vim/pack/vim8/start"
-    error "Do not do any of the following:"
-    error 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git ~/.vim/pack/vim8/start'
-    error 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git $HOME/.vim/pack/vim8/start'
-    error 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git \$HOME/.vim/pack/vim8/start'
+    _punkt_error "Do not add tilde or $HOME or \$HOME an absolute path to the destination directory"
+    _punkt_error "Example:"
+    _punkt_error "punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git .vim/pack/vim8/start"
+    _punkt_error "Do not do any of the following:"
+    _punkt_error 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git ~/.vim/pack/vim8/start'
+    _punkt_error 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git $HOME/.vim/pack/vim8/start'
+    _punkt_error 'punkt_submodule_zutat https://github.com/NLKNguyen/papercolor-theme.git \$HOME/.vim/pack/vim8/start'
     return -1
   fi
   STEM=${URL##*/}
@@ -395,7 +397,7 @@ function punkt_submodule_bringeum()
   local unset sm_path
 
   if ! whence jq > /dev/null 2>&1; then
-    error "Install jq"
+    _punkt_error "Install jq"
     return 1
   fi
 
@@ -404,10 +406,10 @@ function punkt_submodule_bringeum()
 
   SUBMODULE_NAME="${1}"
   if [[ -z "${SUBMODULE_NAME}" ]]; then
-    error "Must provide a submodule"
-    error "Submoule must be passed in as reported by punkt status"
-    error "NB punkt_status does not show submodules"
-    error "See also punkt-zeige"
+    _punkt_error "Must provide a submodule"
+    _punkt_error "Submoule must be passed in as reported by punkt status"
+    _punkt_error "NB punkt_status does not show submodules"
+    _punkt_error "See also punkt-zeige"
     return -1
   fi
 
@@ -424,7 +426,7 @@ function punkt_submodule_bringeum()
   # sm_path=.zsh/zsh-autosuggestions
 
   if [[ -z ${submodule_name} || -z ${displaypath} || -z ${toplevel} || -z ${sm_path} ]]; then
-    error "Achtung! Kein submodule gefunden!"
+    _punkt_error "Achtung! Kein submodule gefunden!"
     # return -1
   fi
 
@@ -452,11 +454,11 @@ function punkt_submodule_bringeum()
 function go_get()
 {
   if [[ ${OSTYPE} != "linux-gnu" ]]; then
-    info "Use brew on the Mac to get GO"
+    _punkt_info "Use brew on the Mac to get GO"
     return -1
   fi
   if [[ -f ${HOME}/bin/go ]]; then
-    error "Should the old ${HOME}/bin/go be deleted/saved first?"
+    _punkt_error "Should the old ${HOME}/bin/go be deleted/saved first?"
     return -1
   fi
   local arch_host=$(arch)
@@ -466,11 +468,12 @@ function go_get()
   elif [[ ${arch_host} == "arm64" || ${arch_host} == "aarch64" ]]; then
     go_file=${go_version}.linux-arm64.tar.gz
   else
-    error "Arch = ${arch_host} !?!?"
+    _punkt_error "Arch = ${arch_host} !?!?"
     return -1
   fi
   if wget https://go.dev/dl/${go_file}; then
     tar -C ${HOME}/bin -xzf ${go_file}
+    hash -rf # otherwise invoking plain `go` for the first time will not find it
     return $?
   fi
   return -1
@@ -478,4 +481,3 @@ function go_get()
 
 
 # compdef punkt=git? maybe?
-# 
