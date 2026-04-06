@@ -3,8 +3,7 @@ autoload -Uz colors && colors # first learned about it here https://stackoverflo
 alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
 
 
-# TODO some functions should be made "private", maybe _punkt_info()? _pinfo()?
-function _punkt_info()
+function _punkt_info() # maybe this should be _punkt_print?
 {
   print -- "$fg_bold[blue]${*}$reset_color"
 }
@@ -63,6 +62,7 @@ function punkt_status()
 
 function punkt_diff()
 {
+  # TODO what if not punkt_is_repo?
   # TODO something like punkt submodule foreach config ignore = dirty"
   punkt diff --patch --ignore-submodules=all
 }
@@ -86,26 +86,28 @@ function punkt_neu()
 }
 
 
-home_tarball_file=/tmp/home.tar
-home_tarball_file_zip=${home_tarball_file}.gz
+home_tarball_file=/tmp/home.tar # TODO move this to ~
+home_tarball_file_zip=${home_tarball_file}.gz # maybe home_tarball_file_zip=${home_tarball_file-$(date +'%Y%m%d_%H%M%S')}.gz
 home_tarball_file_zip_done=${home_tarball_file}.gz.done
-home_tarball_file_timestamp=.punkte-timestamp.text
+home_tarball_file_timestamp=.punkte-timestamp.text # TODO use the time stamped in the name
 # create a tarball of the .punkte repo's files to be imported by punkt_einfüre
 function punkt_ausführe()
 {
+  # TODO if not punkt_is_repo then export a patch file against the most recently imported imported tarball
+  #      do we have to test whether the currently running punkte are different than what's in the imported tarball?
   pushd ${HOME} > /dev/null
   # https://stackoverflow.com/a/23116607
   [[ -f ${home_tarball_file} ]]     && rm ${home_tarball_file}
   [[ -f ${home_tarball_file_zip} ]] && rm ${home_tarball_file_zip}
   punkt ls-files --full-name --recurse-submodules | tar Tcf - ${home_tarball_file}
   [[ -f .local.zsh ]] && tar --append --file=${home_tarball_file} .local.zsh  # TODO: are there more files that are local to the host?
-  date > ${home_tarball_file_timestamp}
+  date > ${home_tarball_file_timestamp} # TODO use a date format that makes it easy to sort einführe
   tar --append --file=${home_tarball_file} ${home_tarball_file_timestamp}
   rm -f ${home_tarball_file_timestamp} # this file must exist only on hosts where the home_tarball_file is used, not on hosts that have working ~/.punkt git repos
   # if terminfos need to be copied: # maybe it would be better to install alacritty or kitty on the destination
   # infocmp alacritty > alacritty.terminfo # https://www.yaroslavps.com/weblog/fix-broken-terminal-ssh/
   # infocmp xterm-kitty > xterm-kitty.terminfo # https://sw.kovidgoyal.net/kitty/kittens/ssh/#manual-terminfo-copy
-  # tar --append --file=${home_tarball_file} alacritty.terminfo
+  # tar --append --file=${home_tarball_file} alacritty.terminfo # TODO add a glob switch for files that might sometimes be added
   # tar --append --file=${home_tarball_file} xterm-kitty.terminfo
   # tar --exclude='./*/*' -tv --file=${home_tarball_file}
   gzip ${home_tarball_file}
@@ -204,9 +206,12 @@ function punkt_aufbau()
 }
 
 
-# import a tarball that has been created with punkt_ausführe
+# import a tarball that has been created with punkt_ausführe, punkt_ausführe was run on a different host)
 function punkt_einfüre()
 {
+  # TODO look for most recent by timestamp embedded in the name of the tarball
+  # TODO what if we're applying a patch rather than importing a tarball?
+  #      should we test whether this is actually a punkt repo?
   pushd ${HOME} > /dev/null 2>&1
   if [[ -f "${home_tarball_file_zip}" ]]; then
     if whence gtar > /dev/null; then # brew on macOS
