@@ -416,6 +416,7 @@ function nvim-errlog()
 # show the current gerrit change as a diff
 # only works if change is already pushed
 # - see also nvim-modified
+# see also git log @{u}..  # @{u} refers to the "upstream" (remote) branch
 function gerrit-change-show()
 {
   {
