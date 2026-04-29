@@ -1,6 +1,7 @@
 autoload -Uz colors && colors # first learned about it here https://stackoverflow.com/a/6159885
 
 alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
+# I wonder whether removing -C will permmit more flexibility for things like punkt add
 
 
 function _punkt_info() # maybe this should be _punkt_print?

@@ -106,7 +106,7 @@ all_oh_my_posh_themes=(
   paradox.omp.json # 5 # a bit too shiny
   powerlevel10k_rainbow.omp.json # a bit too loud
   probua.minimal.omp.json # -1 illegible on white background
-  pure.omp.json # 1 # needs host name
+  pure.omp.json # 2 # needs host name
   rudolfs-light.omp.json # 2
   sorin.omp.json # needs a newline before the cursor # 1
   stelbent-compact.minimal.omp.json # 1
@@ -165,7 +165,7 @@ setopt interactive_comments     # https://unix.stackexchange.com/a/557490/30160,
 # setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
 # setopt SHARE_HISTORY            # imports new commands from the history file, and also causes your typed commands to be appended to the history file
 #                                 # also enables EXTENDED_HISTORY
-#                                 # SHARE_HISTORY isn't that great because local history is more important 
+#                                 # SHARE_HISTORY isn't that great because local history is more important
 #                                 # https://askubuntu.com/a/23631 Either set inc_append_history or share_history but not both
 
 # https://superuser.com/a/1061539
@@ -280,6 +280,50 @@ else
     alias lr='ls -lrth --color=auto'
   fi
 fi
+
+# . got this `git()` shell function from ai about making sure `git` does not work when in $HOME
+# . I wonder if examining `git rev-parse --git-dir` or `git rev-parse --show-toplevel` might be enough?
+# .. echo $( cd $(git rev-parse --show-cdup); pwd)??
+# . What does `$0` look like inside the `git()` shell function when invoked from `punkte`?
+# .. ${funcstack[1]}?
+# git() {
+#     # 1. Define sensitive directories to block
+#     # :A resolves symbolic links and absolute paths automatically in zsh
+#     local forbidden_paths=(
+#         "${HOME}:A"
+#         "/"
+#         "/etc"
+#         "/var"
+#         "/usr"
+#     )
+#
+#     # 2. Track the target directory
+#     local target_dir="${PWD}:A"
+#     local args=("$@")
+#
+#     # 3. Parse all -C flags to find the final destination
+#     for ((i=1; i <= $#args; i++)); do
+#         if [[ "${args[i]}" == "-C" ]]; then
+#             local next_val="${args[i+1]}"
+#             if [[ -n "$next_val" ]]; then
+#                 # The (:A) modifier resolves the path relative to $target_dir
+#                 target_dir="${target_dir}/${next_val}:A"
+#                 ((i++)) # Skip the path argument
+#             fi
+#         fi
+#     done
+#
+#     # 4. Safety Check
+#     for forbidden in $forbidden_paths; do
+#         if [[ "$target_dir" == "$forbidden" ]]; then
+#             print -u2 "Error: Git operations are blocked in sensitive directory: $target_dir"
+#             return 1
+#         fi
+#     done
+#
+#     # 5. Execute original git command
+#     command git "$@"
+# }
 
 
 alias pfzf='fzf --preview=bat {}'
