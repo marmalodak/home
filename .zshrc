@@ -74,8 +74,11 @@ elif whence neofetch > /dev/null; then
 elif whence nerdfetch > /dev/null; then
   nerdfetch
 elif whence hyfetch > /dev/null; then
-  # hyfetch
-  echo hyfetch takes too long
+  # hyfetch # too slow and too loud
+  printf
+  printf '\033[32m'
+  hostname
+  printf '\033[0m'
 fi
 [[ -f ~/.motd ]] && source ~/.motd
 
