@@ -255,17 +255,17 @@ let g:startify_custom_header = [
     " au BufRead,BufWrite,BufNewFile *.txt setl formatoptions=ltcroqan1
 augroup text
     au!
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl formatoptions=lb
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl comments=fb:-,fb:*
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl wrap
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl linebreak
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl autoindent
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl textwidth=0
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl wrapmargin=0
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl expandtab
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl shiftwidth=4
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl softtabstop=4
-    au BufRead,BufWrite,BufNewFile *.txt,*.text setl smarttab
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl formatoptions=lb
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl comments=fb:-,fb:*
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl wrap
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl linebreak
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl autoindent
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl textwidth=0
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl wrapmargin=0
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl expandtab
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl shiftwidth=4
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl softtabstop=4
+    au BufRead,BufWrite,BufNewFile *.txt,*.text,*.adoc,*.asciidoc setl smarttab
 augroup END
 
 augroup mail
