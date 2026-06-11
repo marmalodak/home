@@ -94,6 +94,11 @@ See also `man zshexpn` (https://man.x-cmd.com/zsh/man1/zshexpn[here] and https:/
 See https://unix.stackexchange.com/questions/19530/expanding-variables-in-zsh[Splitting variables in ZSH]
 
 
+==== history search
+
+Sometimes I'm on a host and control+r does not work. I can often fix that with `bindkey -e`. Even though I use vim, my fingers remember the normal emacs bindings.
+
+
 === Vim
 
 
