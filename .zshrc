@@ -116,7 +116,7 @@ all_oh_my_posh_themes=(
   takuya.omp.json
   uew.omp.json # needs git info in the prompt and another newline 2, too light for light background
   # wholespace.omp.json # 2 needs newline, very slow; ram & cpu et al not that useful
-  wopian.omp.json # 1 # needs hostname in the prompt
+  wopian.omp.json # 0 # too loud
   ys.omp.json # 1 # too light on a light background
 )
 # source https://ohmyposh.dev/docs/themes
