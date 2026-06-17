@@ -67,6 +67,57 @@ https://linux.die.net/man/1/zshoptions[zsh man page] and https://zsh.sourceforge
 |===
 
 
+==== modifiers
+
+https://zsh.sourceforge.io/Doc/Release/Expansion.html#Modifiers-1[Chater 14 Expansion] from the https://zsh.sourceforge.io/Doc/Release/index.html[_The Z Shell Manual_]
+and https://zsh.sourceforge.io/Guide/zshguide05.html[Chapter 5: Substitutions] from https://zsh.sourceforge.io/Guide/zshguide.html[A User's Guide to the Z-Shell]
+
+.modifiers
+[%autowidth]
+|===
+|Single Letter| Explanation
+
+| a
+| absolute path
+
+| A
+| absolute path and then apply `realpath`
+
+| p
+| print the command but do not execute
+
+| P
+| realpath but remove `.` and `..`
+
+| q
+| quote
+
+| Q
+| remove one level of quotes
+
+| r
+| remove file extension
+
+| x
+| like `q` but use whitespace
+
+| w
+| make the following modifier work on each word in a string
+
+| f
+| repeats the following modifier until the resulting word does not change
+
+| F:expr:
+| like `f` but repeats only `n` times if `expr` evalues to `n`
+
+| t [ digits ]
+| tail, remove leading pathname components
+
+| W:sep:
+| like `w` but `sep` is the separator
+|===
+
+
 ==== join an array
 
 ```
@@ -97,6 +148,12 @@ See https://unix.stackexchange.com/questions/19530/expanding-variables-in-zsh[Sp
 ==== history search
 
 Sometimes I'm on a host and control+r does not work. I can often fix that with `bindkey -e`. Even though I use vim, my fingers remember the normal emacs bindings.
+
+==== default value
+
+`VAR=${VAR:-defaultValue}`
+
+From https://unix.stackexchange.com/a/649719/30160[SE]
 
 
 === Vim
