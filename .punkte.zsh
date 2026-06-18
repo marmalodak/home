@@ -4,7 +4,7 @@ alias punkt='git -C ${HOME} --git-dir=${HOME}/.punkte/.git --work-tree=${HOME}'
 # I wonder whether removing -C will permmit more flexibility for things like punkt add
 
 
-function _punkt_info() # maybe this should be _punkt_print?
+function _punkt_info() # maybe this should be renamed to _punkt_print?
 {
   print -- "$fg_bold[blue]${*}$reset_color"
 }
@@ -483,6 +483,13 @@ function go_get()
     return $?
   fi
   return -1
+}
+
+
+# what would be pushed?
+function punkt_was()
+{
+  punkt log -p @{upstream}.. # https://stackoverflow.com/a/30720302/1698426
 }
 
 
