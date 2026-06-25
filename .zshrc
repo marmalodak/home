@@ -29,7 +29,7 @@ export BAT_THEME=Coldark-Cold
 # Dark # $? = 0, $? = 1 # when not in dark mode
 
 
-# why did control+p and control+n break?
+# why did control+p and control+n break? TODO maybe just `bindkey -e`?
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
@@ -481,7 +481,7 @@ function gerrit-change-show()
 # only works if change is already pushed
 # - maybe see if 'modifiled:' is in `git status`?
 # - see also nvim-modified
-function nvim-gerrit-change()
+function gerrit-change-nvim()
 {
   git-show-head
   # nvim -O $(git diff --name-only HEAD~1..HEAD) # do I want to open files that have been deleted?
@@ -535,7 +535,8 @@ function ifcmd()
 {
   cmd1=${1}; shift
   cmd2=${1}; shift
-  if whence ${cmd1} > /dev/null ${cmd1}; then
+  # if whence ${cmd1} > /dev/null ${cmd1}; then # wut?
+  if whence ${cmd1} > /dev/null; then
     ${cmd1} $*
   else
     ${cmd2} $*
