@@ -481,11 +481,18 @@ function gerrit-change-show()
 # only works if change is already pushed
 # - maybe see if 'modifiled:' is in `git status`?
 # - see also nvim-modified
+# TODO: only works if the cwd is the root of the `.git` directory
 function gerrit-change-nvim()
 {
   git-show-head
   # nvim -O $(git diff --name-only HEAD~1..HEAD) # do I want to open files that have been deleted?
   nvim -O $(git diff --name-status HEAD~1..HEAD | while read fstatus fname; do if [[ $fstatus != "D" ]]; then echo $fname; fi; done)
+}
+
+
+function git_add()
+{
+  git status --porcelain | awk '{print $2}' | fzf --multi --preview 'git diff --color=always -- {}' | xargs --no-run-if-empty echo git add
 }
 
 
