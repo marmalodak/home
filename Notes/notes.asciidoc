@@ -155,6 +155,22 @@ Sometimes I'm on a host and control+r does not work. I can often fix that with `
 
 From https://unix.stackexchange.com/a/649719/30160[SE]
 
+==== parameters
+
+https://zsh.sourceforge.io/Doc/Release/Parameters.html[Parameters]
+
+.case insensitive and underscores are ignored
+[%autowidth]
+|===
+|Argument|Description
+
+| `ZSH_ARGZERO`
+| The name of the currently running script or the name of the shell
+
+| `ZSH_SCRIPT`
+| If zsh was invoked to run a script, this is the name of the script, otherwise it is unset.
+|===
+
 
 === Vim
 
