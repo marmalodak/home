@@ -293,6 +293,17 @@ diskutil eject /dev/disk4
 https://stackoverflow.com/questions/14132789/relative-imports-for-the-billionth-time?rq=1[Relative imports for the billionth time] for the next time I need to do this
 
 
+==== pip SSL certs
+
+https://stackoverflow.com/a/77491061/1698426[TIL pip-system-certs]
+
+.pip-system-certs
+[code,shell]
+----
+pip3 install pip-system-certs
+----
+
+
 === Ubuntu
 
 I like Ubuntu "minimal". Do not `unminimize` though, even when prompted to do that. `/usr/bin/unminimize` will install a lot, even snap. Instead, do this to make a 'minimized' Ubuntu installation useful:
