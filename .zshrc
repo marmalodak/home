@@ -75,7 +75,7 @@ elif whence nerdfetch > /dev/null; then
   nerdfetch
 elif whence hyfetch > /dev/null; then
   # hyfetch # too slow and too loud
-  printf
+  print
   printf '\033[32m'
   hostname
   printf '\033[0m'

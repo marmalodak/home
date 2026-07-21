@@ -121,30 +121,30 @@ function punkt_ausführe()
   popd > /dev/null
   _punkt_info "copy ${home_tarball_file_zip} to the destination computer"
   _punkt_info 'On the destination:'
-  _punkt_info '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim tmux make make-doc gcc'
+  _punkt_info '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim make make-doc gcc'
   _punkt_info ' OR '
   _punkt_info '1. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
-  _punkt_info "2. gtar xvf ${home_tarball_file_zip}"
+  _punkt_info '2. cd ~'
+  _punkt_info "3. gtar xvf ${home_tarball_file_zip}"
   _punkt_info ' OR '
-  _punkt_info '1. cd ~'
-  _punkt_info "2. tar xvf ${home_tarball_file_zip}"
-  _punkt_info "3. Start a new shell session"
-  _punkt_info "4. punkt_auf"
+  _punkt_info "3. tar xvf ${home_tarball_file_zip}"
+  _punkt_info "4. Start a new shell session"
+  _punkt_info "5. punkt_auf"
   # echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
-  # echo '4. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
+  # echo '6. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
   # echo ' OR '
-  # echo '4. wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
-  # echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
+  # echo '6. wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
+  # echo '7. tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
   # echo ' OR '
-  # echo '5. tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
-  # echo '6. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
+  # echo '8. tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
+  # echo '10. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
   # echo ' OR '
-  # echo '6. cd .oh-my-posh/src && ~/bin/go/bin/go build'
+  # echo '10. cd .oh-my-posh/src && ~/bin/go/bin/go build'
   # echo ' OR '
-  # echo '6. punkt_auf # or maybe punkt_build_utils'
+  # echo '10. punkt_auf # or maybe punkt_build_utils'
   # echo 'https://ohmyposh.dev/docs/installation/linux'
-  # echo '8. mkdir -p ~/.oh-my-posh'
-  # echo '9. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
+  # echo '11. mkdir -p ~/.oh-my-posh'
+  # echo '12. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
 }
 
 
@@ -285,7 +285,7 @@ function punkt_build_utils()  # punkte_mache?
     return -1
   fi
   local have_go=0
-  if whence go > /dev/null; then
+  if (( ${commands[go]} )); then
     if [[ ! $(go env GOVERSION) < 'go1.24.0' ]]; then # zsh has no <= >= for strings?
       have_go=1
     fi
@@ -295,12 +295,16 @@ function punkt_build_utils()  # punkte_mache?
       have_go=1
     fi
   fi
-  if ((have_go)); then
+  # if ((have_go)); then # should this be `(( $+commands[foo] ))`?
+  if ((have_go)) && (( $+commands[go] )); then
     _punkt_info "Building oh-my-posh"
-    go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh
+    go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # permission denied: go??
     return $?
   fi
   _punkt_error 'Install Go'
+  whence -ca go
+  ls -al ~/bin/go
+  file ~/bin/go
   return -1
 }
 
@@ -468,7 +472,7 @@ function go_get()
     return -1
   fi
   local arch_host=$(arch)
-  local go_version=go1.25.0
+  local go_version=go1.26.5
   if [[ ${arch_host} == "x86_64" ]]; then
     go_file=${go_version}.linux-amd64.tar.gz
   elif [[ ${arch_host} == "arm64" || ${arch_host} == "aarch64" ]]; then
@@ -479,6 +483,8 @@ function go_get()
   fi
   if wget https://go.dev/dl/${go_file}; then
     tar -C ${HOME}/bin -xzf ${go_file}
+    whence -ca go
+    ls -l ~/bin/go
     hash -rf # otherwise invoking plain `go` for the first time will not find it
     return $?
   fi
