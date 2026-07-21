@@ -5,6 +5,7 @@ set -e
 set -u
 set +x
 
+# TODO: shouldn't we simply use `uv` by now?
 # TODO: the activate script should not be created until the mk-venv script has run
 # TODO: make a 'go' script that activates and then runs an app
 #       e.g.
@@ -132,8 +133,9 @@ export PATH="${venv_path}/bin:${PATH}"
 VIRTUAL_ENV_PLACE_HOLDER/bin/pip3 --no-input install --upgrade pip
 if [[ -f VIRTUAL_ENV_PLACE_HOLDER-requirement.text ]]; then
   VIRTUAL_ENV_PLACE_HOLDER/bin/pip3 --no-input install --requirement VIRTUAL_ENV_PLACE_HOLDER-requirement.text
+  # TODO: if this returns non-zero...
 fi
-REQUIREMENTS_PLACE_HOLDER
+REQUIREMENTS_PLACE_HOLDER # TODO: is this needed? It looks like it dupes pip3 install ...
 mkvenv_doc_end
 )
 
