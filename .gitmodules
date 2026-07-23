@@ -115,9 +115,6 @@
 [submodule ".zsh/zsh-autosuggestions"]
 	path = .zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule ".vim/pack/vim8/start/vviki"]
-	path = .vim/pack/vim8/start/vviki
-	url = https://github.com/ratfactor/vviki
 [submodule ".vim/pack/vim8/start/xterm-color-table"]
 	path = .vim/pack/vim8/start/xterm-color-table
 	url = https://github.com/guns/xterm-color-table.vim
