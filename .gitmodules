@@ -196,3 +196,6 @@
 [submodule ".vim/pack/vim8/start/papercolor-theme"]
 	path = .vim/pack/vim8/start/papercolor-theme
 	url = https://github.com/NLKNguyen/papercolor-theme.git
+[submodule ".vim/pack/vim8/start/vviki.git"]
+	path = .vim/pack/vim8/start/vviki.git
+	url = http://ratfactor.com/repos/vviki/vviki.git
