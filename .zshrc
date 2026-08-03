@@ -17,6 +17,7 @@ fi
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
 
+# TIL zsh abbreviations, like macOS keyboard text replacements https://zsh-abbr.olets.dev/scopes.html
 # https://wiki.archlinux.org/title/Zsh
 # https://github.com/ChrisCummins/zsh/blob/master/zshrc <- crib from here
 # https://awesomeopensource.com/project/sharkdp/bat
@@ -190,7 +191,17 @@ function pane_urls() # https://www.reddit.com/r/tmux/comments/sv6skh/comment/hxj
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git chucknorris colored-man-pages command-not-found virtualenv pep8 fzf z web-search)
+plugins=(
+  git
+  chucknorris
+  colored-man-pages
+  command-not-found
+  virtualenv
+  pep8
+  fzf
+  z
+  web-search
+)
 # I removed the timer plugin because it makes copying console text more complicated
 # do not add zsh-autosuggestions to plugins because it is installed manually
 # z https://github.com/agkozak/zsh-z
@@ -203,6 +214,8 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # source ~/.zsh/zsh-you-should-use/you-should-use.plugin.zsh
 source ~/.zsh/zsh-edit/zsh-edit.plugin.zsh
+source ~/.zsh/zsh-abbr/zsh-abbr.zsh
+# see ~/.config/zsh-abbrev/user-abbreviations and "Text Replacements" under system settings for abbreviations
 
 zstyle ':completion:*' extra-verbose yes
 zstyle ':completion:list-expand:*' extra-verbose yes
