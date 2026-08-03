@@ -285,25 +285,23 @@ function punkt_build_utils()  # punkte_mache?
     return -1
   fi
   local have_go=0
-  if (( ${commands[go]} )); then
+  if whence go > /dev/null; then
     if [[ ! $(go env GOVERSION) < 'go1.24.0' ]]; then # zsh has no <= >= for strings?
       have_go=1
     fi
   fi
-  if ((!have_go)); then
+  if ! whence go > /dev/null; then
     if go_get; then
       have_go=1
     fi
   fi
-  # if ((have_go)); then # should this be `(( $+commands[foo] ))`?
-  if ((have_go)) && (( $+commands[go] )); then
+  if whence go > /dev/null; then
     _punkt_info "Building oh-my-posh"
     go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # permission denied: go??
     return $?
   fi
-  _punkt_error 'Install Go'
+  _punkt_error 'Install go'
   whence -ca go
-  ls -al ~/bin/go
   file ~/bin/go
   return -1
 }
