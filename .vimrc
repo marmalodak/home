@@ -141,6 +141,23 @@ set rtp+=/opt/homebrew/opt/fzf
 " https://pragmaticpineapple.com/improving-vim-workflow-with-fzf/
 " https://matt-a-bennett.github.io/fzf_search_dirs/fzf_search_dirs.html
 
+" rg-backed :Files so it respects .gitignore and skips .git/ (scoped to cwd, i.e. whichever worktree vim was launched in)
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow -g "!.git"'
+endif
+
+" one-repo-per-vim-session file finding, all scoped to cwd
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
+nnoremap <leader>fs :Rg<CR>
+nnoremap <leader>fb :Buffers<CR>
+" leader-dash (vim-vinegar, no config needed) opens netrw at current file's dir
+
+" ALE go to definition
+nmap <silent> gd :ALEGoToDefinition<CR>
+nmap <silent> gD :ALEGoToDefinition -vsplit<CR>
+
+
 " gitgutter and punkte  https://github.com/airblade/vim-gitgutter/issues/754
 " let g:gitgutter_git_args='--git-dir=${HOME}/.punkte --work-tree=${HOME}'  " does this not interfere with normal git??
 let g:gitgutter_log=1 " TIL gitgutter.log
