@@ -249,6 +249,7 @@ alias r1='rg --max-depth=1'
 alias r2='rg --max-depth=2'
 alias r3='rg --max-depth=3'
 alias r4='rg --max-depth=4'
+alias hl='rg --passthrough'
 
 # setopt cdable_vars
 # setopt correct
