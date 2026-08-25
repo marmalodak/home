@@ -199,3 +199,6 @@
 [submodule ".vim/pack/vim8/start/vviki.git"]
 	path = .vim/pack/vim8/start/vviki.git
 	url = http://ratfactor.com/repos/vviki/vviki.git
+[submodule ".zsh/zsh-abbr"]
+	path = .zsh/zsh-abbr
+	url = https://github.com/olets/zsh-abbr.git

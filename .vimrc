@@ -302,20 +302,26 @@ augroup mail
 augroup END
 
 
+
 function! ConvertAsciidoc()
-  " TODO: maybe if file's name is something like `status.asciidoc` then skip this whole thing?
-  " FIXME: this only works if the .asciidoc file is in the current directory
-  " FIXME: test for presence of safari or firefox or default browser? linux vs macos?
-  silent execute("!asciidoctor -b html5 " . expand('%:t') . " && open -a safari " . expand('%:t:r') .. ".html")
-  " silent !if command -v open; then open -a safari README.html; fi
-  " silent !if command -v xdg-open; then xdg-open README.html; fi
-  silent execute("!asciidoctor -b docbook " . expand('%:t'))
-  silent execute("!pandoc -f docbook -t markdown " . expand('%:t:r') .. ".xml" . " -o " . expand('%:t:r') .. ".md")
-  silent execute("!rm " . expand('%:t:r') .. ".xml")
-  " whar pdf?
+  " .adoc files are specifically not converted because I want soome asciidoc files to remain plain asciidoc
+  " no one cares about pdf anymore, do not bother writing it
+
+  let l:src  = expand('%:p')
+  let l:base = expand('%:p:r')
+
+  silent execute("!asciidoctor --backend html5 " .. shellescape(l:src))
+  if executable('open') " macOS
+    silent execute("!open -a safari " .. shellescape(l:base .. ".html"))
+  elseif executable('xdg-open') " Linux
+    silent execute("!xdg-open " .. shellescape(l:base .. ".html"))
+  endif
+
+  silent execute("!asciidoctor --backend docbook " .. shellescape(l:src))
+  silent execute("!pandoc --from=docbook --to=markdown " .. shellescape(l:base .. ".xml") .. " --output=" .. shellescape(l:base .. ".md"))
+  silent execute("!rm " .. shellescape(l:base .. ".xml"))
 endfunction
 autocmd! BufWritePost,FileWritePost *.asciidoc :call ConvertAsciidoc()
-" maybe autocmd! BufWritePost,FileWritePost to disable the preceding autocmds?
 
 autocmd WinLeave * setlocal nocursorline
 autocmd WinEnter * setlocal   cursorline
@@ -391,23 +397,20 @@ command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <leader>z :ZoomToggle<CR>
 " nnoremap <silent> <C-A> :ZoomToggle<CR>
 
-" https://stackoverflow.com/a/11885018/1698426
-"  http://stackoverflow.com/a/11865489/1698426
-func! Eatchar(pat)
-  let c = nr2char(getchar(0))
-  return (c =~ a:pat) ? '' : c
-endfunc
-" iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<CR>
 
-" does not work for me, why?
-" iabbr <silent> ≤≤ «<c-r>=eatchar('\m\s\<bar>/')<cr>
-" iabbr <silent> ≥≥ »<c-r>=eatchar('\m\s\<bar>/')<cr>
-" iabbr ≤≤ «
-" iabbr ≥≥ »
-
-" these macOS shortcuts turned out very useful
+" these shortcuts turned out very useful
 iabbr === ¶
 iabbr --- §
+iabbr xxaster ⁂
+iabbr xxasterism ⁂
+iabbr xxangzarr ⍼
+iabbr xxdalet דּ
+iabbr xxumbrella ☂️
+iabbr >> » 
+iabbr << «
+iabbr -> →
+iabbr <- ←
+
 
 " https://www.reddit.com/r/vim/comments/bozr66/finding_things_in_vim/ennq4i5?utm_source=share&utm_medium=web2x
 command! -bang -nargs=* History call fzf#vim#history(fzf#vim#with_preview({'options': '--no-sort'}))
@@ -606,11 +609,9 @@ nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 " let theme = system('defaults read -g AppleInterfaceStyle') " ddg AI answer
 " https://aprotyas.github.io/posts/2021/10/macos-change-vim-background
 " most thorough answer https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/, even does tmux and alacritty
-" colorscheme NedsLightTheme
-set background=light
-" colorscheme NedsDarkTheme
+set background=dark
 colorscheme PaperColor
-hi Normal guibg=#f7f7f7 " PaperColor default bg is a bit too dim
+" hi Normal guibg=#f7f7f7 " PaperColor default bg is a bit too dim
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
