@@ -16,7 +16,7 @@ function _punkt_warn()
 }
 
 
-function _punkt_error()
+function _punkt_error() # _punkt_fehler?
 {
   print -- "$fg_bold[red]${*}$reset_color"
 }
