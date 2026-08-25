@@ -17,13 +17,9 @@ fi
 # from Zach Riddle, better output for zsh -x
 export PS4='+%1N:%I> '
 
-# TIL zsh abbreviations, like macOS keyboard text replacements https://zsh-abbr.olets.dev/scopes.html
+# https://magnus919.com/2025/05/zsh-hidden-gems-advanced-tricks-that-will-transform-your-command-line-experience/ <- crib
 # https://wiki.archlinux.org/title/Zsh
 # https://github.com/ChrisCummins/zsh/blob/master/zshrc <- crib from here
-# https://awesomeopensource.com/project/sharkdp/bat
-# https://github.com/sharkdp/bat/issues/508
-# https://github.com/sharkdp/bat#using-a-different-pager
-# export BAT_PAGER="less -RF"
 export BAT_THEME=Coldark-Cold
 
 # defaults read -g AppleInterfaceStyle
@@ -411,6 +407,7 @@ fi
 whence fdfind > /dev/null && alias fd='fdfind'  # ubuntu
 
 alias nvimdiff='nvim -d'
+alias nverr='nvim -O ${$(echo *.err)/err/log}'
 
 
 # open the files that are found by fd
@@ -562,6 +559,16 @@ function ifcmd()
     ${cmd2} $*
   fi
   # whence ${cmd1} > /dev/null && ${cmd1} $* || ${cmd2} $*
+}
+
+
+function less()
+{
+  if whence bat &> /dev/null; then
+    bat "$@"
+  else
+    less --RAW-CONTROL-CHARS "$@"
+  fi
 }
 
 
