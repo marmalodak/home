@@ -119,32 +119,21 @@ function punkt_ausführe()
     return 1
   fi
   popd > /dev/null
-  _punkt_info "copy ${home_tarball_file_zip} to the destination computer"
+  _punkt_info "copy ${home_tarball_file_zip} to /tmp/ the destination computer"
   _punkt_info 'On the destination:'
   _punkt_info '1. apt install unzip fzf fd-find ripgrep bat zsh zsh-doc zsh-common tmux neovim make make-doc gcc'
   _punkt_info ' OR '
   _punkt_info '1. brew install fzf fd ripgrep bat go gnu-tar' # assume command line utils have been installed
   _punkt_info '2. cd ~'
-  _punkt_info "3. gtar xvf ${home_tarball_file_zip}"
+  _punkt_info "3. gtar xvf ${home_tarball_file_zip} # if this is the first time punkte are being installed"
   _punkt_info ' OR '
-  _punkt_info "3. tar xvf ${home_tarball_file_zip}"
+  _punkt_info "3. tar xvf ${home_tarball_file_zip} # if this is the first time punkte are being installed"
+  _punkt_info ' OR '
+  _punkt_info "3. punkt_auf"
   _punkt_info "4. Start a new shell session"
-  _punkt_info "5. punkt_auf"
-  # echo 'This gets more complicated on Ubuntu 24 which has an older version of go:'
-  # echo '6. wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz'
-  # echo ' OR '
-  # echo '6. wget https://go.dev/dl/go1.24.0.linux-arm64.tar.gz'
-  # echo '7. tar -C ${HOME}/bin -xzf go1.24.0.linux-amd64.tar.gz'
-  # echo ' OR '
-  # echo '8. tar -C ${HOME}/bin -xzf go1.24.0.linux-arm64.tar.gz'
-  # echo '10. ~/bin/go/bin/go build -C ~/.oh-my-posh/src -o ~/.oh-my-posh/oh-my-posh # when did this work, worked s-c-f'
-  # echo ' OR '
-  # echo '10. cd .oh-my-posh/src && ~/bin/go/bin/go build'
-  # echo ' OR '
-  # echo '10. punkt_auf # or maybe punkt_build_utils'
-  # echo 'https://ohmyposh.dev/docs/installation/linux'
-  # echo '11. mkdir -p ~/.oh-my-posh'
-  # echo '12. curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh'
+  # if installing ohmyposh fails, maybe see https://ohmyposh.dev/docs/installation/linux:
+  # mkdir -p ~/.oh-my-posh
+  # curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.oh-my-posh
 }
 
 
@@ -258,8 +247,8 @@ function punkt_auf()  # TODO punkte_auf? punkte_los?
     # - on a brand new install, the preceding line failed, which aborted the whole `submodule update`
     # - might have to do each individually?
     if (( $? )); then
-      error "punk pull --recurse-submodules failed"
-      error "Not invoking punkt_build_utils"
+      _punkt_error "punk pull --recurse-submodules failed"
+      _punkt_error "Not invoking punkt_build_utils"
       return -1
     fi
     punkt_build_utils
