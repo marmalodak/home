@@ -26,6 +26,7 @@ export BAT_THEME=Coldark-Cold
 # Dark # $? = 0, $? = 1 # when not in dark mode
 
 
+bindkey -e
 # why did control+p and control+n break? TODO maybe just `bindkey -e`?
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
@@ -42,6 +43,8 @@ bindkey "^[[1;5C" forward-word
 # https://old.reddit.com/r/zsh/comments/svctvj/how_to_park_a_command_like_bash/
 bindkey '^[#' pound-insert
 # bindkey "^q" pound-insert # no worky??
+
+bindkey '^I' expand-or-complete-prefix
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835
 # https://github.com/ohmyzsh/ohmyzsh/issues/6835#issuecomment-392755849 ???
@@ -546,13 +549,10 @@ function cht()
 
 
 # if cmd is available use it, otherwise run cmd2
-# could this be made to work for cmd3? cmd4?
-# probably not because how do you distinguish between a cmd and a argument to a cmd?
 function ifcmd()
 {
   cmd1=${1}; shift
   cmd2=${1}; shift
-  # if whence ${cmd1} > /dev/null ${cmd1}; then # wut?
   if whence ${cmd1} > /dev/null; then
     ${cmd1} $*
   else
@@ -562,33 +562,19 @@ function ifcmd()
 }
 
 
-function less()
-{
-  if whence bat &> /dev/null; then
-    bat "$@"
-  else
-    less --RAW-CONTROL-CHARS "$@"
-  fi
-}
+# does not work well when alacritty colors changed but themes for bat and vim did not
+# function less()
+# {
+#   if whence bat &> /dev/null; then
+#     bat "$@"
+#   else
+#     less --RAW-CONTROL-CHARS "$@"
+#   fi
+# }
+export LESS="--HILITE-UNREAD --long-prompt --follow-name --RAW-CONTROL_CHARS"
 
 
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
-
-
-# if whence eza > /dev/null; then
-#   compdef ll=eza
-#   compdef lr=eza
-#   compdef lc=eza
-#   compdef lt=eza
-#   compdef l2=eza
-#   compdef l3=eza
-#   compdef l4=eza
-#   compdef l5=eza
-#   compdef lrg=eza
-#   compdef lRg=eza
-# fi
-
-bindkey '^I' expand-or-complete-prefix
 
 # https://unix.stackexchange.com/a/736909/30160, enable completion in the middle of a word, ignore everything after the cursor
 zstyle ':completion:*' completer _complete _prefix
@@ -636,6 +622,7 @@ HELPDIR="/usr/share/zsh/$(zsh --version | cut -d' ' -f2)/help"
 # https://gist.github.com/ChristopherA/562c2e62d01cf60458c5fa87df046fbd Zsh Opinionated - A Guide to Best Practices
 # TODO: ssh completions host https://stackoverflow.com/a/56760494/1698426
 
+# see also skim `sk` from brew
 if ! source <(fzf --zsh 2> /dev/null); then
   source /usr/share/doc/fzf/examples/key-bindings.zsh # ubuntu 22
 fi
@@ -648,15 +635,6 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 fi
 
 # This is the .zshrc that is default on ubuntu
-#
-# john@bna-vm-01 ~ % cat .zshrc
-# # Set up the prompt
-#
-# autoload -Uz promptinit
-# promptinit
-# prompt adam1
-#
-# setopt histignorealldups sharehistory
 #
 # # Use emacs keybindings even if our EDITOR is set to vi
 # bindkey -e
