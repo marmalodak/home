@@ -1,13 +1,15 @@
 [general]
 live_config_reload = true
 import = [
-  "~/.config/alacritty/alacritty-theme/themes/papertheme.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/papertheme.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/papercolor_dark.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/baitong.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/blood_moon.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/github_dark_high_contrast.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/hyper.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/github_light_high_contrast.toml",
+  # "~/.config/alacritty/alacritty-theme/themes/one_light.toml",
   "~/.config/alacritty/alacritty-theme/themes/papercolor_light.toml",
-  "~/.config/alacritty/alacritty-theme/themes/papercolor_dark.toml",
-  "~/.config/alacritty/alacritty-theme/themes/baitong.toml",
-  "~/.config/alacritty/alacritty-theme/themes/blood_moon.toml",
-  "~/.config/alacritty/alacritty-theme/themes/github_dark_high_contrast.toml",
-  "~/.config/alacritty/alacritty-theme/themes/hyper.toml",
 ]
 
 # others:
@@ -38,4 +40,4 @@ style = "Regular"
 # decorations = "none"
 decorations = "full"
 # decorations_theme_variant = "Dark"
-decorations_theme_variant = "None"
+decorations_theme_variant = "Light"
