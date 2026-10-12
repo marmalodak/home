@@ -31,13 +31,6 @@ endif
 " https://github.com/iamcco/diagnostic-languageserver diagnostic language server integrate with linters
 " https://github.com/mattn/efm-langserver General purpose Language Server
 
-" TODO: colors
-" https://jeffkreeftmeijer.com/vim-16-color/
-
-" cmap w!! w !sudo tee %
-" or better yet, never run vim with sudo, use sudoedit
-"   from https://stackoverflow.com/a/726920/1698426
-
 let mapleader=" "
 
 " until the issue with gx being broken in netrw... this came from the @vim slack channel
@@ -406,8 +399,8 @@ iabbr xxasterism ⁂
 iabbr xxangzarr ⍼
 iabbr xxdalet דּ
 iabbr xxumbrella ☂️
-iabbr >> » 
-iabbr << «
+" iabbr >> » " << and >> are used in asciidoc
+" iabbr << «
 iabbr -> →
 iabbr <- ←
 
@@ -421,55 +414,6 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" https://github.com/jhawthorn/fzy#use-with-vim
-" function! FzyCommand(choice_command, vim_command)
-"   try
-"     let output = system(a:choice_command . " | fzy ")
-"   catch /Vim:Interrupt/
-"     " Swallow errors from ^C, allow redraw! below
-"   endtry
-"   redraw!
-"   if v:shell_error == 0 && !empty(output)
-"     exec a:vim_command . ' ' . output
-"   endif
-" endfunction
-
-" nnoremap <leader>e :call FzyCommand("find . -type f", ":e")<cr>
-" nnoremap <leader>v :call FzyCommand("find . -type f", ":vs")<cr>
-" nnoremap <leader>s :call FzyCommand("find . -type f", ":sp")<cr>
-
-" Any program can be used to filter files presented through fzy. ag (the silver searcher) can be used to ignore files specified by .gitignore.
-
-" nnoremap <leader>e :call FzyCommand("ag . --silent -l -g ''", ":e")<cr>
-" nnoremap <leader>v :call FzyCommand("ag . --silent -l -g ''", ":vs")<cr>
-" nnoremap <leader>s :call FzyCommand("ag . --silent -l -g ''", ":sp")<cr>
-
-
-" suggested bindings for vim-quickhl
-" Minimum
-
-" nmap <Space>m <Plug>(quickhl-manual-this)
-" xmap <Space>m <Plug>(quickhl-manual-this)
-" nmap <Space>M <Plug>(quickhl-manual-reset)
-" xmap <Space>M <Plug>(quickhl-manual-reset)
-
-" Full
-
-" nmap <Space>m <Plug>(quickhl-manual-this)
-" xmap <Space>m <Plug>(quickhl-manual-this)
-
-" nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
-" xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
-
-" nmap <Space>c <Plug>(quickhl-manual-clear)
-" vmap <Space>c <Plug>(quickhl-manual-clear)
-
-" nmap <Space>M <Plug>(quickhl-manual-reset)
-" xmap <Space>M <Plug>(quickhl-manual-reset)
-
-" nmap <Space>j <Plug>(quickhl-cword-toggle)
-" nmap <Space>] <Plug>(quickhl-tag-toggle)
-" map H <Plug>(operator-quickhl-manual-this-motion)
 
 " cursor shape for terminals
 " https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h4-Functions-using-CSI-_-ordered-by-the-final-character-lparen-s-rparen:CSI-Ps-SP-q.1D81
@@ -497,103 +441,10 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 " set termguicolors
 
-"    let g:powerline_pycmd = "py3"
-"    let g:powerline_pyeval = "py3eval"
-"    let g:Powerline_symbols = 'fancy'
-"
-"    " Run these commands after all .vimrc commands and after all packages/plugins
-"    augroup PostStartup
-"        if exists('g:airline_section_a')
-"            au VimEnter * set statusline+=%#warningmsg#
-"            if exists(':SyntasticStatuslineFlag')
-"                au VimEnter * set statusline+=%{SyntasticStatuslineFlag()}
-"            else
-"                " echo "Syntastic seems to be uninstalled"
-"            endif
-"            au VimEnter * set statusline+=%*
-"
-"            if exists(':SyntasticStatuslineFlag')
-"                au VimEnter * let g:syntastic_always_populate_loc_list = 1
-"                au VimEnter * let g:syntastic_auto_loc_list = 1
-"                au VimEnter * let g:syntastic_check_on_open = 1
-"                au VimEnter * let g:syntastic_check_on_wq = 0
-"                au VimEnter * let g:airline_powerline_fonts = 1
-"                au VimEnter * let g:airline_theme='raven'
-"            endif
-"        else
-"            set statusline=
-"            set statusline+=%#PmenuSel#
-"            if exists(':StatuslineGit')
-"                set statusline+=%{StatuslineGit()}
-"            endif
-"            set statusline+=%#LineNr#
-"            set statusline+=\ %f
-"            set statusline+=%m\
-"            set statusline+=%=
-"            set statusline+=%#CursorColumn#
-"            set statusline+=\ %y
-"            set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"            set statusline+=\[%{&fileformat}\]
-"            set statusline+=\ %p%%
-"            set statusline+=\ %l:%c
-"            set statusline+=\
-"        endif
-"
-"
-"        " https://github.com/andviro/flake8-vim
-"
-"        " Auto-check file for errors on write:
-"        au VimEnter * let g:PyFlakeOnWrite = 1
-"
-"        " List of checkers used:
-"        au VimEnter * let g:PyFlakeCheckers = 'pep8,mccabe,frosted'
-"        " Default maximum complexity for mccabe:
-"
-"        au VimEnter * let g:PyFlakeDefaultComplexity=10
-"        " List of disabled pep8 warnings and errors:
-"
-"        au VimEnter * let g:PyFlakeDisabledMessages = 'E501'
-"
-"        " Default aggressiveness for autopep8:
-"        au VimEnter * let g:PyFlakeAggressive = 0
-"
-"        " Default height of quickfix window:
-"        au VimEnter * let g:PyFlakeCWindow = 6
-"
-"        " Whether to place signs or not:
-"        au VimEnter * let g:PyFlakeSigns = 1
-"
-"        " When usign signs, this is the first id that will be used to identify the
-"        " signs. Tweak this if you are using other plugins that also use the sign
-"        " gutter
-"        au VimEnter * let g:PyFlakeSignStart = 1
-"
-"        " Maximum line length for PyFlakeAuto command
-"        au VimEnter * let g:PyFlakeMaxLineLength = 100
-"
-"        " Visual-mode key command for PyFlakeAuto
-"        au VimEnter * let g:PyFlakeRangeCommand = 'Q'
-"
-"        " au VimEnter * helptags ALL
-"    augroup END
 
 " I want to see the name of linter which is giving me an error message
 let g:ale_echo_msg_format = '%linter%: %code%: %s ⟪%severity%⟫'
 
-" why doesn't groovy linting work??
-" let g:ale_enable_for_languages = ['groovy']
-" let g:ale_linters = {
-"     \ 'groovy': ['groovyc', 'npm-groovy-lint'],
-" \}
-
-" call ale#linter#Define('groovy', {
-" \   'name': 'groovyc',
-" \   'executable': 'groovyc',
-" \   'command': 'groovyc -e %t',
-" \   'callback': 'ale#handlers#unix#HandleAsError',
-" \})
-" - I couldn't get either of these to work, so I had claude write me a vim
-"   plugin that calls groovyc
 
 " " next and previous ALE error/warning; something is overwriting this setting
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -609,9 +460,9 @@ nmap <silent> <leader>ap :ALEPreviousWrap<cr>
 " let theme = system('defaults read -g AppleInterfaceStyle') " ddg AI answer
 " https://aprotyas.github.io/posts/2021/10/macos-change-vim-background
 " most thorough answer https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/, even does tmux and alacritty
-set background=dark
+set background=light
 colorscheme PaperColor
-" hi Normal guibg=#f7f7f7 " PaperColor default bg is a bit too dim
+ hi Normal guibg=#f7f7f7 " PaperColor default bg is a bit too dim
 
 " When updating packages, sometimes packages help tags are not regenerated
 " Fix that with :1000verbose :helptags ALL
