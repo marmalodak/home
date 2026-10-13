@@ -572,7 +572,7 @@ function ifcmd()
 #     less --RAW-CONTROL-CHARS "$@"
 #   fi
 # }
-export LESS="--HILITE-UNREAD --long-prompt --follow-name --RAW-CONTROL_CHARS"
+export LESS="--HILITE-UNREAD --long-prompt --follow-name --RAW-CONTROL-CHARS"
 
 
 [[ ! -f ~/.local.zsh ]] || source ~/.local.zsh
