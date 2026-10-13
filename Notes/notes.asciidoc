@@ -332,7 +332,7 @@ sudo update-locale
 
 ==== still more Ubuntu updates to disable
 
-Next time, when install a fresh Ubuntu host, consider also:
+Next time, when installing a fresh Ubuntu host, consider also:
 
 [CODE]
 -----
@@ -366,7 +366,6 @@ sudo apt remove systemd-timesyncd
 
 ==== everything else
 
-. `sudo apt remove --purge lxd-installer`. Snap what?
 . On a VM, I usually want to install `parted` and `open-vm-tools`.
 . `sudo systemctl set-default multi-user.target`
 
@@ -434,3 +433,5 @@ Go to vcenter, mount storage
 
 * https://news.ycombinator.com/item?id=13349211[dd is not a disk writing tool]
 ** i.e. for writing to USB disks, use `iflag=direct oflag=direct`
+* https://news.ycombinator.com/item?id=31075608[Take the pain out of Git conflict resolution: use diff3 (2017)]
+** https://www.eseth.org/2020/mergetools.html[MERGETOOLS: STOP DOING THREE-WAY MERGES!]
